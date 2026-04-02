@@ -3,294 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PasarModern | Marketplace Minimalis</title>
+    <title>Saleso Pacific Sdn Bhd | F&B Supplier</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        /* CSS VARIABLES - Untuk kustomisasi warna cepat */
         :root {
-            --primary-color: #004d40; /* Deep Teal */
-            --accent-color: #ffc107;  /* Gold */
+            --primary-color: #004d40; 
+            --accent-color: #ffc107;  
             --bg-light: #f5f5f5;
             --text-dark: #333;
             --white: #ffffff;
             --price-color: #e65100;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
+        body { background-color: var(--bg-light); color: var(--text-dark); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
+
+        /* HEADER */
+        header { background-color: var(--primary-color); color: var(--white); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .top-bar { font-size: 13px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .top-bar .container { display: flex; justify-content: space-between; }
+        .top-links span { margin-right: 15px; cursor: pointer; opacity: 0.9; }
+        .main-header { padding: 15px 0 20px 0; }
+        .nav-content { display: flex; align-items: center; gap: 40px; }
+        .logo { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; }
+        .logo span { color: var(--accent-color); }
+        
+        .search-box { flex-grow: 1; display: flex; background: var(--white); border-radius: 2px; padding: 3px; }
+        .search-box input { flex-grow: 1; border: none; padding: 10px 15px; outline: none; font-size: 14px; }
+        .search-box button { background-color: var(--primary-color); color: var(--white); border: none; padding: 0 20px; cursor: pointer; border-radius: 2px; }
+        
+        .cart-wrapper { position: relative; cursor: pointer; }
+        .cart-icon { font-size: 24px; }
+        .cart-badge { position: absolute; top: -8px; right: -12px; background: var(--accent-color); color: var(--primary-color); font-size: 12px; font-weight: bold; padding: 2px 6px; border-radius: 10px; }
+
+        /* HERO & CATEGORIES */
+        .hero-banner { background: linear-gradient(135deg, #00695c, #004d40); border-radius: 3px; padding: 40px; color: white; margin-top: 20px; text-align: center;}
+        .hero-banner h2 { font-size: 28px; margin-bottom: 10px; }
+        
+        .section-white { background: var(--white); margin-top: 25px; padding: 20px; border-radius: 3px; box-shadow: 0 1px 1px rgba(0,0,0,0.05); }
+        .section-title { font-size: 16px; color: #757575; margin-bottom: 20px; font-weight: 600; text-transform: uppercase; border-bottom: 1px solid #f0f0f0; padding-bottom: 10px; }
+        
+        .category-grid { display: grid; grid-template-columns: repeat(6, 1fr); }
+        .cat-item { padding: 20px 10px; text-align: center; border: 0.5px solid #f1f1f1; cursor: pointer; transition: 0.2s; }
+        .cat-item:hover { box-shadow: 0 0 10px rgba(0,0,0,0.1); z-index: 2; }
+        .cat-item i { font-size: 28px; color: var(--primary-color); margin-bottom: 12px; display: block; }
+        .cat-item p { font-size: 13px; font-weight: 500; }
+
+        /* PRODUCTS */
+        .product-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 15px; }
+        .product-card { background: var(--white); border-radius: 2px; overflow: hidden; border: 1px solid #eee; transition: all 0.2s; display: flex; flex-direction: column; justify-content: space-between;}
+        .product-card:hover { transform: translateY(-2px); border: 1px solid var(--primary-color); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .product-img { height: 160px; background-color: #f9f9f9; display: flex; align-items: center; justify-content: center; color: #ddd; font-size: 40px; }
+        .product-info { padding: 12px; }
+        .product-info h4 { font-size: 13px; font-weight: 400; line-height: 18px; height: 36px; overflow: hidden; margin-bottom: 5px; }
+        .brand-tag { font-size: 10px; background: #e0f2f1; color: var(--primary-color); padding: 2px 6px; border-radius: 2px; font-weight: bold;}
+        .price { color: var(--price-color); font-size: 16px; margin: 10px 0; font-weight: 600; }
+        .btn-add { width: 100%; background: var(--primary-color); color: white; border: none; padding: 8px; cursor: pointer; border-radius: 2px; font-weight: 600; transition: 0.2s; }
+        .btn-add:hover { background: #00332a; }
+
+        /* GLASSMORPHISM MODAL (CART) */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 2000; justify-content: center; align-items: center; }
+        .modal-content { 
+            background: rgba(255, 255, 255, 0.95); 
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            width: 450px; border-radius: 8px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
+            max-height: 90vh; overflow-y: auto;
         }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 15px; }
+        .modal-header h3 { color: var(--primary-color); }
+        .close-btn { cursor: pointer; font-size: 20px; color: #888; }
+        
+        .cart-items { margin-bottom: 20px; font-size: 14px; }
+        .cart-item-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #eee; }
+        
+        .checkout-form label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; color: #555; }
+        .checkout-form input, .checkout-form textarea { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; outline: none; background: rgba(255,255,255,0.8); }
+        .btn-whatsapp { width: 100%; background: #25D366; color: white; border: none; padding: 12px; border-radius: 4px; font-size: 15px; font-weight: bold; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; }
+        .btn-whatsapp:hover { background: #1ebe57; }
 
-        body {
-            background-color: var(--bg-light);
-            color: var(--text-dark);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-
-        /* --- HEADER SECTION --- */
-        header {
-            background-color: var(--primary-color);
-            color: var(--white);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .top-bar {
-            font-size: 13px;
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .top-bar .container {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .top-links span, .user-menu span {
-            margin-right: 15px;
-            cursor: pointer;
-            opacity: 0.9;
-        }
-
-        .top-links span:hover, .user-menu span:hover {
-            opacity: 1;
-        }
-
-        .main-header {
-            padding: 15px 0 20px 0;
-        }
-
-        .nav-content {
-            display: flex;
-            align-items: center;
-            gap: 40px;
-        }
-
-        .logo {
-            font-size: 28px;
-            font-weight: 800;
-            letter-spacing: -1px;
-            cursor: pointer;
-        }
-
-        .logo span {
-            color: var(--accent-color);
-        }
-
-        .search-box {
-            flex-grow: 1;
-            display: flex;
-            background: var(--white);
-            border-radius: 2px;
-            padding: 3px;
-            box-shadow: 0 1px 1px rgba(0,0,0,0.1);
-        }
-
-        .search-box input {
-            flex-grow: 1;
-            border: none;
-            padding: 10px 15px;
-            outline: none;
-            font-size: 14px;
-        }
-
-        .search-box button {
-            background-color: var(--primary-color);
-            color: var(--white);
-            border: none;
-            padding: 0 20px;
-            cursor: pointer;
-            border-radius: 2px;
-            transition: 0.2s;
-        }
-
-        .search-box button:hover {
-            opacity: 0.9;
-        }
-
-        .cart-icon {
-            font-size: 24px;
-            cursor: pointer;
-            position: relative;
-        }
-
-        /* --- HERO SECTION --- */
-        .hero-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .main-banner {
-            background: linear-gradient(135deg, #00695c, #004d40);
-            height: 320px;
-            border-radius: 3px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 50px;
-            color: white;
-        }
-
-        .main-banner h2 { font-size: 32px; margin-bottom: 10px; }
-
-        .btn-shop {
-            background: var(--accent-color);
-            color: var(--primary-color);
-            border: none;
-            padding: 12px 25px;
-            width: fit-content;
-            margin-top: 25px;
-            cursor: pointer;
-            font-weight: bold;
-            border-radius: 2px;
-            text-transform: uppercase;
-        }
-
-        .side-banners {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .mini-banner {
-            background: #e0e0e0;
-            flex: 1;
-            border-radius: 3px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #666;
-            border: 1px solid #ddd;
-        }
-
-        /* --- CATEGORIES --- */
-        .section-white {
-            background: var(--white);
-            margin-top: 25px;
-            padding: 20px;
-            border-radius: 3px;
-            box-shadow: 0 1px 1px rgba(0,0,0,0.05);
-        }
-
-        .section-title {
-            font-size: 16px;
-            color: #757575;
-            margin-bottom: 20px;
-            font-weight: 500;
-            text-transform: uppercase;
-            border-bottom: 1px solid #f0f0f0;
-            padding-bottom: 10px;
-        }
-
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-        }
-
-        .cat-item {
-            padding: 25px 10px;
-            text-align: center;
-            border: 0.5px solid #f1f1f1;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .cat-item:hover {
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            z-index: 2;
-        }
-
-        .cat-item i {
-            font-size: 32px;
-            color: var(--primary-color);
-            margin-bottom: 12px;
-            display: block;
-        }
-
-        .cat-item p { font-size: 14px; }
-
-        /* --- PRODUCT GRID --- */
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .product-card {
-            background: var(--white);
-            border-radius: 2px;
-            overflow: hidden;
-            border: 1px solid transparent;
-            transition: all 0.2s;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .product-card:hover {
-            transform: translateY(-2px);
-            border: 1px solid var(--primary-color);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .product-img {
-            height: 180px;
-            background-color: #f9f9f9;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #ddd;
-            font-size: 40px;
-        }
-
-        .product-info {
-            padding: 10px;
-        }
-
-        .product-info h4 {
-            font-size: 13px;
-            font-weight: 400;
-            line-height: 18px;
-            height: 36px;
-            overflow: hidden;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-        }
-
-        .price {
-            color: var(--price-color);
-            font-size: 16px;
-            margin: 10px 0 5px 0;
-            font-weight: 500;
-        }
-
-        .product-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 11px;
-            color: #757575;
-        }
-
-        /* Responsive */
         @media (max-width: 992px) {
             .category-grid, .product-grid { grid-template-columns: repeat(3, 1fr); }
-            .hero-grid { grid-template-columns: 1fr; }
-            .side-banners { display: none; }
+        }
+        @media (max-width: 600px) {
+            .category-grid, .product-grid { grid-template-columns: repeat(2, 1fr); }
+            .nav-content { flex-direction: column; gap: 15px; align-items: flex-start; }
+            .search-box { width: 100%; }
         }
     </style>
 </head>
@@ -300,82 +101,193 @@
         <div class="top-bar">
             <div class="container">
                 <div class="top-links">
-                    <span>Seller Centre</span>
-                    <span>Mulai Jual</span>
-                    <span>Download</span>
-                    <span>Ikuti kami di <i class="fa-brands fa-facebook"></i> <i class="fa-brands fa-instagram"></i></span>
-                </div>
-                <div class="user-menu">
-                    <span><i class="fa-regular fa-bell"></i> Notifikasi</span>
-                    <span><i class="fa-regular fa-circle-question"></i> Bantuan</span>
-                    <strong>Daftar</strong> | <strong>Login</strong>
+                    <span>B2B Supply Portal</span>
+                    <span>Download Katalog</span>
+                    <span>Hubungi Kami: 011-15008803</span>
                 </div>
             </div>
         </div>
         
         <div class="main-header">
             <div class="container nav-content">
-                <div class="logo">PASAR<span>MODERN</span></div>
+                <div class="logo">SALESO<span>PACIFIC</span></div>
                 <div class="search-box">
-                    <input type="text" placeholder="Belanja produk eksklusif hari ini...">
+                    <input type="text" placeholder="Cari dari 700+ produk F&B (Sirup, Keju, Matcha)...">
                     <button><i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
-                <div class="cart-icon">
-                    <i class="fa-solid fa-cart-shopping"></i>
+                <div class="cart-wrapper" onclick="toggleModal()">
+                    <i class="fa-solid fa-cart-shopping cart-icon"></i>
+                    <span class="cart-badge" id="cart-count">0</span>
                 </div>
             </div>
         </div>
     </header>
 
     <main class="container">
-        <section class="hero-grid">
-            <div class="main-banner">
-                <h2>Koleksi Elegan <br> Musim Dingin</h2>
-                <p>Dapatkan penawaran terbatas untuk produk premium.</p>
-                <button class="btn-shop">Belanja Sekarang</button>
-            </div>
-            <div class="side-banners">
-                <div class="mini-banner">PROMO BANK</div>
-                <div class="mini-banner">GRATIS ONGKIR</div>
-            </div>
+        <section class="hero-banner">
+            <h2>Solusi Suplai F&B Terlengkap</h2>
+            <p>Distributor resmi untuk Monin, Kyomori, Emborg, dan ratusan merek global lainnya.</p>
         </section>
 
         <section class="section-white">
-            <div class="section-title">Kategori Pilihan</div>
+            <div class="section-title">Kategori Produk</div>
             <div class="category-grid">
-                <div class="cat-item"><i class="fa-solid fa-laptop"></i><p>Teknologi</p></div>
-                <div class="cat-item"><i class="fa-solid fa-shirt"></i><p>Fashion</p></div>
-                <div class="cat-item"><i class="fa-solid fa-couch"></i><p>Hunian</p></div>
-                <div class="cat-item"><i class="fa-solid fa-spa"></i><p>Kecantikan</p></div>
-                <div class="cat-item"><i class="fa-solid fa-camera"></i><p>Fotografi</p></div>
-                <div class="cat-item"><i class="fa-solid fa-gamepad"></i><p>Gaming</p></div>
+                <div class="cat-item"><i class="fa-solid fa-bottle-droplet"></i><p>Syrup & Puree</p></div>
+                <div class="cat-item"><i class="fa-solid fa-cheese"></i><p>Dairy & Cheese</p></div>
+                <div class="cat-item"><i class="fa-solid fa-mug-hot"></i><p>Coffee & Tea</p></div>
+                <div class="cat-item"><i class="fa-solid fa-snowflake"></i><p>Frozen Foods</p></div>
+                <div class="cat-item"><i class="fa-solid fa-bowl-food"></i><p>Sauces & Dressing</p></div>
+                <div class="cat-item"><i class="fa-solid fa-wheat-awn"></i><p>Pasta & Flour</p></div>
             </div>
         </section>
 
         <section style="margin-top: 25px; margin-bottom: 50px;">
-            <div class="section-title" style="background: white; padding: 15px; margin-bottom: 0;">Rekomendasi Untuk Anda</div>
-            <div class="product-grid">
-                <script>
-                    // Loop sederhana untuk membuat contoh produk
-                    for(let i=1; i<=12; i++) {
-                        document.write(`
-                            <div class="product-card">
-                                <div class="product-img"><i class="fa-regular fa-image"></i></div>
-                                <div class="product-info">
-                                    <h4>Nama Produk Premium Berkualitas Tinggi Seri Ke-${i}</h4>
-                                    <p class="price">Rp ${(Math.random()*500 + 50).toFixed(3)}</p>
-                                    <div class="product-footer">
-                                        <span><i class="fa-solid fa-star" style="color:var(--accent-color)"></i> 4.8</span>
-                                        <span>Terjual ${Math.floor(Math.random()*100)}rb+</span>
-                                    </div>
-                                </div>
-                            </div>
-                        `);
-                    }
-                </script>
-            </div>
+            <div class="section-title" style="background: white; padding: 15px; margin-bottom: 0;">Katalog Unggulan</div>
+            <div class="product-grid" id="product-list">
+                </div>
         </section>
     </main>
 
+    <div class="modal-overlay" id="checkout-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-clipboard-list"></i> Form Pesanan</h3>
+                <i class="fa-solid fa-xmark close-btn" onclick="toggleModal()"></i>
+            </div>
+            
+            <div class="cart-items" id="cart-items-container">
+                </div>
+
+            <form class="checkout-form" onsubmit="processOrder(event)">
+                <label>Nama Bisnis / Perusahaan</label>
+                <input type="text" id="biz-name" placeholder="Contoh: Kopi Senja Cafe" required>
+                
+                <label>Alamat Pengiriman</label>
+                <textarea id="biz-address" rows="3" placeholder="Alamat lengkap..." required></textarea>
+                
+                <button type="submit" class="btn-whatsapp">
+                    <i class="fa-brands fa-whatsapp"></i> Lanjutkan ke WhatsApp
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Data Produk Berdasarkan PDF Saleso Pacific
+        const products = [
+            { brand: "KYOMORI", name: "Midorikaze Matcha 20x500gm", price: 208.00 },
+            { brand: "MONIN", name: "Purecane Syrup 1L", price: 39.00 },
+            { brand: "OATSIDE", name: "Barista Plain Oat Milk 1Lx6", price: 84.00 },
+            { brand: "EMBORG", name: "Cream Cheese 200gm", price: 9.50 },
+            { brand: "HARNEY & SONS", name: "Wrapped Tea Bag (20 Sachet)", price: 42.00 },
+            { brand: "KEWPIE", name: "Mayonnaise Mild Type 1L", price: 15.50 },
+            { brand: "BARILLA", name: "Spaghetti N.5 500g", price: 5.15 },
+            { brand: "SIMPLOT", name: "Shoestring Fries 6x5lbs", price: 175.00 },
+            { brand: "DAVINCI", name: "Caramel Flv Sauce 2L", price: 68.50 },
+            { brand: "MILKLAB", name: "UHT Almond Milk 1Lx8", price: 12.50 }
+        ];
+
+        // Render Produk ke HTML
+        const productGrid = document.getElementById('product-list');
+        products.forEach(product => {
+            productGrid.innerHTML += `
+                <div class="product-card">
+                    <div>
+                        <div class="product-img"><i class="fa-solid fa-box-open"></i></div>
+                        <div class="product-info">
+                            <span class="brand-tag">${product.brand}</span>
+                            <h4>${product.name}</h4>
+                            <p class="price">RM ${product.price.toFixed(2)}</p>
+                        </div>
+                    </div>
+                    <button class="btn-add" onclick="addToCart('${product.name}', ${product.price})">
+                        + Tambahkan
+                    </button>
+                </div>
+            `;
+        });
+
+        // Logika Keranjang (Shopping Cart)
+        let cart = {};
+
+        function addToCart(itemName, itemPrice) {
+            if(cart[itemName]) {
+                cart[itemName].qty += 1;
+            } else {
+                cart[itemName] = { price: itemPrice, qty: 1 };
+            }
+            updateCartBadge();
+        }
+
+        function updateCartBadge() {
+            let totalItems = 0;
+            for (let item in cart) { totalItems += cart[item].qty; }
+            document.getElementById('cart-count').innerText = totalItems;
+        }
+
+        // Tampilkan / Sembunyikan Modal Form
+        function toggleModal() {
+            const modal = document.getElementById('checkout-modal');
+            const container = document.getElementById('cart-items-container');
+            
+            if (modal.style.display === "flex") {
+                modal.style.display = "none";
+            } else {
+                // Render list keranjang di dalam modal
+                if(Object.keys(cart).length === 0) {
+                    container.innerHTML = "<p style='color:red;'>Keranjang masih kosong.</p>";
+                } else {
+                    let html = "";
+                    for (let item in cart) {
+                        html += `
+                            <div class="cart-item-row">
+                                <span>${cart[item].qty}x ${item}</span>
+                                <strong>RM ${(cart[item].price * cart[item].qty).toFixed(2)}</strong>
+                            </div>
+                        `;
+                    }
+                    container.innerHTML = html;
+                }
+                modal.style.display = "flex";
+            }
+        }
+
+        // Proses Submit Form & Direct WA
+        function processOrder(e) {
+            e.preventDefault();
+            
+            if(Object.keys(cart).length === 0) {
+                alert("Pilih produk terlebih dahulu sebelum memesan.");
+                return;
+            }
+
+            const bizName = document.getElementById('biz-name').value;
+            const bizAddress = document.getElementById('biz-address').value;
+            
+            // Format Pesan WhatsApp
+            let textMessage = `Halo *Saleso Pacific Sdn Bhd*, saya ingin melakukan pemesanan bahan baku untuk bisnis saya:\n\n`;
+            textMessage += `*Informasi Pengiriman:*\n`;
+            textMessage += `Nama Bisnis: ${bizName}\n`;
+            textMessage += `Alamat: ${bizAddress}\n\n`;
+            textMessage += `*Daftar Pesanan:*\n`;
+            
+            let grandTotal = 0;
+            for (let item in cart) {
+                let subtotal = cart[item].price * cart[item].qty;
+                grandTotal += subtotal;
+                textMessage += `- ${cart[item].qty}x ${item} (RM ${subtotal.toFixed(2)})\n`;
+            }
+            
+            textMessage += `\n*Estimasi Total: RM ${grandTotal.toFixed(2)}*\n\n`;
+            textMessage += `Mohon info ketersediaan stok dan total tagihan resminya. Terima kasih.`;
+
+            // Redirect ke WhatsApp Representatif Penjualan (011-15008803)
+            const waNumber = "601115008803";
+            const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(textMessage)}`;
+            
+            window.open(waUrl, '_blank');
+            toggleModal(); // Tutup modal setelah kirim
+        }
+    </script>
 </body>
 </html>
