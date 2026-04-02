@@ -3,9 +3,296 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PasarModern | Belanja Nyaman</title>
-    <link rel="stylesheet" href="style.css">
+    <title>PasarModern | Marketplace Minimalis</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* CSS VARIABLES - Untuk kustomisasi warna cepat */
+        :root {
+            --primary-color: #004d40; /* Deep Teal */
+            --accent-color: #ffc107;  /* Gold */
+            --bg-light: #f5f5f5;
+            --text-dark: #333;
+            --white: #ffffff;
+            --price-color: #e65100;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* --- HEADER SECTION --- */
+        header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .top-bar {
+            font-size: 13px;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .top-bar .container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .top-links span, .user-menu span {
+            margin-right: 15px;
+            cursor: pointer;
+            opacity: 0.9;
+        }
+
+        .top-links span:hover, .user-menu span:hover {
+            opacity: 1;
+        }
+
+        .main-header {
+            padding: 15px 0 20px 0;
+        }
+
+        .nav-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            cursor: pointer;
+        }
+
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        .search-box {
+            flex-grow: 1;
+            display: flex;
+            background: var(--white);
+            border-radius: 2px;
+            padding: 3px;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+        }
+
+        .search-box input {
+            flex-grow: 1;
+            border: none;
+            padding: 10px 15px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .search-box button {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 0 20px;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: 0.2s;
+        }
+
+        .search-box button:hover {
+            opacity: 0.9;
+        }
+
+        .cart-icon {
+            font-size: 24px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .main-banner {
+            background: linear-gradient(135deg, #00695c, #004d40);
+            height: 320px;
+            border-radius: 3px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 50px;
+            color: white;
+        }
+
+        .main-banner h2 { font-size: 32px; margin-bottom: 10px; }
+
+        .btn-shop {
+            background: var(--accent-color);
+            color: var(--primary-color);
+            border: none;
+            padding: 12px 25px;
+            width: fit-content;
+            margin-top: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 2px;
+            text-transform: uppercase;
+        }
+
+        .side-banners {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .mini-banner {
+            background: #e0e0e0;
+            flex: 1;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #666;
+            border: 1px solid #ddd;
+        }
+
+        /* --- CATEGORIES --- */
+        .section-white {
+            background: var(--white);
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 3px;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+        }
+
+        .section-title {
+            font-size: 16px;
+            color: #757575;
+            margin-bottom: 20px;
+            font-weight: 500;
+            text-transform: uppercase;
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+        }
+
+        .cat-item {
+            padding: 25px 10px;
+            text-align: center;
+            border: 0.5px solid #f1f1f1;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .cat-item:hover {
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            z-index: 2;
+        }
+
+        .cat-item i {
+            font-size: 32px;
+            color: var(--primary-color);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .cat-item p { font-size: 14px; }
+
+        /* --- PRODUCT GRID --- */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 2px;
+            overflow: hidden;
+            border: 1px solid transparent;
+            transition: all 0.2s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-2px);
+            border: 1px solid var(--primary-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .product-img {
+            height: 180px;
+            background-color: #f9f9f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ddd;
+            font-size: 40px;
+        }
+
+        .product-info {
+            padding: 10px;
+        }
+
+        .product-info h4 {
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 18px;
+            height: 36px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .price {
+            color: var(--price-color);
+            font-size: 16px;
+            margin: 10px 0 5px 0;
+            font-weight: 500;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: #757575;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .category-grid, .product-grid { grid-template-columns: repeat(3, 1fr); }
+            .hero-grid { grid-template-columns: 1fr; }
+            .side-banners { display: none; }
+        }
+    </style>
 </head>
 <body>
 
@@ -13,11 +300,15 @@
         <div class="top-bar">
             <div class="container">
                 <div class="top-links">
-                    <span>Seller Centre</span> | <span>Mulai Jual</span> | <span>Bantuan</span>
+                    <span>Seller Centre</span>
+                    <span>Mulai Jual</span>
+                    <span>Download</span>
+                    <span>Ikuti kami di <i class="fa-brands fa-facebook"></i> <i class="fa-brands fa-instagram"></i></span>
                 </div>
                 <div class="user-menu">
                     <span><i class="fa-regular fa-bell"></i> Notifikasi</span>
-                    <span>Daftar</span> | <span>Login</span>
+                    <span><i class="fa-regular fa-circle-question"></i> Bantuan</span>
+                    <strong>Daftar</strong> | <strong>Login</strong>
                 </div>
             </div>
         </div>
@@ -26,7 +317,7 @@
             <div class="container nav-content">
                 <div class="logo">PASAR<span>MODERN</span></div>
                 <div class="search-box">
-                    <input type="text" placeholder="Cari produk, merek, atau toko...">
+                    <input type="text" placeholder="Belanja produk eksklusif hari ini...">
                     <button><i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
                 <div class="cart-icon">
@@ -37,65 +328,51 @@
     </header>
 
     <main class="container">
-        <section class="hero-section">
+        <section class="hero-grid">
             <div class="main-banner">
-                <h2>Promo Spesial Akhir Pekan</h2>
-                <p>Diskon hingga 70% untuk produk pilihan.</p>
-                <button class="btn-shop">Cek Sekarang</button>
+                <h2>Koleksi Elegan <br> Musim Dingin</h2>
+                <p>Dapatkan penawaran terbatas untuk produk premium.</p>
+                <button class="btn-shop">Belanja Sekarang</button>
             </div>
             <div class="side-banners">
-                <div class="mini-banner">Flash Sale</div>
-                <div class="mini-banner">Voucher Toko</div>
+                <div class="mini-banner">PROMO BANK</div>
+                <div class="mini-banner">GRATIS ONGKIR</div>
             </div>
         </section>
 
-        <section class="categories">
-            <h3>KATEGORI</h3>
+        <section class="section-white">
+            <div class="section-title">Kategori Pilihan</div>
             <div class="category-grid">
-                <div class="cat-item"><i class="fa-solid fa-shirt"></i><p>Pakaian</p></div>
-                <div class="cat-item"><i class="fa-solid fa-mobile-screen"></i><p>Elektronik</p></div>
-                <div class="cat-item"><i class="fa-solid fa-couch"></i><p>Furniture</p></div>
-                <div class="cat-item"><i class="fa-solid fa-laptop"></i><p>Komputer</p></div>
-                <div class="cat-item"><i class="fa-solid fa-utensils"></i><p>Kuliner</p></div>
-                <div class="cat-item"><i class="fa-solid fa-basketball"></i><p>Olahraga</p></div>
+                <div class="cat-item"><i class="fa-solid fa-laptop"></i><p>Teknologi</p></div>
+                <div class="cat-item"><i class="fa-solid fa-shirt"></i><p>Fashion</p></div>
+                <div class="cat-item"><i class="fa-solid fa-couch"></i><p>Hunian</p></div>
+                <div class="cat-item"><i class="fa-solid fa-spa"></i><p>Kecantikan</p></div>
+                <div class="cat-item"><i class="fa-solid fa-camera"></i><p>Fotografi</p></div>
+                <div class="cat-item"><i class="fa-solid fa-gamepad"></i><p>Gaming</p></div>
             </div>
         </section>
 
-        <section class="products">
-            <h3>REKOMENDASI</h3>
+        <section style="margin-top: 25px; margin-bottom: 50px;">
+            <div class="section-title" style="background: white; padding: 15px; margin-bottom: 0;">Rekomendasi Untuk Anda</div>
             <div class="product-grid">
-                <div class="product-card">
-                    <div class="product-img"></div>
-                    <div class="product-info">
-                        <h4>Produk Unggulan A</h4>
-                        <p class="price">Rp150.000</p>
-                        <p class="sold">1.2RB Terjual</p>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-img"></div>
-                    <div class="product-info">
-                        <h4>Produk Premium B</h4>
-                        <p class="price">Rp325.000</p>
-                        <p class="sold">850 Terjual</p>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-img"></div>
-                    <div class="product-info">
-                        <h4>Gadget Canggih C</h4>
-                        <p class="price">Rp2.499.000</p>
-                        <p class="sold">10 Terjual</p>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-img"></div>
-                    <div class="product-info">
-                        <h4>Aksesoris Eksklusif</h4>
-                        <p class="price">Rp75.000</p>
-                        <p class="sold">5.4RB Terjual</p>
-                    </div>
-                </div>
+                <script>
+                    // Loop sederhana untuk membuat contoh produk
+                    for(let i=1; i<=12; i++) {
+                        document.write(`
+                            <div class="product-card">
+                                <div class="product-img"><i class="fa-regular fa-image"></i></div>
+                                <div class="product-info">
+                                    <h4>Nama Produk Premium Berkualitas Tinggi Seri Ke-${i}</h4>
+                                    <p class="price">Rp ${(Math.random()*500 + 50).toFixed(3)}</p>
+                                    <div class="product-footer">
+                                        <span><i class="fa-solid fa-star" style="color:var(--accent-color)"></i> 4.8</span>
+                                        <span>Terjual ${Math.floor(Math.random()*100)}rb+</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `);
+                    }
+                </script>
             </div>
         </section>
     </main>
