@@ -1,0 +1,28 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "brand": "KYOMORI",
+      "name": "Midorikaze Matcha 20x500gm",
+      "price": 208.00,
+      "category": "Matcha",
+      "image": "https://images.unsplash.com/photo-1582793988951-9aed55099993?q=80&w=400"
+    },
+    {
+      "id": 2,
+      "brand": "MONIN",
+      "name": "Purecane Syrup 1L",
+      "price": 39.00,
+      "category": "Syrup",
+      "image": "https://images.unsplash.com/photo-1589733901241-5e55428303f7?q=80&w=400"
+    },
+    {
+      "id": 3,
+      "brand": "OATSIDE",
+      "name": "Barista Plain Oat Milk 1Lx6",
+      "price": 84.00,
+      "category": "Dairy",
+      "image": "https://images.unsplash.com/photo-1635437536607-b8572f443763?q=80&w=400"
+    }
+  ]
+}
