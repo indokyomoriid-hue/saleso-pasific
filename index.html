@@ -22,63 +22,58 @@
 
         /* LANGUAGE PICKER */
         .lang-bar { background: #00332b; padding: 5px 0; text-align: right; }
-        .lang-btn { background: none; border: none; color: #fff; opacity: 0.6; cursor: pointer; font-size: 12px; margin-left: 15px; font-weight: 600; transition: 0.3s; }
+        .lang-btn { background: none; border: none; color: #fff; opacity: 0.6; cursor: pointer; font-size: 12px; margin-left: 15px; font-weight: 600; }
         .lang-btn.active { opacity: 1; color: var(--accent-color); }
 
         /* HEADER */
-        header { background-color: var(--primary-color); color: var(--white); position: sticky; top: 0; z-index: 1000; padding: 12px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        header { background-color: var(--primary-color); color: var(--white); position: sticky; top: 0; z-index: 1000; padding: 12px 0; }
         .nav-content { display: flex; align-items: center; gap: 20px; justify-content: space-between; }
-        .logo { font-size: 24px; font-weight: 800; cursor: pointer; white-space: nowrap; }
+        .logo { font-size: 24px; font-weight: 800; cursor: pointer; }
         .logo span { color: var(--accent-color); }
         
         .search-box { flex-grow: 1; display: flex; background: var(--white); border-radius: 6px; padding: 2px; max-width: 500px; }
         .search-box input { flex-grow: 1; border: none; padding: 10px; outline: none; border-radius: 4px; font-size: 14px; width: 100%; color: #333; }
-        .search-box button { background: var(--primary-color); color: white; border: none; padding: 0 15px; cursor: pointer; border-radius: 4px; }
+        .search-box button { background: var(--primary-color); color: white; border: none; padding: 0 15px; border-radius: 4px; }
         
         .cart-wrapper { position: relative; cursor: pointer; font-size: 22px; padding: 5px; }
         .cart-badge { position: absolute; top: -5px; right: -8px; background: var(--accent-color); color: var(--primary-color); font-size: 11px; font-weight: bold; padding: 2px 6px; border-radius: 50%; min-width: 18px; text-align: center; }
 
-        /* CATEGORY SECTION */
+        /* CATEGORY */
         .section-white { background: var(--white); margin-top: 15px; padding: 15px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-        .section-title { font-size: 14px; color: #757575; margin-bottom: 12px; font-weight: 600; text-transform: uppercase; border-bottom: 1px solid #f0f0f0; padding-bottom: 8px; }
-        
         .category-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1px; background: #eee; border: 1px solid #eee; border-radius: 4px; overflow: hidden; }
-        .cat-item { background: white; padding: 15px 5px; text-align: center; cursor: pointer; transition: 0.2s; }
+        .cat-item { background: white; padding: 15px 5px; text-align: center; cursor: pointer; }
         .cat-item i { font-size: 22px; color: var(--primary-color); margin-bottom: 8px; display: block; }
         .cat-item p { font-size: 12px; font-weight: 500; }
         .cat-item.active { background: #e0f2f1; color: var(--primary-color); position: relative; }
         .cat-item.active::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 3px; background: var(--primary-color); }
 
-        /* PRODUCT GRID */
+        /* PRODUCT CARD */
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; margin-top: 20px; }
-        .product-card { background: var(--white); border-radius: 8px; border: 1px solid #eee; overflow: hidden; transition: 0.2s; display: flex; flex-direction: column; }
-        .product-card:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.08); border-color: var(--primary-color); }
+        .product-card { background: var(--white); border-radius: 8px; border: 1px solid #eee; overflow: hidden; display: flex; flex-direction: column; }
         .product-img { width: 100%; height: 180px; object-fit: cover; background: #f9f9f9; }
         .product-info { padding: 12px; flex-grow: 1; }
-        .brand-tag { font-size: 10px; color: #999; font-weight: bold; text-transform: uppercase; }
         .product-name { font-size: 14px; margin: 4px 0; height: 38px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-height: 1.4; color: #444; }
         .price { color: var(--price-color); font-weight: 700; font-size: 16px; margin: 8px 0; }
-        .btn-add { width: 100%; background: var(--primary-color); color: white; border: none; padding: 10px; cursor: pointer; font-weight: 600; font-size: 13px; }
+        
+        /* Disable logic style */
+        .btn-add { width: 100%; background: var(--primary-color); color: white; border: none; padding: 10px; cursor: pointer; font-weight: 600; transition: 0.3s; }
+        .btn-add:disabled { background: #ccc; cursor: not-allowed; color: #888; }
+        .btn-add.added:after { content: ' ✓'; }
 
-        /* FLOATING CART BUTTON */
-        .floating-cart {
-            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%) translateY(120px);
-            background: var(--accent-color); color: var(--primary-color); padding: 14px 24px; border-radius: 50px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2); z-index: 2001; display: flex; align-items: center; gap: 12px;
-            font-weight: 800; border: none; cursor: pointer; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
+        /* CART CONTROLS */
+        .qty-control { display: flex; align-items: center; gap: 10px; }
+        .qty-btn { background: #eee; border: none; width: 28px; height: 28px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        .qty-btn:hover { background: #ddd; }
+        .item-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #f0f0f0; }
+
+        /* FLOATING */
+        .floating-cart { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%) translateY(120px); background: var(--accent-color); color: var(--primary-color); padding: 14px 24px; border-radius: 50px; box-shadow: 0 8px 20px rgba(0,0,0,0.2); z-index: 2001; display: flex; align-items: center; gap: 12px; font-weight: 800; border: none; transition: 0.4s; }
         .floating-cart.show { transform: translateX(-50%) translateY(0); }
-        .float-badge { background: var(--primary-color); color: white; padding: 2px 10px; border-radius: 20px; font-size: 12px; }
 
         /* MODAL */
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(3px); z-index: 3000; justify-content: center; align-items: flex-end; }
-        .modal-content { background: white; width: 100%; max-width: 500px; border-radius: 20px 20px 0 0; padding: 25px; animation: slideUp 0.3s ease-out; }
-        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-        
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; }
-        .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; }
-        .btn-wa { width: 100%; background: #25D366; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px; display: flex; justify-content: center; align-items: center; gap: 10px; }
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 3000; justify-content: center; align-items: flex-end; }
+        .modal-content { background: white; width: 100%; max-width: 500px; border-radius: 20px 20px 0 0; padding: 25px; }
+        .btn-wa { width: 100%; background: #25D366; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; font-size: 16px; margin-top: 15px; cursor: pointer; }
 
         @media (max-width: 768px) {
             .nav-content { flex-wrap: wrap; }
@@ -100,7 +95,7 @@
 
     <header>
         <div class="container nav-content">
-            <div class="logo" onclick="window.location.reload()">SALESO<span>PACIFIC</span></div>
+            <div class="logo">SALESO<span>PACIFIC</span></div>
             <div class="search-box">
                 <input type="text" id="searchInput" onkeyup="filterBySearch()">
                 <button><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -114,8 +109,7 @@
 
     <main class="container">
         <section class="section-white">
-            <div class="section-title" id="txt-cat-title">Main Category</div>
-            <div class="category-grid">
+            <div class="category-grid" id="cat-grid">
                 <div class="cat-item active" onclick="filterByCategory('All', this)">
                     <i class="fa-solid fa-border-all"></i><p id="cat-all">All</p>
                 </div>
@@ -137,35 +131,31 @@
             </div>
         </section>
 
-        <h2 class="section-title" id="txt-catalog-title" style="margin-top: 25px; border:none;">Product Catalog</h2>
         <div class="product-grid" id="product-list"></div>
     </main>
 
     <button class="floating-cart" id="floatingCart" onclick="toggleModal()">
         <i class="fa-solid fa-cart-shopping"></i>
         <span id="txt-float-cart">View Cart</span>
-        <span class="float-badge" id="float-count">0</span>
     </button>
 
     <div class="modal-overlay" id="modal">
         <div class="modal-content">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-                <h3 id="txt-modal-title">Order Summary</h3>
-                <i class="fa-solid fa-xmark" style="font-size:24px; cursor:pointer; color:#999;" onclick="toggleModal()"></i>
+                <h3 id="txt-modal-title">Cart</h3>
+                <i class="fa-solid fa-xmark" style="font-size:24px; cursor:pointer;" onclick="toggleModal()"></i>
             </div>
-            <div id="cart-summary" style="margin-bottom: 20px; font-size: 14px; max-height: 200px; overflow-y: auto; border: 1px solid #eee; border-radius: 8px; padding: 12px; background: #fafafa;"></div>
+            <div id="cart-items-container" style="max-height: 300px; overflow-y: auto;"></div>
+            <div style="margin-top:20px; font-weight:bold; display:flex; justify-content:space-between;">
+                <span id="txt-total-label">Total</span>
+                <span id="grand-total-price">RM 0.00</span>
+            </div>
             <form onsubmit="sendToWA(event)">
-                <div class="form-group">
-                    <label id="lbl-biz-name">Business Name / Shop</label>
-                    <input type="text" id="bizName" required>
+                <div class="form-group" style="margin-top:15px;">
+                    <label id="lbl-biz-name" style="font-size:12px; font-weight:bold;">Shop Name</label>
+                    <input type="text" id="bizName" style="width:100%; padding:10px; margin-top:5px;" required>
                 </div>
-                <div class="form-group">
-                    <label id="lbl-biz-addr">Delivery Address</label>
-                    <textarea id="bizAddress" rows="3" required></textarea>
-                </div>
-                <button type="submit" class="btn-wa">
-                    <i class="fa-brands fa-whatsapp"></i> <span id="txt-btn-send">Send via WhatsApp</span>
-                </button>
+                <button type="submit" class="btn-wa" id="txt-btn-send">Send Order</button>
             </form>
         </div>
     </div>
@@ -173,73 +163,25 @@
     <script>
         const translations = {
             en: {
-                searchPlaceholder: "Search from 700+ F&B ingredients...",
-                catTitle: "Categories",
-                catAll: "All",
-                catMatcha: "Matcha",
-                catSyrup: "Syrup",
-                catDairy: "Dairy",
-                catCoffee: "Coffee",
-                catFrozen: "Frozen",
-                catalogTitle: "Product Catalog",
-                btnAdd: "Add to Cart",
-                floatCart: "View Cart",
-                modalTitle: "Order Summary",
-                lblBizName: "Business Name / Shop",
-                lblBizAddr: "Delivery Address",
-                btnSend: "Send via WhatsApp",
-                emptyCart: "Your cart is empty.",
-                estTotal: "Total Estimate",
-                waHeader: "Hello Saleso Pacific, I would like to order:",
-                waBiz: "Business",
-                waAddr: "Address",
-                waList: "Order List"
+                search: "Search ingredients...",
+                catAll: "All", catMatcha: "Matcha", catSyrup: "Syrup", catDairy: "Dairy", catCoffee: "Coffee", catFrozen: "Frozen",
+                btnAdd: "Add to Cart", btnAdded: "In Cart", floatCart: "View Cart",
+                modalTitle: "Your Cart", lblBizName: "Business Name", btnSend: "Order via WhatsApp",
+                total: "Total Estimate", waHeader: "Hello, I want to order:"
             },
             ms: {
-                searchPlaceholder: "Cari dari 700+ bahan F&B...",
-                catTitle: "Kategori Utama",
-                catAll: "Semua",
-                catMatcha: "Matcha",
-                catSyrup: "Sirap",
-                catDairy: "Tenusu",
-                catCoffee: "Kopi",
-                catFrozen: "Sejuk Beku",
-                catalogTitle: "Katalog Produk",
-                btnAdd: "Tambah",
-                floatCart: "Lihat Bakul",
-                modalTitle: "Ringkasan Pesanan",
-                lblBizName: "Nama Bisnes / Kedai",
-                lblBizAddr: "Alamat Penghantaran",
-                btnSend: "Hantar melalui WhatsApp",
-                emptyCart: "Bakul anda kosong.",
-                estTotal: "Anggaran Total",
-                waHeader: "Helo Saleso Pacific, saya ingin memesan:",
-                waBiz: "Bisnes",
-                waAddr: "Alamat",
-                waList: "Senarai Pesanan"
+                search: "Cari bahan...",
+                catAll: "Semua", catMatcha: "Matcha", catSyrup: "Sirap", catDairy: "Tenusu", catCoffee: "Kopi", catFrozen: "Sejuk Beku",
+                btnAdd: "Tambah", btnAdded: "Dalam Bakul", floatCart: "Lihat Bakul",
+                modalTitle: "Bakul Anda", lblBizName: "Nama Kedai", btnSend: "Pesan via WhatsApp",
+                total: "Jumlah Anggaran", waHeader: "Helo, saya ingin memesan:"
             },
             zh: {
-                searchPlaceholder: "搜索 700+ 餐饮原料...",
-                catTitle: "主要类别",
-                catAll: "全部商品",
-                catMatcha: "抹茶",
-                catSyrup: "糖浆",
-                catDairy: "乳制品",
-                catCoffee: "咖啡",
-                catFrozen: "冷冻食品",
-                catalogTitle: "产品目录",
-                btnAdd: "加入购物车",
-                floatCart: "查看购物车",
-                modalTitle: "订单摘要",
-                lblBizName: "店铺/公司名称",
-                lblBizAddr: "送货地址",
-                btnSend: "通过 WhatsApp 发送",
-                emptyCart: "购物车是空的。",
-                estTotal: "预估总额",
-                waHeader: "您好 Saleso Pacific，我想订购以下商品：",
-                waBiz: "商家名称",
-                waAddr: "地址",
-                waList: "订单详情"
+                search: "搜索原料...",
+                catAll: "全部", catMatcha: "抹茶", catSyrup: "糖浆", catDairy: "乳制品", catCoffee: "咖啡", catFrozen: "冷冻",
+                btnAdd: "加入购物车", btnAdded: "已在购物车", floatCart: "查看购物车",
+                modalTitle: "购物车", lblBizName: "商家名称", btnSend: "通过 WhatsApp 下单",
+                total: "预估总额", waHeader: "你好，我想订购："
             }
         };
 
@@ -250,124 +192,138 @@
         function setLanguage(lang, btn) {
             currentLang = lang;
             document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-            if(btn) btn.classList.add('active');
+            btn.classList.add('active');
 
-            // Update UI Texts
-            document.getElementById('searchInput').placeholder = translations[lang].searchPlaceholder;
-            document.getElementById('txt-cat-title').innerText = translations[lang].catTitle;
+            document.getElementById('searchInput').placeholder = translations[lang].search;
             document.getElementById('cat-all').innerText = translations[lang].catAll;
             document.getElementById('cat-matcha').innerText = translations[lang].catMatcha;
             document.getElementById('cat-syrup').innerText = translations[lang].catSyrup;
             document.getElementById('cat-dairy').innerText = translations[lang].catDairy;
             document.getElementById('cat-coffee').innerText = translations[lang].catCoffee;
             document.getElementById('cat-frozen').innerText = translations[lang].catFrozen;
-            document.getElementById('txt-catalog-title').innerText = translations[lang].catalogTitle;
             document.getElementById('txt-float-cart').innerText = translations[lang].floatCart;
             document.getElementById('txt-modal-title').innerText = translations[lang].modalTitle;
             document.getElementById('lbl-biz-name').innerText = translations[lang].lblBizName;
-            document.getElementById('lbl-biz-addr').innerText = translations[lang].lblBizAddr;
             document.getElementById('txt-btn-send').innerText = translations[lang].btnSend;
+            document.getElementById('txt-total-label').innerText = translations[lang].total;
 
-            displayProducts(allProducts); // Refresh product list for btn text
+            displayProducts(allProducts);
         }
 
-        async function loadProducts() {
-            try {
-                const response = await fetch('products.json');
-                const data = await response.json();
-                allProducts = data.products;
-                setLanguage('en'); // Default language
-            } catch (error) {
-                document.getElementById('product-list').innerHTML = "<p style='padding:20px'>Please ensure products.json exists.</p>";
-            }
+        async function loadData() {
+            // Mock data jika file json belum ada
+            allProducts = [
+                { id: 1, name: "Premium Matcha Powder", brand: "Kyomori", price: 85.00, category: "Matcha", image: "" },
+                { id: 2, name: "Caramel Syrup 1L", brand: "Saleso", price: 32.50, category: "Syrup", image: "" }
+            ];
+            // Jika Anda menggunakan file asli, aktifkan ini:
+            // const res = await fetch('products.json'); const data = await res.json(); allProducts = data.products;
+            setLanguage('en', document.querySelector('.lang-btn'));
         }
 
         function displayProducts(products) {
             const list = document.getElementById('product-list');
-            list.innerHTML = products.map(p => `
+            list.innerHTML = products.map(p => {
+                const isInCart = cart[p.id];
+                return `
                 <div class="product-card">
-                    <img src="${p.image}" class="product-img" onerror="this.src='https://placehold.co/400x400?text=${p.name}'">
+                    <img src="${p.image}" class="product-img" onerror="this.src='https://placehold.co/300x300?text=${p.brand}'">
                     <div class="product-info">
-                        <span class="brand-tag">${p.brand}</span>
                         <h4 class="product-name">${p.name}</h4>
                         <p class="price">RM ${p.price.toFixed(2)}</p>
+                        <button class="btn-add ${isInCart ? 'added' : ''}" 
+                                id="btn-${p.id}" 
+                                onclick="addToCart(${p.id})" 
+                                ${isInCart ? 'disabled' : ''}>
+                            ${isInCart ? translations[currentLang].btnAdded : translations[currentLang].btnAdd}
+                        </button>
                     </div>
-                    <button class="btn-add" onclick="addToCart('${p.name}', ${p.price})">${translations[currentLang].btnAdd}</button>
-                </div>
-            `).join('');
+                </div>`;
+            }).join('');
         }
 
-        function filterByCategory(category, element) {
-            document.querySelectorAll('.cat-item').forEach(el => el.classList.remove('active'));
-            element.classList.add('active');
-            const filtered = category === 'All' ? allProducts : allProducts.filter(p => p.category === category);
-            displayProducts(filtered);
-        }
-
-        function filterBySearch() {
-            const q = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = allProducts.filter(p => p.name.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q));
-            displayProducts(filtered);
-        }
-
-        function addToCart(name, price) {
-            cart[name] = cart[name] ? { price, qty: cart[name].qty + 1 } : { price, qty: 1 };
+        function addToCart(id) {
+            const product = allProducts.find(p => p.id === id);
+            cart[id] = { ...product, qty: 1 };
             updateBadge();
+            displayProducts(allProducts); // Refresh untuk disable tombol
+        }
+
+        function updateQty(id, delta) {
+            if (cart[id]) {
+                cart[id].qty += delta;
+                if (cart[id].qty <= 0) {
+                    delete cart[id];
+                    displayProducts(allProducts); // Enable kembali tombol add to cart
+                }
+                updateBadge();
+                renderCartItems();
+            }
         }
 
         function updateBadge() {
-            const total = Object.values(cart).reduce((acc, curr) => acc + curr.qty, 0);
-            document.getElementById('cart-count').innerText = total;
-            document.getElementById('float-count').innerText = total;
-            document.getElementById('floatingCart').classList.toggle('show', total > 0);
+            const count = Object.keys(cart).length;
+            document.getElementById('cart-count').innerText = count;
+            document.getElementById('floatingCart').classList.toggle('show', count > 0);
+        }
+
+        function renderCartItems() {
+            const container = document.getElementById('cart-items-container');
+            let html = "";
+            let total = 0;
+
+            for (let id in cart) {
+                const item = cart[id];
+                const subtotal = item.price * item.qty;
+                total += subtotal;
+                html += `
+                <div class="item-row">
+                    <div>
+                        <div style="font-size:14px; font-weight:bold;">${item.name}</div>
+                        <div style="font-size:12px; color:var(--price-color)">RM ${subtotal.toFixed(2)}</div>
+                    </div>
+                    <div class="qty-control">
+                        <button class="qty-btn" onclick="updateQty(${id}, -1)">-</button>
+                        <span>${item.qty}</span>
+                        <button class="qty-btn" onclick="updateQty(${id}, 1)">+</button>
+                    </div>
+                </div>`;
+            }
+            container.innerHTML = html || "<p style='text-align:center; color:#999;'>Empty</p>";
+            document.getElementById('grand-total-price').innerText = `RM ${total.toFixed(2)}`;
         }
 
         function toggleModal() {
             const modal = document.getElementById('modal');
-            if(Object.keys(cart).length === 0 && modal.style.display !== 'flex') {
-                alert(translations[currentLang].emptyCart); return;
-            }
-            
-            if(modal.style.display !== 'flex') {
-                let html = ""; let grandTotal = 0;
-                for (let item in cart) {
-                    let sub = cart[item].price * cart[item].qty;
-                    grandTotal += sub;
-                    html += `<div style="display:flex; justify-content:space-between; margin-bottom:8px;">
-                                <span><b>${cart[item].qty}x</b> ${item}</span>
-                                <span>RM ${sub.toFixed(2)}</span>
-                             </div>`;
-                }
-                html += `<hr style="margin:10px 0; border:0; border-top:1px solid #ddd;">
-                         <div style="display:flex; justify-content:space-between; font-weight:bold; color:var(--price-color)">
-                            <span>${translations[currentLang].estTotal}</span>
-                            <span>RM ${grandTotal.toFixed(2)}</span>
-                         </div>`;
-                document.getElementById('cart-summary').innerHTML = html;
-                modal.style.display = 'flex';
-            } else {
+            if (modal.style.display === 'flex') {
                 modal.style.display = 'none';
+            } else {
+                renderCartItems();
+                modal.style.display = 'flex';
             }
+        }
+
+        function filterBySearch() {
+            const q = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = allProducts.filter(p => p.name.toLowerCase().includes(q));
+            displayProducts(filtered);
         }
 
         function sendToWA(e) {
             e.preventDefault();
             const t = translations[currentLang];
-            let msg = `*${t.waHeader}*\n\n`;
-            msg += `*${t.waBiz}:* ${document.getElementById('bizName').value}\n`;
-            msg += `*${t.waAddr}:* ${document.getElementById('bizAddress').value}\n\n`;
-            msg += `*${t.waList}:*\n`;
-            
+            let msg = `*${t.waHeader}*\n*Shop:* ${document.getElementById('bizName').value}\n\n`;
             let total = 0;
-            for (let item in cart) {
-                msg += `- ${cart[item].qty}x ${item}\n`;
-                total += cart[item].price * cart[item].qty;
+            for (let id in cart) {
+                const item = cart[id];
+                msg += `• ${item.qty}x ${item.name} (RM ${(item.price * item.qty).toFixed(2)})\n`;
+                total += item.price * item.qty;
             }
-            msg += `\n*${t.estTotal}:* RM ${total.toFixed(2)}`;
+            msg += `\n*TOTAL: RM ${total.toFixed(2)}*`;
             window.open(`https://wa.me/601115008803?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
-        loadProducts();
+        loadData();
     </script>
 </body>
 </html>
