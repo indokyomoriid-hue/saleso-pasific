@@ -58,7 +58,10 @@
         .brand-tag { font-size: 10px; color: #999; font-weight: bold; text-transform: uppercase; }
         .product-name { font-size: 14px; margin: 4px 0; height: 38px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-height: 1.4; color: #444; }
         .price { color: var(--price-color); font-weight: 700; font-size: 16px; margin: 8px 0; }
-        .btn-add { width: 100%; background: var(--primary-color); color: white; border: none; padding: 10px; cursor: pointer; font-weight: 600; font-size: 13px; }
+        .btn-add { width: 100%; background: var(--primary-color); color: white; border: none; padding: 10px; cursor: pointer; font-weight: 600; font-size: 13px; transition: 0.2s; }
+        
+        /* NEW: Disabled Button Style */
+        .btn-add:disabled { background: #ccc; color: #666; cursor: not-allowed; }
 
         /* FLOATING CART BUTTON */
         .floating-cart {
@@ -153,7 +156,7 @@
                 <h3 id="txt-modal-title">Order Summary</h3>
                 <i class="fa-solid fa-xmark" style="font-size:24px; cursor:pointer; color:#999;" onclick="toggleModal()"></i>
             </div>
-            <div id="cart-summary" style="margin-bottom: 20px; font-size: 14px; max-height: 200px; overflow-y: auto; border: 1px solid #eee; border-radius: 8px; padding: 12px; background: #fafafa;"></div>
+            <div id="cart-summary" style="margin-bottom: 20px; font-size: 14px; max-height: 250px; overflow-y: auto; border: 1px solid #eee; border-radius: 8px; padding: 12px; background: #fafafa;"></div>
             <form onsubmit="sendToWA(event)">
                 <div class="form-group">
                     <label id="lbl-biz-name">Business Name / Shop</label>
@@ -245,6 +248,7 @@
 
         let currentLang = 'en';
         let allProducts = [];
+        let currentProducts = []; // NEW: Untuk melacak produk yang sedang difilter
         let cart = {};
 
         function setLanguage(lang, btn) {
@@ -252,7 +256,6 @@
             document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
             if(btn) btn.classList.add('active');
 
-            // Update UI Texts
             document.getElementById('searchInput').placeholder = translations[lang].searchPlaceholder;
             document.getElementById('txt-cat-title').innerText = translations[lang].catTitle;
             document.getElementById('cat-all').innerText = translations[lang].catAll;
@@ -268,7 +271,8 @@
             document.getElementById('lbl-biz-addr').innerText = translations[lang].lblBizAddr;
             document.getElementById('txt-btn-send').innerText = translations[lang].btnSend;
 
-            displayProducts(allProducts); // Refresh product list for btn text
+            displayProducts(currentProducts); 
+            if(document.getElementById('modal').style.display === 'flex') renderCart();
         }
 
         async function loadProducts() {
@@ -276,7 +280,8 @@
                 const response = await fetch('products.json');
                 const data = await response.json();
                 allProducts = data.products;
-                setLanguage('en'); // Default language
+                currentProducts = allProducts;
+                setLanguage('en'); 
             } catch (error) {
                 document.getElementById('product-list').innerHTML = "<p style='padding:20px'>Please ensure products.json exists.</p>";
             }
@@ -284,7 +289,9 @@
 
         function displayProducts(products) {
             const list = document.getElementById('product-list');
-            list.innerHTML = products.map(p => `
+            list.innerHTML = products.map(p => {
+                const isAdded = cart[p.name] !== undefined; // NEW: Cek apakah sudah di keranjang
+                return `
                 <div class="product-card">
                     <img src="${p.image}" class="product-img" onerror="this.src='https://placehold.co/400x400?text=${p.name}'">
                     <div class="product-info">
@@ -292,27 +299,51 @@
                         <h4 class="product-name">${p.name}</h4>
                         <p class="price">RM ${p.price.toFixed(2)}</p>
                     </div>
-                    <button class="btn-add" onclick="addToCart('${p.name}', ${p.price})">${translations[currentLang].btnAdd}</button>
+                    <button class="btn-add" ${isAdded ? 'disabled' : ''} onclick="addToCart('${p.name.replace(/'/g, "\\'")}', ${p.price})">
+                        ${isAdded ? '<i class="fa-solid fa-check"></i>' : ''} ${translations[currentLang].btnAdd}
+                    </button>
                 </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         function filterByCategory(category, element) {
             document.querySelectorAll('.cat-item').forEach(el => el.classList.remove('active'));
             element.classList.add('active');
-            const filtered = category === 'All' ? allProducts : allProducts.filter(p => p.category === category);
-            displayProducts(filtered);
+            currentProducts = category === 'All' ? allProducts : allProducts.filter(p => p.category === category);
+            displayProducts(currentProducts);
         }
 
         function filterBySearch() {
             const q = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = allProducts.filter(p => p.name.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q));
-            displayProducts(filtered);
+            currentProducts = allProducts.filter(p => p.name.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q));
+            displayProducts(currentProducts);
         }
 
         function addToCart(name, price) {
-            cart[name] = cart[name] ? { price, qty: cart[name].qty + 1 } : { price, qty: 1 };
-            updateBadge();
+            if(!cart[name]) {
+                cart[name] = { price, qty: 1 }; // Hanya menambah 1, jika ingin lebih atur di keranjang
+                updateBadge();
+                displayProducts(currentProducts); // Refresh UI untuk membuat tombol disable
+            }
+        }
+
+        // NEW: Fungsi untuk mengubah kuantitas dari dalam keranjang
+        function changeQty(name, amount) {
+            if(cart[name]) {
+                cart[name].qty += amount;
+                if(cart[name].qty <= 0) {
+                    delete cart[name];
+                }
+                updateBadge();
+                renderCart();
+                displayProducts(currentProducts); // Refresh UI untuk mengembalikan tombol jika produk dihapus
+                
+                // Auto close modal jika keranjang kosong setelah dikurangi
+                if(Object.keys(cart).length === 0) {
+                    document.getElementById('modal').style.display = 'none';
+                }
+            }
         }
 
         function updateBadge() {
@@ -322,6 +353,33 @@
             document.getElementById('floatingCart').classList.toggle('show', total > 0);
         }
 
+        // NEW: Fungsi renderCart dipisah agar mudah diupdate secara real-time
+        function renderCart() {
+            const summary = document.getElementById('cart-summary');
+            let html = ""; let grandTotal = 0;
+            for (let item in cart) {
+                let sub = cart[item].price * cart[item].qty;
+                grandTotal += sub;
+                html += `<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; border-bottom:1px solid #eaeaea; padding-bottom:8px;">
+                            <div style="flex:1; padding-right:10px;">
+                                <div style="font-weight:bold; font-size:13px;">${item}</div>
+                                <div style="color:#777; font-size:12px;">RM ${cart[item].price.toFixed(2)}</div>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:10px;">
+                                <button type="button" onclick="changeQty('${item.replace(/'/g, "\\'")}', -1)" style="background:var(--primary-color); color:white; border:none; width:28px; height:28px; border-radius:4px; font-weight:bold; cursor:pointer;">-</button>
+                                <span style="font-weight:bold; width:20px; text-align:center;">${cart[item].qty}</span>
+                                <button type="button" onclick="changeQty('${item.replace(/'/g, "\\'")}', 1)" style="background:var(--primary-color); color:white; border:none; width:28px; height:28px; border-radius:4px; font-weight:bold; cursor:pointer;">+</button>
+                            </div>
+                            <div style="font-weight:bold; width:80px; text-align:right;">RM ${sub.toFixed(2)}</div>
+                         </div>`;
+            }
+            html += `<div style="display:flex; justify-content:space-between; font-weight:bold; font-size:16px; color:var(--price-color); margin-top:10px;">
+                        <span>${translations[currentLang].estTotal}</span>
+                        <span>RM ${grandTotal.toFixed(2)}</span>
+                     </div>`;
+            summary.innerHTML = html;
+        }
+
         function toggleModal() {
             const modal = document.getElementById('modal');
             if(Object.keys(cart).length === 0 && modal.style.display !== 'flex') {
@@ -329,21 +387,7 @@
             }
             
             if(modal.style.display !== 'flex') {
-                let html = ""; let grandTotal = 0;
-                for (let item in cart) {
-                    let sub = cart[item].price * cart[item].qty;
-                    grandTotal += sub;
-                    html += `<div style="display:flex; justify-content:space-between; margin-bottom:8px;">
-                                <span><b>${cart[item].qty}x</b> ${item}</span>
-                                <span>RM ${sub.toFixed(2)}</span>
-                             </div>`;
-                }
-                html += `<hr style="margin:10px 0; border:0; border-top:1px solid #ddd;">
-                         <div style="display:flex; justify-content:space-between; font-weight:bold; color:var(--price-color)">
-                            <span>${translations[currentLang].estTotal}</span>
-                            <span>RM ${grandTotal.toFixed(2)}</span>
-                         </div>`;
-                document.getElementById('cart-summary').innerHTML = html;
+                renderCart();
                 modal.style.display = 'flex';
             } else {
                 modal.style.display = 'none';
