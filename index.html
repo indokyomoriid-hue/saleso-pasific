@@ -60,7 +60,7 @@
         .price { color: var(--price-color); font-weight: 700; font-size: 16px; margin: 8px 0; }
         .btn-add { width: 100%; background: var(--primary-color); color: white; border: none; padding: 10px; cursor: pointer; font-weight: 600; font-size: 13px; transition: 0.2s; }
         
-        /* NEW: Disabled Button Style */
+        /* Disabled Button Style */
         .btn-add:disabled { background: #ccc; color: #666; cursor: not-allowed; }
 
         /* FLOATING CART BUTTON */
@@ -248,7 +248,7 @@
 
         let currentLang = 'en';
         let allProducts = [];
-        let currentProducts = []; // NEW: Untuk melacak produk yang sedang difilter
+        let currentProducts = []; 
         let cart = {};
 
         function setLanguage(lang, btn) {
@@ -290,7 +290,7 @@
         function displayProducts(products) {
             const list = document.getElementById('product-list');
             list.innerHTML = products.map(p => {
-                const isAdded = cart[p.name] !== undefined; // NEW: Cek apakah sudah di keranjang
+                const isAdded = cart[p.name] !== undefined; 
                 return `
                 <div class="product-card">
                     <img src="${p.image}" class="product-img" onerror="this.src='https://placehold.co/400x400?text=${p.name}'">
@@ -322,13 +322,12 @@
 
         function addToCart(name, price) {
             if(!cart[name]) {
-                cart[name] = { price, qty: 1 }; // Hanya menambah 1, jika ingin lebih atur di keranjang
+                cart[name] = { price, qty: 1 }; 
                 updateBadge();
-                displayProducts(currentProducts); // Refresh UI untuk membuat tombol disable
+                displayProducts(currentProducts); 
             }
         }
 
-        // NEW: Fungsi untuk mengubah kuantitas dari dalam keranjang
         function changeQty(name, amount) {
             if(cart[name]) {
                 cart[name].qty += amount;
@@ -337,23 +336,24 @@
                 }
                 updateBadge();
                 renderCart();
-                displayProducts(currentProducts); // Refresh UI untuk mengembalikan tombol jika produk dihapus
+                displayProducts(currentProducts); 
                 
-                // Auto close modal jika keranjang kosong setelah dikurangi
                 if(Object.keys(cart).length === 0) {
                     document.getElementById('modal').style.display = 'none';
                 }
             }
         }
 
+        // PERUBAHAN ADA DI FUNGSI INI
         function updateBadge() {
-            const total = Object.values(cart).reduce((acc, curr) => acc + curr.qty, 0);
-            document.getElementById('cart-count').innerText = total;
-            document.getElementById('float-count').innerText = total;
-            document.getElementById('floatingCart').classList.toggle('show', total > 0);
+            // Mengambil jumlah dari kunci objek (distinct items), BUKAN total kuantitas (qty)
+            const totalItems = Object.keys(cart).length;
+            
+            document.getElementById('cart-count').innerText = totalItems;
+            document.getElementById('float-count').innerText = totalItems;
+            document.getElementById('floatingCart').classList.toggle('show', totalItems > 0);
         }
 
-        // NEW: Fungsi renderCart dipisah agar mudah diupdate secara real-time
         function renderCart() {
             const summary = document.getElementById('cart-summary');
             let html = ""; let grandTotal = 0;
