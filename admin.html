@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel | Saleso Pacific</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: sans-serif; background: #f4f4f4; padding: 20px; }
+        .admin-container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .config-section { background: #fff3cd; padding: 15px; border-radius: 5px; margin-bottom: 20px; border: 1px solid #ffeeba; }
+        input, select, textarea { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px; }
+        .btn { padding: 10px 20px; cursor: pointer; border: none; border-radius: 4px; font-weight: bold; }
+        .btn-save { background: #004d40; color: white; }
+        .btn-load { background: #2196F3; color: white; }
+        .product-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #eee; }
+        .btn-delete { color: #f44336; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<div class="admin-container">
+    <h2>Admin Panel - Update products.json</h2>
+    
+    <div class="config-section">
+        <h4><i class="fa-solid fa-gear"></i> GitHub Configuration</h4>
+        <input type="password" id="ghToken" placeholder="Paste GitHub Personal Access Token (PAT) di sini">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <input type="text" id="ghUser" placeholder="Username GitHub (Contoh: samuelandi)">
+            <input type="text" id="ghRepo" placeholder="Nama Repository (Contoh: saleso-web)">
+        </div>
+        <button class="btn btn-load" onclick="fetchFromGitHub()">1. Tarik Data Terbaru</button>
+    </div>
+
+    <div id="add-form" style="display:none; border: 1px solid #ddd; padding: 15px; margin-bottom: 20px;">
+        <h4>Tambah Produk Baru</h4>
+        <input type="text" id="pBrand" placeholder="Brand (Contoh: KYOMORI)">
+        <input type="text" id="pName" placeholder="Nama Produk">
+        <input type="number" id="pPrice" placeholder="Harga (RM)">
+        <select id="pCat">
+            <option value="Matcha">Matcha</option>
+            <option value="Syrup">Syrup</option>
+            <option value="Dairy">Dairy</option>
+            <option value="Coffee">Coffee</option>
+        </select>
+        <input type="text" id="pImage" placeholder="Link Foto Produk (URL)">
+        <button class="btn btn-save" onclick="addProductLocal()">Tambah ke List</button>
+    </div>
+
+    <div id="product-list-admin">
+        <p>Silahkan tarik data terlebih dahulu...</p>
+    </div>
+
+    <hr>
+    <button id="final-save" class="btn btn-save" style="display:none; width: 100%; margin-top: 20px;" onclick="pushToGitHub()">
+        <i class="fa-solid fa-cloud-arrow-up"></i> SIMPAN PERUBAHAN KE GITHUB
+    </button>
+</div>
+
+<script>
+    let currentData = [];
+    let fileSha = ""; // Diperlukan GitHub untuk update file
+
+    // 1. Ambil Data dari GitHub API
+    async function fetchFromGitHub() {
+        const user = document.getElementById('ghUser').value;
+        const repo = document.getElementById('ghRepo').value;
+        const token = document.getElementById('ghToken').value;
+
+        if(!token || !user || !repo) return alert("Isi konfigurasi GitHub!");
+
+        const url = `https://api.github.com/repos/${user}/${repo}/contents/products.json`;
+        
+        try {
+            const response = await fetch(url, {
+                headers: { "Authorization": `token ${token}` }
+            });
+            const data = await response.json();
+            
+            fileSha = data.sha; // Simpan SHA untuk update nanti
+            const content = JSON.parse(atob(data.content)); // Decode Base64 dari GitHub
+            currentData = content.products;
+            
+            renderAdminProducts();
+            document.getElementById('add-form').style.display = "block";
+            document.getElementById('final-save').style.display = "block";
+        } catch (e) {
+            alert("Error: Gagal mengambil file. Pastikan token & repo benar.");
+        }
+    }
+
+    // 2. Render List Produk di Admin
+    function renderAdminProducts() {
+        const container = document.getElementById('product-list-admin');
+        container.innerHTML = `<h4>Daftar Produk (${currentData.length})</h4>`;
+        currentData.forEach((p, index) => {
+            container.innerHTML += `
+                <div class="product-item">
+                    <span><strong>[${p.brand}]</strong> ${p.name} - RM ${p.price}</span>
+                    <i class="fa-solid fa-trash btn-delete" onclick="deleteProduct(${index})"></i>
+                </div>
+            `;
+        });
+    }
+
+    // 3. Tambah Produk ke Variabel Lokal
+    function addProductLocal() {
+        const p = {
+            id: Date.now(),
+            brand: document.getElementById('pBrand').value,
+            name: document.getElementById('pName').value,
+            price: parseFloat(document.getElementById('pPrice').value),
+            category: document.getElementById('pCat').value,
+            image: document.getElementById('pImage').value
+        };
+        currentData.unshift(p); // Tambah ke atas
+        renderAdminProducts();
+    }
+
+    // 4. Hapus Produk dari Variabel Lokal
+    function deleteProduct(index) {
+        if(confirm("Hapus produk ini?")) {
+            currentData.splice(index, 1);
+            renderAdminProducts();
+        }
+    }
+
+    // 5. Push Data Kembali ke GitHub
+    async function pushToGitHub() {
+        const user = document.getElementById('ghUser').value;
+        const repo = document.getElementById('ghRepo').value;
+        const token = document.getElementById('ghToken').value;
+
+        const url = `https://api.github.com/repos/${user}/${repo}/contents/products.json`;
+        
+        const newJsonContent = JSON.stringify({ products: currentData }, null, 2);
+        
+        const body = {
+            message: "Update products.json via Admin Panel",
+            content: btoa(unescape(encodeURIComponent(newJsonContent))), // Encode ke Base64
+            sha: fileSha
+        };
+
+        const response = await fetch(url, {
+            method: "PUT",
+            headers: { 
+                "Authorization": `token ${token}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(body)
+        });
+
+        if(response.ok) {
+            alert("Berhasil! Website Saleso Pacific akan terupdate dalam 1-2 menit.");
+            location.reload();
+        } else {
+            alert("Gagal menyimpan ke GitHub.");
+        }
+    }
+</script>
+
+</body>
+</html>
