@@ -418,13 +418,18 @@
             msg += `*${t.waList}:*\n`;
             
             let total = 0;
-            for (let item in cart) {
-                msg += `- ${cart[item].qty}x ${item}\n`;
-                total += cart[item].price * cart[item].qty;
+            for (let itemName in cart) {
+                // Find the original product object to get its code
+                const productData = allProducts.find(p => p.name === itemName);
+                const itemCode = productData && productData.code ? `[${productData.code}] ` : "";
+                
+                msg += `- ${cart[itemName].qty}x ${itemCode}${itemName}\n`;
+                total += cart[itemName].price * cart[itemName].qty;
             }
             
-            // override jadi MOQ saja
-            msg += `\nMOQ`;
+            // Adding the estimated total and MOQ note
+            msg += `\n*${t.estTotal}:* RM ${total.toFixed(2)}`;
+            msg += `\n\n_ MOQ (Minimum Order Quantity) : _`;
             
             window.open(`https://wa.me/601115008803?text=${encodeURIComponent(msg)}`, '_blank');
         }
