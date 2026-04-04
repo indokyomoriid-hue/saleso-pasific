@@ -16,6 +16,7 @@
       "price": 208,
       "category": "Matcha",
       "image": "https://images.unsplash.com/photo-1582793988951-9aed55099993?q=80&w=400"
+      "code" : "BAGUFIX"
     },
     {
       "id": 2,
@@ -24,6 +25,7 @@
       "price": 259,
       "category": "Matcha",
       "image": "https://images.unsplash.com/photo-1582793988951-9aed55099993?q=80&w=400"
+      "code" : "BAGUFIX"
     },
     {
       "id": 3,
@@ -32,6 +34,7 @@
       "price": 308,
       "category": "Matcha",
       "image": "https://images.unsplash.com/photo-1582793988951-9aed55099993?q=80&w=400"
+      "code" : "BAGUFIX"
     },
     {
       "id": 4,
@@ -40,6 +43,7 @@
       "price": 102,
       "category": "Coffee",
       "image": "https://images.unsplash.com/photo-1582793988951-9aed55099993?q=80&w=400"
+      "code" : "BAGUFIX"
     },
     {
       "id": 5,
@@ -48,6 +52,7 @@
       "price": 42,
       "category": "Tea",
       "image": "https://images.unsplash.com/photo-1582793988951-9aed55099993?q=80&w=400"
+      "code" : "BAGUFIX"
     },
     {
       "id": 6,
@@ -56,6 +61,7 @@
       "price": 39,
       "category": "Syrup",
       "image": "https://images.unsplash.com/photo-1582793988951-9aed55099993?q=80&w=400"
+      "code" : "BAGUFIX"
     },
     {
       "id": 7,
@@ -64,6 +70,7 @@
       "price": 44,
       "category": "Syrup",
       "image": "https://images.unsplash.com/photo-1582793988951-9aed55099993?q=80&w=400"
+      "code" : "BAGUFIX"
     },
     {
       "id": 8,
@@ -72,6 +79,7 @@
       "price": 44,
       "category": "Syrup",
       "image": "https://images.unsplash.com/photo-1582793988951-9aed55099993?q=80&w=400"
+      "code" : "BAGUFIX"
     },
     {
       "id": 9,
@@ -80,6 +88,7 @@
       "price": 54,
       "category": "Syrup",
       "image": "https://images.unsplash.com/photo-1582793988951-9aed55099993?q=80&w=400"
+      "code" : "BAGUFIX"
     },
     {
       "id": 10,
@@ -88,6 +97,7 @@
       "price": 29.8,
       "category": "Syrup",
       "image": "https://images.unsplash.com/photo-1582793988951-9aed55099993?q=80&w=400"
+      "code" : "BAGUFIX"
     },
     {
       "id": 11,
@@ -96,6 +106,7 @@
       "price": 84,
       "category": "Dairy",
       "image": "https://images.unsplash.com/photo-1582793988951-9aed55099993?q=80&w=400"
+      "code" : "BAGUFIX"
     },
     {
       "id": 12,
@@ -104,6 +115,7 @@
       "price": 10.9,
       "category": "Dairy",
       "image": "https://images.unsplash.com/photo-1582793988951-9aed55099993?q=80&w=400"
+      "code" : "BAGUFIX"
     },
     {
       "id": 13,
@@ -112,6 +124,7 @@
       "price": 12.5,
       "category": "Dairy",
       "image": "https://images.unsplash.com/photo-1582793988951-9aed55099993?q=80&w=400"
+      "code" : "BAGUFIX"
     },
     {
       "id": 14,
@@ -120,6 +133,7 @@
       "price": 29.5,
       "category": "Cheese",
       "image": "https://images.unsplash.com/photo-1582793988951-9aed55099993?q=80&w=400"
+      "code" : "BAGUFIX"
     },
     {
       "id": 15,
@@ -128,6 +142,7 @@
       "price": 27,
       "category": "Frozen Fruits",
       "image": "https://images.unsplash.com/photo-1582793988951-9aed55099993?q=80&w=400"
+      "code" : "BAGUFIX"
     },
     {
       "id": 16,
@@ -136,6 +151,7 @@
       "price": 175,
       "category": "Potato Products",
       "image": "https://images.unsplash.com/photo-1582793988951-9aed55099993?q=80&w=400"
+      "code" : "BAGUFIX"
     },
     {
       "id": 17,
@@ -144,6 +160,7 @@
       "price": 22.9,
       "category": "Processed Meat",
       "image": "https://images.unsplash.com/photo-1582793988951-9aed55099993?q=80&w=400"
+      "code" : "BAGUFIX"
     }
   ]
 }
