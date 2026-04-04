@@ -1,149 +1,20 @@
 {
   "products": [
     {
-      "code" : "BAGUFIX"
-      "brand": "Kyomori",
+      "code": "iebdoebbeej",
       "name": "Gyokuho Matcha",
-      "price": 600,
+      "brand": "Kyomori",
+      "price": 120.00,
       "category": "Matcha",
-      "image": ""
- 
+      "image": "img/matcha.jpg"
     },
     {
-      "brand": "KYOMORI",
-      "name": "Midorikaze Matcha 20x500gm",
-      "price": 208,
-      "category": "Matcha",
-      "image": "https://images.unsplash.com/photo-1582793988951-9aed55099993?q=80&w=400"
-      "code" : "BAGUFIX"
-    },
-    {
-      "brand": "KYOMORI",
-      "name": "Shoen High Grade Premium Matcha 20x500gm",
-      "price": 259,
-      "category": "Matcha",
-      "image": "https://images.unsplash.com/photo-1582793988951-9aed55099993?q=80&w=400"
-      "code" : "BAGUFIX"
-    },
-    {
-      "brand": "KYOMORI",
-      "name": "Shogetsu Ceremonial Matcha 20x500gm",
-      "price": 308,
-      "category": "Matcha",
-      "image": "https://images.unsplash.com/photo-1582793988951-9aed55099993?q=80&w=400"
-      "code" : "BAGUFIX"
-    },
-    {
-      "brand": "SP COFFEE",
-      "name": "SP Signature Supremo Mandheling Blend 1kg",
-      "price": 102,
-      "category": "Coffee",
-      "image": "https://images.unsplash.com/photo-1582793988951-9aed55099993?q=80&w=400"
-      "code" : "BAGUFIX"
-    },
-    {
-      "brand": "H&S",
-      "name": "Harney & Sons Wrapped Tea Bag (20 Sachets)",
-      "price": 42,
-      "category": "Tea",
-      "image": "https://images.unsplash.com/photo-1582793988951-9aed55099993?q=80&w=400"
-      "code" : "BAGUFIX"
-    },
-    {
-      "brand": "MONIN",
-      "name": "Purecane Syrup 1L",
-      "price": 39,
+      "code": "syrup-01",
+      "name": "Vanilla Syrup",
+      "brand": "Saleso",
+      "price": 45.00,
       "category": "Syrup",
-      "image": "https://images.unsplash.com/photo-1582793988951-9aed55099993?q=80&w=400"
-      "code" : "BAGUFIX"
-    },
-    {
-      "brand": "MONIN",
-      "name": "Caramel Syrup 700ml",
-      "price": 44,
-      "category": "Syrup",
-      "image": "https://images.unsplash.com/photo-1582793988951-9aed55099993?q=80&w=400"
-      "code" : "BAGUFIX"
-    },
-    {
-      "brand": "MONIN",
-      "name": "Hazelnut Syrup 700ml",
-      "price": 44,
-      "category": "Syrup",
-      "image": "https://images.unsplash.com/photo-1582793988951-9aed55099993?q=80&w=400"
-      "code" : "BAGUFIX"
-    },
-    {
-      "brand": "DAVINCI",
-      "name": "DaVinci Lemonade Syrup 1L",
-      "price": 54,
-      "category": "Syrup",
-      "image": "https://images.unsplash.com/photo-1582793988951-9aed55099993?q=80&w=400"
-      "code" : "BAGUFIX"
-    },
-    {
-      "brand": "HERSHEY",
-      "name": "Hershey Chocolate Syrup 1.36kg",
-      "price": 29.8,
-      "category": "Syrup",
-      "image": "https://images.unsplash.com/photo-1582793988951-9aed55099993?q=80&w=400"
-      "code" : "BAGUFIX"
-    },
-    {
-      "brand": "OATSIDE",
-      "name": "Barista Plain Oat Milk 1Lx6",
-      "price": 84,
-      "category": "Dairy",
-      "image": "https://images.unsplash.com/photo-1582793988951-9aed55099993?q=80&w=400"
-      "code" : "BAGUFIX"
-    },
-    {
-      "brand": "MILKLAB",
-      "name": "Oat Milk 1L",
-      "price": 10.9,
-      "category": "Dairy",
-      "image": "https://images.unsplash.com/photo-1582793988951-9aed55099993?q=80&w=400"
-      "code" : "BAGUFIX"
-    },
-    {
-      "brand": "MILKLAB",
-      "name": "Almond Milk 1L",
-      "price": 12.5,
-      "category": "Dairy",
-      "image": "https://images.unsplash.com/photo-1582793988951-9aed55099993?q=80&w=400"
-      "code" : "BAGUFIX"
-    },
-    {
-      "brand": "EMBORG",
-      "name": "Mascarpone 500g",
-      "price": 29.5,
-      "category": "Cheese",
-      "image": "https://images.unsplash.com/photo-1582793988951-9aed55099993?q=80&w=400"
-      "code" : "BAGUFIX"
-    },
-    {
-      "brand": "SALESO",
-      "name": "Frozen Whole Blueberry 1kg",
-      "price": 27,
-      "category": "Frozen Fruits",
-      "image": "https://images.unsplash.com/photo-1582793988951-9aed55099993?q=80&w=400"
-      "code" : "BAGUFIX"
-    },
-    {
-      "brand": "SIMPLOT",
-      "name": "Blue Ribbon Shoestring Fries 2.27kg",
-      "price": 175,
-      "category": "Potato Products",
-      "image": "https://images.unsplash.com/photo-1582793988951-9aed55099993?q=80&w=400"
-      "code" : "BAGUFIX"
-    },
-    {
-      "brand": "GOURMET CHEF",
-      "name": "Chicken Jam Sliced 1kg",
-      "price": 22.9,
-      "category": "Processed Meat",
-      "image": "https://images.unsplash.com/photo-1582793988951-9aed55099993?q=80&w=400"
-      "code" : "BAGUFIX"
+      "image": "img/vanilla.jpg"
     }
   ]
 }
