@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saleso Pacific | B2B F&B Supplier</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
         :root {
-    --primary-color: #d4a017; 
-    --accent-color: #1a1a1a;  
-    --bg-light: #f9f9f9;
-    --text-dark: #2d2d2d;
-    --white: #ffffff;
-    --price-color: #b8860b;
-}
+            --primary-color: #d4a017; 
+            --accent-color: #1a1a1a;  
+            --bg-light: #f9f9f9;
+            --text-dark: #2d2d2d;
+            --white: #ffffff;
+            --price-color: #b8860b;
+        }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; -webkit-tap-highlight-color: transparent; }
         body { background-color: var(--bg-light); color: var(--text-dark); padding-bottom: 80px; }
@@ -48,6 +48,7 @@
         .cat-item p { font-size: 12px; font-weight: 500; }
         .cat-item.active { background: #e0f2f1; color: var(--primary-color); position: relative; }
         .cat-item.active::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 3px; background: var(--primary-color); }
+        .cat-item.empty { background: white; cursor: default; }
 
         /* PRODUCT GRID */
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; margin-top: 20px; }
@@ -137,6 +138,7 @@
                 <div class="cat-item" onclick="filterByCategory('Frappe', this)">
                     <i class="fa-solid fa-blender"></i><p id="cat-frappe">Frappe</p>
                 </div>
+                
                 <div class="cat-item" onclick="filterByCategory('Fruit Mix', this)">
                     <i class="fa-solid fa-apple-whole"></i><p id="cat-fruit">Fruit Mix</p>
                 </div>
@@ -155,9 +157,16 @@
                 <div class="cat-item" onclick="filterByCategory('Food', this)">
                     <i class="fa-solid fa-utensils"></i><p id="cat-food">Food</p>
                 </div>
+
                 <div class="cat-item" onclick="filterByCategory('Beverage', this)">
                     <i class="fa-solid fa-glass-water"></i><p id="cat-beverage">Beverage</p>
                 </div>
+                
+                <div class="cat-item empty"></div>
+                <div class="cat-item empty"></div>
+                <div class="cat-item empty"></div>
+                <div class="cat-item empty"></div>
+                <div class="cat-item empty"></div>
             </div>
         </section>
         <h2 class="section-title" id="txt-catalog-title" style="margin-top: 25px; border:none;">Product Catalog</h2>
@@ -201,9 +210,16 @@
                 catAll: "All",
                 catMatcha: "Matcha",
                 catSyrup: "Syrup",
+                catSauce: "Sauce",
+                catPowder: "Powder",
+                catFrappe: "Frappe",
+                catFruit: "Fruit Mix",
                 catDairy: "Dairy",
+                catCheese: "Cheese",
                 catCoffee: "Coffee",
                 catFrozen: "Frozen",
+                catFood: "Food",
+                catBeverage: "Beverage",
                 catalogTitle: "Product Catalog",
                 btnAdd: "Add to Cart",
                 floatCart: "View Cart",
@@ -224,9 +240,16 @@
                 catAll: "Semua",
                 catMatcha: "Matcha",
                 catSyrup: "Sirap",
+                catSauce: "Sos",
+                catPowder: "Serbuk",
+                catFrappe: "Frappe",
+                catFruit: "Campuran Buah",
                 catDairy: "Tenusu",
+                catCheese: "Keju",
                 catCoffee: "Kopi",
                 catFrozen: "Sejuk Beku",
+                catFood: "Makanan",
+                catBeverage: "Minuman",
                 catalogTitle: "Katalog Produk",
                 btnAdd: "Tambah",
                 floatCart: "Lihat Bakul",
@@ -247,9 +270,16 @@
                 catAll: "全部商品",
                 catMatcha: "抹茶",
                 catSyrup: "糖浆",
+                catSauce: "酱料",
+                catPowder: "粉末",
+                catFrappe: "冰沙",
+                catFruit: "果茶酱",
                 catDairy: "乳制品",
+                catCheese: "芝士",
                 catCoffee: "咖啡",
                 catFrozen: "冷冻食品",
+                catFood: "食品",
+                catBeverage: "饮料",
                 catalogTitle: "产品目录",
                 btnAdd: "加入购物车",
                 floatCart: "查看购物车",
@@ -278,12 +308,22 @@
 
             document.getElementById('searchInput').placeholder = translations[lang].searchPlaceholder;
             document.getElementById('txt-cat-title').innerText = translations[lang].catTitle;
+            
+            // Mengubah semua text kategori
             document.getElementById('cat-all').innerText = translations[lang].catAll;
             document.getElementById('cat-matcha').innerText = translations[lang].catMatcha;
             document.getElementById('cat-syrup').innerText = translations[lang].catSyrup;
+            document.getElementById('cat-sauce').innerText = translations[lang].catSauce;
+            document.getElementById('cat-powder').innerText = translations[lang].catPowder;
+            document.getElementById('cat-frappe').innerText = translations[lang].catFrappe;
+            document.getElementById('cat-fruit').innerText = translations[lang].catFruit;
             document.getElementById('cat-dairy').innerText = translations[lang].catDairy;
+            document.getElementById('cat-cheese').innerText = translations[lang].catCheese;
             document.getElementById('cat-coffee').innerText = translations[lang].catCoffee;
             document.getElementById('cat-frozen').innerText = translations[lang].catFrozen;
+            document.getElementById('cat-food').innerText = translations[lang].catFood;
+            document.getElementById('cat-beverage').innerText = translations[lang].catBeverage;
+
             document.getElementById('txt-catalog-title').innerText = translations[lang].catalogTitle;
             document.getElementById('txt-float-cart').innerText = translations[lang].floatCart;
             document.getElementById('txt-modal-title').innerText = translations[lang].modalTitle;
@@ -295,52 +335,48 @@
             if(document.getElementById('modal').style.display === 'flex') renderCart();
         }
 
-       async function loadProducts() {
-    try {
-        const response = await fetch('products.json');
-        if (!response.ok) throw new Error("File not found");
-        const data = await response.json();
-        
-        // Pastikan ini sesuai dengan struktur JSON Anda
-        // Jika JSON langsung berupa array [], gunakan: allProducts = data;
-        allProducts = data.products || data; 
-        
-        currentProducts = allProducts;
-        setLanguage('en'); 
-    } catch (error) {
-        console.error("Fetch error:", error);
-        document.getElementById('product-list').innerHTML = 
-            `<p style='padding:20px; color:red;'>Error: ${error.message}. Please ensure products.json exists and contains "code" fields.</p>`;
-    }
-}
+        async function loadProducts() {
+            try {
+                const response = await fetch('products.json');
+                if (!response.ok) throw new Error("File not found");
+                const data = await response.json();
+                
+                allProducts = data.products || data; 
+                currentProducts = allProducts;
+                setLanguage('en'); 
+            } catch (error) {
+                console.error("Fetch error:", error);
+                document.getElementById('product-list').innerHTML = 
+                    `<p style='padding:20px; color:red;'>Error: ${error.message}. Please ensure products.json exists and contains "code" fields.</p>`;
+            }
+        }
 
         function displayProducts(products) {
-    const list = document.getElementById('product-list');
-    if (!products || products.length === 0) {
-        list.innerHTML = "<p style='padding:20px'>No products found.</p>";
-        return;
-    }
+            const list = document.getElementById('product-list');
+            if (!products || products.length === 0) {
+                list.innerHTML = "<p style='padding:20px'>No products found.</p>";
+                return;
+            }
 
-    list.innerHTML = products.map(p => {
-        const isAdded = cart[p.name] !== undefined; 
-        // Tambahkan fallback jika p.code tidak ada agar tidak muncul "undefined"
-        const itemCode = p.code ? `${p.code} - ` : "";
-        
-        return `
-        <div class="product-card">
-            <img src="${p.image}" class="product-img" onerror="this.src='https://placehold.co/400x400?text=${p.name}'">
-            <div class="product-info">
-                <span class="brand-tag">${p.brand}</span>
-                <h4 class="product-name">${itemCode}${p.name}</h4>
-                <p class="price">RM ${p.price.toFixed(2)}</p>
-            </div>
-            <button class="btn-add" ${isAdded ? 'disabled' : ''} onclick="addToCart('${p.name.replace(/'/g, "\\'")}', ${p.price})">
-                ${isAdded ? '<i class="fa-solid fa-check"></i>' : ''} ${translations[currentLang].btnAdd}
-            </button>
-        </div>
-        `;
-    }).join('');
-}
+            list.innerHTML = products.map(p => {
+                const isAdded = cart[p.name] !== undefined; 
+                const itemCode = p.code ? `${p.code} - ` : "";
+                
+                return `
+                <div class="product-card">
+                    <img src="${p.image}" class="product-img" onerror="this.src='https://placehold.co/400x400?text=${p.name}'">
+                    <div class="product-info">
+                        <span class="brand-tag">${p.brand}</span>
+                        <h4 class="product-name">${itemCode}${p.name}</h4>
+                        <p class="price">RM ${p.price.toFixed(2)}</p>
+                    </div>
+                    <button class="btn-add" ${isAdded ? 'disabled' : ''} onclick="addToCart('${p.name.replace(/'/g, "\\'")}', ${p.price})">
+                        ${isAdded ? '<i class="fa-solid fa-check"></i>' : ''} ${translations[currentLang].btnAdd}
+                    </button>
+                </div>
+                `;
+            }).join('');
+        }
 
         function filterByCategory(category, element) {
             document.querySelectorAll('.cat-item').forEach(el => el.classList.remove('active'));
@@ -379,11 +415,8 @@
             }
         }
 
-        // PERUBAHAN ADA DI FUNGSI INI
         function updateBadge() {
-            // Mengambil jumlah dari kunci objek (distinct items), BUKAN total kuantitas (qty)
             const totalItems = Object.keys(cart).length;
-            
             document.getElementById('cart-count').innerText = totalItems;
             document.getElementById('float-count').innerText = totalItems;
             document.getElementById('floatingCart').classList.toggle('show', totalItems > 0);
@@ -439,7 +472,6 @@
             
             let total = 0;
             for (let itemName in cart) {
-                // Find the original product object to get its code
                 const productData = allProducts.find(p => p.name === itemName);
                 const itemCode = productData && productData.code ? `[${productData.code}] ` : "";
                 
@@ -447,7 +479,6 @@
                 total += cart[itemName].price * cart[itemName].qty;
             }
             
-            // Adding the estimated total and MOQ note
             msg += `\n\n_MOQ (Minimum Order Quantity) :_`;
             
             window.open(`https://wa.me/601115008803?text=${encodeURIComponent(msg)}`, '_blank');
