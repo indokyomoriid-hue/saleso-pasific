@@ -275,37 +275,52 @@
             if(document.getElementById('modal').style.display === 'flex') renderCart();
         }
 
-        async function loadProducts() {
-            try {
-                const response = await fetch('products.json');
-                const data = await response.json();
-                allProducts = data.products;
-                currentProducts = allProducts;
-                setLanguage('en'); 
-            } catch (error) {
-                document.getElementById('product-list').innerHTML = "<p style='padding:20px'>Please ensure products.json exists.</p>";
-            }
-        }
+       async function loadProducts() {
+    try {
+        const response = await fetch('products.json');
+        if (!response.ok) throw new Error("File not found");
+        const data = await response.json();
+        
+        // Pastikan ini sesuai dengan struktur JSON Anda
+        // Jika JSON langsung berupa array [], gunakan: allProducts = data;
+        allProducts = data.products || data; 
+        
+        currentProducts = allProducts;
+        setLanguage('en'); 
+    } catch (error) {
+        console.error("Fetch error:", error);
+        document.getElementById('product-list').innerHTML = 
+            `<p style='padding:20px; color:red;'>Error: ${error.message}. Please ensure products.json exists and contains "code" fields.</p>`;
+    }
+}
 
         function displayProducts(products) {
-            const list = document.getElementById('product-list');
-            list.innerHTML = products.map(p => {
-                const isAdded = cart[p.name] !== undefined; 
-                return `
-                <div class="product-card">
-                    <img src="${p.image}" class="product-img" onerror="this.src='https://placehold.co/400x400?text=${p.name}'">
-                    <div class="product-info">
-                        <span class="brand-tag">${p.brand}</span>
-                        <h4 class="product-name">${p.code} - ${p.name}</h4>
-                        <p class="price">RM ${p.price.toFixed(2)}</p>
-                    </div>
-                    <button class="btn-add" ${isAdded ? 'disabled' : ''} onclick="addToCart('${p.name.replace(/'/g, "\\'")}', ${p.price})">
-                        ${isAdded ? '<i class="fa-solid fa-check"></i>' : ''} ${translations[currentLang].btnAdd}
-                    </button>
-                </div>
-                `;
-            }).join('');
-        }
+    const list = document.getElementById('product-list');
+    if (!products || products.length === 0) {
+        list.innerHTML = "<p style='padding:20px'>No products found.</p>";
+        return;
+    }
+
+    list.innerHTML = products.map(p => {
+        const isAdded = cart[p.name] !== undefined; 
+        // Tambahkan fallback jika p.code tidak ada agar tidak muncul "undefined"
+        const itemCode = p.code ? `${p.code} - ` : "";
+        
+        return `
+        <div class="product-card">
+            <img src="${p.image}" class="product-img" onerror="this.src='https://placehold.co/400x400?text=${p.name}'">
+            <div class="product-info">
+                <span class="brand-tag">${p.brand}</span>
+                <h4 class="product-name">${itemCode}${p.name}</h4>
+                <p class="price">RM ${p.price.toFixed(2)}</p>
+            </div>
+            <button class="btn-add" ${isAdded ? 'disabled' : ''} onclick="addToCart('${p.name.replace(/'/g, "\\'")}', ${p.price})">
+                ${isAdded ? '<i class="fa-solid fa-check"></i>' : ''} ${translations[currentLang].btnAdd}
+            </button>
+        </div>
+        `;
+    }).join('');
+}
 
         function filterByCategory(category, element) {
             document.querySelectorAll('.cat-item').forEach(el => el.classList.remove('active'));
