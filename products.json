@@ -1,12 +1,13 @@
 {
   "products": [
     {
+      "code" : "BAGUFIX"
       "brand": "Kyomori",
       "name": "Gyokuho Matcha",
       "price": 600,
       "category": "Matcha",
       "image": ""
-      "code" : "BAGUFIX"
+ 
     },
     {
       "brand": "KYOMORI",
