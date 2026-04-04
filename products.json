@@ -1,10 +1,10 @@
 {
   "products": [
     {
-      "code": "iebdoebbeej",
-      "name": "Gyokuho Matcha",
+      "code": "Bagufix",
       "brand": "Kyomori",
-      "price": 120.00,
+      "name": "Gyokuho Matcha",
+      "price": 120,
       "category": "Matcha",
       "image": "img/matcha.jpg"
     },
@@ -12,7 +12,7 @@
       "code": "syrup-01",
       "name": "Vanilla Syrup",
       "brand": "Saleso",
-      "price": 45.00,
+      "price": 45,
       "category": "Syrup",
       "image": "img/vanilla.jpg"
     }
