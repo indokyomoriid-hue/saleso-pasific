@@ -407,6 +407,7 @@
                 msg += `- ${cart[item].qty}x ${item}\n`;
                 total += cart[item].price * cart[item].qty;
             }
+            msg = "MOQ";
             window.open(`https://wa.me/601115008803?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
