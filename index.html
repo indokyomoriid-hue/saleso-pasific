@@ -296,7 +296,7 @@
                     <img src="${p.image}" class="product-img" onerror="this.src='https://placehold.co/400x400?text=${p.name}'">
                     <div class="product-info">
                         <span class="brand-tag">${p.brand}</span>
-                        <h4 class="product-name">${p.name}</h4>
+                        <h4 class="product-name">${p.code} - ${p.name}</h4>
                         <p class="price">RM ${p.price.toFixed(2)}</p>
                     </div>
                     <button class="btn-add" ${isAdded ? 'disabled' : ''} onclick="addToCart('${p.name.replace(/'/g, "\\'")}', ${p.price})">
