@@ -1,6 +1,15 @@
 {
   "products": [
     {
+      "id": 1775288874720,
+      "code": "MAKARISA",
+      "brand": "MONIN",
+      "name": "Monin Syrup pure Manggo",
+      "price": 49,
+      "category": "Syrup",
+      "image": "https://placehold.co/400"
+    },
+    {
       "code": "Bagufix",
       "brand": "Kyomori",
       "name": "Gyokuho Matcha",
