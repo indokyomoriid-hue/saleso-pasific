@@ -31,8 +31,25 @@
             margin: 0 auto;
             padding: 0 15px;
         }
-
-        /* HEADER */
+        .lang-bar {
+            background: #d4a017;
+            padding: 5px 0;
+            text-align: right;
+        }
+        .lang-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            opacity: 0.6;
+            cursor: pointer;
+            font-size: 12px;
+            margin-left: 15px;
+            font-weight: 600;
+        }
+        .lang-btn.active {
+            opacity: 1;
+            color: var(--accent-color);
+        }
         header {
             background-color: var(--primary-color);
             color: var(--white);
@@ -66,7 +83,6 @@
             white-space: nowrap;
             text-transform: uppercase;
         }
-
         .search-box {
             flex-grow: 1;
             display: flex;
@@ -90,7 +106,6 @@
             cursor: pointer;
             border-radius: 4px;
         }
-
         .cart-wrapper {
             position: relative;
             cursor: pointer;
@@ -110,82 +125,66 @@
             min-width: 18px;
             text-align: center;
         }
-
-        /* CATEGORY SECTION - FIXED GAP */
         .section-white {
             background: var(--white);
             margin-top: 15px;
-            padding: 20px 15px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
         .section-title {
             font-size: 14px;
             color: #757575;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             font-weight: 600;
             text-transform: uppercase;
         }
-
         .category-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 1px;
+            background: #eee;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            overflow: hidden;
         }
-
         .cat-item {
             background: white;
-            padding: 20px 12px;
+            padding: 15px 5px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.25s ease;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-            border: 1px solid #f0f0f0;
+            transition: 0.2s;
         }
-
-        .cat-item:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 20px rgba(212, 160, 23, 0.18);
-            border-color: var(--primary-color);
-        }
-
-        .cat-item.active {
-            background: #f0f8f7;        /* Mirip warna di screenshot */
-            border-color: var(--primary-color);
-            box-shadow: 0 4px 15px rgba(212, 160, 23, 0.25);
-        }
-
         .cat-item i {
-            font-size: 32px;
-            color: #d4a017;
-            margin-bottom: 10px;
+            font-size: 22px;
+            color: var(--primary-color);
+            margin-bottom: 8px;
             display: block;
         }
-
         .cat-item p {
-            font-size: 13px;
-            font-weight: 600;
-            color: #2d2d2d;
+            font-size: 12px;
+            font-weight: 500;
         }
-
-        /* PRODUCT GRID */
+        .cat-item.active {
+            background: #e0f2f1;
+            color: var(--primary-color);
+        }
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             gap: 15px;
-            margin-top: 25px;
+            margin-top: 20px;
         }
         .product-card {
             background: var(--white);
-            border-radius: 12px;
+            border-radius: 8px;
             border: 1px solid #eee;
             overflow: hidden;
             transition: 0.2s;
         }
         .product-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
             border-color: var(--primary-color);
         }
         .product-img {
@@ -195,6 +194,7 @@
         }
         .product-info {
             padding: 12px;
+            flex-grow: 1;
         }
         .brand-tag {
             font-size: 10px;
@@ -204,8 +204,8 @@
         }
         .product-name {
             font-size: 14px;
-            margin: 6px 0;
-            height: 40px;
+            margin: 4px 0;
+            height: 38px;
             overflow: hidden;
             display: -webkit-box;
             -webkit-line-clamp: 2;
@@ -215,25 +215,23 @@
             color: var(--price-color);
             font-weight: 700;
             font-size: 16px;
+            margin: 8px 0;
         }
         .btn-add {
             width: 100%;
             background: var(--primary-color);
             color: white;
             border: none;
-            padding: 11px;
+            padding: 10px;
             cursor: pointer;
             font-weight: 600;
             font-size: 13px;
-            border-radius: 8px;
         }
         .btn-add:disabled {
             background: #ccc;
             color: #666;
             cursor: not-allowed;
         }
-
-        /* FLOATING CART */
         .floating-cart {
             position: fixed;
             bottom: 25px;
@@ -262,14 +260,13 @@
             border-radius: 20px;
             font-size: 12px;
         }
-
         /* MODAL */
         .modal-overlay {
             display: none;
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: rgba(0,0,0,0.65);
+            background: rgba(0,0,0,0.6);
             z-index: 3000;
             justify-content: center;
             align-items: flex-end;
@@ -315,19 +312,15 @@
             align-items: center;
             gap: 10px;
         }
-
-        /* RESPONSIVE */
         @media (max-width: 768px) {
             .logo img { height: 48px; }
             .logo-text { font-size: 14px; }
-            .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-            .cat-item { padding: 16px 10px; }
-            .cat-item i { font-size: 28px; }
+            .category-grid { grid-template-columns: repeat(3, 1fr); }
+            .product-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
         }
     </style>
 </head>
 <body>
-    <!-- Lang Bar -->
     <div class="lang-bar">
         <div class="container">
             <button class="lang-btn active" onclick="setLanguage('en', this)">English</button>
@@ -336,7 +329,6 @@
         </div>
     </div>
 
-    <!-- Header -->
     <header>
         <div class="container nav-content">
             <div class="logo">
@@ -357,44 +349,36 @@
     <main class="container">
         <section class="section-white">
             <div class="section-title" id="txt-cat-title">Main Category</div>
-            
+          
             <div class="category-grid">
                 <div class="cat-item active" onclick="filterByCategory('All', this)">
-                    <i class="fa-solid fa-border-all"></i>
-                    <p id="cat-all">All</p>
+                    <i class="fa-solid fa-border-all"></i><p id="cat-all">All</p>
                 </div>
                 <div class="cat-item" onclick="filterByCategory('Matcha', this)">
-                    <i class="fa-solid fa-leaf"></i>
-                    <p id="cat-matcha">Matcha</p>
+                    <i class="fa-solid fa-leaf"></i><p id="cat-matcha">Matcha</p>
                 </div>
                 <div class="cat-item" onclick="filterByCategory('Beverage', this)">
-                    <i class="fa-solid fa-glass-water"></i>
-                    <p id="cat-beverage">Beverage</p>
+                    <i class="fa-solid fa-glass-water"></i><p id="cat-beverage">Beverage</p>
                 </div>
                 <div class="cat-item" onclick="filterByCategory('Syrup', this)">
-                    <i class="fa-solid fa-bottle-droplet"></i>
-                    <p id="cat-syrup">Syrup</p>
+                    <i class="fa-solid fa-bottle-droplet"></i><p id="cat-syrup">Syrup</p>
                 </div>
                 <div class="cat-item" onclick="filterByCategory('Sauce', this)">
-                    <i class="fa-solid fa-fill-drip"></i>
-                    <p id="cat-sauce">Sauce</p>
+                    <i class="fa-solid fa-fill-drip"></i><p id="cat-sauce">Sauce</p>
                 </div>
                 <div class="cat-item" onclick="filterByCategory('Dairy', this)">
-                    <i class="fa-solid fa-cow"></i>
-                    <p id="cat-dairy">Dairy</p>
+                    <i class="fa-solid fa-cow"></i><p id="cat-dairy">Dairy</p>
                 </div>
                 <div class="cat-item" onclick="filterByCategory('Food', this)">
-                    <i class="fa-solid fa-utensils"></i>
-                    <p id="cat-food">Food</p>
+                    <i class="fa-solid fa-utensils"></i><p id="cat-food">Food</p>
                 </div>
             </div>
         </section>
-
-        <h2 class="section-title" id="txt-catalog-title" style="margin-top: 30px; border:none;">Product Catalog</h2>
+      
+        <h2 class="section-title" id="txt-catalog-title" style="margin-top: 25px; border:none;">Product Catalog</h2>
         <div class="product-grid" id="product-list"></div>
     </main>
 
-    <!-- Floating Cart -->
     <button class="floating-cart" id="floatingCart" onclick="toggleModal()">
         <i class="fa-solid fa-cart-shopping"></i>
         <span id="txt-float-cart">View Cart</span>
@@ -428,9 +412,8 @@
     </div>
 
     <script>
-        // === TRANSLATIONS ===
         const translations = {
-            en: { /* sama seperti sebelumnya */ 
+            en: {
                 searchPlaceholder: "Search from 700+ F&B ingredients...",
                 catTitle: "Main Category",
                 catAll: "All",
@@ -454,7 +437,7 @@
                 waAddr: "Address",
                 waList: "Order List"
             },
-            ms: { /* sama */ 
+            ms: {
                 searchPlaceholder: "Cari dari 700+ bahan F&B...",
                 catTitle: "Kategori Utama",
                 catAll: "Semua",
@@ -473,9 +456,12 @@
                 btnSend: "Hantar melalui WhatsApp",
                 emptyCart: "Bakul anda kosong.",
                 estTotal: "Anggaran Total",
-                waHeader: "Helo Saleso Pacific, saya ingin memesan:"
+                waHeader: "Helo Saleso Pacific, saya ingin memesan:",
+                waBiz: "Bisnes",
+                waAddr: "Alamat",
+                waList: "Senarai Pesanan"
             },
-            zh: { /* sama */ 
+            zh: {
                 searchPlaceholder: "搜索 700+ 餐饮原料...",
                 catTitle: "主要类别",
                 catAll: "全部",
@@ -492,7 +478,12 @@
                 lblBizName: "店铺/公司名称",
                 lblBizAddr: "送货地址",
                 btnSend: "通过 WhatsApp 发送",
-                emptyCart: "购物车是空的。"
+                emptyCart: "购物车是空的。",
+                estTotal: "预估总额",
+                waHeader: "您好 Saleso Pacific，我想订购以下商品：",
+                waBiz: "商家名称",
+                waAddr: "地址",
+                waList: "订单详情"
             }
         };
 
@@ -515,28 +506,40 @@
             document.getElementById('lbl-biz-addr').innerText = translations[lang].lblBizAddr;
             document.getElementById('txt-btn-send').innerText = translations[lang].btnSend;
 
+            // Update category names
+            document.getElementById('cat-all').innerText = translations[lang].catAll;
+            document.getElementById('cat-matcha').innerText = translations[lang].catMatcha;
+            document.getElementById('cat-syrup').innerText = translations[lang].catSyrup;
+            document.getElementById('cat-sauce').innerText = translations[lang].catSauce;
+            document.getElementById('cat-beverage').innerText = translations[lang].catBeverage;
+            document.getElementById('cat-dairy').innerText = translations[lang].catDairy;
+            document.getElementById('cat-food').innerText = translations[lang].catFood;
+
             displayProducts(currentProducts);
         }
 
         async function loadProducts() {
             try {
                 const response = await fetch('products.json');
+                if (!response.ok) throw new Error("products.json not found");
                 const data = await response.json();
                 allProducts = data.products || data;
                 currentProducts = allProducts;
                 displayProducts(currentProducts);
             } catch (error) {
-                console.error(error);
-                document.getElementById('product-list').innerHTML = `<p style="padding:40px; color:red; text-align:center;">Error loading products.json</p>`;
+                console.error("Error loading products:", error);
+                document.getElementById('product-list').innerHTML = 
+                    `<p style='padding:30px; color:red; text-align:center;'>Error loading products.json<br>Please make sure the file exists.</p>`;
             }
         }
 
         function displayProducts(products) {
             const list = document.getElementById('product-list');
             if (!products || products.length === 0) {
-                list.innerHTML = `<p style="padding:30px; text-align:center; color:#777;">No products found.</p>`;
+                list.innerHTML = "<p style='padding:20px; text-align:center;'>No products found.</p>";
                 return;
             }
+
             list.innerHTML = products.map(p => {
                 const isAdded = cart[p.name] !== undefined;
                 const itemCode = p.code ? `${p.code} - ` : "";
@@ -548,7 +551,8 @@
                         <h4 class="product-name">${itemCode}${p.name}</h4>
                         <p class="price">RM ${p.price.toFixed(2)}</p>
                     </div>
-                    <button class="btn-add" ${isAdded ? 'disabled' : ''} onclick="addToCart('${p.name.replace(/'/g, "\\'")}', ${p.price})">
+                    <button class="btn-add" ${isAdded ? 'disabled' : ''} 
+                            onclick="addToCart('${p.name.replace(/'/g, "\\'")}', ${p.price})">
                         ${isAdded ? '<i class="fa-solid fa-check"></i> ' : ''}${translations[currentLang].btnAdd}
                     </button>
                 </div>`;
@@ -570,7 +574,8 @@
         function filterBySearch() {
             const q = document.getElementById('searchInput').value.toLowerCase().trim();
             currentProducts = allProducts.filter(p =>
-                p.name.toLowerCase().includes(q) || (p.brand && p.brand.toLowerCase().includes(q))
+                p.name.toLowerCase().includes(q) ||
+                (p.brand && p.brand.toLowerCase().includes(q))
             );
             displayProducts(currentProducts);
         }
@@ -579,7 +584,7 @@
             if (!cart[name]) {
                 cart[name] = { price, qty: 1 };
                 updateBadge();
-                displayProducts(currentProducts);
+                displayProducts(currentProducts); // refresh button status
             }
         }
 
@@ -616,16 +621,18 @@
                         <div style="color:#777; font-size:12px;">RM ${cart[item].price.toFixed(2)}</div>
                     </div>
                     <div style="display:flex; align-items:center; gap:8px;">
-                        <button onclick="changeQty('${item.replace(/'/g, "\\'")}', -1)" style="width:28px;height:28px;border:none;background:var(--primary-color);color:white;border-radius:4px;">-</button>
+                        <button onclick="changeQty('${item.replace(/'/g, "\\'")}', -1)" 
+                                style="width:28px;height:28px;border:none;background:var(--primary-color);color:white;border-radius:4px;">-</button>
                         <span style="font-weight:bold; min-width:20px; text-align:center;">${cart[item].qty}</span>
-                        <button onclick="changeQty('${item.replace(/'/g, "\\'")}', 1)" style="width:28px;height:28px;border:none;background:var(--primary-color);color:white;border-radius:4px;">+</button>
+                        <button onclick="changeQty('${item.replace(/'/g, "\\'")}', 1)" 
+                                style="width:28px;height:28px;border:none;background:var(--primary-color);color:white;border-radius:4px;">+</button>
                     </div>
                     <div style="font-weight:bold; width:80px; text-align:right;">RM ${sub.toFixed(2)}</div>
                 </div>`;
             }
 
             if (html === "") {
-                html = `<p style="text-align:center; color:#777; padding:30px;">${translations[currentLang].emptyCart}</p>`;
+                html = `<p style="text-align:center; color:#777; padding:20px;">${translations[currentLang].emptyCart}</p>`;
             } else {
                 html += `
                 <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:16px; color:var(--price-color); margin-top:15px;">
@@ -654,15 +661,19 @@
             msg += `*${t.waAddr}:* ${document.getElementById('bizAddress').value}\n\n`;
             msg += `*${t.waList}:*\n`;
 
+            let total = 0;
             for (let itemName in cart) {
                 const productData = allProducts.find(p => p.name === itemName);
                 const itemCode = productData && productData.code ? `[${productData.code}] ` : "";
                 msg += `- ${cart[itemName].qty}x ${itemCode}${itemName}\n`;
+                total += cart[itemName].price * cart[itemName].qty;
             }
+
             msg += `\n\n_MOQ (Minimum Order Quantity) :_`;
             window.open(`https://wa.me/601115008803?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
+        // Load everything when page opens
         window.onload = () => {
             loadProducts();
             setLanguage('en');
