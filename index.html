@@ -124,6 +124,8 @@
             cursor: pointer;
             font-size: 20px;
         }
+
+        /* Category & Product */
         .section-white {
             background: white;
             margin-top: 12px;
@@ -181,6 +183,7 @@
             overflow: hidden;
             border: 1px solid #eee;
             transition: 0.25s;
+            cursor: pointer;
         }
         .product-card:hover {
             box-shadow: 0 6px 15px rgba(0,0,0,0.1);
@@ -233,6 +236,8 @@
             background: #ccc;
             cursor: not-allowed;
         }
+
+        /* Floating Cart */
         .floating-cart {
             position: fixed;
             bottom: 18px;
@@ -258,6 +263,73 @@
             border-radius: 20px;
             font-size: 12px;
         }
+
+        /* Product Detail Popup */
+        .product-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.75);
+            z-index: 4000;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+        .product-modal-content {
+            background: white;
+            width: 100%;
+            max-width: 420px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        .modal-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            cursor: pointer;
+            z-index: 4100;
+        }
+        .modal-image {
+            width: 100%;
+            height: 340px;
+            object-fit: contain;
+            background: #f9f9f9;
+        }
+        .modal-info {
+            padding: 20px;
+        }
+        .modal-brand {
+            font-size: 12px;
+            color: #888;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .modal-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 8px 0 12px;
+            line-height: 1.3;
+        }
+        .modal-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--price-color);
+            margin-bottom: 20px;
+        }
+
+        /* Cart Modal */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -304,14 +376,6 @@
             font-weight: bold;
             margin-top: 10px;
         }
-        @media (min-width: 769px) {
-            .product-grid {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            }
-            .product-img {
-                height: 220px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -325,7 +389,6 @@
 
     <header>
         <div class="container">
-            <!-- Baris 1: Logo + Cart -->
             <div class="header-top">
                 <div class="logo">
                     <img src="SalesoLogo.png" alt="Saleso Pacific Logo">
@@ -336,8 +399,6 @@
                     <span class="cart-badge" id="cart-count">0</span>
                 </div>
             </div>
-
-            <!-- Baris 2: Search Box (Panjang) -->
             <div class="search-box">
                 <input type="text" id="searchInput" onkeyup="filterBySearch()" placeholder="Search from 700+ F&B ingredients...">
                 <button><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -390,6 +451,15 @@
         <span class="float-badge" id="float-count">0</span>
     </button>
 
+    <!-- PRODUCT DETAIL POPUP -->
+    <div class="product-modal" id="productModal">
+        <div class="product-modal-content">
+            <div class="modal-close" onclick="closeProductModal()">×</div>
+            <div id="modalProductContent"></div>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
     <div class="modal-overlay" id="modal">
         <div class="modal-content">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
@@ -494,6 +564,7 @@
         let allProducts = [];
         let currentProducts = [];
         let cart = {};
+        let currentViewedProduct = null;
 
         function setLanguage(lang, btn) {
             currentLang = lang;
@@ -541,35 +612,57 @@
                 const isAdded = cart[p.name] !== undefined;
                 const itemCode = p.code ? `${p.code} - ` : "";
                 return `
-                <div class="product-card">
+                <div class="product-card" onclick="showProductDetail(${JSON.stringify(p).replace(/"/g, '&quot;')})">
                     <img src="${p.image}" class="product-img" loading="lazy" decoding="async" width="400" height="400" onerror="this.src='https://placehold.co/400x400?text=${encodeURIComponent(p.name)}'">
                     <div class="product-info">
                         <span class="brand-tag">${p.brand || ''}</span>
                         <h4 class="product-name">${itemCode}${p.name}</h4>
                         <p class="price">RM ${p.price.toFixed(2)}</p>
                     </div>
-                    <button class="btn-add" ${isAdded ? 'disabled' : ''} onclick="addToCart('${p.name.replace(/'/g, "\\'")}', ${p.price})">
+                    <button class="btn-add" ${isAdded ? 'disabled' : ''} onclick="addToCart('${p.name.replace(/'/g, "\\'")}', ${p.price}); event.stopImmediatePropagation();">
                         ${isAdded ? '<i class="fa-solid fa-check"></i> ' : ''}${translations[currentLang].btnAdd}
                     </button>
                 </div>`;
             }).join('');
         }
 
-        function filterByCategory(category, element) {
-            document.querySelectorAll('.cat-item').forEach(el => el.classList.remove('active'));
-            element.classList.add('active');
-            currentProducts = category === 'All' ? allProducts : allProducts.filter(p => p.category === category);
-            displayProducts(currentProducts);
+        // ================== PRODUCT DETAIL POPUP ==================
+        function showProductDetail(product) {
+            currentViewedProduct = product;
+            const modal = document.getElementById('productModal');
+            const content = document.getElementById('modalProductContent');
+
+            const itemCode = product.code ? `${product.code} - ` : "";
+
+            content.innerHTML = `
+                <img src="${product.image}" class="modal-image" onerror="this.src='https://placehold.co/600x600?text=${encodeURIComponent(product.name)}'">
+                <div class="modal-info">
+                    <div class="modal-brand">${product.brand || ''}</div>
+                    <div class="modal-name">${itemCode}${product.name}</div>
+                    <div class="modal-price">RM ${product.price.toFixed(2)}</div>
+                    <button class="btn-add" style="width:100%; padding:14px;" ${cart[product.name] ? 'disabled' : ''} 
+                            onclick="addToCartFromPopup(); event.stopImmediatePropagation();">
+                        ${cart[product.name] ? '<i class="fa-solid fa-check"></i> Added to Cart' : translations[currentLang].btnAdd}
+                    </button>
+                </div>
+            `;
+
+            modal.style.display = 'flex';
         }
 
-        function filterBySearch() {
-            const q = document.getElementById('searchInput').value.toLowerCase().trim();
-            currentProducts = allProducts.filter(p =>
-                p.name.toLowerCase().includes(q) || (p.brand && p.brand.toLowerCase().includes(q))
-            );
-            displayProducts(currentProducts);
+        function closeProductModal() {
+            document.getElementById('productModal').style.display = 'none';
         }
 
+        function addToCartFromPopup() {
+            if (currentViewedProduct) {
+                addToCart(currentViewedProduct.name, currentViewedProduct.price);
+                // Refresh tampilan popup
+                showProductDetail(currentViewedProduct);
+            }
+        }
+
+        // ================== CART FUNCTIONS ==================
         function addToCart(name, price) {
             if (!cart[name]) {
                 cart[name] = { price, qty: 1 };
@@ -653,6 +746,11 @@
             msg += `\n_MOQ (Minimum Order Quantity) :_`;
             window.open(`https://wa.me/601115008803?text=${encodeURIComponent(msg)}`, '_blank');
         }
+
+        // Close popup when clicking outside
+        document.getElementById('productModal').addEventListener('click', function(e) {
+            if (e.target === this) closeProductModal();
+        });
 
         window.onload = () => {
             loadProducts();
