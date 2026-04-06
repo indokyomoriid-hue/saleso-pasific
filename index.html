@@ -124,8 +124,6 @@
             cursor: pointer;
             font-size: 20px;
         }
-
-        /* Category & Product */
         .section-white {
             background: white;
             margin-top: 12px;
@@ -237,7 +235,7 @@
             cursor: not-allowed;
         }
 
-        /* Floating Cart */
+        /* FLOATING CART */
         .floating-cart {
             position: fixed;
             bottom: 18px;
@@ -264,7 +262,7 @@
             font-size: 12px;
         }
 
-        /* Product Detail Popup */
+        /* PRODUCT DETAIL POPUP */
         .product-modal {
             display: none;
             position: fixed;
@@ -486,7 +484,7 @@
 
     <script>
         const translations = {
-            en: {
+            en: { /* sama seperti kode kamu */ 
                 searchPlaceholder: "Search from 700+ F&B ingredients...",
                 catTitle: "Main Category",
                 catAll: "All",
@@ -510,7 +508,7 @@
                 waAddr: "Address",
                 waList: "Order List"
             },
-            ms: {
+            ms: { /* sama */ 
                 searchPlaceholder: "Cari dari 700+ bahan F&B...",
                 catTitle: "Kategori Utama",
                 catAll: "Semua",
@@ -534,7 +532,7 @@
                 waAddr: "Alamat",
                 waList: "Senarai Pesanan"
             },
-            zh: {
+            zh: { /* sama */ 
                 searchPlaceholder: "搜索 700+ 餐饮原料...",
                 catTitle: "主要类别",
                 catAll: "全部商品",
@@ -626,7 +624,7 @@
             }).join('');
         }
 
-        // ================== PRODUCT DETAIL POPUP ==================
+        // ================== POPUP DETAIL PRODUK ==================
         function showProductDetail(product) {
             currentViewedProduct = product;
             const modal = document.getElementById('productModal');
@@ -646,7 +644,6 @@
                     </button>
                 </div>
             `;
-
             modal.style.display = 'flex';
         }
 
@@ -657,12 +654,26 @@
         function addToCartFromPopup() {
             if (currentViewedProduct) {
                 addToCart(currentViewedProduct.name, currentViewedProduct.price);
-                // Refresh tampilan popup
                 showProductDetail(currentViewedProduct);
             }
         }
 
-        // ================== CART FUNCTIONS ==================
+        // ================== FUNGSI LAMA (TIDAK DIUBAH) ==================
+        function filterByCategory(category, element) {
+            document.querySelectorAll('.cat-item').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+            currentProducts = category === 'All' ? allProducts : allProducts.filter(p => p.category === category);
+            displayProducts(currentProducts);
+        }
+
+        function filterBySearch() {
+            const q = document.getElementById('searchInput').value.toLowerCase().trim();
+            currentProducts = allProducts.filter(p =>
+                p.name.toLowerCase().includes(q) || (p.brand && p.brand.toLowerCase().includes(q))
+            );
+            displayProducts(currentProducts);
+        }
+
         function addToCart(name, price) {
             if (!cart[name]) {
                 cart[name] = { price, qty: 1 };
@@ -747,7 +758,7 @@
             window.open(`https://wa.me/601115008803?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
-        // Close popup when clicking outside
+        // Close popup ketika klik di luar
         document.getElementById('productModal').addEventListener('click', function(e) {
             if (e.target === this) closeProductModal();
         });
