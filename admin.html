@@ -13,8 +13,9 @@
             --danger: #f44336;
             --light: #f4f4f4;
             --white: #ffffff;
+            --purple: #673ab7;
         }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--light); padding: 20px; color: #333; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--light); padding: 20px; color: #333; margin: 0; }
         .admin-container { max-width: 900px; margin: 0 auto; background: var(--white); padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
         
         .config-section { background: #fff3cd; padding: 20px; border-radius: 8px; margin-bottom: 25px; border: 1px solid #ffeeba; }
@@ -22,36 +23,65 @@
         h4 { margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
 
         label { font-size: 13px; font-weight: 600; color: #666; }
-        input, select, textarea { width: 100%; padding: 12px; margin: 6px 0 15px 0; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }
+        input, select, textarea { width: 100%; padding: 12px; margin: 6px 0 15px 0; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; box-sizing: border-box;}
         
         .btn { padding: 12px 20px; cursor: pointer; border: none; border-radius: 6px; font-weight: bold; transition: 0.3s; font-size: 14px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
         .btn-save { background: var(--primary); color: white; }
         .btn-save:hover { background: #00332c; }
         .btn-load { background: var(--secondary); color: white; }
+        .btn-purple { background: var(--purple); color: white; }
         .btn-update { background: var(--warning); color: white; display: none; }
         
         #add-form { background: #f9f9f9; border: 1px solid #eee; padding: 20px; border-radius: 8px; margin-bottom: 25px; }
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 
-        .product-item { 
+        .data-item { 
             display: flex; justify-content: space-between; align-items: center; 
             padding: 15px; border-bottom: 1px solid #eee; background: var(--white);
         }
-        .product-info-text { font-size: 14px; line-height: 1.6; }
+        .data-info-text { font-size: 14px; line-height: 1.6; }
         .code-badge { background: #e0e0e0; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-weight: bold; color: #555; margin-right: 5px; }
+        .date-badge { background: #e3f2fd; color: #1565c0; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: bold; margin-right: 5px; }
         
         .action-btns { display: flex; gap: 15px; }
         .btn-edit { color: var(--secondary); cursor: pointer; font-size: 18px; }
         .btn-delete { color: var(--danger); cursor: pointer; font-size: 18px; }
         
         #loading { display: none; color: var(--secondary); font-weight: bold; text-align: center; margin: 10px 0; }
-        .sticky-header { position: sticky; top: 0; background: white; z-index: 10; padding-bottom: 10px; }
+        
+        /* Modal Styles */
+        #role-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.8); z-index: 9999;
+            display: flex; justify-content: center; align-items: center;
+        }
+        .role-modal-content {
+            background: white; padding: 40px; border-radius: 12px; text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3); max-width: 400px; width: 90%;
+        }
+        .role-modal-content h3 { margin-top: 0; color: var(--primary); margin-bottom: 25px; }
+        .role-btn-group { display: flex; flex-direction: column; gap: 15px; }
     </style>
 </head>
 <body>
 
+<div id="role-modal">
+    <div class="role-modal-content">
+        <h3><i class="fa-solid fa-id-badge"></i> Pilih Akses Admin</h3>
+        <p style="font-size: 14px; color: #666; margin-bottom: 20px;">Silakan pilih mode panel yang ingin Anda kelola.</p>
+        <div class="role-btn-group">
+            <button class="btn btn-save" onclick="setRole('product')">
+                <i class="fa-solid fa-box"></i> Admin Product (products.json)
+            </button>
+            <button class="btn btn-purple" onclick="setRole('notification')">
+                <i class="fa-solid fa-bell"></i> Admin Notifikasi (notifikasi.json)
+            </button>
+        </div>
+    </div>
+</div>
+
 <div class="admin-container">
-    <h2><i class="fa-solid fa-user-shield"></i> Saleso Pacific Admin Panel</h2>
+    <h2 id="panel-title"><i class="fa-solid fa-user-shield"></i> Saleso Pacific Admin Panel</h2>
     
     <div class="config-section">
         <h4><i class="fa-solid fa-gear"></i> 1. GitHub Connection</h4>
@@ -67,45 +97,70 @@
     </div>
 
     <div id="add-form" style="display:none;">
-        <h4 id="form-title"><i class="fa-solid fa-plus-circle"></i> 2. Add New Product</h4>
+        <h4 id="form-title"><i class="fa-solid fa-plus-circle"></i> 2. Add New Entry</h4>
         <input type="hidden" id="editIndex" value="-1">
         
-        <div class="form-grid">
-            <div>
-                <label>Item Code</label>
-                <input type="text" id="pCode" placeholder="e.g., iebdoebbeej">
+        <div id="product-fields" style="display:none;">
+            <div class="form-grid">
+                <div>
+                    <label>Item Code</label>
+                    <input type="text" id="pCode" placeholder="e.g., iebdoebbeej">
+                </div>
+                <div>
+                    <label>Brand</label>
+                    <input type="text" id="pBrand" placeholder="e.g., Kyomori">
+                </div>
             </div>
-            <div>
-                <label>Brand</label>
-                <input type="text" id="pBrand" placeholder="e.g., Kyomori">
+            
+            <label>Product Name</label>
+            <input type="text" id="pName" placeholder="e.g., Gyokuho Matcha 100g">
+            
+            <div class="form-grid">
+                <div>
+                    <label>Price (RM)</label>
+                    <input type="number" step="0.01" id="pPrice" placeholder="0.00">
+                </div>
+                <div>
+                    <label>Category</label>
+                    <select id="pCat">
+                        <option value="Matcha">Matcha</option>
+                        <option value="Syrup">Syrup</option>
+                        <option value="Dairy">Dairy</option>
+                        <option value="Coffee">Coffee</option>
+                        <option value="Frozen">Frozen</option>
+                    </select>
+                </div>
             </div>
-        </div>
-        
-        <label>Product Name</label>
-        <input type="text" id="pName" placeholder="e.g., Gyokuho Matcha 100g">
-        
-        <div class="form-grid">
-            <div>
-                <label>Price (RM)</label>
-                <input type="number" step="0.01" id="pPrice" placeholder="0.00">
-            </div>
-            <div>
-                <label>Category</label>
-                <select id="pCat">
-                    <option value="Matcha">Matcha</option>
-                    <option value="Syrup">Syrup</option>
-                    <option value="Dairy">Dairy</option>
-                    <option value="Coffee">Coffee</option>
-                    <option value="Frozen">Frozen</option>
-                </select>
-            </div>
+
+            <label>Product Image URL</label>
+            <input type="text" id="pImage" placeholder="https://example.com/image.jpg">
         </div>
 
-        <label>Product Image URL</label>
-        <input type="text" id="pImage" placeholder="https://example.com/image.jpg">
+        <div id="notification-fields" style="display:none;">
+            <label>Notification Title</label>
+            <input type="text" id="nTitle" placeholder="e.g., Promo Diskon 50%!">
+            
+            <div class="form-grid">
+                <div>
+                    <label>Date</label>
+                    <input type="date" id="nDate">
+                </div>
+                <div>
+                    <label>Status / Type</label>
+                    <select id="nType">
+                        <option value="Info">Info</option>
+                        <option value="Promo">Promo</option>
+                        <option value="System">System Update</option>
+                    </select>
+                </div>
+            </div>
+
+            <label>Message Detail</label>
+            <textarea id="nMessage" rows="3" placeholder="Tulis detail notifikasi di sini..."></textarea>
+        </div>
         
         <div id="form-actions">
-            <button id="btn-add-local" class="btn btn-save" onclick="saveProduct()" style="width: 100%;">
+            <button id="btn-add-local" class="btn btn-save" onclick="saveData()" style="width: 100%;">
                 <i class="fa-solid fa-plus"></i> Add to List
             </button>
             <button id="btn-cancel-edit" class="btn" onclick="resetForm()" style="width: 100%; margin-top: 10px; display:none; background: #999; color: white;">
@@ -114,7 +169,7 @@
         </div>
     </div>
 
-    <div id="product-list-admin">
+    <div id="data-list-admin">
         <p style="text-align: center; color: #888;">Please enter configuration and pull data...</p>
     </div>
 
@@ -127,6 +182,33 @@
 <script>
     let currentData = [];
     let fileSha = ""; 
+    
+    // Konfigurasi Role
+    let activeRole = ""; // 'product' atau 'notification'
+    let targetFile = "";
+    let jsonKey = "";
+
+    function setRole(role) {
+        activeRole = role;
+        document.getElementById('role-modal').style.display = 'none';
+        
+        if(role === 'product') {
+            targetFile = 'products.json';
+            jsonKey = 'products';
+            document.getElementById('panel-title').innerHTML = '<i class="fa-solid fa-box"></i> Saleso - Admin Product';
+            document.getElementById('product-fields').style.display = 'block';
+            document.getElementById('notification-fields').style.display = 'none';
+        } else {
+            targetFile = 'notifikasi.json';
+            jsonKey = 'notifications';
+            document.getElementById('panel-title').innerHTML = '<i class="fa-solid fa-bell"></i> Saleso - Admin Notifikasi';
+            document.getElementById('product-fields').style.display = 'none';
+            document.getElementById('notification-fields').style.display = 'block';
+            
+            // Set tanggal default hari ini untuk notifikasi
+            document.getElementById('nDate').valueAsDate = new Date();
+        }
+    }
 
     async function fetchFromGitHub() {
         const user = document.getElementById('ghUser').value;
@@ -137,7 +219,7 @@
         if(!token || !user || !repo) return alert("Please fill in Token, Username, and Repo!");
 
         loader.style.display = "block";
-        const url = `https://api.github.com/repos/${user}/${repo}/contents/products.json`;
+        const url = `https://api.github.com/repos/${user}/${repo}/contents/${targetFile}`;
         
         try {
             const response = await fetch(url, {
@@ -148,83 +230,133 @@
             if(!response.ok) throw new Error(data.message || "Failed to fetch");
 
             fileSha = data.sha;
-            // Decode Base64 safely for UTF-8
             const content = JSON.parse(decodeURIComponent(escape(atob(data.content)))); 
-            currentData = content.products || [];
             
-            renderAdminProducts();
+            // Ambil data berdasarkan key JSON (products atau notifications)
+            currentData = content[jsonKey] || [];
+            
+            renderAdminData();
             document.getElementById('add-form').style.display = "block";
             document.getElementById('final-save').style.display = "block";
         } catch (e) {
-            alert("Error: " + e.message);
+            // Jika file tidak ditemukan, inisialisasi array kosong
+            if(e.message.includes("Not Found")) {
+                alert(`File ${targetFile} belum ada di GitHub. Data baru akan dibuat.`);
+                currentData = [];
+                fileSha = ""; // Kosongkan SHA agar request selanjutnya berupa CREATE bukan UPDATE
+                renderAdminData();
+                document.getElementById('add-form').style.display = "block";
+                document.getElementById('final-save').style.display = "block";
+            } else {
+                alert("Error: " + e.message);
+            }
         } finally {
             loader.style.display = "none";
         }
     }
 
-    function renderAdminProducts() {
-        const container = document.getElementById('product-list-admin');
-        container.innerHTML = `<h4>Inventory List (${currentData.length} items)</h4>`;
+    function renderAdminData() {
+        const container = document.getElementById('data-list-admin');
+        container.innerHTML = `<h4>Current List (${currentData.length} items)</h4>`;
         
-        currentData.forEach((p, index) => {
+        currentData.forEach((item, index) => {
+            let infoHtml = "";
+            
+            if (activeRole === 'product') {
+                infoHtml = `
+                    <span class="code-badge">${item.code || 'N/A'}</span> 
+                    <strong>[${item.brand}]</strong> ${item.name} <br>
+                    <small style="color:var(--primary); font-weight:bold;">RM ${parseFloat(item.price).toFixed(2)}</small> | 
+                    <small style="color:#888;">${item.category}</small>
+                `;
+            } else if (activeRole === 'notification') {
+                infoHtml = `
+                    <span class="date-badge">${item.date || 'No Date'}</span> 
+                    <strong>${item.title}</strong> <br>
+                    <small style="color:#666;">${item.message}</small> <br>
+                    <small style="color:var(--warning); font-weight:bold;">Type: ${item.type}</small>
+                `;
+            }
+
             container.innerHTML += `
-                <div class="product-item">
-                    <div class="product-info-text">
-                        <span class="code-badge">${p.code || 'N/A'}</span> 
-                        <strong>[${p.brand}]</strong> ${p.name} <br>
-                        <small style="color:var(--primary); font-weight:bold;">RM ${parseFloat(p.price).toFixed(2)}</small> | 
-                        <small style="color:#888;">${p.category}</small>
+                <div class="data-item">
+                    <div class="data-info-text">
+                        ${infoHtml}
                     </div>
                     <div class="action-btns">
-                        <i class="fa-solid fa-pen-to-square btn-edit" onclick="editProduct(${index})" title="Edit Item"></i>
-                        <i class="fa-solid fa-trash btn-delete" onclick="deleteProduct(${index})" title="Delete Item"></i>
+                        <i class="fa-solid fa-pen-to-square btn-edit" onclick="editData(${index})" title="Edit Item"></i>
+                        <i class="fa-solid fa-trash btn-delete" onclick="deleteData(${index})" title="Delete Item"></i>
                     </div>
                 </div>
             `;
         });
     }
 
-    // Logic for both Adding and Updating
-    function saveProduct() {
+    function saveData() {
         const index = parseInt(document.getElementById('editIndex').value);
-        const code = document.getElementById('pCode').value.trim();
-        const name = document.getElementById('pName').value.trim();
-        const price = document.getElementById('pPrice').value;
+        let dataObj = {};
 
-        if(!code || !name || !price) return alert("Code, Name, and Price are required!");
+        if (activeRole === 'product') {
+            const code = document.getElementById('pCode').value.trim();
+            const name = document.getElementById('pName').value.trim();
+            const price = document.getElementById('pPrice').value;
 
-        const productObj = {
-            id: index === -1 ? Date.now() : currentData[index].id,
-            code: code,
-            brand: document.getElementById('pBrand').value || "SALESO",
-            name: name,
-            price: parseFloat(price),
-            category: document.getElementById('pCat').value,
-            image: document.getElementById('pImage').value || "https://placehold.co/400"
-        };
+            if(!code || !name || !price) return alert("Code, Name, and Price are required!");
+
+            dataObj = {
+                id: index === -1 ? Date.now() : currentData[index].id,
+                code: code,
+                brand: document.getElementById('pBrand').value || "SALESO",
+                name: name,
+                price: parseFloat(price),
+                category: document.getElementById('pCat').value,
+                image: document.getElementById('pImage').value || "https://placehold.co/400"
+            };
+        } else {
+            const title = document.getElementById('nTitle').value.trim();
+            const message = document.getElementById('nMessage').value.trim();
+            const date = document.getElementById('nDate').value;
+
+            if(!title || !message) return alert("Title and Message are required!");
+
+            dataObj = {
+                id: index === -1 ? Date.now() : currentData[index].id,
+                title: title,
+                date: date,
+                type: document.getElementById('nType').value,
+                message: message
+            };
+        }
 
         if(index === -1) {
-            currentData.unshift(productObj); // Add new to top
+            currentData.unshift(dataObj); // Add new to top
         } else {
-            currentData[index] = productObj; // Update existing
+            currentData[index] = dataObj; // Update existing
         }
 
         resetForm();
-        renderAdminProducts();
+        renderAdminData();
     }
 
-    function editProduct(index) {
-        const p = currentData[index];
+    function editData(index) {
+        const item = currentData[index];
         document.getElementById('editIndex').value = index;
-        document.getElementById('pCode').value = p.code || "";
-        document.getElementById('pBrand').value = p.brand || "";
-        document.getElementById('pName').value = p.name || "";
-        document.getElementById('pPrice').value = p.price || "";
-        document.getElementById('pCat').value = p.category || "Matcha";
-        document.getElementById('pImage').value = p.image || "";
 
-        // Change UI to Edit Mode
-        document.getElementById('form-title').innerHTML = `<i class="fa-solid fa-pen-to-square" style="color:var(--warning)"></i> 2. Edit Product`;
+        if (activeRole === 'product') {
+            document.getElementById('pCode').value = item.code || "";
+            document.getElementById('pBrand').value = item.brand || "";
+            document.getElementById('pName').value = item.name || "";
+            document.getElementById('pPrice').value = item.price || "";
+            document.getElementById('pCat').value = item.category || "Matcha";
+            document.getElementById('pImage').value = item.image || "";
+        } else {
+            document.getElementById('nTitle').value = item.title || "";
+            document.getElementById('nDate').value = item.date || "";
+            document.getElementById('nType').value = item.type || "Info";
+            document.getElementById('nMessage').value = item.message || "";
+        }
+
+        document.getElementById('form-title').innerHTML = `<i class="fa-solid fa-pen-to-square" style="color:var(--warning)"></i> 2. Edit Entry`;
         document.getElementById('btn-add-local').innerHTML = `<i class="fa-solid fa-check"></i> Update Item in List`;
         document.getElementById('btn-add-local').style.background = "var(--warning)";
         document.getElementById('btn-cancel-edit').style.display = "block";
@@ -234,21 +366,28 @@
 
     function resetForm() {
         document.getElementById('editIndex').value = "-1";
+        
+        // Clear all fields
         document.getElementById('pCode').value = "";
+        document.getElementById('pBrand').value = "";
         document.getElementById('pName').value = "";
         document.getElementById('pPrice').value = "";
         document.getElementById('pImage').value = "";
         
-        document.getElementById('form-title').innerHTML = `<i class="fa-solid fa-plus-circle"></i> 2. Add New Product`;
+        document.getElementById('nTitle').value = "";
+        document.getElementById('nMessage').value = "";
+        document.getElementById('nDate').valueAsDate = new Date(); // Reset ke hari ini
+        
+        document.getElementById('form-title').innerHTML = `<i class="fa-solid fa-plus-circle"></i> 2. Add New Entry`;
         document.getElementById('btn-add-local').innerHTML = `<i class="fa-solid fa-plus"></i> Add to List`;
         document.getElementById('btn-add-local').style.background = "var(--primary)";
         document.getElementById('btn-cancel-edit').style.display = "none";
     }
 
-    function deleteProduct(index) {
+    function deleteData(index) {
         if(confirm("Are you sure you want to delete this item?")) {
             currentData.splice(index, 1);
-            renderAdminProducts();
+            renderAdminData();
         }
     }
 
@@ -257,16 +396,24 @@
         const repo = document.getElementById('ghRepo').value;
         const token = document.getElementById('ghToken').value;
 
-        if(!confirm("Warning: This will overwrite your online products.json. Proceed?")) return;
+        if(!confirm(`Warning: This will overwrite your online ${targetFile}. Proceed?`)) return;
 
-        const url = `https://api.github.com/repos/${user}/${repo}/contents/products.json`;
-        const newJsonContent = JSON.stringify({ products: currentData }, null, 2);
+        const url = `https://api.github.com/repos/${user}/${repo}/contents/${targetFile}`;
+        
+        // Bungkus array ke dalam object menggunakan key yang sesuai (products atau notifications)
+        const wrapper = {};
+        wrapper[jsonKey] = currentData;
+        const newJsonContent = JSON.stringify(wrapper, null, 2);
         
         const body = {
-            message: "Admin Update: " + new Date().toLocaleString(),
-            content: btoa(unescape(encodeURIComponent(newJsonContent))),
-            sha: fileSha
+            message: `Admin ${activeRole.toUpperCase()} Update: ` + new Date().toLocaleString(),
+            content: btoa(unescape(encodeURIComponent(newJsonContent)))
         };
+        
+        // Jika fileSha ada nilainya (file sudah exist di Github), sertakan untuk operasi UPDATE
+        if(fileSha !== "") {
+            body.sha = fileSha;
+        }
 
         try {
             const response = await fetch(url, {
