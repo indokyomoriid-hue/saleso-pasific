@@ -150,6 +150,8 @@
             border-radius: 10px;
             border: 1px solid #eee;
             transition: 0.2s;
+            cursor: pointer;
+            user-select: none;
         }
         .cat-item:hover {
             border-color: var(--primary-color);
@@ -169,6 +171,8 @@
             border-color: var(--primary-color);
             color: var(--primary-color);
         }
+
+        /* ===== PRODUCT GRID ===== */
         .product-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -180,8 +184,10 @@
             border-radius: 12px;
             overflow: hidden;
             border: 1px solid #eee;
-            transition: 0.25s;
+            transition: box-shadow 0.25s, border-color 0.25s;
             cursor: pointer;
+            display: flex;
+            flex-direction: column;
         }
         .product-card:hover {
             box-shadow: 0 6px 15px rgba(0,0,0,0.1);
@@ -192,9 +198,22 @@
             height: 200px;
             object-fit: cover;
             background: #f5f5f5;
+            /* Placeholder bg while loading */
+            background-image: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        .product-img.loaded {
+            animation: none;
+            background-image: none;
+        }
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
         .product-info {
             padding: 12px;
+            flex: 1;
         }
         .brand-tag {
             font-size: 10px;
@@ -227,15 +246,76 @@
             padding: 10px;
             font-size: 13px;
             font-weight: 600;
-            border-radius: 8px;
+            border-radius: 0 0 8px 8px;
             cursor: pointer;
+            transition: background 0.2s;
+            margin-top: auto;
+        }
+        .btn-add:hover:not(:disabled) {
+            background: #b8860b;
         }
         .btn-add:disabled {
             background: #ccc;
             cursor: not-allowed;
         }
 
-        /* FLOATING CART */
+        /* ===== RESULTS INFO BAR ===== */
+        .results-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            margin-bottom: 4px;
+            font-size: 13px;
+            color: #666;
+        }
+        .results-count {
+            font-weight: 600;
+        }
+
+        /* ===== PAGINATION ===== */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+        .page-btn {
+            min-width: 36px;
+            height: 36px;
+            padding: 0 10px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #333;
+        }
+        .page-btn:hover:not(:disabled) {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+        .page-btn.active {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+        .page-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        .page-ellipsis {
+            font-size: 14px;
+            color: #999;
+            padding: 0 4px;
+            line-height: 36px;
+        }
+
+        /* ===== FLOATING CART ===== */
         .floating-cart {
             position: fixed;
             bottom: 18px;
@@ -253,6 +333,7 @@
             font-weight: 700;
             font-size: 14.5px;
             cursor: pointer;
+            border: none;
         }
         .float-badge {
             background: var(--primary-color);
@@ -262,7 +343,7 @@
             font-size: 12px;
         }
 
-        /* PRODUCT DETAIL POPUP */
+        /* ===== PRODUCT DETAIL POPUP ===== */
         .product-modal {
             display: none;
             position: fixed;
@@ -298,6 +379,7 @@
             font-size: 22px;
             cursor: pointer;
             z-index: 4100;
+            border: none;
         }
         .modal-image {
             width: 100%;
@@ -327,7 +409,7 @@
             margin-bottom: 20px;
         }
 
-        /* Cart Modal */
+        /* ===== CART MODAL ===== */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -373,6 +455,53 @@
             font-size: 16px;
             font-weight: bold;
             margin-top: 10px;
+            cursor: pointer;
+        }
+
+        /* ===== SKELETON LOADING ===== */
+        .skeleton-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #eee;
+        }
+        .skeleton-img {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        .skeleton-text {
+            padding: 12px;
+        }
+        .skeleton-line {
+            height: 12px;
+            border-radius: 6px;
+            background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            margin-bottom: 10px;
+        }
+        .skeleton-line.short { width: 40%; }
+        .skeleton-line.medium { width: 70%; }
+        .skeleton-line.long { width: 90%; }
+
+        /* ===== EMPTY STATE ===== */
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 16px;
+            color: #ddd;
+            display: block;
+        }
+        .empty-state p {
+            font-size: 15px;
         }
     </style>
 </head>
@@ -398,8 +527,8 @@
                 </div>
             </div>
             <div class="search-box">
-                <input type="text" id="searchInput" onkeyup="filterBySearch()" placeholder="Search from 700+ F&B ingredients...">
-                <button><i class="fa-solid fa-magnifying-glass"></i></button>
+                <input type="text" id="searchInput" placeholder="Search from 700+ F&B ingredients...">
+                <button onclick="triggerSearch()"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
         </div>
     </header>
@@ -439,20 +568,26 @@
             </div>
         </section>
 
-        <h2 class="section-title" id="txt-catalog-title" style="margin-top: 24px;">Product Catalog</h2>
+        <div class="results-bar">
+            <h2 class="section-title" id="txt-catalog-title" style="margin:0;">Product Catalog</h2>
+            <span class="results-count" id="results-count"></span>
+        </div>
+
         <div class="product-grid" id="product-list"></div>
+        <div class="pagination" id="pagination"></div>
     </main>
 
+    <!-- Floating Cart -->
     <button class="floating-cart" id="floatingCart" onclick="toggleModal()">
         <i class="fa-solid fa-cart-shopping"></i>
         <span id="txt-float-cart">View Cart</span>
         <span class="float-badge" id="float-count">0</span>
     </button>
 
-    <!-- PRODUCT DETAIL POPUP -->
+    <!-- Product Detail Popup -->
     <div class="product-modal" id="productModal">
         <div class="product-modal-content">
-            <div class="modal-close" onclick="closeProductModal()">×</div>
+            <button class="modal-close" onclick="closeProductModal()">×</button>
             <div id="modalProductContent"></div>
         </div>
     </div>
@@ -483,290 +618,534 @@
     </div>
 
     <script>
-        const translations = {
-            en: { /* sama seperti kode kamu */ 
-                searchPlaceholder: "Search from 700+ F&B ingredients...",
-                catTitle: "Main Category",
-                catAll: "All",
-                catMatcha: "Matcha",
-                catSyrup: "Syrup",
-                catSauce: "Sauce",
-                catDairy: "Dairy",
-                catFood: "Food",
-                catBeverage: "Beverage",
-                catalogTitle: "Product Catalog",
-                btnAdd: "Add to Cart",
-                floatCart: "View Cart",
-                modalTitle: "Order Summary",
-                lblBizName: "Business Name / Shop",
-                lblBizAddr: "Delivery Address",
-                btnSend: "Send via WhatsApp",
-                emptyCart: "Your cart is empty.",
-                estTotal: "Total Estimate",
-                waHeader: "Hello Saleso Pacific, I would like to order:",
-                waBiz: "Business",
-                waAddr: "Address",
-                waList: "Order List"
-            },
-            ms: { /* sama */ 
-                searchPlaceholder: "Cari dari 700+ bahan F&B...",
-                catTitle: "Kategori Utama",
-                catAll: "Semua",
-                catMatcha: "Matcha",
-                catSyrup: "Sirap",
-                catSauce: "Sos",
-                catDairy: "Tenusu",
-                catFood: "Makanan",
-                catBeverage: "Minuman",
-                catalogTitle: "Katalog Produk",
-                btnAdd: "Tambah ke Bakul",
-                floatCart: "Lihat Bakul",
-                modalTitle: "Ringkasan Pesanan",
-                lblBizName: "Nama Bisnes / Kedai",
-                lblBizAddr: "Alamat Penghantaran",
-                btnSend: "Hantar melalui WhatsApp",
-                emptyCart: "Bakul anda kosong.",
-                estTotal: "Anggaran Total",
-                waHeader: "Helo Saleso Pacific, saya ingin memesan:",
-                waBiz: "Bisnes",
-                waAddr: "Alamat",
-                waList: "Senarai Pesanan"
-            },
-            zh: { /* sama */ 
-                searchPlaceholder: "搜索 700+ 餐饮原料...",
-                catTitle: "主要类别",
-                catAll: "全部商品",
-                catMatcha: "抹茶",
-                catSyrup: "糖浆",
-                catSauce: "酱料",
-                catDairy: "乳制品",
-                catFood: "食品",
-                catBeverage: "饮料",
-                catalogTitle: "产品目录",
-                btnAdd: "加入购物车",
-                floatCart: "查看购物车",
-                modalTitle: "订单摘要",
-                lblBizName: "店铺/公司名称",
-                lblBizAddr: "送货地址",
-                btnSend: "通过 WhatsApp 发送",
-                emptyCart: "购物车是空的。",
-                estTotal: "预估总额",
-                waHeader: "您好 Saleso Pacific，我想订购以下商品：",
-                waBiz: "商家名称",
-                waAddr: "地址",
-                waList: "订单详情"
-            }
-        };
-
-        let currentLang = 'en';
-        let allProducts = [];
-        let currentProducts = [];
-        let cart = {};
-        let currentViewedProduct = null;
-
-        function setLanguage(lang, btn) {
-            currentLang = lang;
-            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-            if (btn) btn.classList.add('active');
-            document.getElementById('searchInput').placeholder = translations[lang].searchPlaceholder;
-            document.getElementById('txt-cat-title').innerText = translations[lang].catTitle;
-            document.getElementById('txt-catalog-title').innerText = translations[lang].catalogTitle;
-            document.getElementById('txt-float-cart').innerText = translations[lang].floatCart;
-            document.getElementById('txt-modal-title').innerText = translations[lang].modalTitle;
-            document.getElementById('lbl-biz-name').innerText = translations[lang].lblBizName;
-            document.getElementById('lbl-biz-addr').innerText = translations[lang].lblBizAddr;
-            document.getElementById('txt-btn-send').innerText = translations[lang].btnSend;
-            document.getElementById('cat-all').innerText = translations[lang].catAll;
-            document.getElementById('cat-matcha').innerText = translations[lang].catMatcha;
-            document.getElementById('cat-syrup').innerText = translations[lang].catSyrup;
-            document.getElementById('cat-sauce').innerText = translations[lang].catSauce;
-            document.getElementById('cat-dairy').innerText = translations[lang].catDairy;
-            document.getElementById('cat-food').innerText = translations[lang].catFood;
-            document.getElementById('cat-beverage').innerText = translations[lang].catBeverage;
-            displayProducts(currentProducts);
+    // =============================================
+    //  TRANSLATIONS
+    // =============================================
+    const translations = {
+        en: {
+            searchPlaceholder: "Search from 700+ F&B ingredients...",
+            catTitle: "Main Category",
+            catAll: "All", catMatcha: "Matcha", catSyrup: "Syrup",
+            catSauce: "Sauce", catDairy: "Dairy", catFood: "Food", catBeverage: "Beverage",
+            catalogTitle: "Product Catalog",
+            btnAdd: "Add to Cart", floatCart: "View Cart",
+            modalTitle: "Order Summary", lblBizName: "Business Name / Shop",
+            lblBizAddr: "Delivery Address", btnSend: "Send via WhatsApp",
+            emptyCart: "Your cart is empty.", estTotal: "Total Estimate",
+            waHeader: "Hello Saleso Pacific, I would like to order:",
+            waBiz: "Business", waAddr: "Address", waList: "Order List",
+            resultsFound: "products found", noProducts: "No products found."
+        },
+        ms: {
+            searchPlaceholder: "Cari dari 700+ bahan F&B...",
+            catTitle: "Kategori Utama",
+            catAll: "Semua", catMatcha: "Matcha", catSyrup: "Sirap",
+            catSauce: "Sos", catDairy: "Tenusu", catFood: "Makanan", catBeverage: "Minuman",
+            catalogTitle: "Katalog Produk",
+            btnAdd: "Tambah ke Bakul", floatCart: "Lihat Bakul",
+            modalTitle: "Ringkasan Pesanan", lblBizName: "Nama Bisnes / Kedai",
+            lblBizAddr: "Alamat Penghantaran", btnSend: "Hantar melalui WhatsApp",
+            emptyCart: "Bakul anda kosong.", estTotal: "Anggaran Total",
+            waHeader: "Helo Saleso Pacific, saya ingin memesan:",
+            waBiz: "Bisnes", waAddr: "Alamat", waList: "Senarai Pesanan",
+            resultsFound: "produk ditemui", noProducts: "Tiada produk ditemui."
+        },
+        zh: {
+            searchPlaceholder: "搜索 700+ 餐饮原料...",
+            catTitle: "主要类别",
+            catAll: "全部商品", catMatcha: "抹茶", catSyrup: "糖浆",
+            catSauce: "酱料", catDairy: "乳制品", catFood: "食品", catBeverage: "饮料",
+            catalogTitle: "产品目录",
+            btnAdd: "加入购物车", floatCart: "查看购物车",
+            modalTitle: "订单摘要", lblBizName: "店铺/公司名称",
+            lblBizAddr: "送货地址", btnSend: "通过 WhatsApp 发送",
+            emptyCart: "购物车是空的。", estTotal: "预估总额",
+            waHeader: "您好 Saleso Pacific，我想订购以下商品：",
+            waBiz: "商家名称", waAddr: "地址", waList: "订单详情",
+            resultsFound: "件商品", noProducts: "未找到产品。"
         }
+    };
 
-        async function loadProducts() {
-            try {
-                const response = await fetch('products.json');
-                if (!response.ok) throw new Error("products.json not found");
-                const data = await response.json();
-                allProducts = data.products || data;
-                currentProducts = allProducts;
-                displayProducts(currentProducts);
-            } catch (error) {
-                console.error("Error loading products:", error);
-                document.getElementById('product-list').innerHTML = `<p style='padding:40px; color:#d32f2f; text-align:center;'>Error loading products.json</p>`;
-            }
+    // =============================================
+    //  STATE
+    // =============================================
+    let currentLang   = 'en';
+    let allProducts   = [];
+    let currentProducts = [];
+    let cart          = {};
+    let currentViewedProduct = null;
+
+    // Pagination state
+    const PAGE_SIZE   = 20;
+    let currentPage   = 1;
+
+    // =============================================
+    //  LANGUAGE
+    // =============================================
+    function setLanguage(lang, btn) {
+        currentLang = lang;
+        document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+        if (btn) btn.classList.add('active');
+        const t = translations[lang];
+        document.getElementById('searchInput').placeholder = t.searchPlaceholder;
+        document.getElementById('txt-cat-title').innerText  = t.catTitle;
+        document.getElementById('txt-catalog-title').innerText = t.catalogTitle;
+        document.getElementById('txt-float-cart').innerText = t.floatCart;
+        document.getElementById('txt-modal-title').innerText = t.modalTitle;
+        document.getElementById('lbl-biz-name').innerText   = t.lblBizName;
+        document.getElementById('lbl-biz-addr').innerText   = t.lblBizAddr;
+        document.getElementById('txt-btn-send').innerText   = t.btnSend;
+        document.getElementById('cat-all').innerText        = t.catAll;
+        document.getElementById('cat-matcha').innerText     = t.catMatcha;
+        document.getElementById('cat-syrup').innerText      = t.catSyrup;
+        document.getElementById('cat-sauce').innerText      = t.catSauce;
+        document.getElementById('cat-dairy').innerText      = t.catDairy;
+        document.getElementById('cat-food').innerText       = t.catFood;
+        document.getElementById('cat-beverage').innerText   = t.catBeverage;
+        // Re-render page with new lang
+        renderPage();
+    }
+
+    // =============================================
+    //  LOAD PRODUCTS
+    // =============================================
+    async function loadProducts() {
+        showSkeletons();
+        try {
+            const response = await fetch('products.json');
+            if (!response.ok) throw new Error("products.json not found");
+            const data = await response.json();
+            allProducts     = data.products || data;
+            currentProducts = allProducts;
+            currentPage     = 1;
+            renderPage();
+        } catch (error) {
+            console.error("Error loading products:", error);
+            document.getElementById('product-list').innerHTML =
+                `<p style='grid-column:1/-1;padding:40px;color:#d32f2f;text-align:center;'>Error loading products.json</p>`;
         }
+    }
 
-        function displayProducts(products) {
-            const list = document.getElementById('product-list');
-            if (!products || products.length === 0) {
-                list.innerHTML = "<p style='padding:30px; text-align:center; color:#666;'>No products found.</p>";
-                return;
-            }
-            list.innerHTML = products.map(p => {
-                const isAdded = cart[p.name] !== undefined;
-                const itemCode = p.code ? `${p.code} - ` : "";
-                return `
-                <div class="product-card" onclick="showProductDetail(${JSON.stringify(p).replace(/"/g, '&quot;')})">
-                    <img src="${p.image}" class="product-img" loading="lazy" decoding="async" width="400" height="400" onerror="this.src='https://placehold.co/400x400?text=${encodeURIComponent(p.name)}'">
-                    <div class="product-info">
-                        <span class="brand-tag">${p.brand || ''}</span>
-                        <h4 class="product-name">${itemCode}${p.name}</h4>
-                        <p class="price">RM ${p.price.toFixed(2)}</p>
-                    </div>
-                    <button class="btn-add" ${isAdded ? 'disabled' : ''} onclick="addToCart('${p.name.replace(/'/g, "\\'")}', ${p.price}); event.stopImmediatePropagation();">
-                        ${isAdded ? '<i class="fa-solid fa-check"></i> ' : ''}${translations[currentLang].btnAdd}
-                    </button>
-                </div>`;
-            }).join('');
-        }
-
-        // ================== POPUP DETAIL PRODUK ==================
-        function showProductDetail(product) {
-            currentViewedProduct = product;
-            const modal = document.getElementById('productModal');
-            const content = document.getElementById('modalProductContent');
-
-            const itemCode = product.code ? `${product.code} - ` : "";
-
-            content.innerHTML = `
-                <img src="${product.image}" class="modal-image" onerror="this.src='https://placehold.co/600x600?text=${encodeURIComponent(product.name)}'">
-                <div class="modal-info">
-                    <div class="modal-brand">${product.brand || ''}</div>
-                    <div class="modal-name">${itemCode}${product.name}</div>
-                    <div class="modal-price">RM ${product.price.toFixed(2)}</div>
-                    <button class="btn-add" style="width:100%; padding:14px;" ${cart[product.name] ? 'disabled' : ''} 
-                            onclick="addToCartFromPopup(); event.stopImmediatePropagation();">
-                        ${cart[product.name] ? '<i class="fa-solid fa-check"></i> Added to Cart' : translations[currentLang].btnAdd}
-                    </button>
+    function showSkeletons() {
+        const list = document.getElementById('product-list');
+        let html = '';
+        for (let i = 0; i < 6; i++) {
+            html += `<div class="skeleton-card">
+                <div class="skeleton-img"></div>
+                <div class="skeleton-text">
+                    <div class="skeleton-line short"></div>
+                    <div class="skeleton-line long"></div>
+                    <div class="skeleton-line medium"></div>
+                    <div class="skeleton-line short"></div>
                 </div>
-            `;
-            modal.style.display = 'flex';
-        }
-
-        function closeProductModal() {
-            document.getElementById('productModal').style.display = 'none';
-        }
-
-        function addToCartFromPopup() {
-            if (currentViewedProduct) {
-                addToCart(currentViewedProduct.name, currentViewedProduct.price);
-                showProductDetail(currentViewedProduct);
-            }
-        }
-
-        // ================== FUNGSI LAMA (TIDAK DIUBAH) ==================
-        function filterByCategory(category, element) {
-            document.querySelectorAll('.cat-item').forEach(el => el.classList.remove('active'));
-            element.classList.add('active');
-            currentProducts = category === 'All' ? allProducts : allProducts.filter(p => p.category === category);
-            displayProducts(currentProducts);
-        }
-
-        function filterBySearch() {
-            const q = document.getElementById('searchInput').value.toLowerCase().trim();
-            currentProducts = allProducts.filter(p =>
-                p.name.toLowerCase().includes(q) || (p.brand && p.brand.toLowerCase().includes(q))
-            );
-            displayProducts(currentProducts);
-        }
-
-        function addToCart(name, price) {
-            if (!cart[name]) {
-                cart[name] = { price, qty: 1 };
-                updateBadge();
-                displayProducts(currentProducts);
-            }
-        }
-
-        function changeQty(name, amount) {
-            if (cart[name]) {
-                cart[name].qty += amount;
-                if (cart[name].qty <= 0) delete cart[name];
-                updateBadge();
-                renderCart();
-                displayProducts(currentProducts);
-                if (Object.keys(cart).length === 0) toggleModal();
-            }
-        }
-
-        function updateBadge() {
-            const total = Object.keys(cart).length;
-            document.getElementById('cart-count').innerText = total;
-            document.getElementById('float-count').innerText = total;
-            document.getElementById('floatingCart').classList.toggle('show', total > 0);
-        }
-
-        function renderCart() {
-            const summary = document.getElementById('cart-summary');
-            let html = "";
-            let grandTotal = 0;
-            for (let item in cart) {
-                let sub = cart[item].price * cart[item].qty;
-                grandTotal += sub;
-                html += `
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; padding-bottom:12px; border-bottom:1px solid #eee;">
-                    <div style="flex:1;">
-                        <div style="font-weight:600;">${item}</div>
-                        <div style="color:#777; font-size:13px;">RM ${cart[item].price.toFixed(2)}</div>
-                    </div>
-                    <div style="display:flex; align-items:center; gap:8px;">
-                        <button onclick="changeQty('${item.replace(/'/g, "\\'")}', -1)" style="width:30px;height:30px;border:none;background:var(--primary-color);color:white;border-radius:6px;">−</button>
-                        <span style="font-weight:bold; min-width:24px; text-align:center;">${cart[item].qty}</span>
-                        <button onclick="changeQty('${item.replace(/'/g, "\\'")}', 1)" style="width:30px;height:30px;border:none;background:var(--primary-color);color:white;border-radius:6px;">+</button>
-                    </div>
-                    <div style="font-weight:bold; width:85px; text-align:right;">RM ${sub.toFixed(2)}</div>
-                </div>`;
-            }
-            html += `
-            <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:17px; color:var(--price-color); margin-top:15px; padding-top:10px; border-top:2px solid #eee;">
-                <span>${translations[currentLang].estTotal}</span>
-                <span>RM ${grandTotal.toFixed(2)}</span>
             </div>`;
-            summary.innerHTML = html || `<p style="text-align:center; color:#888; padding:30px 0;">${translations[currentLang].emptyCart}</p>`;
+        }
+        list.innerHTML = html;
+        document.getElementById('pagination').innerHTML = '';
+        document.getElementById('results-count').innerText = '';
+    }
+
+    // =============================================
+    //  RENDER — PAGINATED (core performance fix)
+    // =============================================
+    function renderPage() {
+        const list = document.getElementById('product-list');
+        const t    = translations[currentLang];
+
+        if (!currentProducts || currentProducts.length === 0) {
+            list.innerHTML = `<div class="empty-state">
+                <i class="fa-solid fa-box-open"></i>
+                <p>${t.noProducts}</p>
+            </div>`;
+            document.getElementById('pagination').innerHTML = '';
+            document.getElementById('results-count').innerText = '';
+            return;
         }
 
-        function toggleModal() {
-            const modal = document.getElementById('modal');
-            if (Object.keys(cart).length === 0 && modal.style.display !== 'flex') {
-                alert(translations[currentLang].emptyCart);
-                return;
-            }
-            modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
-            if (modal.style.display === 'flex') renderCart();
-        }
+        // Update results count
+        document.getElementById('results-count').innerText =
+            `${currentProducts.length} ${t.resultsFound}`;
 
-        function sendToWA(e) {
-            e.preventDefault();
-            const t = translations[currentLang];
-            let msg = `*${t.waHeader}*\n\n`;
-            msg += `*${t.waBiz}:* ${document.getElementById('bizName').value}\n`;
-            msg += `*${t.waAddr}:* ${document.getElementById('bizAddress').value}\n\n`;
-            msg += `*${t.waList}:*\n`;
-            let total = 0;
-            for (let itemName in cart) {
-                const productData = allProducts.find(p => p.name === itemName);
-                const itemCode = productData && productData.code ? `[${productData.code}] ` : "";
-                msg += `- ${cart[itemName].qty}x ${itemCode}${itemName}\n`;
-                total += cart[itemName].price * cart[itemName].qty;
-            }
-            msg += `\nTotal : RM ${total.toFixed(2)}\n`;
-            msg += `\n_MOQ (Minimum Order Quantity) :_`;
-            window.open(`https://wa.me/601115008803?text=${encodeURIComponent(msg)}`, '_blank');
-        }
+        // Slice for current page
+        const totalPages = Math.ceil(currentProducts.length / PAGE_SIZE);
+        // Guard page bounds
+        if (currentPage > totalPages) currentPage = totalPages;
+        if (currentPage < 1) currentPage = 1;
 
-        // Close popup ketika klik di luar
-        document.getElementById('productModal').addEventListener('click', function(e) {
-            if (e.target === this) closeProductModal();
+        const start   = (currentPage - 1) * PAGE_SIZE;
+        const end     = Math.min(start + PAGE_SIZE, currentProducts.length);
+        const pageProducts = currentProducts.slice(start, end);
+
+        // Build DOM using DocumentFragment (batch insert — much faster)
+        const fragment = document.createDocumentFragment();
+        pageProducts.forEach(p => {
+            const card = createProductCard(p);
+            fragment.appendChild(card);
         });
 
-        window.onload = () => {
-            loadProducts();
-            setLanguage('en');
+        list.innerHTML = '';
+        list.appendChild(fragment);
+
+        // Scroll to top of product list smoothly
+        list.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        // Render pagination controls
+        renderPagination(totalPages);
+    }
+
+    // =============================================
+    //  CREATE PRODUCT CARD (DOM element, not string)
+    // =============================================
+    function createProductCard(p) {
+        const isAdded  = cart[p.name] !== undefined;
+        const itemCode = p.code ? `${p.code} - ` : '';
+
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.addEventListener('click', () => showProductDetail(p));
+
+        // Image with lazy load + shimmer
+        const img = document.createElement('img');
+        img.className  = 'product-img';
+        img.alt        = p.name;
+        img.loading    = 'lazy';
+        img.decoding   = 'async';
+        img.width      = 400;
+        img.height     = 400;
+        // Use data-src for images below fold; observe them
+        img.dataset.src = p.image;
+        img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'; // 1px placeholder
+        img.addEventListener('load', () => img.classList.add('loaded'));
+        img.onerror = () => {
+            img.src = `https://placehold.co/400x400?text=${encodeURIComponent(p.name)}`;
+            img.classList.add('loaded');
         };
+        lazyObserver.observe(img);
+
+        const info = document.createElement('div');
+        info.className = 'product-info';
+        info.innerHTML = `
+            <span class="brand-tag">${escapeHtml(p.brand || '')}</span>
+            <h4 class="product-name">${escapeHtml(itemCode + p.name)}</h4>
+            <p class="price">RM ${p.price.toFixed(2)}</p>`;
+
+        const btn = document.createElement('button');
+        btn.className = 'btn-add';
+        btn.disabled  = isAdded;
+        btn.innerHTML = isAdded
+            ? '<i class="fa-solid fa-check"></i> ' + translations[currentLang].btnAdd
+            : translations[currentLang].btnAdd;
+        btn.addEventListener('click', e => {
+            e.stopImmediatePropagation();
+            addToCart(p.name, p.price);
+        });
+
+        card.appendChild(img);
+        card.appendChild(info);
+        card.appendChild(btn);
+        return card;
+    }
+
+    // =============================================
+    //  LAZY IMAGE OBSERVER
+    // =============================================
+    const lazyObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                if (img.dataset.src) {
+                    img.src = img.dataset.src;
+                    delete img.dataset.src;
+                }
+                lazyObserver.unobserve(img);
+            }
+        });
+    }, { rootMargin: '200px' });
+
+    // =============================================
+    //  PAGINATION CONTROLS
+    // =============================================
+    function renderPagination(totalPages) {
+        const container = document.getElementById('pagination');
+        if (totalPages <= 1) {
+            container.innerHTML = '';
+            return;
+        }
+
+        const pages = getPaginationRange(currentPage, totalPages);
+        let html = '';
+
+        html += `<button class="page-btn" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>`;
+
+        pages.forEach(p => {
+            if (p === '...') {
+                html += `<span class="page-ellipsis">…</span>`;
+            } else {
+                html += `<button class="page-btn ${p === currentPage ? 'active' : ''}" onclick="goToPage(${p})">${p}</button>`;
+            }
+        });
+
+        html += `<button class="page-btn" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>`;
+
+        container.innerHTML = html;
+    }
+
+    // Smart pagination range: always show first, last, current ±1, with ellipsis
+    function getPaginationRange(current, total) {
+        if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
+        const range = [];
+        const delta = 1; // pages around current
+
+        const left  = Math.max(2, current - delta);
+        const right = Math.min(total - 1, current + delta);
+
+        range.push(1);
+        if (left > 2) range.push('...');
+        for (let i = left; i <= right; i++) range.push(i);
+        if (right < total - 1) range.push('...');
+        range.push(total);
+
+        return range;
+    }
+
+    function goToPage(page) {
+        const totalPages = Math.ceil(currentProducts.length / PAGE_SIZE);
+        if (page < 1 || page > totalPages) return;
+        currentPage = page;
+        renderPage();
+    }
+
+    // =============================================
+    //  FILTER & SEARCH (with debounce)
+    // =============================================
+    let searchDebounceTimer = null;
+
+    document.getElementById('searchInput').addEventListener('input', () => {
+        clearTimeout(searchDebounceTimer);
+        searchDebounceTimer = setTimeout(applyFilters, 280); // 280ms debounce
+    });
+
+    document.getElementById('searchInput').addEventListener('keydown', e => {
+        if (e.key === 'Enter') {
+            clearTimeout(searchDebounceTimer);
+            applyFilters();
+        }
+    });
+
+    function triggerSearch() {
+        clearTimeout(searchDebounceTimer);
+        applyFilters();
+    }
+
+    let activeCategory = 'All';
+
+    function filterByCategory(category, element) {
+        document.querySelectorAll('.cat-item').forEach(el => el.classList.remove('active'));
+        element.classList.add('active');
+        activeCategory = category;
+        applyFilters();
+    }
+
+    function applyFilters() {
+        const q = document.getElementById('searchInput').value.toLowerCase().trim();
+        let filtered = activeCategory === 'All'
+            ? allProducts
+            : allProducts.filter(p => p.category === activeCategory);
+
+        if (q) {
+            filtered = filtered.filter(p =>
+                p.name.toLowerCase().includes(q) ||
+                (p.brand && p.brand.toLowerCase().includes(q)) ||
+                (p.code && p.code.toLowerCase().includes(q))
+            );
+        }
+
+        currentProducts = filtered;
+        currentPage = 1;
+        renderPage();
+    }
+
+    // =============================================
+    //  CART
+    // =============================================
+    function addToCart(name, price) {
+        if (!cart[name]) {
+            cart[name] = { price, qty: 1 };
+            updateBadge();
+            // Only update the specific card buttons (no full re-render)
+            updateCardButtons(name, true);
+        }
+    }
+
+    function changeQty(name, amount) {
+        if (cart[name]) {
+            cart[name].qty += amount;
+            if (cart[name].qty <= 0) {
+                delete cart[name];
+                updateCardButtons(name, false);
+            }
+            updateBadge();
+            renderCart();
+            if (Object.keys(cart).length === 0) toggleModal();
+        }
+    }
+
+    // Update only the affected buttons without re-rendering the whole list
+    function updateCardButtons(name, added) {
+        document.querySelectorAll('.product-card').forEach(card => {
+            const nameEl = card.querySelector('.product-name');
+            if (!nameEl) return;
+            // Check if this card's name matches (strip code prefix if any)
+            const fullText = nameEl.innerText;
+            if (!fullText.includes(name)) return;
+            const btn = card.querySelector('.btn-add');
+            if (!btn) return;
+            btn.disabled = added;
+            btn.innerHTML = added
+                ? `<i class="fa-solid fa-check"></i> ${translations[currentLang].btnAdd}`
+                : translations[currentLang].btnAdd;
+        });
+    }
+
+    function updateBadge() {
+        const total = Object.keys(cart).length;
+        document.getElementById('cart-count').innerText = total;
+        document.getElementById('float-count').innerText = total;
+    }
+
+    function renderCart() {
+        const summary = document.getElementById('cart-summary');
+        const t = translations[currentLang];
+        let html = '';
+        let grandTotal = 0;
+
+        for (let item in cart) {
+            const sub = cart[item].price * cart[item].qty;
+            grandTotal += sub;
+            const safeItem = item.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+            html += `
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #eee;">
+                <div style="flex:1;">
+                    <div style="font-weight:600;">${escapeHtml(item)}</div>
+                    <div style="color:#777;font-size:13px;">RM ${cart[item].price.toFixed(2)}</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <button onclick="changeQty('${safeItem}',-1)" style="width:30px;height:30px;border:none;background:var(--primary-color);color:white;border-radius:6px;cursor:pointer;">−</button>
+                    <span style="font-weight:bold;min-width:24px;text-align:center;">${cart[item].qty}</span>
+                    <button onclick="changeQty('${safeItem}',1)" style="width:30px;height:30px;border:none;background:var(--primary-color);color:white;border-radius:6px;cursor:pointer;">+</button>
+                </div>
+                <div style="font-weight:bold;width:85px;text-align:right;">RM ${sub.toFixed(2)}</div>
+            </div>`;
+        }
+
+        html += `
+        <div style="display:flex;justify-content:space-between;font-weight:bold;font-size:17px;color:var(--price-color);margin-top:15px;padding-top:10px;border-top:2px solid #eee;">
+            <span>${t.estTotal}</span>
+            <span>RM ${grandTotal.toFixed(2)}</span>
+        </div>`;
+
+        summary.innerHTML = html || `<p style="text-align:center;color:#888;padding:30px 0;">${t.emptyCart}</p>`;
+    }
+
+    function toggleModal() {
+        const modal = document.getElementById('modal');
+        const t = translations[currentLang];
+        if (Object.keys(cart).length === 0 && modal.style.display !== 'flex') {
+            alert(t.emptyCart);
+            return;
+        }
+        modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+        if (modal.style.display === 'flex') renderCart();
+    }
+
+    // =============================================
+    //  PRODUCT DETAIL POPUP
+    // =============================================
+    function showProductDetail(product) {
+        currentViewedProduct = product;
+        const modal   = document.getElementById('productModal');
+        const content = document.getElementById('modalProductContent');
+        const itemCode = product.code ? `${product.code} - ` : '';
+
+        content.innerHTML = `
+            <img src="${product.image}" class="modal-image"
+                 onerror="this.src='https://placehold.co/600x600?text=${encodeURIComponent(product.name)}'">
+            <div class="modal-info">
+                <div class="modal-brand">${escapeHtml(product.brand || '')}</div>
+                <div class="modal-name">${escapeHtml(itemCode + product.name)}</div>
+                <div class="modal-price">RM ${product.price.toFixed(2)}</div>
+                <button class="btn-add" style="width:100%;padding:14px;border-radius:8px;"
+                        ${cart[product.name] ? 'disabled' : ''}
+                        onclick="addToCartFromPopup(); event.stopImmediatePropagation();">
+                    ${cart[product.name]
+                        ? '<i class="fa-solid fa-check"></i> Added to Cart'
+                        : translations[currentLang].btnAdd}
+                </button>
+            </div>`;
+        modal.style.display = 'flex';
+    }
+
+    function closeProductModal() {
+        document.getElementById('productModal').style.display = 'none';
+    }
+
+    function addToCartFromPopup() {
+        if (currentViewedProduct) {
+            addToCart(currentViewedProduct.name, currentViewedProduct.price);
+            showProductDetail(currentViewedProduct); // refresh popup button state
+        }
+    }
+
+    // =============================================
+    //  WHATSAPP SEND
+    // =============================================
+    function sendToWA(e) {
+        e.preventDefault();
+        const t = translations[currentLang];
+        let msg = `*${t.waHeader}*\n\n`;
+        msg += `*${t.waBiz}:* ${document.getElementById('bizName').value}\n`;
+        msg += `*${t.waAddr}:* ${document.getElementById('bizAddress').value}\n\n`;
+        msg += `*${t.waList}:*\n`;
+        let total = 0;
+        for (let itemName in cart) {
+            const productData = allProducts.find(p => p.name === itemName);
+            const itemCode = productData && productData.code ? `[${productData.code}] ` : '';
+            msg += `- ${cart[itemName].qty}x ${itemCode}${itemName}\n`;
+            total += cart[itemName].price * cart[itemName].qty;
+        }
+        msg += `\nTotal : RM ${total.toFixed(2)}\n`;
+        msg += `\n_MOQ (Minimum Order Quantity) :_`;
+        window.open(`https://wa.me/601115008803?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    // =============================================
+    //  UTILITIES
+    // =============================================
+    function escapeHtml(str) {
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+
+    // Close product modal on backdrop click
+    document.getElementById('productModal').addEventListener('click', function(e) {
+        if (e.target === this) closeProductModal();
+    });
+
+    // =============================================
+    //  INIT
+    // =============================================
+    window.onload = () => {
+        setLanguage('en');
+        loadProducts();
+    };
     </script>
 </body>
 </html>
