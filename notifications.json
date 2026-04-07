@@ -1,13 +1,6 @@
 {
   "notifications": [
     {
-      "id": 1712493144000,
-      "title": "Selamat Hari Raya!",
-      "date": "2026-04-10",
-      "type": "Promo",
-      "message": "Diskon Hari Raya 2026! Dapatkan potongan harga spesial untuk semua produk kami."
-    },
-    {
       "id": 1712493144005,
       "title": "Sistem Update",
       "date": "2026-04-07",
