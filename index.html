@@ -1254,8 +1254,8 @@
     // =============================================
     async function loadNotifications() {
         try {
-            const res = await fetch('notification.json');
-            if (!res.ok) throw new Error('notification.json not found');
+            const res = await fetch('notifications.json');
+            if (!res.ok) throw new Error('notifications.json not found');
             const data = await res.json();
             notifications = (data.notifications || data).map(n => ({ ...n, read: false }));
             renderNotifications();
