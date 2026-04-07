@@ -1254,7 +1254,6 @@
             msg += `- ${cart[itemName].qty}x ${itemCode}${itemName}\n`;
             total += cart[itemName].price * cart[itemName].qty;
         }
-        msg += `\nTotal : RM ${total.toFixed(2)}\n`;
         msg += `\n_MOQ (Minimum Order Quantity) :_`;
         window.open(`https://wa.me/601115008803?text=${encodeURIComponent(msg)}`, '_blank');
     }
