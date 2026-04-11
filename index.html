@@ -1073,8 +1073,10 @@
     //  CREATE PRODUCT CARD
     // =============================================
     function createProductCard(p) {
-        const isAdded  = cart[p.name] !== undefined;
+        const cartKey  = p.code || getLang(p.name);
+        const isAdded  = cart[cartKey] !== undefined;
         const itemCode = p.code ? `${p.code} - ` : '';
+        const dispName = getLang(p.name);
 
         const card = document.createElement('div');
         card.className = 'product-card';
@@ -1082,7 +1084,7 @@
 
         const img = document.createElement('img');
         img.className   = 'product-img';
-        img.alt         = p.name;
+        img.alt         = dispName;
         img.loading     = 'lazy';
         img.decoding    = 'async';
         img.width       = 400;
@@ -1091,7 +1093,7 @@
         img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
         img.addEventListener('load', () => img.classList.add('loaded'));
         img.onerror = () => {
-            img.src = `https://placehold.co/400x400?text=${encodeURIComponent(p.name)}`;
+            img.src = `https://placehold.co/400x400?text=${encodeURIComponent(dispName)}`;
             img.classList.add('loaded');
         };
         lazyObserver.observe(img);
@@ -1100,7 +1102,7 @@
         info.className = 'product-info';
         info.innerHTML = `
             <span class="brand-tag">${escapeHtml(p.brand || '')}</span>
-            <h4 class="product-name">${escapeHtml(itemCode + p.name)}</h4>
+            <h4 class="product-name" data-code="${escapeHtml(p.code || '')}">${escapeHtml(itemCode + dispName)}</h4>
             <p class="price">RM ${p.price.toFixed(2)}</p>`;
 
         const btn = document.createElement('button');
@@ -1111,7 +1113,7 @@
             : translations[currentLang].btnAdd;
         btn.addEventListener('click', e => {
             e.stopImmediatePropagation();
-            addToCart(p.name, p.price);
+            addToCart(cartKey, getLang(p.name), p.price);
         });
 
         card.appendChild(img);
@@ -1214,11 +1216,14 @@
             ? allProducts
             : allProducts.filter(p => p.category === activeCategory);
         if (q) {
-            filtered = filtered.filter(p =>
-                p.name.toLowerCase().includes(q) ||
-                (p.brand && p.brand.toLowerCase().includes(q)) ||
-                (p.code && p.code.toLowerCase().includes(q))
-            );
+            filtered = filtered.filter(p => {
+                const nameEn = (typeof p.name === 'object' ? (p.name.en||p.name.ms||p.name.zh) : p.name || '').toLowerCase();
+                const nameMs = (typeof p.name === 'object' ? (p.name.ms||'') : '').toLowerCase();
+                const nameZh = (typeof p.name === 'object' ? (p.name.zh||'') : '').toLowerCase();
+                return nameEn.includes(q) || nameMs.includes(q) || nameZh.includes(q) ||
+                    (p.brand && p.brand.toLowerCase().includes(q)) ||
+                    (p.code && p.code.toLowerCase().includes(q));
+            });
         }
         currentProducts = filtered;
         currentPage = 1;
@@ -1228,20 +1233,20 @@
     // =============================================
     //  CART
     // =============================================
-    function addToCart(name, price) {
-        if (!cart[name]) {
-            cart[name] = { price, qty: 1 };
+    function addToCart(key, displayName, price) {
+        if (!cart[key]) {
+            cart[key] = { displayName, price, qty: 1 };
             updateBadge();
-            updateCardButtons(name, true);
+            updateCardButtons(key, true);
         }
     }
 
-    function changeQty(name, amount) {
-        if (cart[name]) {
-            cart[name].qty += amount;
-            if (cart[name].qty <= 0) {
-                delete cart[name];
-                updateCardButtons(name, false);
+    function changeQty(key, amount) {
+        if (cart[key]) {
+            cart[key].qty += amount;
+            if (cart[key].qty <= 0) {
+                delete cart[key];
+                updateCardButtons(key, false);
             }
             updateBadge();
             renderCart();
@@ -1249,11 +1254,11 @@
         }
     }
 
-    function updateCardButtons(name, added) {
+    function updateCardButtons(key, added) {
         document.querySelectorAll('.product-card').forEach(card => {
             const nameEl = card.querySelector('.product-name');
             if (!nameEl) return;
-            if (!nameEl.innerText.includes(name)) return;
+            if (nameEl.dataset.code !== key && !nameEl.innerText.includes(key)) return;
             const btn = card.querySelector('.btn-add');
             if (!btn) return;
             btn.disabled = added;
@@ -1275,20 +1280,21 @@
         let html = '';
         let grandTotal = 0;
 
-        for (let item in cart) {
-            const sub = cart[item].price * cart[item].qty;
+        for (let key in cart) {
+            const item = cart[key];
+            const sub  = item.price * item.qty;
             grandTotal += sub;
-            const safeItem = item.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+            const safeKey = key.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
             html += `
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #eee;">
                 <div style="flex:1;">
-                    <div style="font-weight:600;">${escapeHtml(item)}</div>
-                    <div style="color:#777;font-size:13px;">RM ${cart[item].price.toFixed(2)}</div>
+                    <div style="font-weight:600;">${escapeHtml(item.displayName || key)}</div>
+                    <div style="color:#777;font-size:13px;">RM ${item.price.toFixed(2)}</div>
                 </div>
                 <div style="display:flex;align-items:center;gap:8px;">
-                    <button onclick="changeQty('${safeItem}',-1)" style="width:30px;height:30px;border:none;background:var(--primary-color);color:white;border-radius:6px;cursor:pointer;">−</button>
-                    <span style="font-weight:bold;min-width:24px;text-align:center;">${cart[item].qty}</span>
-                    <button onclick="changeQty('${safeItem}',1)" style="width:30px;height:30px;border:none;background:var(--primary-color);color:white;border-radius:6px;cursor:pointer;">+</button>
+                    <button onclick="changeQty('${safeKey}',-1)" style="width:30px;height:30px;border:none;background:var(--primary-color);color:white;border-radius:6px;cursor:pointer;">−</button>
+                    <span style="font-weight:bold;min-width:24px;text-align:center;">${item.qty}</span>
+                    <button onclick="changeQty('${safeKey}',1)" style="width:30px;height:30px;border:none;background:var(--primary-color);color:white;border-radius:6px;cursor:pointer;">+</button>
                 </div>
                 <div style="font-weight:bold;width:85px;text-align:right;">RM ${sub.toFixed(2)}</div>
             </div>`;
@@ -1330,7 +1336,7 @@
         } else if (product.image) {
             photos = [product.image];
         } else {
-            photos = [`https://placehold.co/600x600?text=${encodeURIComponent(product.name)}`];
+            photos = [`https://placehold.co/600x600?text=${encodeURIComponent(getLang(product.name))}`];
         }
 
         const multiPhoto = photos.length > 1;
@@ -1339,7 +1345,7 @@
         let slidesHtml = photos.map((src, i) => `
             <div class="gallery-slide">
                 <img src="${src}" class="modal-image"
-                     onerror="this.src='https://placehold.co/600x600?text=${encodeURIComponent(product.name)}'">
+                     onerror="this.src='https://placehold.co/600x600?text=${encodeURIComponent(getLang(product.name))}'">
             </div>`).join('');
 
         // Build dots HTML
@@ -1354,8 +1360,9 @@
             <button class="gallery-btn next" onclick="shiftSlide(1)">&#8250;</button>` : '';
 
         // Build description block
-        const descHtml = product.description
-            ? `<div class="modal-desc">${escapeHtml(product.description)}</div>`
+        const descText = getLang(product.description);
+        const descHtml = descText
+            ? `<div class="modal-desc">${escapeHtml(descText)}</div>`
             : '';
 
         // Build use case tags
@@ -1379,7 +1386,7 @@
             </div>
             <div class="modal-info">
                 <div class="modal-brand">${escapeHtml(product.brand || '')}</div>
-                <div class="modal-name">${escapeHtml(itemCode + product.name)}</div>
+                <div class="modal-name">${escapeHtml(itemCode + getLang(product.name))}</div>
                 <div class="modal-price">RM ${product.price.toFixed(2)}</div>
                 ${descHtml}
                 ${usecaseHtml}
@@ -1419,7 +1426,8 @@
 
     function addToCartFromPopup() {
         if (currentViewedProduct) {
-            addToCart(currentViewedProduct.name, currentViewedProduct.price);
+            const p = currentViewedProduct;
+            addToCart(p.code || getLang(p.name), getLang(p.name), p.price);
             showProductDetail(currentViewedProduct);
         }
     }
@@ -1435,11 +1443,12 @@
         msg += `*${t.waAddr}:* ${document.getElementById('bizAddress').value}\n\n`;
         msg += `*${t.waList}:*\n`;
         let total = 0;
-        for (let itemName in cart) {
-            const productData = allProducts.find(p => p.name === itemName);
+        for (let key in cart) {
+            const item = cart[key];
+            const productData = allProducts.find(p => (p.code || getLang(p.name)) === key);
             const itemCode = productData && productData.code ? `[${productData.code}] ` : '';
-            msg += `- ${cart[itemName].qty}x ${itemCode}${itemName}\n`;
-            total += cart[itemName].price * cart[itemName].qty;
+            msg += `- ${item.qty}x ${itemCode}${item.displayName || key}\n`;
+            total += item.price * item.qty;
         }
         msg += `\n_MOQ (Minimum Order Quantity) :_`;
         window.open(`https://wa.me/601115008803?text=${encodeURIComponent(msg)}`, '_blank');
@@ -1482,8 +1491,8 @@
                 <div class="notif-item-inner">
                     <div class="notif-dot"></div>
                     <div>
-                        <div class="notif-title">${escapeHtml(n.title || '')}</div>
-                        <div class="notif-body">${escapeHtml(n.message || n.body || '')}</div>
+                        <div class="notif-title">${escapeHtml(getLang(n.title) || '')}</div>
+                        <div class="notif-body">${escapeHtml(getLang(n.message) || getLang(n.body) || '')}</div>
                         <div class="notif-time">${escapeHtml(n.time || n.date || '')}</div>
                     </div>
                 </div>
@@ -1525,6 +1534,13 @@
             .replace(/>/g, '&gt;')
             .replace(/"/g, '&quot;')
             .replace(/'/g, '&#39;');
+    }
+
+    // Resolve multilingual field: returns string for currentLang, fallback to any available lang
+    function getLang(field) {
+        if (!field) return '';
+        if (typeof field === 'string') return field;
+        return field[currentLang] || field.en || field.ms || field.zh || '';
     }
 
     document.getElementById('productModal').addEventListener('click', function(e) {
