@@ -652,10 +652,6 @@
 
             <!-- ===== NOTIFICATION FIELDS ===== -->
             <div id="notification-fields" style="display:none;">
-                <div class="form-group">
-                    <label>Notification Title</label>
-                    <input type="text" id="nTitle" placeholder="e.g., Promo Diskon 50%!">
-                </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label>Date</label>
@@ -670,9 +666,73 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label>Message</label>
-                    <textarea id="nMessage" rows="3" placeholder="Write notification details here..."></textarea>
+
+                <div class="section-divider">
+                    Title — Multilingual
+                    <span style="font-weight:400;text-transform:none;font-style:italic;margin-left:8px;">Type in any column → other languages auto-fill</span>
+                </div>
+                <div class="lang-grid" id="ntitle-grid">
+                    <div class="lang-col en" id="ntitle-col-en">
+                        <div class="lang-col-header">
+                            <span class="source-badge">EN</span> English
+                            <span id="ntitle-en-ai" style="font-size:10px;color:var(--en-color);display:none;">✦ GT</span>
+                            <button class="lock-btn" title="Lock / unlock manual edit" onclick="toggleLock('ntitle','en')">🔒<span class="lock-label">LOCKED</span></button>
+                        </div>
+                        <input type="text" id="nTitle_en" placeholder="e.g., 50% Discount Promo!" style="padding:12px 14px;">
+                        <div class="translate-indicator" id="ind-ntitle-en"><div class="spinner-small"></div> translating…</div>
+                    </div>
+                    <div class="lang-col ms" id="ntitle-col-ms">
+                        <div class="lang-col-header">
+                            <span class="source-badge">MS</span> Malay
+                            <span id="ntitle-ms-ai" style="font-size:10px;color:var(--ms-color);display:none;">✦ GT</span>
+                            <button class="lock-btn" title="Lock / unlock manual edit" onclick="toggleLock('ntitle','ms')">🔒<span class="lock-label">LOCKED</span></button>
+                        </div>
+                        <input type="text" id="nTitle_ms" placeholder="e.g., Promosi Diskaun 50%!" style="padding:12px 14px;">
+                        <div class="translate-indicator" id="ind-ntitle-ms"><div class="spinner-small"></div> translating…</div>
+                    </div>
+                    <div class="lang-col zh" id="ntitle-col-zh">
+                        <div class="lang-col-header">
+                            <span class="source-badge">ZH</span> 中文
+                            <span id="ntitle-zh-ai" style="font-size:10px;color:var(--zh-color);display:none;">✦ GT</span>
+                            <button class="lock-btn" title="Lock / unlock manual edit" onclick="toggleLock('ntitle','zh')">🔒<span class="lock-label">LOCKED</span></button>
+                        </div>
+                        <input type="text" id="nTitle_zh" placeholder="e.g., 五折优惠促销！" style="padding:12px 14px;">
+                        <div class="translate-indicator" id="ind-ntitle-zh"><div class="spinner-small"></div> translating…</div>
+                    </div>
+                </div>
+
+                <div class="section-divider">
+                    Message — Multilingual
+                    <span style="font-weight:400;text-transform:none;font-style:italic;margin-left:8px;">Type in any column → other languages auto-fill</span>
+                </div>
+                <div class="lang-grid" id="nmessage-grid">
+                    <div class="lang-col en" id="nmessage-col-en">
+                        <div class="lang-col-header">
+                            <span class="source-badge">EN</span> English
+                            <span id="nmessage-en-ai" style="font-size:10px;color:var(--en-color);display:none;">✦ GT</span>
+                            <button class="lock-btn" title="Lock / unlock manual edit" onclick="toggleLock('nmessage','en')">🔒<span class="lock-label">LOCKED</span></button>
+                        </div>
+                        <textarea id="nMessage_en" rows="3" placeholder="Write notification details here..." style="padding:12px 14px;"></textarea>
+                        <div class="translate-indicator" id="ind-nmessage-en"><div class="spinner-small"></div> translating…</div>
+                    </div>
+                    <div class="lang-col ms" id="nmessage-col-ms">
+                        <div class="lang-col-header">
+                            <span class="source-badge">MS</span> Malay
+                            <span id="nmessage-ms-ai" style="font-size:10px;color:var(--ms-color);display:none;">✦ GT</span>
+                            <button class="lock-btn" title="Lock / unlock manual edit" onclick="toggleLock('nmessage','ms')">🔒<span class="lock-label">LOCKED</span></button>
+                        </div>
+                        <textarea id="nMessage_ms" rows="3" placeholder="Tulis butiran notifikasi di sini..." style="padding:12px 14px;"></textarea>
+                        <div class="translate-indicator" id="ind-nmessage-ms"><div class="spinner-small"></div> translating…</div>
+                    </div>
+                    <div class="lang-col zh" id="nmessage-col-zh">
+                        <div class="lang-col-header">
+                            <span class="source-badge">ZH</span> 中文
+                            <span id="nmessage-zh-ai" style="font-size:10px;color:var(--zh-color);display:none;">✦ GT</span>
+                            <button class="lock-btn" title="Lock / unlock manual edit" onclick="toggleLock('nmessage','zh')">🔒<span class="lock-label">LOCKED</span></button>
+                        </div>
+                        <textarea id="nMessage_zh" rows="3" placeholder="在此填写通知详情..." style="padding:12px 14px;"></textarea>
+                        <div class="translate-indicator" id="ind-nmessage-zh"><div class="spinner-small"></div> translating…</div>
+                    </div>
                 </div>
             </div>
 
@@ -738,6 +798,7 @@ function setRole(role) {
         document.getElementById('notification-fields').style.display = 'block';
         document.getElementById('list-title').textContent = 'Notification List';
         document.getElementById('nDate').valueAsDate = new Date();
+        setupNameTranslate();
     }
 }
 
@@ -867,6 +928,38 @@ function setupNameTranslate() {
                 if (!val) return;
                 ['en','ms','zh'].filter(l => l !== lang && !isLocked('desc', l)).forEach(target => {
                     translateField(val, lang, target, `pDesc_${target}`, `ind-desc-${target}`, `desc-${target}-ai`);
+                });
+            }, 900);
+        });
+    });
+
+    // Notification Title
+    ['en', 'ms', 'zh'].forEach(lang => {
+        const input = document.getElementById(`nTitle_${lang}`);
+        if (!input) return;
+        input.addEventListener('input', () => {
+            clearTimeout(translateTimers[`ntitle_${lang}`]);
+            translateTimers[`ntitle_${lang}`] = setTimeout(() => {
+                const val = input.value.trim();
+                if (!val) return;
+                ['en','ms','zh'].filter(l => l !== lang && !isLocked('ntitle', l)).forEach(target => {
+                    translateField(val, lang, target, `nTitle_${target}`, `ind-ntitle-${target}`, `ntitle-${target}-ai`);
+                });
+            }, 900);
+        });
+    });
+
+    // Notification Message
+    ['en', 'ms', 'zh'].forEach(lang => {
+        const input = document.getElementById(`nMessage_${lang}`);
+        if (!input) return;
+        input.addEventListener('input', () => {
+            clearTimeout(translateTimers[`nmessage_${lang}`]);
+            translateTimers[`nmessage_${lang}`] = setTimeout(() => {
+                const val = input.value.trim();
+                if (!val) return;
+                ['en','ms','zh'].filter(l => l !== lang && !isLocked('nmessage', l)).forEach(target => {
+                    translateField(val, lang, target, `nMessage_${target}`, `ind-nmessage-${target}`, `nmessage-${target}-ai`);
                 });
             }, 900);
         });
@@ -1036,15 +1129,29 @@ function saveData() {
             ...(ucList.length > 0 && { usecases: ucList })
         };
     } else {
-        const title   = document.getElementById('nTitle').value.trim();
-        const message = document.getElementById('nMessage').value.trim();
-        if (!title || !message) return showToast('Title and Message are required!', 'error');
+        const titleEn = document.getElementById('nTitle_en').value.trim();
+        const titleMs = document.getElementById('nTitle_ms').value.trim();
+        const titleZh = document.getElementById('nTitle_zh').value.trim();
+        const msgEn   = document.getElementById('nMessage_en').value.trim();
+        const msgMs   = document.getElementById('nMessage_ms').value.trim();
+        const msgZh   = document.getElementById('nMessage_zh').value.trim();
+        const anyTitle = titleEn || titleMs || titleZh;
+        const anyMsg   = msgEn || msgMs || msgZh;
+        if (!anyTitle || !anyMsg) return showToast('Title and Message (min 1 language) are required!', 'error');
+        const titleObj = {};
+        if (titleEn) titleObj.en = titleEn;
+        if (titleMs) titleObj.ms = titleMs;
+        if (titleZh) titleObj.zh = titleZh;
+        const msgObj = {};
+        if (msgEn) msgObj.en = msgEn;
+        if (msgMs) msgObj.ms = msgMs;
+        if (msgZh) msgObj.zh = msgZh;
         dataObj = {
             id: index === -1 ? Date.now() : currentData[index].id,
-            title,
+            title: titleObj,
             date: document.getElementById('nDate').value,
             type: document.getElementById('nType').value,
-            message
+            message: msgObj
         };
     }
 
@@ -1107,10 +1214,28 @@ function editData(index) {
             if (aiEl) aiEl.style.display = 'none';
         });
     } else {
-        document.getElementById('nTitle').value   = item.title || '';
-        document.getElementById('nDate').value    = item.date || '';
-        document.getElementById('nType').value    = item.type || 'Info';
-        document.getElementById('nMessage').value = item.message || '';
+        // Title multilingual
+        if (typeof item.title === 'object') {
+            document.getElementById('nTitle_en').value = item.title.en || '';
+            document.getElementById('nTitle_ms').value = item.title.ms || '';
+            document.getElementById('nTitle_zh').value = item.title.zh || '';
+        } else {
+            document.getElementById('nTitle_en').value = item.title || '';
+            document.getElementById('nTitle_ms').value = '';
+            document.getElementById('nTitle_zh').value = '';
+        }
+        // Message multilingual
+        if (typeof item.message === 'object') {
+            document.getElementById('nMessage_en').value = item.message.en || '';
+            document.getElementById('nMessage_ms').value = item.message.ms || '';
+            document.getElementById('nMessage_zh').value = item.message.zh || '';
+        } else {
+            document.getElementById('nMessage_en').value = item.message || '';
+            document.getElementById('nMessage_ms').value = '';
+            document.getElementById('nMessage_zh').value = '';
+        }
+        document.getElementById('nDate').value = item.date || '';
+        document.getElementById('nType').value = item.type || 'Info';
     }
 
     document.getElementById('form-title').textContent = 'Edit Entry';
@@ -1125,7 +1250,8 @@ function resetForm() {
     ['pCode','pBrand','pName_en','pName_ms','pName_zh',
      'pDesc_en','pDesc_ms','pDesc_zh',
      'pImage1','pImage2','pImage3',
-     'nTitle','nMessage'].forEach(id => {
+     'nTitle_en','nTitle_ms','nTitle_zh',
+     'nMessage_en','nMessage_ms','nMessage_zh'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.value = '';
     });
@@ -1134,7 +1260,9 @@ function resetForm() {
         if (el) el.style.display = 'none';
     });
     ['name-en-ai','name-ms-ai','name-zh-ai',
-     'desc-en-ai','desc-ms-ai','desc-zh-ai'].forEach(id => {
+     'desc-en-ai','desc-ms-ai','desc-zh-ai',
+     'ntitle-en-ai','ntitle-ms-ai','ntitle-zh-ai',
+     'nmessage-en-ai','nmessage-ms-ai','nmessage-zh-ai'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.style.display = 'none';
     });
@@ -1144,6 +1272,8 @@ function resetForm() {
     renderUcTags();
     clearLocks('name');
     clearLocks('desc');
+    clearLocks('ntitle');
+    clearLocks('nmessage');
 
     document.getElementById('form-title').textContent = 'Add New Entry';
     document.getElementById('btn-save-entry').innerHTML = '<i class="fa-solid fa-plus"></i> Add to List';
@@ -1193,9 +1323,16 @@ function renderAdminData() {
                 </div>
                 <div class="data-meta">RM ${parseFloat(item.price).toFixed(2)} · ${item.category}</div>`;
         } else {
-            html = `
-                <div class="data-name">${item.title}</div>
-                <div class="data-meta">${item.date || ''} · ${item.type} · ${item.message?.substring(0, 60)}…</div>`;
+                const displayTitle = typeof item.title === 'object'
+                    ? (item.title.en || item.title.ms || item.title.zh || '—')
+                    : (item.title || '—');
+                const displayMsg = typeof item.message === 'object'
+                    ? (item.message.en || item.message.ms || item.message.zh || '')
+                    : (item.message || '');
+                const isMultilangNotif = typeof item.title === 'object';
+                html = `
+                <div class="data-name">${displayTitle}${isMultilangNotif ? '<span class="badge badge-multi">🌐 3 lang</span>' : ''}</div>
+                <div class="data-meta">${item.date || ''} · ${item.type} · ${displayMsg.substring(0, 60)}…</div>`;
         }
         return `
             <div class="data-item">
