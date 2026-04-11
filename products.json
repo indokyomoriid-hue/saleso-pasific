@@ -37,7 +37,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": "https://yukorder.com/wp-content/uploads/2019/07/monin-vanilla.jpg"
+      "image": "https://yukorder.com/wp-content/uploads/2019/07/monin-vanilla.jpg",
+      "images": [
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+        "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png"
+      ],
+      "description": {
+        "en": "Premium quality, ideal for coffee shops and cafes",
+        "ms": "Kualiti premium, sesuai untuk kedai kopi dan kafe",
+        "zh": "品质卓越，适合咖啡馆和餐厅"
+      },
+      "usecases": [
+        "Hot Chocolate",
+        "Bubble Tea",
+        "Pancake Syrup"
+      ]
     },
     {
       "code": "MOSYCS700L",
@@ -49,7 +63,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg",
+      "images": [
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+        "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png"
+      ],
+      "description": {
+        "en": "Premium quality, ideal for coffee shops and cafes",
+        "ms": "Kualiti premium, sesuai untuk kedai kopi dan kafe",
+        "zh": "品质卓越，适合咖啡馆和餐厅"
+      },
+      "usecases": [
+        "Milkshake",
+        "Frappe",
+        "Cocktail"
+      ]
     },
     {
       "code": "MOSYBBS700L",
@@ -66,6 +94,16 @@
         "https://www.arfasuppliers.com/web/image/product.product/3375/image_1920?unique=58e83f6",
         "data:image/jpeg;base64,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",
         "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png?v=1724937395&width=1946"
+      ],
+      "description": {
+        "en": "Rich and smooth flavor, perfect for beverages",
+        "ms": "Rasa kaya dan halus, sesuai untuk minuman",
+        "zh": "口感丰富顺滑，适合各种饮料"
+      },
+      "usecases": [
+        "Cold Brew",
+        "Mocktail",
+        "Ice Cream Topping"
       ]
     },
     {
@@ -81,6 +119,16 @@
       "image": "https://www.kmds.co.id/images/product/Monin/Chai%20Tea-HD.jpg",
       "images": [
         "https://www.kmds.co.id/images/product/Monin/Chai%20Tea-HD.jpg"
+      ],
+      "description": {
+        "en": "Premium quality, ideal for coffee shops and cafes",
+        "ms": "Kualiti premium, sesuai untuk kedai kopi dan kafe",
+        "zh": "品质卓越，适合咖啡馆和餐厅"
+      },
+      "usecases": [
+        "Matcha Latte",
+        "Dessert",
+        "Fancy Restaurant Dish"
       ]
     },
     {
@@ -93,7 +141,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg",
+      "images": [
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+        "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg"
+      ],
+      "description": {
+        "en": "Premium quality, ideal for coffee shops and cafes",
+        "ms": "Kualiti premium, sesuai untuk kedai kopi dan kafe",
+        "zh": "品质卓越，适合咖啡馆和餐厅"
+      },
+      "usecases": [
+        "Tea",
+        "Sparkling Drink",
+        "Dessert Topping"
+      ]
     },
     {
       "code": "MOSYLS700L",
@@ -105,7 +167,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+      "images": [
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+        "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg"
+      ],
+      "description": {
+        "en": "Bold flavor with a sweet finish",
+        "ms": "Rasa berani dengan kemasan manis",
+        "zh": "口感浓郁，甜蜜收尾"
+      },
+      "usecases": [
+        "Latte",
+        "Iced Coffee",
+        "Smoothie"
+      ]
     },
     {
       "code": "MOSYPS700L",
@@ -117,7 +193,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+      "images": [
+        "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg",
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png"
+      ],
+      "description": {
+        "en": "Rich and smooth flavor, perfect for beverages",
+        "ms": "Rasa kaya dan halus, sesuai untuk minuman",
+        "zh": "口感丰富顺滑，适合各种饮料"
+      },
+      "usecases": [
+        "Latte",
+        "Iced Coffee",
+        "Smoothie"
+      ]
     },
     {
       "code": "MOSYGLS700L",
@@ -129,7 +219,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg",
+      "images": [
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+        "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg"
+      ],
+      "description": {
+        "en": "Versatile syrup for hot and cold drinks",
+        "ms": "Sirap serba guna untuk minuman panas dan sejuk",
+        "zh": "适用于冷热饮的多功能糖浆"
+      },
+      "usecases": [
+        "Tea",
+        "Sparkling Drink",
+        "Dessert Topping"
+      ]
     },
     {
       "code": "MOSYALS700L",
@@ -141,7 +245,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg",
+      "images": [
+        "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png",
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png"
+      ],
+      "description": {
+        "en": "Authentic taste with natural ingredients",
+        "ms": "Rasa asli dengan bahan-bahan semula jadi",
+        "zh": "天然原料，口味正宗"
+      },
+      "usecases": [
+        "Milkshake",
+        "Frappe",
+        "Cocktail"
+      ]
     },
     {
       "code": "MOSYAM700L",
@@ -153,7 +271,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg",
+      "images": [
+        "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png",
+        "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg"
+      ],
+      "description": {
+        "en": "Authentic taste with natural ingredients",
+        "ms": "Rasa asli dengan bahan-bahan semula jadi",
+        "zh": "天然原料，口味正宗"
+      },
+      "usecases": [
+        "Latte",
+        "Iced Coffee",
+        "Smoothie"
+      ]
     },
     {
       "code": "MOSYAPS700L",
@@ -165,7 +297,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg",
+      "images": [
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+        "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg"
+      ],
+      "description": {
+        "en": "Premium quality, ideal for coffee shops and cafes",
+        "ms": "Kualiti premium, sesuai untuk kedai kopi dan kafe",
+        "zh": "品质卓越，适合咖啡馆和餐厅"
+      },
+      "usecases": [
+        "Hot Chocolate",
+        "Bubble Tea",
+        "Pancake Syrup"
+      ]
     },
     {
       "code": "MOSYAS700L",
@@ -177,7 +323,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg",
+      "images": [
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+        "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg"
+      ],
+      "description": {
+        "en": "Authentic taste with natural ingredients",
+        "ms": "Rasa asli dengan bahan-bahan semula jadi",
+        "zh": "天然原料，口味正宗"
+      },
+      "usecases": [
+        "Latte",
+        "Iced Coffee",
+        "Smoothie"
+      ]
     },
     {
       "code": "MOSYABS700L",
@@ -189,7 +349,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+      "images": [
+        "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg",
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png"
+      ],
+      "description": {
+        "en": "Authentic taste with natural ingredients",
+        "ms": "Rasa asli dengan bahan-bahan semula jadi",
+        "zh": "天然原料，口味正宗"
+      },
+      "usecases": [
+        "Matcha Latte",
+        "Dessert",
+        "Fancy Restaurant Dish"
+      ]
     },
     {
       "code": "MOSYBGS700L",
@@ -201,7 +375,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+      "images": [
+        "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png",
+        "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg"
+      ],
+      "description": {
+        "en": "Versatile syrup for hot and cold drinks",
+        "ms": "Sirap serba guna untuk minuman panas dan sejuk",
+        "zh": "适用于冷热饮的多功能糖浆"
+      },
+      "usecases": [
+        "Cold Brew",
+        "Mocktail",
+        "Ice Cream Topping"
+      ]
     },
     {
       "code": "MOSYBPS700L",
@@ -213,7 +401,21 @@
       },
       "price": 56.5,
       "category": "Syrup",
-      "image": ""
+      "image": "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg",
+      "images": [
+        "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg",
+        "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png"
+      ],
+      "description": {
+        "en": "Bold flavor with a sweet finish",
+        "ms": "Rasa berani dengan kemasan manis",
+        "zh": "口感浓郁，甜蜜收尾"
+      },
+      "usecases": [
+        "Matcha Latte",
+        "Dessert",
+        "Fancy Restaurant Dish"
+      ]
     },
     {
       "code": "MOSYBTS700L",
@@ -225,7 +427,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+      "images": [
+        "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png",
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png"
+      ],
+      "description": {
+        "en": "Premium quality, ideal for coffee shops and cafes",
+        "ms": "Kualiti premium, sesuai untuk kedai kopi dan kafe",
+        "zh": "品质卓越，适合咖啡馆和餐厅"
+      },
+      "usecases": [
+        "Hot Chocolate",
+        "Bubble Tea",
+        "Pancake Syrup"
+      ]
     },
     {
       "code": "MOSYCRS700L",
@@ -237,7 +453,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg",
+      "images": [
+        "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg",
+        "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png"
+      ],
+      "description": {
+        "en": "Premium quality, ideal for coffee shops and cafes",
+        "ms": "Kualiti premium, sesuai untuk kedai kopi dan kafe",
+        "zh": "品质卓越，适合咖啡馆和餐厅"
+      },
+      "usecases": [
+        "Tea",
+        "Sparkling Drink",
+        "Dessert Topping"
+      ]
     },
     {
       "code": "MOSYCTS700L",
@@ -249,7 +479,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg",
+      "images": [
+        "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg",
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png"
+      ],
+      "description": {
+        "en": "Bold flavor with a sweet finish",
+        "ms": "Rasa berani dengan kemasan manis",
+        "zh": "口感浓郁，甜蜜收尾"
+      },
+      "usecases": [
+        "Latte",
+        "Iced Coffee",
+        "Smoothie"
+      ]
     },
     {
       "code": "MOSYCCS700L",
@@ -261,7 +505,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png",
+      "images": [
+        "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png",
+        "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg"
+      ],
+      "description": {
+        "en": "Rich and smooth flavor, perfect for beverages",
+        "ms": "Rasa kaya dan halus, sesuai untuk minuman",
+        "zh": "口感丰富顺滑，适合各种饮料"
+      },
+      "usecases": [
+        "Hot Chocolate",
+        "Bubble Tea",
+        "Pancake Syrup"
+      ]
     },
     {
       "code": "MOSYCHS700L",
@@ -273,7 +531,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg",
+      "images": [
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+        "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png"
+      ],
+      "description": {
+        "en": "Rich and smooth flavor, perfect for beverages",
+        "ms": "Rasa kaya dan halus, sesuai untuk minuman",
+        "zh": "口感丰富顺滑，适合各种饮料"
+      },
+      "usecases": [
+        "Yoghurt Drink",
+        "Fruit Punch",
+        "Baked Goods"
+      ]
     },
     {
       "code": "MOSYCHBS700L",
@@ -285,7 +557,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg",
+      "images": [
+        "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg",
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png"
+      ],
+      "description": {
+        "en": "Premium quality, ideal for coffee shops and cafes",
+        "ms": "Kualiti premium, sesuai untuk kedai kopi dan kafe",
+        "zh": "品质卓越，适合咖啡馆和餐厅"
+      },
+      "usecases": [
+        "Tea",
+        "Sparkling Drink",
+        "Dessert Topping"
+      ]
     },
     {
       "code": "MOSYCSS700L",
@@ -297,7 +583,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+      "images": [
+        "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png",
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png"
+      ],
+      "description": {
+        "en": "Versatile syrup for hot and cold drinks",
+        "ms": "Sirap serba guna untuk minuman panas dan sejuk",
+        "zh": "适用于冷热饮的多功能糖浆"
+      },
+      "usecases": [
+        "Matcha Latte",
+        "Dessert",
+        "Fancy Restaurant Dish"
+      ]
     },
     {
       "code": "MOSYCHCS700L",
@@ -309,7 +609,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+      "images": [
+        "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png",
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png"
+      ],
+      "description": {
+        "en": "Versatile syrup for hot and cold drinks",
+        "ms": "Sirap serba guna untuk minuman panas dan sejuk",
+        "zh": "适用于冷热饮的多功能糖浆"
+      },
+      "usecases": [
+        "Hot Chocolate",
+        "Bubble Tea",
+        "Pancake Syrup"
+      ]
     },
     {
       "code": "MOSYCKS700L",
@@ -321,7 +635,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+      "images": [
+        "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png",
+        "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg"
+      ],
+      "description": {
+        "en": "Premium quality, ideal for coffee shops and cafes",
+        "ms": "Kualiti premium, sesuai untuk kedai kopi dan kafe",
+        "zh": "品质卓越，适合咖啡馆和餐厅"
+      },
+      "usecases": [
+        "Milkshake",
+        "Frappe",
+        "Cocktail"
+      ]
     },
     {
       "code": "MOSYCMS700L",
@@ -333,7 +661,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg",
+      "images": [
+        "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png",
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png"
+      ],
+      "description": {
+        "en": "Versatile syrup for hot and cold drinks",
+        "ms": "Sirap serba guna untuk minuman panas dan sejuk",
+        "zh": "适用于冷热饮的多功能糖浆"
+      },
+      "usecases": [
+        "Tea",
+        "Sparkling Drink",
+        "Dessert Topping"
+      ]
     },
     {
       "code": "MOSYCB700L",
@@ -345,7 +687,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+      "images": [
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+        "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png"
+      ],
+      "description": {
+        "en": "Authentic taste with natural ingredients",
+        "ms": "Rasa asli dengan bahan-bahan semula jadi",
+        "zh": "天然原料，口味正宗"
+      },
+      "usecases": [
+        "Tea",
+        "Sparkling Drink",
+        "Dessert Topping"
+      ]
     },
     {
       "code": "MOSYELFS700L",
@@ -357,7 +713,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+      "images": [
+        "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png",
+        "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg"
+      ],
+      "description": {
+        "en": "Rich and smooth flavor, perfect for beverages",
+        "ms": "Rasa kaya dan halus, sesuai untuk minuman",
+        "zh": "口感丰富顺滑，适合各种饮料"
+      },
+      "usecases": [
+        "Matcha Latte",
+        "Dessert",
+        "Fancy Restaurant Dish"
+      ]
     },
     {
       "code": "MOSYFLS700L",
@@ -369,7 +739,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+      "images": [
+        "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png",
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png"
+      ],
+      "description": {
+        "en": "Rich and smooth flavor, perfect for beverages",
+        "ms": "Rasa kaya dan halus, sesuai untuk minuman",
+        "zh": "口感丰富顺滑，适合各种饮料"
+      },
+      "usecases": [
+        "Hot Chocolate",
+        "Bubble Tea",
+        "Pancake Syrup"
+      ]
     },
     {
       "code": "MOSYFBS700L",
@@ -381,7 +765,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png",
+      "images": [
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+        "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg"
+      ],
+      "description": {
+        "en": "Authentic taste with natural ingredients",
+        "ms": "Rasa asli dengan bahan-bahan semula jadi",
+        "zh": "天然原料，口味正宗"
+      },
+      "usecases": [
+        "Milkshake",
+        "Frappe",
+        "Cocktail"
+      ]
     },
     {
       "code": "MOSYFVS700L",
@@ -393,7 +791,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png",
+      "images": [
+        "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png",
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png"
+      ],
+      "description": {
+        "en": "Versatile syrup for hot and cold drinks",
+        "ms": "Sirap serba guna untuk minuman panas dan sejuk",
+        "zh": "适用于冷热饮的多功能糖浆"
+      },
+      "usecases": [
+        "Cold Brew",
+        "Mocktail",
+        "Ice Cream Topping"
+      ]
     },
     {
       "code": "MOSYFMS700L",
@@ -405,7 +817,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+      "images": [
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+        "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg"
+      ],
+      "description": {
+        "en": "Rich and smooth flavor, perfect for beverages",
+        "ms": "Rasa kaya dan halus, sesuai untuk minuman",
+        "zh": "口感丰富顺滑，适合各种饮料"
+      },
+      "usecases": [
+        "Hot Chocolate",
+        "Bubble Tea",
+        "Pancake Syrup"
+      ]
     },
     {
       "code": "MOSYGBS700L",
@@ -417,7 +843,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png",
+      "images": [
+        "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png",
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png"
+      ],
+      "description": {
+        "en": "Premium quality, ideal for coffee shops and cafes",
+        "ms": "Kualiti premium, sesuai untuk kedai kopi dan kafe",
+        "zh": "品质卓越，适合咖啡馆和餐厅"
+      },
+      "usecases": [
+        "Tea",
+        "Sparkling Drink",
+        "Dessert Topping"
+      ]
     },
     {
       "code": "MOSYGS700L",
@@ -429,7 +869,21 @@
       },
       "price": 30,
       "category": "Syrup",
-      "image": ""
+      "image": "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg",
+      "images": [
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+        "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png"
+      ],
+      "description": {
+        "en": "Rich and smooth flavor, perfect for beverages",
+        "ms": "Rasa kaya dan halus, sesuai untuk minuman",
+        "zh": "口感丰富顺滑，适合各种饮料"
+      },
+      "usecases": [
+        "Cold Brew",
+        "Mocktail",
+        "Ice Cream Topping"
+      ]
     },
     {
       "code": "MOSYGLS700L",
@@ -441,7 +895,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+      "images": [
+        "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg",
+        "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png"
+      ],
+      "description": {
+        "en": "Premium quality, ideal for coffee shops and cafes",
+        "ms": "Kualiti premium, sesuai untuk kedai kopi dan kafe",
+        "zh": "品质卓越，适合咖啡馆和餐厅"
+      },
+      "usecases": [
+        "Cold Brew",
+        "Mocktail",
+        "Ice Cream Topping"
+      ]
     },
     {
       "code": "MOSYGRS700L",
@@ -453,7 +921,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg",
+      "images": [
+        "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png",
+        "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg"
+      ],
+      "description": {
+        "en": "Versatile syrup for hot and cold drinks",
+        "ms": "Sirap serba guna untuk minuman panas dan sejuk",
+        "zh": "适用于冷热饮的多功能糖浆"
+      },
+      "usecases": [
+        "Cold Brew",
+        "Mocktail",
+        "Ice Cream Topping"
+      ]
     },
     {
       "code": "MOSYHLS700L",
@@ -465,7 +947,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg",
+      "images": [
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+        "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png"
+      ],
+      "description": {
+        "en": "Bold flavor with a sweet finish",
+        "ms": "Rasa berani dengan kemasan manis",
+        "zh": "口感浓郁，甜蜜收尾"
+      },
+      "usecases": [
+        "Hot Chocolate",
+        "Bubble Tea",
+        "Pancake Syrup"
+      ]
     },
     {
       "code": "MOSYIRS700L",
@@ -477,7 +973,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+      "images": [
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+        "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png"
+      ],
+      "description": {
+        "en": "Rich and smooth flavor, perfect for beverages",
+        "ms": "Rasa kaya dan halus, sesuai untuk minuman",
+        "zh": "口感丰富顺滑，适合各种饮料"
+      },
+      "usecases": [
+        "Hot Chocolate",
+        "Bubble Tea",
+        "Pancake Syrup"
+      ]
     },
     {
       "code": "MOSYITS700L",
@@ -489,7 +999,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg",
+      "images": [
+        "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg",
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png"
+      ],
+      "description": {
+        "en": "Premium quality, ideal for coffee shops and cafes",
+        "ms": "Kualiti premium, sesuai untuk kedai kopi dan kafe",
+        "zh": "品质卓越，适合咖啡馆和餐厅"
+      },
+      "usecases": [
+        "Hot Chocolate",
+        "Bubble Tea",
+        "Pancake Syrup"
+      ]
     },
     {
       "code": "MOSYKS700L",
@@ -501,7 +1025,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png",
+      "images": [
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+        "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png"
+      ],
+      "description": {
+        "en": "Rich and smooth flavor, perfect for beverages",
+        "ms": "Rasa kaya dan halus, sesuai untuk minuman",
+        "zh": "口感丰富顺滑，适合各种饮料"
+      },
+      "usecases": [
+        "Matcha Latte",
+        "Dessert",
+        "Fancy Restaurant Dish"
+      ]
     },
     {
       "code": "MOSYLS700L",
@@ -513,7 +1051,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png",
+      "images": [
+        "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg",
+        "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png"
+      ],
+      "description": {
+        "en": "Bold flavor with a sweet finish",
+        "ms": "Rasa berani dengan kemasan manis",
+        "zh": "口感浓郁，甜蜜收尾"
+      },
+      "usecases": [
+        "Yoghurt Drink",
+        "Fruit Punch",
+        "Baked Goods"
+      ]
     },
     {
       "code": "MOSYLYS700L",
@@ -525,7 +1077,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+      "images": [
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+        "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png"
+      ],
+      "description": {
+        "en": "Authentic taste with natural ingredients",
+        "ms": "Rasa asli dengan bahan-bahan semula jadi",
+        "zh": "天然原料，口味正宗"
+      },
+      "usecases": [
+        "Latte",
+        "Iced Coffee",
+        "Smoothie"
+      ]
     },
     {
       "code": "MOSYMAS700L",
@@ -537,7 +1103,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png",
+      "images": [
+        "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png",
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png"
+      ],
+      "description": {
+        "en": "Versatile syrup for hot and cold drinks",
+        "ms": "Sirap serba guna untuk minuman panas dan sejuk",
+        "zh": "适用于冷热饮的多功能糖浆"
+      },
+      "usecases": [
+        "Yoghurt Drink",
+        "Fruit Punch",
+        "Baked Goods"
+      ]
     },
     {
       "code": "MOSYOS700L",
@@ -549,7 +1129,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png",
+      "images": [
+        "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg",
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png"
+      ],
+      "description": {
+        "en": "Premium quality, ideal for coffee shops and cafes",
+        "ms": "Kualiti premium, sesuai untuk kedai kopi dan kafe",
+        "zh": "品质卓越，适合咖啡馆和餐厅"
+      },
+      "usecases": [
+        "Latte",
+        "Iced Coffee",
+        "Smoothie"
+      ]
     },
     {
       "code": "MOSYPRS700L",
@@ -561,7 +1155,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+      "images": [
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+        "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg"
+      ],
+      "description": {
+        "en": "Premium quality, ideal for coffee shops and cafes",
+        "ms": "Kualiti premium, sesuai untuk kedai kopi dan kafe",
+        "zh": "品质卓越，适合咖啡馆和餐厅"
+      },
+      "usecases": [
+        "Latte",
+        "Iced Coffee",
+        "Smoothie"
+      ]
     },
     {
       "code": "MOSYPGS700L",
@@ -573,7 +1181,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+      "images": [
+        "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg",
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png"
+      ],
+      "description": {
+        "en": "Bold flavor with a sweet finish",
+        "ms": "Rasa berani dengan kemasan manis",
+        "zh": "口感浓郁，甜蜜收尾"
+      },
+      "usecases": [
+        "Yoghurt Drink",
+        "Fruit Punch",
+        "Baked Goods"
+      ]
     },
     {
       "code": "MOSYPS700L",
@@ -585,7 +1207,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+      "images": [
+        "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png",
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png"
+      ],
+      "description": {
+        "en": "Rich and smooth flavor, perfect for beverages",
+        "ms": "Rasa kaya dan halus, sesuai untuk minuman",
+        "zh": "口感丰富顺滑，适合各种饮料"
+      },
+      "usecases": [
+        "Cold Brew",
+        "Mocktail",
+        "Ice Cream Topping"
+      ]
     },
     {
       "code": "MOSYPMS700L",
@@ -597,7 +1233,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg",
+      "images": [
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+        "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png"
+      ],
+      "description": {
+        "en": "Versatile syrup for hot and cold drinks",
+        "ms": "Sirap serba guna untuk minuman panas dan sejuk",
+        "zh": "适用于冷热饮的多功能糖浆"
+      },
+      "usecases": [
+        "Latte",
+        "Iced Coffee",
+        "Smoothie"
+      ]
     },
     {
       "code": "MOSYRS700L",
@@ -609,7 +1259,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+      "images": [
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+        "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png"
+      ],
+      "description": {
+        "en": "Authentic taste with natural ingredients",
+        "ms": "Rasa asli dengan bahan-bahan semula jadi",
+        "zh": "天然原料，口味正宗"
+      },
+      "usecases": [
+        "Cold Brew",
+        "Mocktail",
+        "Ice Cream Topping"
+      ]
     },
     {
       "code": "MOSYROS700L",
@@ -621,7 +1285,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+      "images": [
+        "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png",
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png"
+      ],
+      "description": {
+        "en": "Rich and smooth flavor, perfect for beverages",
+        "ms": "Rasa kaya dan halus, sesuai untuk minuman",
+        "zh": "口感丰富顺滑，适合各种饮料"
+      },
+      "usecases": [
+        "Yoghurt Drink",
+        "Fruit Punch",
+        "Baked Goods"
+      ]
     },
     {
       "code": "MOSYSCS700L",
@@ -633,7 +1311,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+      "images": [
+        "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png",
+        "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg"
+      ],
+      "description": {
+        "en": "Bold flavor with a sweet finish",
+        "ms": "Rasa berani dengan kemasan manis",
+        "zh": "口感浓郁，甜蜜收尾"
+      },
+      "usecases": [
+        "Matcha Latte",
+        "Dessert",
+        "Fancy Restaurant Dish"
+      ]
     },
     {
       "code": "MOSYTS700L",
@@ -645,7 +1337,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png",
+      "images": [
+        "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg",
+        "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png"
+      ],
+      "description": {
+        "en": "Premium quality, ideal for coffee shops and cafes",
+        "ms": "Kualiti premium, sesuai untuk kedai kopi dan kafe",
+        "zh": "品质卓越，适合咖啡馆和餐厅"
+      },
+      "usecases": [
+        "Yoghurt Drink",
+        "Fruit Punch",
+        "Baked Goods"
+      ]
     },
     {
       "code": "MOSYTNS700L",
@@ -657,7 +1363,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg",
+      "images": [
+        "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg",
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png"
+      ],
+      "description": {
+        "en": "Bold flavor with a sweet finish",
+        "ms": "Rasa berani dengan kemasan manis",
+        "zh": "口感浓郁，甜蜜收尾"
+      },
+      "usecases": [
+        "Hot Chocolate",
+        "Bubble Tea",
+        "Pancake Syrup"
+      ]
     },
     {
       "code": "MOSYWS700L",
@@ -669,7 +1389,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+      "images": [
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+        "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg"
+      ],
+      "description": {
+        "en": "Premium quality, ideal for coffee shops and cafes",
+        "ms": "Kualiti premium, sesuai untuk kedai kopi dan kafe",
+        "zh": "品质卓越，适合咖啡馆和餐厅"
+      },
+      "usecases": [
+        "Tea",
+        "Sparkling Drink",
+        "Dessert Topping"
+      ]
     },
     {
       "code": "MOSYWPS700L",
@@ -681,7 +1415,21 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": ""
+      "image": "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png",
+      "images": [
+        "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png",
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png"
+      ],
+      "description": {
+        "en": "Rich and smooth flavor, perfect for beverages",
+        "ms": "Rasa kaya dan halus, sesuai untuk minuman",
+        "zh": "口感丰富顺滑，适合各种饮料"
+      },
+      "usecases": [
+        "Milkshake",
+        "Frappe",
+        "Cocktail"
+      ]
     },
     {
       "code": "MOFPCBF1000G",
@@ -693,7 +1441,21 @@
       },
       "price": 68,
       "category": "Frappe",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/monin-mocha-frappe.jpg",
+      "images": [
+        "https://monin.us/cdn/shop/files/monin-vanilla-frappe.jpg",
+        "https://monin.us/cdn/shop/files/monin-mocha-frappe.jpg"
+      ],
+      "description": {
+        "en": "Authentic taste with natural ingredients",
+        "ms": "Rasa asli dengan bahan-bahan semula jadi",
+        "zh": "天然原料，口味正宗"
+      },
+      "usecases": [
+        "Tea",
+        "Sparkling Drink",
+        "Dessert Topping"
+      ]
     },
     {
       "code": "MOFPCB1000G",
@@ -705,7 +1467,21 @@
       },
       "price": 68,
       "category": "Frappe",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/monin-vanilla-frappe.jpg",
+      "images": [
+        "https://monin.us/cdn/shop/files/monin-vanilla-frappe.jpg",
+        "https://monin.us/cdn/shop/files/monin-frappe-base.jpg"
+      ],
+      "description": {
+        "en": "Versatile syrup for hot and cold drinks",
+        "ms": "Sirap serba guna untuk minuman panas dan sejuk",
+        "zh": "适用于冷热饮的多功能糖浆"
+      },
+      "usecases": [
+        "Tea",
+        "Sparkling Drink",
+        "Dessert Topping"
+      ]
     },
     {
       "code": "MOFPMGTF1000G",
@@ -717,7 +1493,21 @@
       },
       "price": 71,
       "category": "Frappe",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/monin-vanilla-frappe.jpg",
+      "images": [
+        "https://monin.us/cdn/shop/files/monin-vanilla-frappe.jpg",
+        "https://monin.us/cdn/shop/files/monin-frappe-base.jpg"
+      ],
+      "description": {
+        "en": "Premium quality, ideal for coffee shops and cafes",
+        "ms": "Kualiti premium, sesuai untuk kedai kopi dan kafe",
+        "zh": "品质卓越，适合咖啡馆和餐厅"
+      },
+      "usecases": [
+        "Hot Chocolate",
+        "Bubble Tea",
+        "Pancake Syrup"
+      ]
     },
     {
       "code": "MOFPMBF1000G",
@@ -729,7 +1519,21 @@
       },
       "price": 71,
       "category": "Frappe",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/monin-vanilla-frappe.jpg",
+      "images": [
+        "https://monin.us/cdn/shop/files/monin-vanilla-frappe.jpg",
+        "https://monin.us/cdn/shop/files/monin-mocha-frappe.jpg"
+      ],
+      "description": {
+        "en": "Authentic taste with natural ingredients",
+        "ms": "Rasa asli dengan bahan-bahan semula jadi",
+        "zh": "天然原料，口味正宗"
+      },
+      "usecases": [
+        "Latte",
+        "Iced Coffee",
+        "Smoothie"
+      ]
     },
     {
       "code": "MOFPNDB1000G",
@@ -741,7 +1545,21 @@
       },
       "price": 45,
       "category": "Frappe",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/monin-vanilla-frappe.jpg",
+      "images": [
+        "https://monin.us/cdn/shop/files/monin-mocha-frappe.jpg",
+        "https://monin.us/cdn/shop/files/monin-vanilla-frappe.jpg"
+      ],
+      "description": {
+        "en": "Rich and smooth flavor, perfect for beverages",
+        "ms": "Rasa kaya dan halus, sesuai untuk minuman",
+        "zh": "口感丰富顺滑，适合各种饮料"
+      },
+      "usecases": [
+        "Milkshake",
+        "Frappe",
+        "Cocktail"
+      ]
     },
     {
       "code": "MOFPVB1000G",
@@ -753,7 +1571,21 @@
       },
       "price": 71,
       "category": "Frappe",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/monin-mocha-frappe.jpg",
+      "images": [
+        "https://monin.us/cdn/shop/files/monin-frappe-base.jpg",
+        "https://monin.us/cdn/shop/files/monin-mocha-frappe.jpg"
+      ],
+      "description": {
+        "en": "Premium quality, ideal for coffee shops and cafes",
+        "ms": "Kualiti premium, sesuai untuk kedai kopi dan kafe",
+        "zh": "品质卓越，适合咖啡馆和餐厅"
+      },
+      "usecases": [
+        "Latte",
+        "Iced Coffee",
+        "Smoothie"
+      ]
     },
     {
       "code": "MOFPYB1000G",
@@ -765,7 +1597,21 @@
       },
       "price": 58,
       "category": "Frappe",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/monin-mocha-frappe.jpg",
+      "images": [
+        "https://monin.us/cdn/shop/files/monin-mocha-frappe.jpg",
+        "https://monin.us/cdn/shop/files/monin-frappe-base.jpg"
+      ],
+      "description": {
+        "en": "Authentic taste with natural ingredients",
+        "ms": "Rasa asli dengan bahan-bahan semula jadi",
+        "zh": "天然原料，口味正宗"
+      },
+      "usecases": [
+        "Matcha Latte",
+        "Dessert",
+        "Fancy Restaurant Dish"
+      ]
     },
     {
       "code": "TAFPVFB1000G",
@@ -777,7 +1623,21 @@
       },
       "price": 39.8,
       "category": "Frappe",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/monin-mocha-frappe.jpg",
+      "images": [
+        "https://monin.us/cdn/shop/files/monin-frappe-base.jpg",
+        "https://monin.us/cdn/shop/files/monin-vanilla-frappe.jpg"
+      ],
+      "description": {
+        "en": "Premium quality, ideal for coffee shops and cafes",
+        "ms": "Kualiti premium, sesuai untuk kedai kopi dan kafe",
+        "zh": "品质卓越，适合咖啡馆和餐厅"
+      },
+      "usecases": [
+        "Latte",
+        "Iced Coffee",
+        "Smoothie"
+      ]
     },
     {
       "code": "TAFPCTL1000G",
@@ -789,7 +1649,21 @@
       },
       "price": 48,
       "category": "Powder",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/monin-chocolate-powder.jpg",
+      "images": [
+        "https://monin.us/cdn/shop/files/monin-matcha-powder.jpg",
+        "https://monin.us/cdn/shop/files/monin-taro-powder.jpg"
+      ],
+      "description": {
+        "en": "Versatile syrup for hot and cold drinks",
+        "ms": "Sirap serba guna untuk minuman panas dan sejuk",
+        "zh": "适用于冷热饮的多功能糖浆"
+      },
+      "usecases": [
+        "Tea",
+        "Sparkling Drink",
+        "Dessert Topping"
+      ]
     },
     {
       "code": "TAFPEMT1000G",
@@ -801,7 +1675,21 @@
       },
       "price": 58,
       "category": "Matcha",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/monin-matcha.jpg",
+      "images": [
+        "https://monin.us/cdn/shop/files/matcha-green-tea.jpg",
+        "https://monin.us/cdn/shop/files/premium-matcha.jpg"
+      ],
+      "description": {
+        "en": "Versatile syrup for hot and cold drinks",
+        "ms": "Sirap serba guna untuk minuman panas dan sejuk",
+        "zh": "适用于冷热饮的多功能糖浆"
+      },
+      "usecases": [
+        "Cold Brew",
+        "Mocktail",
+        "Ice Cream Topping"
+      ]
     },
     {
       "code": "TAFPSPL1000G",
@@ -813,7 +1701,21 @@
       },
       "price": 49,
       "category": "Powder",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/monin-taro-powder.jpg",
+      "images": [
+        "https://monin.us/cdn/shop/files/monin-taro-powder.jpg",
+        "https://monin.us/cdn/shop/files/monin-chocolate-powder.jpg"
+      ],
+      "description": {
+        "en": "Rich and smooth flavor, perfect for beverages",
+        "ms": "Rasa kaya dan halus, sesuai untuk minuman",
+        "zh": "口感丰富顺滑，适合各种饮料"
+      },
+      "usecases": [
+        "Matcha Latte",
+        "Dessert",
+        "Fancy Restaurant Dish"
+      ]
     },
     {
       "code": "TAFPTL1000G",
@@ -825,7 +1727,21 @@
       },
       "price": 49,
       "category": "Powder",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/monin-matcha-powder.jpg",
+      "images": [
+        "https://monin.us/cdn/shop/files/monin-taro-powder.jpg",
+        "https://monin.us/cdn/shop/files/monin-chocolate-powder.jpg"
+      ],
+      "description": {
+        "en": "Rich and smooth flavor, perfect for beverages",
+        "ms": "Rasa kaya dan halus, sesuai untuk minuman",
+        "zh": "口感丰富顺滑，适合各种饮料"
+      },
+      "usecases": [
+        "Matcha Latte",
+        "Dessert",
+        "Fancy Restaurant Dish"
+      ]
     },
     {
       "code": "TAFPYP1000G",
@@ -837,7 +1753,21 @@
       },
       "price": 48,
       "category": "Powder",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/monin-taro-powder.jpg",
+      "images": [
+        "https://monin.us/cdn/shop/files/monin-chocolate-powder.jpg",
+        "https://monin.us/cdn/shop/files/monin-matcha-powder.jpg"
+      ],
+      "description": {
+        "en": "Rich and smooth flavor, perfect for beverages",
+        "ms": "Rasa kaya dan halus, sesuai untuk minuman",
+        "zh": "口感丰富顺滑，适合各种饮料"
+      },
+      "usecases": [
+        "Cold Brew",
+        "Mocktail",
+        "Ice Cream Topping"
+      ]
     },
     {
       "code": "JGOPPBCP1000G",
@@ -849,7 +1779,21 @@
       },
       "price": 48,
       "category": "Powder",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/monin-matcha-powder.jpg",
+      "images": [
+        "https://monin.us/cdn/shop/files/monin-taro-powder.jpg",
+        "https://monin.us/cdn/shop/files/monin-matcha-powder.jpg"
+      ],
+      "description": {
+        "en": "Authentic taste with natural ingredients",
+        "ms": "Rasa asli dengan bahan-bahan semula jadi",
+        "zh": "天然原料，口味正宗"
+      },
+      "usecases": [
+        "Hot Chocolate",
+        "Bubble Tea",
+        "Pancake Syrup"
+      ]
     },
     {
       "code": "DVSYLS750L",
@@ -861,7 +1805,21 @@
       },
       "price": 54,
       "category": "Syrup",
-      "image": ""
+      "image": "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg",
+      "images": [
+        "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg",
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png"
+      ],
+      "description": {
+        "en": "Bold flavor with a sweet finish",
+        "ms": "Rasa berani dengan kemasan manis",
+        "zh": "口感浓郁，甜蜜收尾"
+      },
+      "usecases": [
+        "Yoghurt Drink",
+        "Fruit Punch",
+        "Baked Goods"
+      ]
     },
     {
       "code": "DVSYFM750L",
@@ -873,7 +1831,21 @@
       },
       "price": 52,
       "category": "Syrup",
-      "image": ""
+      "image": "https://www.gourmet-versand.com/img_article_v3/565843-sirup-biru-monin-curacao.jpg",
+      "images": [
+        "https://monin.us/cdn/shop/files/1L-Pure-Cane-Syrup.png",
+        "https://img.lazcdn.com/g/p/e8651124812580371592c4d6485d7107.png_720x720q80.png"
+      ],
+      "description": {
+        "en": "Bold flavor with a sweet finish",
+        "ms": "Rasa berani dengan kemasan manis",
+        "zh": "口感浓郁，甜蜜收尾"
+      },
+      "usecases": [
+        "Tea",
+        "Sparkling Drink",
+        "Dessert Topping"
+      ]
     },
     {
       "code": "HESYCS1360G",
@@ -885,7 +1857,21 @@
       },
       "price": 29.8,
       "category": "Sauce",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/monin-white-chocolate-sauce.jpg",
+      "images": [
+        "https://monin.us/cdn/shop/files/monin-white-chocolate-sauce.jpg",
+        "https://monin.us/cdn/shop/files/monin-dark-chocolate-sauce.jpg"
+      ],
+      "description": {
+        "en": "Authentic taste with natural ingredients",
+        "ms": "Rasa asli dengan bahan-bahan semula jadi",
+        "zh": "天然原料，口味正宗"
+      },
+      "usecases": [
+        "Tea",
+        "Sparkling Drink",
+        "Dessert Topping"
+      ]
     },
     {
       "code": "HESYSS623G",
@@ -897,7 +1883,21 @@
       },
       "price": 15.9,
       "category": "Sauce",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/monin-white-chocolate-sauce.jpg",
+      "images": [
+        "https://monin.us/cdn/shop/files/monin-caramel-sauce.jpg",
+        "https://monin.us/cdn/shop/files/monin-white-chocolate-sauce.jpg"
+      ],
+      "description": {
+        "en": "Bold flavor with a sweet finish",
+        "ms": "Rasa berani dengan kemasan manis",
+        "zh": "口感浓郁，甜蜜收尾"
+      },
+      "usecases": [
+        "Yoghurt Drink",
+        "Fruit Punch",
+        "Baked Goods"
+      ]
     },
     {
       "code": "MOBSSC1890L",
@@ -909,7 +1909,21 @@
       },
       "price": 94,
       "category": "Sauce",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/monin-white-chocolate-sauce.jpg",
+      "images": [
+        "https://monin.us/cdn/shop/files/monin-white-chocolate-sauce.jpg",
+        "https://monin.us/cdn/shop/files/monin-dark-chocolate-sauce.jpg"
+      ],
+      "description": {
+        "en": "Versatile syrup for hot and cold drinks",
+        "ms": "Sirap serba guna untuk minuman panas dan sejuk",
+        "zh": "适用于冷热饮的多功能糖浆"
+      },
+      "usecases": [
+        "Matcha Latte",
+        "Dessert",
+        "Fancy Restaurant Dish"
+      ]
     },
     {
       "code": "MOBSDCS1890L",
@@ -921,7 +1935,21 @@
       },
       "price": 88,
       "category": "Sauce",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/monin-white-chocolate-sauce.jpg",
+      "images": [
+        "https://monin.us/cdn/shop/files/monin-caramel-sauce.jpg",
+        "https://monin.us/cdn/shop/files/monin-white-chocolate-sauce.jpg"
+      ],
+      "description": {
+        "en": "Bold flavor with a sweet finish",
+        "ms": "Rasa berani dengan kemasan manis",
+        "zh": "口感浓郁，甜蜜收尾"
+      },
+      "usecases": [
+        "Cold Brew",
+        "Mocktail",
+        "Ice Cream Topping"
+      ]
     },
     {
       "code": "MONIN-FM-MANGO",
@@ -933,7 +1961,21 @@
       },
       "price": 71,
       "category": "Fruit Mix",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/monin-passion-fruit-mix.jpg",
+      "images": [
+        "https://monin.us/cdn/shop/files/monin-strawberry-fruit-mix.jpg",
+        "https://monin.us/cdn/shop/files/monin-mango-fruit-mix.jpg"
+      ],
+      "description": {
+        "en": "Bold flavor with a sweet finish",
+        "ms": "Rasa berani dengan kemasan manis",
+        "zh": "口感浓郁，甜蜜收尾"
+      },
+      "usecases": [
+        "Tea",
+        "Sparkling Drink",
+        "Dessert Topping"
+      ]
     },
     {
       "code": "MONIN-FM-PASSION",
@@ -945,7 +1987,21 @@
       },
       "price": 71,
       "category": "Fruit Mix",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/monin-mango-fruit-mix.jpg",
+      "images": [
+        "https://monin.us/cdn/shop/files/monin-mango-fruit-mix.jpg",
+        "https://monin.us/cdn/shop/files/monin-passion-fruit-mix.jpg"
+      ],
+      "description": {
+        "en": "Premium quality, ideal for coffee shops and cafes",
+        "ms": "Kualiti premium, sesuai untuk kedai kopi dan kafe",
+        "zh": "品质卓越，适合咖啡馆和餐厅"
+      },
+      "usecases": [
+        "Milkshake",
+        "Frappe",
+        "Cocktail"
+      ]
     },
     {
       "code": "MONIN-FM-STRAWBERRY",
@@ -957,7 +2013,21 @@
       },
       "price": 58,
       "category": "Fruit Mix",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/monin-mango-fruit-mix.jpg",
+      "images": [
+        "https://monin.us/cdn/shop/files/monin-mango-fruit-mix.jpg",
+        "https://monin.us/cdn/shop/files/monin-strawberry-fruit-mix.jpg"
+      ],
+      "description": {
+        "en": "Rich and smooth flavor, perfect for beverages",
+        "ms": "Rasa kaya dan halus, sesuai untuk minuman",
+        "zh": "口感丰富顺滑，适合各种饮料"
+      },
+      "usecases": [
+        "Yoghurt Drink",
+        "Fruit Punch",
+        "Baked Goods"
+      ]
     },
     {
       "code": "MONIN-FM-KIWI",
@@ -969,7 +2039,21 @@
       },
       "price": 71,
       "category": "Fruit Mix",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/monin-strawberry-fruit-mix.jpg",
+      "images": [
+        "https://monin.us/cdn/shop/files/monin-passion-fruit-mix.jpg",
+        "https://monin.us/cdn/shop/files/monin-strawberry-fruit-mix.jpg"
+      ],
+      "description": {
+        "en": "Authentic taste with natural ingredients",
+        "ms": "Rasa asli dengan bahan-bahan semula jadi",
+        "zh": "天然原料，口味正宗"
+      },
+      "usecases": [
+        "Tea",
+        "Sparkling Drink",
+        "Dessert Topping"
+      ]
     },
     {
       "code": "MONIN-FM-LYCHEE",
@@ -981,7 +2065,21 @@
       },
       "price": 45,
       "category": "Fruit Mix",
-      "image": ""
+      "image": "https://monin.us/cdn/shop/files/monin-passion-fruit-mix.jpg",
+      "images": [
+        "https://monin.us/cdn/shop/files/monin-strawberry-fruit-mix.jpg",
+        "https://monin.us/cdn/shop/files/monin-passion-fruit-mix.jpg"
+      ],
+      "description": {
+        "en": "Rich and smooth flavor, perfect for beverages",
+        "ms": "Rasa kaya dan halus, sesuai untuk minuman",
+        "zh": "口感丰富顺滑，适合各种饮料"
+      },
+      "usecases": [
+        "Hot Chocolate",
+        "Bubble Tea",
+        "Pancake Syrup"
+      ]
     }
   ]
 }
