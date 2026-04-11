@@ -132,8 +132,22 @@
                 </div>
             </div>
 
-            <label>Product Image URL</label>
-            <input type="text" id="pImage" placeholder="https://example.com/image.jpg">
+            <label>Product Images <span style="font-weight:400;color:#999;">(maks 3 foto)</span></label>
+            <div style="display:flex;flex-direction:column;gap:8px;margin:6px 0 10px 0;">
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <span style="font-size:12px;font-weight:700;color:#aaa;min-width:16px;">1</span>
+                    <input type="text" id="pImage1" placeholder="https://example.com/foto-1.jpg" style="margin:0;flex:1;">
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <span style="font-size:12px;font-weight:700;color:#aaa;min-width:16px;">2</span>
+                    <input type="text" id="pImage2" placeholder="https://example.com/foto-2.jpg (opsional)" style="margin:0;flex:1;">
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <span style="font-size:12px;font-weight:700;color:#aaa;min-width:16px;">3</span>
+                    <input type="text" id="pImage3" placeholder="https://example.com/foto-3.jpg (opsional)" style="margin:0;flex:1;">
+                </div>
+            </div>
+            <div id="img-preview" style="display:flex;gap:8px;margin-bottom:15px;flex-wrap:wrap;min-height:0;"></div>
         </div>
 
         <div id="notification-fields" style="display:none;">
@@ -187,6 +201,30 @@
     let activeRole = ""; // 'product' atau 'notification'
     let targetFile = "";
     let jsonKey = "";
+
+    // ===== FOTO PREVIEW =====
+    function updateImgPreview() {
+        const urls = ['pImage1','pImage2','pImage3']
+            .map(id => document.getElementById(id).value.trim())
+            .filter(v => v);
+        const box = document.getElementById('img-preview');
+        if (!box) return;
+        box.innerHTML = urls.map(url =>
+            `<div style="position:relative;display:inline-block;">
+                <img src="${url}"
+                     onerror="this.parentElement.style.display='none'"
+                     style="width:80px;height:80px;object-fit:cover;border-radius:6px;border:2px solid #ddd;display:block;">
+             </div>`
+        ).join('');
+    }
+
+    // Wire up listeners after DOM ready
+    document.addEventListener('DOMContentLoaded', () => {
+        ['pImage1','pImage2','pImage3'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener('input', updateImgPreview);
+        });
+    });
 
     function setRole(role) {
         activeRole = role;
@@ -263,9 +301,13 @@
             let infoHtml = "";
             
             if (activeRole === 'product') {
+                const photoCount = Array.isArray(item.images) ? item.images.length : (item.image ? 1 : 0);
+                const photoBadge = photoCount > 1
+                    ? `<span style="background:#e8f5e9;color:#2e7d32;padding:1px 7px;border-radius:4px;font-size:11px;font-weight:bold;margin-left:4px;"><i class="fa-solid fa-images"></i> ${photoCount} foto</span>`
+                    : `<span style="background:#f5f5f5;color:#999;padding:1px 7px;border-radius:4px;font-size:11px;font-weight:bold;margin-left:4px;"><i class="fa-solid fa-image"></i> 1 foto</span>`;
                 infoHtml = `
                     <span class="code-badge">${item.code || 'N/A'}</span> 
-                    <strong>[${item.brand}]</strong> ${item.name} <br>
+                    <strong>[${item.brand}]</strong> ${item.name} ${photoBadge}<br>
                     <small style="color:var(--primary); font-weight:bold;">RM ${parseFloat(item.price).toFixed(2)}</small> | 
                     <small style="color:#888;">${item.category}</small>
                 `;
@@ -303,6 +345,11 @@
 
             if(!code || !name || !price) return alert("Code, Name, and Price are required!");
 
+            const imgs = [
+                document.getElementById('pImage1').value.trim(),
+                document.getElementById('pImage2').value.trim(),
+                document.getElementById('pImage3').value.trim()
+            ].filter(v => v);
             dataObj = {
                 id: index === -1 ? Date.now() : currentData[index].id,
                 code: code,
@@ -310,7 +357,8 @@
                 name: name,
                 price: parseFloat(price),
                 category: document.getElementById('pCat').value,
-                image: document.getElementById('pImage').value || "https://placehold.co/400"
+                image: imgs[0] || "https://placehold.co/400",
+                images: imgs.length > 0 ? imgs : ["https://placehold.co/400"]
             };
         } else {
             const title = document.getElementById('nTitle').value.trim();
@@ -348,7 +396,11 @@
             document.getElementById('pName').value = item.name || "";
             document.getElementById('pPrice').value = item.price || "";
             document.getElementById('pCat').value = item.category || "Matcha";
-            document.getElementById('pImage').value = item.image || "";
+            const editImgs = Array.isArray(item.images) && item.images.length ? item.images : (item.image ? [item.image] : []);
+            document.getElementById('pImage1').value = editImgs[0] || "";
+            document.getElementById('pImage2').value = editImgs[1] || "";
+            document.getElementById('pImage3').value = editImgs[2] || "";
+            updateImgPreview();
         } else {
             document.getElementById('nTitle').value = item.title || "";
             document.getElementById('nDate').value = item.date || "";
@@ -372,7 +424,10 @@
         document.getElementById('pBrand').value = "";
         document.getElementById('pName').value = "";
         document.getElementById('pPrice').value = "";
-        document.getElementById('pImage').value = "";
+        document.getElementById('pImage1').value = "";
+        document.getElementById('pImage2').value = "";
+        document.getElementById('pImage3').value = "";
+        document.getElementById('img-preview').innerHTML = "";
         
         document.getElementById('nTitle').value = "";
         document.getElementById('nMessage').value = "";
