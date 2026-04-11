@@ -539,7 +539,7 @@
                     <div class="lang-col en">
                         <div class="lang-col-header">
                             <span class="source-badge">EN</span> English
-                            <span id="name-en-ai" style="margin-left:auto;font-size:10px;color:var(--en-color);display:none;">✦ AI</span>
+                            <span id="name-en-ai" style="margin-left:auto;font-size:10px;color:var(--en-color);display:none;">✦ GT</span>
                         </div>
                         <input type="text" id="pName_en" placeholder="e.g., Ceremonial Matcha 100g" style="padding:12px 14px;">
                         <div class="translate-indicator" id="ind-name-en"><div class="spinner-small"></div> translating…</div>
@@ -547,7 +547,7 @@
                     <div class="lang-col ms">
                         <div class="lang-col-header">
                             <span class="source-badge">MS</span> Bahasa Melayu
-                            <span id="name-ms-ai" style="margin-left:auto;font-size:10px;color:var(--ms-color);display:none;">✦ AI</span>
+                            <span id="name-ms-ai" style="margin-left:auto;font-size:10px;color:var(--ms-color);display:none;">✦ GT</span>
                         </div>
                         <input type="text" id="pName_ms" placeholder="e.g., Matcha Ceremonial 100g" style="padding:12px 14px;">
                         <div class="translate-indicator" id="ind-name-ms"><div class="spinner-small"></div> translating…</div>
@@ -555,7 +555,7 @@
                     <div class="lang-col zh">
                         <div class="lang-col-header">
                             <span class="source-badge">ZH</span> 中文
-                            <span id="name-zh-ai" style="margin-left:auto;font-size:10px;color:var(--zh-color);display:none;">✦ AI</span>
+                            <span id="name-zh-ai" style="margin-left:auto;font-size:10px;color:var(--zh-color);display:none;">✦ GT</span>
                         </div>
                         <input type="text" id="pName_zh" placeholder="e.g., 仪式级抹茶 100g" style="padding:12px 14px;">
                         <div class="translate-indicator" id="ind-name-zh"><div class="spinner-small"></div> translating…</div>
@@ -574,7 +574,7 @@
                     <div class="lang-col en">
                         <div class="lang-col-header">
                             <span class="source-badge">EN</span> English
-                            <span id="desc-en-ai" style="margin-left:auto;font-size:10px;color:var(--en-color);display:none;">✦ AI</span>
+                            <span id="desc-en-ai" style="margin-left:auto;font-size:10px;color:var(--en-color);display:none;">✦ GT</span>
                         </div>
                         <textarea id="pDesc_en" placeholder="Premium ceremonial grade matcha from Japan with strong umami flavour..." rows="4" style="padding:12px 14px;"></textarea>
                         <div class="translate-indicator" id="ind-desc-en"><div class="spinner-small"></div> translating…</div>
@@ -582,7 +582,7 @@
                     <div class="lang-col ms">
                         <div class="lang-col-header">
                             <span class="source-badge">MS</span> Bahasa Melayu
-                            <span id="desc-ms-ai" style="margin-left:auto;font-size:10px;color:var(--ms-color);display:none;">✦ AI</span>
+                            <span id="desc-ms-ai" style="margin-left:auto;font-size:10px;color:var(--ms-color);display:none;">✦ GT</span>
                         </div>
                         <textarea id="pDesc_ms" placeholder="Matcha gred ceremonial premium dari Jepun..." rows="4" style="padding:12px 14px;"></textarea>
                         <div class="translate-indicator" id="ind-desc-ms"><div class="spinner-small"></div> translating…</div>
@@ -590,7 +590,7 @@
                     <div class="lang-col zh">
                         <div class="lang-col-header">
                             <span class="source-badge">ZH</span> 中文
-                            <span id="desc-zh-ai" style="margin-left:auto;font-size:10px;color:var(--zh-color);display:none;">✦ AI</span>
+                            <span id="desc-zh-ai" style="margin-left:auto;font-size:10px;color:var(--zh-color);display:none;">✦ GT</span>
                         </div>
                         <textarea id="pDesc_zh" placeholder="来自日本的高端仪式级抹茶..." rows="4" style="padding:12px 14px;"></textarea>
                         <div class="translate-indicator" id="ind-desc-zh"><div class="spinner-small"></div> translating…</div>
@@ -817,39 +817,22 @@ async function translateField(text, fromLang, toLang, targetId, indId, aiId, fie
     indEl.classList.add('visible');
     col.classList.add('translating');
 
-    const langNames = { en: 'English', ms: 'Bahasa Melayu', zh: 'Chinese (Simplified)' };
-    const fieldContext = fieldType === 'name'
-        ? 'product name for a B2B F&B supplier catalog'
-        : 'product description for a B2B F&B supplier catalog';
-
-    const prompt = `You are a professional F&B product translator. Translate the following ${fieldContext} from ${langNames[fromLang]} to ${langNames[toLang]}. 
-
-Rules:
-- Keep brand names, product codes, and measurements (g, kg, ml, L) exactly as-is
-- Keep it concise and natural for a B2B catalog
-- Return ONLY the translated text, no explanation, no quotes
-
-Text to translate:
-${text}`;
+    // Google Translate lang codes
+    const gtLang = { en: 'en', ms: 'ms', zh: 'zh-CN' };
 
     try {
-        const res = await fetch('https://api.anthropic.com/v1/messages', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                model: 'claude-sonnet-4-20250514',
-                max_tokens: 1000,
-                messages: [{ role: 'user', content: prompt }]
-            })
-        });
+        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${gtLang[fromLang]}&tl=${gtLang[toLang]}&dt=t&q=${encodeURIComponent(text)}`;
+        const res = await fetch(url);
         const data = await res.json();
-        const translated = data.content?.[0]?.text?.trim();
+        // Google returns nested arrays; join all translated segments
+        const translated = data[0].map(seg => seg[0]).join('');
         if (translated) {
             targetEl.value = translated;
             if (aiEl) { aiEl.style.display = 'inline'; }
         }
     } catch (e) {
         console.error('Translate error:', e);
+        showToast('Translate gagal, coba lagi.', 'error');
     } finally {
         indEl.classList.remove('visible');
         col.classList.remove('translating');
