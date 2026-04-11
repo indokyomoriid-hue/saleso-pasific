@@ -428,12 +428,12 @@
     <div class="role-modal-box">
         <div class="logo-line">Saleso Pacific</div>
         <h3><i class="fa-solid fa-user-shield"></i> Admin Panel</h3>
-        <p style="font-size:13px;color:var(--muted);margin-bottom:24px;">Pilih mode panel yang ingin dikelola.</p>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:24px;">Select the panel mode you want to manage.</p>
         <button class="role-btn product" onclick="setRole('product')">
-            <i class="fa-solid fa-box"></i> Admin Product (products.json)
+            <i class="fa-solid fa-box"></i> Product Admin (products.json)
         </button>
         <button class="role-btn notif" onclick="setRole('notification')">
-            <i class="fa-solid fa-bell"></i> Admin Notifikasi (notifications.json)
+            <i class="fa-solid fa-bell"></i> Notification Admin (notifications.json)
         </button>
     </div>
 </div>
@@ -515,24 +515,14 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Price (RM)</label>
-                        <input type="number" step="0.01" id="pPrice" placeholder="0.00">
-                    </div>
-                    <div class="form-group">
-                        <label>Source Language (Bahasa Input)</label>
-                        <select id="sourceLang">
-                            <option value="en">🇬🇧 English (EN)</option>
-                            <option value="ms">🇲🇾 Bahasa Melayu (MS)</option>
-                            <option value="zh">🇨🇳 中文 (ZH)</option>
-                        </select>
-                    </div>
+                <div class="form-group">
+                    <label>Price (RM)</label>
+                    <input type="number" step="0.01" id="pPrice" placeholder="0.00" style="max-width:300px;">
                 </div>
 
                 <div class="section-divider">
                     Product Name — Multilingual
-                    <span style="font-weight:400;text-transform:none;font-style:italic;margin-left:8px;">Ketik di salah satu kolom → bahasa lain otomatis terisi</span>
+                    <span style="font-weight:400;text-transform:none;font-style:italic;margin-left:8px;">Type in any column → other languages auto-fill</span>
                 </div>
 
                 <div class="lang-grid" id="name-grid">
@@ -546,7 +536,7 @@
                     </div>
                     <div class="lang-col ms">
                         <div class="lang-col-header">
-                            <span class="source-badge">MS</span> Bahasa Melayu
+                            <span class="source-badge">MS</span> Malay
                             <span id="name-ms-ai" style="margin-left:auto;font-size:10px;color:var(--ms-color);display:none;">✦ GT</span>
                         </div>
                         <input type="text" id="pName_ms" placeholder="e.g., Matcha Ceremonial 100g" style="padding:12px 14px;">
@@ -564,11 +554,8 @@
 
                 <div class="section-divider">
                     Description — Multilingual
+                    <span style="font-weight:400;text-transform:none;font-style:italic;margin-left:8px;">Type in any column → other languages auto-fill</span>
                 </div>
-
-                <button class="translate-all-btn" id="btn-translate-desc" onclick="translateAllDesc()">
-                    <i class="fa-solid fa-language"></i> Auto-Translate Description
-                </button>
 
                 <div class="lang-grid" id="desc-grid">
                     <div class="lang-col en">
@@ -581,7 +568,7 @@
                     </div>
                     <div class="lang-col ms">
                         <div class="lang-col-header">
-                            <span class="source-badge">MS</span> Bahasa Melayu
+                            <span class="source-badge">MS</span> Malay
                             <span id="desc-ms-ai" style="margin-left:auto;font-size:10px;color:var(--ms-color);display:none;">✦ GT</span>
                         </div>
                         <textarea id="pDesc_ms" placeholder="Matcha gred ceremonial premium dari Jepun..." rows="4" style="padding:12px 14px;"></textarea>
@@ -602,10 +589,10 @@
                     <input type="text" id="ucInput" placeholder="e.g., Matcha Latte, Es Matcha, Baking..." onkeydown="if(event.key==='Enter'){event.preventDefault();addUsecase();}">
                     <button class="uc-add-btn" onclick="addUsecase()">+</button>
                 </div>
-                <p class="hint">Ketik nama menu lalu tekan + atau Enter. Pisahkan dengan koma untuk sekaligus.</p>
+                <p class="hint">Type a use case then press + or Enter. Separate with commas to add multiple.</p>
                 <div class="uc-tags-box" id="ucTagsBox"></div>
 
-                <div class="section-divider" style="margin-top:20px;">Product Images (maks 3)</div>
+                <div class="section-divider" style="margin-top:20px;">Product Images (max 3)</div>
                 <div id="img-rows">
                     <div class="img-input-row">
                         <span class="img-num">1</span>
@@ -648,7 +635,7 @@
                 </div>
                 <div class="form-group">
                     <label>Message</label>
-                    <textarea id="nMessage" rows="3" placeholder="Tulis detail notifikasi di sini..."></textarea>
+                    <textarea id="nMessage" rows="3" placeholder="Write notification details here..."></textarea>
                 </div>
             </div>
 
@@ -708,7 +695,7 @@ function setRole(role) {
     } else {
         targetFile = 'notifications.json';
         jsonKey = 'notifications';
-        document.getElementById('panel-title').textContent = 'Saleso Pacific — Admin Notifikasi';
+        document.getElementById('panel-title').textContent = 'Saleso Pacific — Admin Notifications';
         document.getElementById('topbar-file').textContent = 'notifications.json';
         document.getElementById('product-fields').style.display = 'none';
         document.getElementById('notification-fields').style.display = 'block';
@@ -784,23 +771,35 @@ function getUsecases() { return [...ucList]; }
 //  AUTO-TRANSLATE: PRODUCT NAME (realtime)
 // =============================================
 function setupNameTranslate() {
+    // Auto-translate: Product Name
     ['en', 'ms', 'zh'].forEach(lang => {
         const input = document.getElementById(`pName_${lang}`);
         if (!input) return;
         input.addEventListener('input', () => {
-            const src = document.getElementById('sourceLang').value;
-            // Hanya trigger translate jika kolom ini adalah source language, 
-            // atau user sedang edit kolom ini (manual override)
             clearTimeout(translateTimers[`name_${lang}`]);
             translateTimers[`name_${lang}`] = setTimeout(() => {
                 const val = input.value.trim();
                 if (!val) return;
-                const targets = ['en','ms','zh'].filter(l => l !== lang);
-                targets.forEach(target => {
-                    // Jika target sudah ada isi (manual edit), tanyakan dulu? No — kita terjemahkan saja, admin bisa edit ulang
-                    translateField(val, lang, target, `pName_${target}`, `ind-name-${target}`, `name-${target}-ai`, 'name');
+                ['en','ms','zh'].filter(l => l !== lang).forEach(target => {
+                    translateField(val, lang, target, `pName_${target}`, `ind-name-${target}`, `name-${target}-ai`);
                 });
-            }, 900); // debounce 900ms
+            }, 900);
+        });
+    });
+
+    // Auto-translate: Description
+    ['en', 'ms', 'zh'].forEach(lang => {
+        const input = document.getElementById(`pDesc_${lang}`);
+        if (!input) return;
+        input.addEventListener('input', () => {
+            clearTimeout(translateTimers[`desc_${lang}`]);
+            translateTimers[`desc_${lang}`] = setTimeout(() => {
+                const val = input.value.trim();
+                if (!val) return;
+                ['en','ms','zh'].filter(l => l !== lang).forEach(target => {
+                    translateField(val, lang, target, `pDesc_${target}`, `ind-desc-${target}`, `desc-${target}-ai`);
+                });
+            }, 900);
         });
     });
 }
@@ -832,44 +831,11 @@ async function translateField(text, fromLang, toLang, targetId, indId, aiId, fie
         }
     } catch (e) {
         console.error('Translate error:', e);
-        showToast('Translate gagal, coba lagi.', 'error');
+        showToast('Translation failed, please try again.', 'error');
     } finally {
         indEl.classList.remove('visible');
         col.classList.remove('translating');
     }
-}
-
-// =============================================
-//  TRANSLATE ALL DESC (button)
-// =============================================
-async function translateAllDesc() {
-    const btn = document.getElementById('btn-translate-desc');
-    btn.disabled = true;
-    btn.innerHTML = '<div class="spinner-small" style="border-color:white;border-top-color:transparent;width:14px;height:14px;"></div> Translating...';
-
-    // Cari kolom yang punya isi sebagai source
-    let srcLang = null;
-    let srcText = '';
-    for (const lang of ['en', 'ms', 'zh']) {
-        const val = document.getElementById(`pDesc_${lang}`).value.trim();
-        if (val) { srcLang = lang; srcText = val; break; }
-    }
-
-    if (!srcLang) {
-        showToast('Isi dulu salah satu kolom deskripsi!', 'error');
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fa-solid fa-language"></i> Auto-Translate Description';
-        return;
-    }
-
-    const targets = ['en', 'ms', 'zh'].filter(l => l !== srcLang);
-    await Promise.all(targets.map(target =>
-        translateField(srcText, srcLang, target, `pDesc_${target}`, `ind-desc-${target}`, `desc-${target}-ai`, 'desc')
-    ));
-
-    btn.disabled = false;
-    btn.innerHTML = '<i class="fa-solid fa-language"></i> Auto-Translate Description';
-    showToast('Deskripsi berhasil diterjemahkan ✦');
 }
 
 // =============================================
@@ -879,7 +845,7 @@ async function fetchFromGitHub() {
     const user  = document.getElementById('ghUser').value.trim();
     const repo  = document.getElementById('ghRepo').value.trim();
     const token = document.getElementById('ghToken').value.trim();
-    if (!token || !user || !repo) return showToast('Isi Token, Username, dan Repo!', 'error');
+    if (!token || !user || !repo) return showToast('Please fill in Token, Username, and Repo!', 'error');
 
     setLoadingBar(30);
     const url = `https://api.github.com/repos/${user}/${repo}/contents/${targetFile}`;
@@ -896,7 +862,7 @@ async function fetchFromGitHub() {
         document.getElementById('data-card').style.display = 'block';
         document.getElementById('final-save').style.display = 'flex';
         setLoadingBar(100);
-        showToast(`${currentData.length} item loaded dari GitHub`);
+        showToast(`${currentData.length} items loaded from GitHub`);
     } catch (e) {
         if (e.message.includes('Not Found')) {
             currentData = [];
@@ -905,7 +871,7 @@ async function fetchFromGitHub() {
             document.getElementById('add-form').style.display = 'block';
             document.getElementById('data-card').style.display = 'block';
             document.getElementById('final-save').style.display = 'flex';
-            showToast(`File baru akan dibuat di GitHub`);
+            showToast(`New file will be created on GitHub`);
         } else {
             showToast('Error: ' + e.message, 'error');
         }
@@ -917,7 +883,7 @@ async function pushToGitHub() {
     const user  = document.getElementById('ghUser').value.trim();
     const repo  = document.getElementById('ghRepo').value.trim();
     const token = document.getElementById('ghToken').value.trim();
-    if (!confirm(`Push ${currentData.length} item ke GitHub?\nFile: ${targetFile}`)) return;
+    if (!confirm(`Push ${currentData.length} items to GitHub?\nFile: ${targetFile}`)) return;
 
     setLoadingBar(20);
     const url = `https://api.github.com/repos/${user}/${repo}/contents/${targetFile}`;
@@ -937,12 +903,12 @@ async function pushToGitHub() {
         });
         setLoadingBar(80);
         if (res.ok) {
-            showToast('Berhasil push ke GitHub! Live dalam ~1 menit.');
+            showToast('Successfully pushed to GitHub! Live in ~1 minute.');
             setLoadingBar(100);
             setTimeout(() => location.reload(), 1500);
         } else {
             const err = await res.json();
-            showToast('Push gagal: ' + err.message, 'error');
+            showToast('Push failed: ' + err.message, 'error');
             setLoadingBar(100);
         }
     } catch (e) {
@@ -962,14 +928,14 @@ function saveData() {
         const code  = document.getElementById('pCode').value.trim();
         const price = document.getElementById('pPrice').value;
         
-        // Ambil nama dari semua bahasa
+        // Get name from all languages
         const nameEn = document.getElementById('pName_en').value.trim();
         const nameMs = document.getElementById('pName_ms').value.trim();
         const nameZh = document.getElementById('pName_zh').value.trim();
         
-        // Minimal salah satu nama dan harga wajib
+        // At least one name and price are required
         const anyName = nameEn || nameMs || nameZh;
-        if (!code || !anyName || !price) return showToast('Code, Name (min 1 bahasa), dan Price wajib diisi!', 'error');
+        if (!code || !anyName || !price) return showToast('Code, Name (min 1 language), and Price are required!', 'error');
 
         const descEn = document.getElementById('pDesc_en').value.trim();
         const descMs = document.getElementById('pDesc_ms').value.trim();
@@ -1006,7 +972,7 @@ function saveData() {
     } else {
         const title   = document.getElementById('nTitle').value.trim();
         const message = document.getElementById('nMessage').value.trim();
-        if (!title || !message) return showToast('Title dan Message wajib diisi!', 'error');
+        if (!title || !message) return showToast('Title and Message are required!', 'error');
         dataObj = {
             id: index === -1 ? Date.now() : currentData[index].id,
             title,
@@ -1018,10 +984,10 @@ function saveData() {
 
     if (index === -1) {
         currentData.unshift(dataObj);
-        showToast('Item ditambahkan ke list ✦');
+        showToast('Item added to list ✦');
     } else {
         currentData[index] = dataObj;
-        showToast('Item diupdate ✦');
+        showToast('Item updated ✦');
     }
 
     resetForm();
@@ -1118,10 +1084,10 @@ function resetForm() {
 }
 
 function deleteData(index) {
-    if (!confirm('Hapus item ini?')) return;
+    if (!confirm('Delete this item?')) return;
     currentData.splice(index, 1);
     renderAdminData();
-    showToast('Item dihapus.');
+    showToast('Item deleted.');
 }
 
 // =============================================
@@ -1132,7 +1098,7 @@ function renderAdminData() {
     document.getElementById('list-count').textContent = `${currentData.length} item`;
 
     if (currentData.length === 0) {
-        container.innerHTML = `<div style="padding:30px;text-align:center;color:var(--muted);font-size:14px;"><i class="fa-solid fa-inbox" style="font-size:28px;margin-bottom:10px;display:block;"></i>Belum ada data</div>`;
+        container.innerHTML = `<div style="padding:30px;text-align:center;color:var(--muted);font-size:14px;"><i class="fa-solid fa-inbox" style="font-size:28px;margin-bottom:10px;display:block;"></i>No data yet</div>`;
         return;
     }
 
