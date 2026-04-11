@@ -48,6 +48,18 @@
         .btn-delete { color: var(--danger); cursor: pointer; font-size: 18px; }
         
         #loading { display: none; color: var(--secondary); font-weight: bold; text-align: center; margin: 10px 0; }
+
+        /* Use Case Tag Builder */
+        .usecase-builder { margin: 6px 0 15px 0; }
+        .usecase-input-row { display: flex; gap: 8px; margin-bottom: 8px; }
+        .usecase-input-row input { margin: 0; flex: 1; }
+        .btn-add-tag { padding: 10px 16px; background: var(--primary); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 20px; line-height: 1; white-space: nowrap; flex-shrink: 0; }
+        .btn-add-tag:hover { background: #00332c; }
+        .usecase-tags-box { display: flex; flex-wrap: wrap; gap: 7px; min-height: 10px; }
+        .uc-tag { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; border-radius: 20px; padding: 5px 10px 5px 13px; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+        .uc-tag button { background: none; border: none; color: #c62828; cursor: pointer; font-size: 15px; padding: 0; line-height: 1; font-weight: bold; }
+        .uc-tag button:hover { color: #b71c1c; }
+        .field-hint { font-size: 11.5px; color: #aaa; margin: -10px 0 10px; font-style: italic; }
         
         /* Modal Styles */
         #role-modal {
@@ -148,6 +160,20 @@
                 </div>
             </div>
             <div id="img-preview" style="display:flex;gap:8px;margin-bottom:15px;flex-wrap:wrap;min-height:0;"></div>
+
+            <label>Description <span style="font-weight:400;color:#999;">(opsional)</span></label>
+            <textarea id="pDesc" rows="3" placeholder="e.g., Premium ceremonial grade matcha dari Jepang dengan rasa umami yang kuat..."></textarea>
+            <p class="field-hint">Deskripsi singkat produk yang muncul di popup detail.</p>
+
+            <label>Use Cases / Best Used For <span style="font-weight:400;color:#999;">(opsional)</span></label>
+            <div class="usecase-builder">
+                <div class="usecase-input-row">
+                    <input type="text" id="ucInput" placeholder="e.g., Matcha Latte, Es Matcha, Matcha Cake..." style="margin:0;" onkeydown="if(event.key==='Enter'){event.preventDefault();addUsecase();}">
+                    <button class="btn-add-tag" onclick="addUsecase()" title="Tambah use case">+</button>
+                </div>
+                <p class="field-hint">Ketik nama menu lalu tekan + atau Enter untuk menambah. Klik × untuk hapus.</p>
+                <div class="usecase-tags-box" id="ucTagsBox"></div>
+            </div>
         </div>
 
         <div id="notification-fields" style="display:none;">
@@ -225,6 +251,37 @@
             if (el) el.addEventListener('input', updateImgPreview);
         });
     });
+
+    // ===== USE CASE TAG BUILDER =====
+    let ucList = []; // array of strings
+
+    function addUsecase() {
+        const input = document.getElementById('ucInput');
+        const val = input.value.trim();
+        if (!val) return;
+        // Support comma-separated input
+        val.split(',').map(v => v.trim()).filter(v => v).forEach(v => {
+            if (!ucList.includes(v)) ucList.push(v);
+        });
+        input.value = '';
+        renderUcTags();
+        input.focus();
+    }
+
+    function removeUsecase(i) {
+        ucList.splice(i, 1);
+        renderUcTags();
+    }
+
+    function renderUcTags() {
+        const box = document.getElementById('ucTagsBox');
+        if (!box) return;
+        box.innerHTML = ucList.map((u, i) =>
+            `<span class="uc-tag">🍽 ${u}<button onclick="removeUsecase(${i})" title="Hapus">×</button></span>`
+        ).join('');
+    }
+
+    function getUsecases() { return [...ucList]; }
 
     function setRole(role) {
         activeRole = role;
@@ -305,9 +362,16 @@
                 const photoBadge = photoCount > 1
                     ? `<span style="background:#e8f5e9;color:#2e7d32;padding:1px 7px;border-radius:4px;font-size:11px;font-weight:bold;margin-left:4px;"><i class="fa-solid fa-images"></i> ${photoCount} foto</span>`
                     : `<span style="background:#f5f5f5;color:#999;padding:1px 7px;border-radius:4px;font-size:11px;font-weight:bold;margin-left:4px;"><i class="fa-solid fa-image"></i> 1 foto</span>`;
+                const ucCount = Array.isArray(item.usecases) ? item.usecases.length : 0;
+                const ucBadge = ucCount > 0
+                    ? `<span style="background:#e8f5f9;color:#00796b;padding:1px 7px;border-radius:4px;font-size:11px;font-weight:bold;margin-left:4px;">🍽 ${ucCount} use case</span>`
+                    : '';
+                const descBadge = item.description
+                    ? `<span style="background:#fff8e1;color:#f57f17;padding:1px 7px;border-radius:4px;font-size:11px;font-weight:bold;margin-left:4px;">📝 desc</span>`
+                    : '';
                 infoHtml = `
                     <span class="code-badge">${item.code || 'N/A'}</span> 
-                    <strong>[${item.brand}]</strong> ${item.name} ${photoBadge}<br>
+                    <strong>[${item.brand}]</strong> ${item.name} ${photoBadge}${ucBadge}${descBadge}<br>
                     <small style="color:var(--primary); font-weight:bold;">RM ${parseFloat(item.price).toFixed(2)}</small> | 
                     <small style="color:#888;">${item.category}</small>
                 `;
@@ -350,6 +414,8 @@
                 document.getElementById('pImage2').value.trim(),
                 document.getElementById('pImage3').value.trim()
             ].filter(v => v);
+            const desc = document.getElementById('pDesc').value.trim();
+            const ucs  = getUsecases();
             dataObj = {
                 id: index === -1 ? Date.now() : currentData[index].id,
                 code: code,
@@ -358,7 +424,9 @@
                 price: parseFloat(price),
                 category: document.getElementById('pCat').value,
                 image: imgs[0] || "https://placehold.co/400",
-                images: imgs.length > 0 ? imgs : ["https://placehold.co/400"]
+                images: imgs.length > 0 ? imgs : ["https://placehold.co/400"],
+                ...(desc && { description: desc }),
+                ...(ucs.length > 0 && { usecases: ucs })
             };
         } else {
             const title = document.getElementById('nTitle').value.trim();
@@ -401,6 +469,9 @@
             document.getElementById('pImage2').value = editImgs[1] || "";
             document.getElementById('pImage3').value = editImgs[2] || "";
             updateImgPreview();
+            document.getElementById('pDesc').value = item.description || "";
+            ucList = Array.isArray(item.usecases) ? [...item.usecases] : [];
+            renderUcTags();
         } else {
             document.getElementById('nTitle').value = item.title || "";
             document.getElementById('nDate').value = item.date || "";
@@ -428,6 +499,9 @@
         document.getElementById('pImage2').value = "";
         document.getElementById('pImage3').value = "";
         document.getElementById('img-preview').innerHTML = "";
+        document.getElementById('pDesc').value = "";
+        ucList = [];
+        renderUcTags();
         
         document.getElementById('nTitle').value = "";
         document.getElementById('nMessage').value = "";
