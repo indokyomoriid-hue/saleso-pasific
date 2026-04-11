@@ -366,6 +366,37 @@
         .icon-btn.edit { color: #1565c0; }
         .icon-btn.del { color: var(--danger); }
 
+
+        /* ===== MANUAL LOCK ===== */
+        .lang-col.locked {
+            background: #fffbf0;
+        }
+        .lang-col.locked textarea,
+        .lang-col.locked input[type=text] {
+            background: #fffbf0;
+        }
+        .lock-btn {
+            margin-left: auto;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 13px;
+            padding: 0 2px;
+            line-height: 1;
+            color: var(--muted);
+            transition: color 0.15s;
+        }
+        .lock-btn:hover { color: var(--accent); }
+        .lang-col.locked .lock-btn { color: var(--accent); }
+        .lock-label {
+            font-size: 10px;
+            font-weight: 700;
+            font-family: var(--mono);
+            margin-left: 2px;
+            display: none;
+        }
+        .lang-col.locked .lock-label { display: inline; color: var(--accent); }
+
         /* ===== LOADING BAR ===== */
         #loading-bar {
             height: 3px;
@@ -526,26 +557,29 @@
                 </div>
 
                 <div class="lang-grid" id="name-grid">
-                    <div class="lang-col en">
+                    <div class="lang-col en" id="name-col-en">
                         <div class="lang-col-header">
                             <span class="source-badge">EN</span> English
-                            <span id="name-en-ai" style="margin-left:auto;font-size:10px;color:var(--en-color);display:none;">✦ GT</span>
+                            <span id="name-en-ai" style="font-size:10px;color:var(--en-color);display:none;">✦ GT</span>
+                            <button class="lock-btn" title="Lock / unlock manual edit" onclick="toggleLock('name','en')">🔒<span class="lock-label">LOCKED</span></button>
                         </div>
                         <input type="text" id="pName_en" placeholder="e.g., Ceremonial Matcha 100g" style="padding:12px 14px;">
                         <div class="translate-indicator" id="ind-name-en"><div class="spinner-small"></div> translating…</div>
                     </div>
-                    <div class="lang-col ms">
+                    <div class="lang-col ms" id="name-col-ms">
                         <div class="lang-col-header">
                             <span class="source-badge">MS</span> Malay
-                            <span id="name-ms-ai" style="margin-left:auto;font-size:10px;color:var(--ms-color);display:none;">✦ GT</span>
+                            <span id="name-ms-ai" style="font-size:10px;color:var(--ms-color);display:none;">✦ GT</span>
+                            <button class="lock-btn" title="Lock / unlock manual edit" onclick="toggleLock('name','ms')">🔒<span class="lock-label">LOCKED</span></button>
                         </div>
                         <input type="text" id="pName_ms" placeholder="e.g., Matcha Ceremonial 100g" style="padding:12px 14px;">
                         <div class="translate-indicator" id="ind-name-ms"><div class="spinner-small"></div> translating…</div>
                     </div>
-                    <div class="lang-col zh">
+                    <div class="lang-col zh" id="name-col-zh">
                         <div class="lang-col-header">
                             <span class="source-badge">ZH</span> 中文
-                            <span id="name-zh-ai" style="margin-left:auto;font-size:10px;color:var(--zh-color);display:none;">✦ GT</span>
+                            <span id="name-zh-ai" style="font-size:10px;color:var(--zh-color);display:none;">✦ GT</span>
+                            <button class="lock-btn" title="Lock / unlock manual edit" onclick="toggleLock('name','zh')">🔒<span class="lock-label">LOCKED</span></button>
                         </div>
                         <input type="text" id="pName_zh" placeholder="e.g., 仪式级抹茶 100g" style="padding:12px 14px;">
                         <div class="translate-indicator" id="ind-name-zh"><div class="spinner-small"></div> translating…</div>
@@ -558,26 +592,29 @@
                 </div>
 
                 <div class="lang-grid" id="desc-grid">
-                    <div class="lang-col en">
+                    <div class="lang-col en" id="desc-col-en">
                         <div class="lang-col-header">
                             <span class="source-badge">EN</span> English
-                            <span id="desc-en-ai" style="margin-left:auto;font-size:10px;color:var(--en-color);display:none;">✦ GT</span>
+                            <span id="desc-en-ai" style="font-size:10px;color:var(--en-color);display:none;">✦ GT</span>
+                            <button class="lock-btn" title="Lock / unlock manual edit" onclick="toggleLock('desc','en')">🔒<span class="lock-label">LOCKED</span></button>
                         </div>
                         <textarea id="pDesc_en" placeholder="Premium ceremonial grade matcha from Japan with strong umami flavour..." rows="4" style="padding:12px 14px;"></textarea>
                         <div class="translate-indicator" id="ind-desc-en"><div class="spinner-small"></div> translating…</div>
                     </div>
-                    <div class="lang-col ms">
+                    <div class="lang-col ms" id="desc-col-ms">
                         <div class="lang-col-header">
                             <span class="source-badge">MS</span> Malay
-                            <span id="desc-ms-ai" style="margin-left:auto;font-size:10px;color:var(--ms-color);display:none;">✦ GT</span>
+                            <span id="desc-ms-ai" style="font-size:10px;color:var(--ms-color);display:none;">✦ GT</span>
+                            <button class="lock-btn" title="Lock / unlock manual edit" onclick="toggleLock('desc','ms')">🔒<span class="lock-label">LOCKED</span></button>
                         </div>
                         <textarea id="pDesc_ms" placeholder="Matcha gred ceremonial premium dari Jepun..." rows="4" style="padding:12px 14px;"></textarea>
                         <div class="translate-indicator" id="ind-desc-ms"><div class="spinner-small"></div> translating…</div>
                     </div>
-                    <div class="lang-col zh">
+                    <div class="lang-col zh" id="desc-col-zh">
                         <div class="lang-col-header">
                             <span class="source-badge">ZH</span> 中文
-                            <span id="desc-zh-ai" style="margin-left:auto;font-size:10px;color:var(--zh-color);display:none;">✦ GT</span>
+                            <span id="desc-zh-ai" style="font-size:10px;color:var(--zh-color);display:none;">✦ GT</span>
+                            <button class="lock-btn" title="Lock / unlock manual edit" onclick="toggleLock('desc','zh')">🔒<span class="lock-label">LOCKED</span></button>
                         </div>
                         <textarea id="pDesc_zh" placeholder="来自日本的高端仪式级抹茶..." rows="4" style="padding:12px 14px;"></textarea>
                         <div class="translate-indicator" id="ind-desc-zh"><div class="spinner-small"></div> translating…</div>
@@ -768,10 +805,42 @@ function renderUcTags() {
 function getUsecases() { return [...ucList]; }
 
 // =============================================
-//  AUTO-TRANSLATE: PRODUCT NAME (realtime)
+//  LOCK STATE — tracks manually-edited columns
+// =============================================
+// lockedFields = { 'name-ms': true, 'desc-zh': true, ... }
+const lockedFields = {};
+
+function toggleLock(field, lang) {
+    const key = `${field}-${lang}`;
+    const col = document.getElementById(`${field}-col-${lang}`);
+    if (lockedFields[key]) {
+        // Unlock
+        delete lockedFields[key];
+        col.classList.remove('locked');
+    } else {
+        // Lock
+        lockedFields[key] = true;
+        col.classList.add('locked');
+    }
+}
+
+function isLocked(field, lang) {
+    return !!lockedFields[`${field}-${lang}`];
+}
+
+function clearLocks(field) {
+    ['en','ms','zh'].forEach(lang => {
+        delete lockedFields[`${field}-${lang}`];
+        const col = document.getElementById(`${field}-col-${lang}`);
+        if (col) col.classList.remove('locked');
+    });
+}
+
+// =============================================
+//  AUTO-TRANSLATE: realtime with lock support
 // =============================================
 function setupNameTranslate() {
-    // Auto-translate: Product Name
+    // Product Name
     ['en', 'ms', 'zh'].forEach(lang => {
         const input = document.getElementById(`pName_${lang}`);
         if (!input) return;
@@ -780,14 +849,14 @@ function setupNameTranslate() {
             translateTimers[`name_${lang}`] = setTimeout(() => {
                 const val = input.value.trim();
                 if (!val) return;
-                ['en','ms','zh'].filter(l => l !== lang).forEach(target => {
+                ['en','ms','zh'].filter(l => l !== lang && !isLocked('name', l)).forEach(target => {
                     translateField(val, lang, target, `pName_${target}`, `ind-name-${target}`, `name-${target}-ai`);
                 });
             }, 900);
         });
     });
 
-    // Auto-translate: Description
+    // Description
     ['en', 'ms', 'zh'].forEach(lang => {
         const input = document.getElementById(`pDesc_${lang}`);
         if (!input) return;
@@ -796,7 +865,7 @@ function setupNameTranslate() {
             translateTimers[`desc_${lang}`] = setTimeout(() => {
                 const val = input.value.trim();
                 if (!val) return;
-                ['en','ms','zh'].filter(l => l !== lang).forEach(target => {
+                ['en','ms','zh'].filter(l => l !== lang && !isLocked('desc', l)).forEach(target => {
                     translateField(val, lang, target, `pDesc_${target}`, `ind-desc-${target}`, `desc-${target}-ai`);
                 });
             }, 900);
@@ -804,7 +873,7 @@ function setupNameTranslate() {
     });
 }
 
-async function translateField(text, fromLang, toLang, targetId, indId, aiId, fieldType) {
+async function translateField(text, fromLang, toLang, targetId, indId, aiId) {
     if (!text.trim()) return;
 
     const targetEl = document.getElementById(targetId);
@@ -812,18 +881,15 @@ async function translateField(text, fromLang, toLang, targetId, indId, aiId, fie
     const aiEl = document.getElementById(aiId);
     const col = targetEl.closest('.lang-col');
 
-    // Show indicator
     indEl.classList.add('visible');
     col.classList.add('translating');
 
-    // Google Translate lang codes
     const gtLang = { en: 'en', ms: 'ms', zh: 'zh-CN' };
 
     try {
         const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${gtLang[fromLang]}&tl=${gtLang[toLang]}&dt=t&q=${encodeURIComponent(text)}`;
         const res = await fetch(url);
         const data = await res.json();
-        // Google returns nested arrays; join all translated segments
         const translated = data[0].map(seg => seg[0]).join('');
         if (translated) {
             targetEl.value = translated;
@@ -1076,6 +1142,8 @@ function resetForm() {
     if (nDate) nDate.valueAsDate = new Date();
     ucList = [];
     renderUcTags();
+    clearLocks('name');
+    clearLocks('desc');
 
     document.getElementById('form-title').textContent = 'Add New Entry';
     document.getElementById('btn-save-entry').innerHTML = '<i class="fa-solid fa-plus"></i> Add to List';
