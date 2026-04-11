@@ -4,568 +4,1192 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel | Saleso Pacific</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #004d40;
-            --secondary: #2196F3;
-            --warning: #ff9800;
-            --danger: #f44336;
-            --light: #f4f4f4;
-            --white: #ffffff;
-            --purple: #673ab7;
+            --primary-light: #e0f2f1;
+            --accent: #d4a017;
+            --danger: #c62828;
+            --warn: #e65100;
+            --bg: #f0f2f0;
+            --card: #ffffff;
+            --border: #d8ddd8;
+            --text: #1a2e1a;
+            --muted: #6b7c6b;
+            --mono: 'IBM Plex Mono', monospace;
+            --sans: 'DM Sans', sans-serif;
+
+            --en-color: #1565c0;
+            --ms-color: #1b5e20;
+            --zh-color: #b71c1c;
+
+            --en-bg: #e3f2fd;
+            --ms-bg: #e8f5e9;
+            --zh-bg: #fce4ec;
         }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--light); padding: 20px; color: #333; margin: 0; }
-        .admin-container { max-width: 900px; margin: 0 auto; background: var(--white); padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
-        
-        .config-section { background: #fff3cd; padding: 20px; border-radius: 8px; margin-bottom: 25px; border: 1px solid #ffeeba; }
-        h2 { color: var(--primary); margin-bottom: 20px; border-bottom: 2px solid var(--primary); padding-bottom: 10px; }
-        h4 { margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
 
-        label { font-size: 13px; font-weight: 600; color: #666; }
-        input, select, textarea { width: 100%; padding: 12px; margin: 6px 0 15px 0; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; box-sizing: border-box;}
-        
-        .btn { padding: 12px 20px; cursor: pointer; border: none; border-radius: 6px; font-weight: bold; transition: 0.3s; font-size: 14px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
-        .btn-save { background: var(--primary); color: white; }
-        .btn-save:hover { background: #00332c; }
-        .btn-load { background: var(--secondary); color: white; }
-        .btn-purple { background: var(--purple); color: white; }
-        .btn-update { background: var(--warning); color: white; display: none; }
-        
-        #add-form { background: #f9f9f9; border: 1px solid #eee; padding: 20px; border-radius: 8px; margin-bottom: 25px; }
-        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        .data-item { 
-            display: flex; justify-content: space-between; align-items: center; 
-            padding: 15px; border-bottom: 1px solid #eee; background: var(--white);
+        body {
+            font-family: var(--sans);
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
         }
-        .data-info-text { font-size: 14px; line-height: 1.6; }
-        .code-badge { background: #e0e0e0; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-weight: bold; color: #555; margin-right: 5px; }
-        .date-badge { background: #e3f2fd; color: #1565c0; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: bold; margin-right: 5px; }
-        
-        .action-btns { display: flex; gap: 15px; }
-        .btn-edit { color: var(--secondary); cursor: pointer; font-size: 18px; }
-        .btn-delete { color: var(--danger); cursor: pointer; font-size: 18px; }
-        
-        #loading { display: none; color: var(--secondary); font-weight: bold; text-align: center; margin: 10px 0; }
 
-        /* Use Case Tag Builder */
-        .usecase-builder { margin: 6px 0 15px 0; }
-        .usecase-input-row { display: flex; gap: 8px; margin-bottom: 8px; }
-        .usecase-input-row input { margin: 0; flex: 1; }
-        .btn-add-tag { padding: 10px 16px; background: var(--primary); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 20px; line-height: 1; white-space: nowrap; flex-shrink: 0; }
-        .btn-add-tag:hover { background: #00332c; }
-        .usecase-tags-box { display: flex; flex-wrap: wrap; gap: 7px; min-height: 10px; }
-        .uc-tag { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; border-radius: 20px; padding: 5px 10px 5px 13px; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
-        .uc-tag button { background: none; border: none; color: #c62828; cursor: pointer; font-size: 15px; padding: 0; line-height: 1; font-weight: bold; }
-        .uc-tag button:hover { color: #b71c1c; }
-        .field-hint { font-size: 11.5px; color: #aaa; margin: -10px 0 10px; font-style: italic; }
-        
-        /* Modal Styles */
+        /* ===== ROLE MODAL ===== */
         #role-modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.8); z-index: 9999;
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(4px);
+            z-index: 9999;
             display: flex; justify-content: center; align-items: center;
         }
-        .role-modal-content {
-            background: white; padding: 40px; border-radius: 12px; text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3); max-width: 400px; width: 90%;
+        .role-modal-box {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 40px 36px;
+            max-width: 380px; width: 90%;
+            box-shadow: 0 24px 60px rgba(0,0,0,0.3);
+            text-align: center;
         }
-        .role-modal-content h3 { margin-top: 0; color: var(--primary); margin-bottom: 25px; }
-        .role-btn-group { display: flex; flex-direction: column; gap: 15px; }
+        .role-modal-box .logo-line {
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+        .role-modal-box h3 {
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 24px;
+            font-weight: 700;
+        }
+        .role-btn {
+            width: 100%;
+            padding: 14px 20px;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex; align-items: center; gap: 10px;
+            transition: all 0.2s;
+            margin-bottom: 12px;
+        }
+        .role-btn.product { background: var(--primary); color: white; }
+        .role-btn.product:hover { background: #003530; }
+        .role-btn.notif { background: white; color: var(--primary); border-color: var(--primary); }
+        .role-btn.notif:hover { background: var(--primary-light); }
+
+        /* ===== LAYOUT ===== */
+        .topbar {
+            background: var(--primary);
+            color: white;
+            padding: 14px 28px;
+            display: flex; align-items: center; gap: 12px;
+            position: sticky; top: 0; z-index: 100;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+        }
+        .topbar-title {
+            font-weight: 700;
+            font-size: 15px;
+            letter-spacing: 0.3px;
+        }
+        .topbar-sub {
+            font-size: 12px;
+            opacity: 0.6;
+            font-family: var(--mono);
+            margin-left: auto;
+        }
+
+        .page-wrap {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 24px 20px 60px;
+        }
+
+        /* ===== CARDS ===== */
+        .card {
+            background: var(--card);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        .card-header {
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; gap: 10px;
+            background: #fafafa;
+        }
+        .card-header .step {
+            width: 26px; height: 26px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: 700;
+            font-family: var(--mono);
+            flex-shrink: 0;
+        }
+        .card-header h3 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text);
+        }
+        .card-body { padding: 20px; }
+
+        /* ===== FORM ===== */
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+        .form-row.three { grid-template-columns: 1fr 1fr 1fr; }
+        .form-group { margin-bottom: 16px; }
+        .form-group:last-child { margin-bottom: 0; }
+        label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        input[type=text], input[type=number], input[type=password], input[type=date], select, textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: var(--sans);
+            color: var(--text);
+            background: white;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0,77,64,0.1);
+        }
+        textarea { resize: vertical; min-height: 80px; }
+
+        /* ===== MULTILANG SECTION ===== */
+        .lang-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 0;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+        .lang-col {
+            position: relative;
+            border-right: 1.5px solid var(--border);
+        }
+        .lang-col:last-child { border-right: none; }
+
+        .lang-col-header {
+            padding: 10px 14px;
+            display: flex; align-items: center; gap: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            border-bottom: 1.5px solid var(--border);
+        }
+        .lang-col.en .lang-col-header { background: var(--en-bg); color: var(--en-color); }
+        .lang-col.ms .lang-col-header { background: var(--ms-bg); color: var(--ms-color); }
+        .lang-col.zh .lang-col-header { background: var(--zh-bg); color: var(--zh-color); }
+
+        .lang-col textarea, .lang-col input[type=text] {
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
+            font-size: 13.5px;
+            resize: none;
+        }
+        .lang-col textarea:focus, .lang-col input[type=text]:focus {
+            box-shadow: none;
+            border-color: transparent;
+            background: #fafff9;
+        }
+
+        /* Translating state */
+        .lang-col.translating textarea,
+        .lang-col.translating input[type=text] {
+            background: #fffde7;
+            color: #999;
+        }
+        .translate-indicator {
+            position: absolute;
+            bottom: 8px; right: 10px;
+            font-size: 11px;
+            color: var(--accent);
+            font-weight: 600;
+            display: none;
+            align-items: center;
+            gap: 4px;
+            font-family: var(--mono);
+        }
+        .translate-indicator.visible { display: flex; }
+        .spinner-small {
+            width: 10px; height: 10px;
+            border: 2px solid var(--accent);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Source badge */
+        .source-badge {
+            font-size: 10px;
+            padding: 1px 7px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-family: var(--mono);
+        }
+        .en .source-badge { background: var(--en-color); color: white; }
+        .ms .source-badge { background: var(--ms-color); color: white; }
+        .zh .source-badge { background: var(--zh-color); color: white; }
+
+        /* Translate all button */
+        .translate-all-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 8px 16px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-bottom: 16px;
+        }
+        .translate-all-btn:hover { background: #b8860b; }
+        .translate-all-btn:disabled { background: #ccc; cursor: not-allowed; }
+
+        /* ===== USECASE BUILDER ===== */
+        .uc-input-row { display: flex; gap: 8px; margin-bottom: 8px; }
+        .uc-input-row input { flex: 1; margin: 0; }
+        .uc-add-btn {
+            padding: 10px 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+        .uc-tags-box { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 8px; }
+        .uc-tag {
+            background: #e8f5e9; color: #2e7d32;
+            border: 1px solid #a5d6a7;
+            border-radius: 20px;
+            padding: 5px 10px 5px 13px;
+            font-size: 13px; font-weight: 600;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .uc-tag button { background: none; border: none; color: #c62828; cursor: pointer; font-size: 15px; }
+
+        /* ===== IMAGES ===== */
+        .img-input-row {
+            display: flex; align-items: center; gap: 10px;
+            margin-bottom: 10px;
+        }
+        .img-num { font-size: 12px; font-weight: 700; color: var(--muted); font-family: var(--mono); min-width: 16px; }
+        .img-input-row input { margin: 0; flex: 1; }
+        .img-thumb {
+            width: 52px; height: 52px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            flex-shrink: 0;
+            display: none;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            padding: 11px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex; align-items: center; gap: 8px;
+            transition: all 0.2s;
+            font-family: var(--sans);
+        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: #003530; }
+        .btn-secondary { background: #1565c0; color: white; }
+        .btn-secondary:hover { background: #0d47a1; }
+        .btn-warn { background: var(--warn); color: white; }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-ghost { background: #eee; color: #555; }
+        .btn-ghost:hover { background: #ddd; }
+        .btn-success { background: #2e7d32; color: white; }
+        .btn-full { width: 100%; justify-content: center; }
+        .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        .btn-sm { padding: 7px 14px; font-size: 13px; }
+
+        /* ===== DATA LIST ===== */
+        .data-item {
+            display: flex; justify-content: space-between; align-items: flex-start;
+            padding: 14px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            gap: 12px;
+        }
+        .data-item:last-child { border-bottom: none; }
+        .data-item:hover { background: #fafafa; }
+        .data-name { font-weight: 600; font-size: 14px; margin-bottom: 3px; }
+        .data-meta { font-size: 12.5px; color: var(--muted); }
+        .badge {
+            display: inline-flex; align-items: center; gap: 4px;
+            padding: 2px 8px; border-radius: 10px;
+            font-size: 11px; font-weight: 700;
+            margin-left: 5px;
+        }
+        .badge-green { background: #e8f5e9; color: #2e7d32; }
+        .badge-blue { background: #e3f2fd; color: #1565c0; }
+        .badge-orange { background: #fff3e0; color: #e65100; }
+        .badge-multi { background: #f3e5f5; color: #6a1b9a; }
+        .item-actions { display: flex; gap: 12px; flex-shrink: 0; }
+        .icon-btn { background: none; border: none; cursor: pointer; font-size: 16px; padding: 4px; }
+        .icon-btn.edit { color: #1565c0; }
+        .icon-btn.del { color: var(--danger); }
+
+        /* ===== LOADING BAR ===== */
+        #loading-bar {
+            height: 3px;
+            background: var(--accent);
+            width: 0%;
+            transition: width 0.3s;
+            position: fixed;
+            top: 0; left: 0;
+            z-index: 9998;
+        }
+
+        /* ===== TOAST ===== */
+        #toast {
+            position: fixed;
+            bottom: 24px; right: 24px;
+            background: #1a2e1a;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 13.5px;
+            font-weight: 600;
+            z-index: 9999;
+            transform: translateY(80px);
+            opacity: 0;
+            transition: all 0.3s;
+            display: flex; align-items: center; gap: 10px;
+            max-width: 360px;
+        }
+        #toast.show { transform: translateY(0); opacity: 1; }
+        #toast.error { background: var(--danger); }
+
+        .hint { font-size: 11.5px; color: var(--muted); margin-top: 4px; font-style: italic; }
+
+        .section-divider {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--muted);
+            padding: 10px 0 8px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 16px;
+        }
+
+        @media (max-width: 640px) {
+            .form-row, .form-row.three { grid-template-columns: 1fr; }
+            .lang-grid { grid-template-columns: 1fr; }
+            .lang-col { border-right: none; border-bottom: 1.5px solid var(--border); }
+            .lang-col:last-child { border-bottom: none; }
+        }
     </style>
 </head>
 <body>
 
+<div id="loading-bar"></div>
+<div id="toast"></div>
+
+<!-- ROLE MODAL -->
 <div id="role-modal">
-    <div class="role-modal-content">
-        <h3><i class="fa-solid fa-id-badge"></i> Pilih Akses Admin</h3>
-        <p style="font-size: 14px; color: #666; margin-bottom: 20px;">Silakan pilih mode panel yang ingin Anda kelola.</p>
-        <div class="role-btn-group">
-            <button class="btn btn-save" onclick="setRole('product')">
-                <i class="fa-solid fa-box"></i> Admin Product (products.json)
-            </button>
-            <button class="btn btn-purple" onclick="setRole('notification')">
-                <i class="fa-solid fa-bell"></i> Admin Notifikasi (notifications.json)
-            </button>
-        </div>
+    <div class="role-modal-box">
+        <div class="logo-line">Saleso Pacific</div>
+        <h3><i class="fa-solid fa-user-shield"></i> Admin Panel</h3>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:24px;">Pilih mode panel yang ingin dikelola.</p>
+        <button class="role-btn product" onclick="setRole('product')">
+            <i class="fa-solid fa-box"></i> Admin Product (products.json)
+        </button>
+        <button class="role-btn notif" onclick="setRole('notification')">
+            <i class="fa-solid fa-bell"></i> Admin Notifikasi (notifications.json)
+        </button>
     </div>
 </div>
 
-<div class="admin-container">
-    <h2 id="panel-title"><i class="fa-solid fa-user-shield"></i> Saleso Pacific Admin Panel</h2>
-    
-    <div class="config-section">
-        <h4><i class="fa-solid fa-gear"></i> 1. GitHub Connection</h4>
-        <input type="password" id="ghToken" placeholder="GitHub Personal Access Token (PAT)">
-        <div class="form-grid">
-            <input type="text" id="ghUser" placeholder="GitHub Username (e.g., samuelandi)">
-            <input type="text" id="ghRepo" placeholder="Repository Name (e.g., saleso-web)">
+<!-- TOPBAR -->
+<div class="topbar">
+    <i class="fa-solid fa-user-shield" style="font-size:18px;opacity:0.8;"></i>
+    <span class="topbar-title" id="panel-title">Saleso Pacific — Admin Panel</span>
+    <span class="topbar-sub" id="topbar-file">—</span>
+</div>
+
+<div class="page-wrap">
+
+    <!-- STEP 1: GitHub -->
+    <div class="card">
+        <div class="card-header">
+            <div class="step">1</div>
+            <h3>GitHub Connection</h3>
         </div>
-        <button class="btn btn-load" onclick="fetchFromGitHub()" style="width: 100%;">
-            <i class="fa-solid fa-sync"></i> Pull Latest Data
-        </button>
-        <div id="loading">Processing... please wait...</div>
-    </div>
-
-    <div id="add-form" style="display:none;">
-        <h4 id="form-title"><i class="fa-solid fa-plus-circle"></i> 2. Add New Entry</h4>
-        <input type="hidden" id="editIndex" value="-1">
-        
-        <div id="product-fields" style="display:none;">
-            <div class="form-grid">
-                <div>
-                    <label>Item Code</label>
-                    <input type="text" id="pCode" placeholder="e.g., iebdoebbeej">
+        <div class="card-body">
+            <div class="form-group">
+                <label>Personal Access Token</label>
+                <input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>GitHub Username</label>
+                    <input type="text" id="ghUser" placeholder="e.g., samuelandi">
                 </div>
-                <div>
-                    <label>Brand</label>
-                    <input type="text" id="pBrand" placeholder="e.g., Kyomori">
+                <div class="form-group">
+                    <label>Repository Name</label>
+                    <input type="text" id="ghRepo" placeholder="e.g., saleso-web">
                 </div>
             </div>
-            
-            <label>Product Name</label>
-            <input type="text" id="pName" placeholder="e.g., Gyokuho Matcha 100g">
-            
-            <div class="form-grid">
-                <div>
-                    <label>Price (RM)</label>
-                    <input type="number" step="0.01" id="pPrice" placeholder="0.00">
-                </div>
-                <div>
-                    <label>Category</label>
-                    <select id="pCat">
-                        <option value="Matcha">Matcha</option>
-                        <option value="Syrup">Syrup</option>
-                        <option value="Dairy">Dairy</option>
-                        <option value="Coffee">Coffee</option>
-                        <option value="Frozen">Frozen</option>
-                    </select>
-                </div>
-            </div>
-
-            <label>Product Images <span style="font-weight:400;color:#999;">(maks 3 foto)</span></label>
-            <div style="display:flex;flex-direction:column;gap:8px;margin:6px 0 10px 0;">
-                <div style="display:flex;align-items:center;gap:8px;">
-                    <span style="font-size:12px;font-weight:700;color:#aaa;min-width:16px;">1</span>
-                    <input type="text" id="pImage1" placeholder="https://example.com/foto-1.jpg" style="margin:0;flex:1;">
-                </div>
-                <div style="display:flex;align-items:center;gap:8px;">
-                    <span style="font-size:12px;font-weight:700;color:#aaa;min-width:16px;">2</span>
-                    <input type="text" id="pImage2" placeholder="https://example.com/foto-2.jpg (opsional)" style="margin:0;flex:1;">
-                </div>
-                <div style="display:flex;align-items:center;gap:8px;">
-                    <span style="font-size:12px;font-weight:700;color:#aaa;min-width:16px;">3</span>
-                    <input type="text" id="pImage3" placeholder="https://example.com/foto-3.jpg (opsional)" style="margin:0;flex:1;">
-                </div>
-            </div>
-            <div id="img-preview" style="display:flex;gap:8px;margin-bottom:15px;flex-wrap:wrap;min-height:0;"></div>
-
-            <label>Description <span style="font-weight:400;color:#999;">(opsional)</span></label>
-            <textarea id="pDesc" rows="3" placeholder="e.g., Premium ceremonial grade matcha dari Jepang dengan rasa umami yang kuat..."></textarea>
-            <p class="field-hint">Deskripsi singkat produk yang muncul di popup detail.</p>
-
-            <label>Use Cases / Best Used For <span style="font-weight:400;color:#999;">(opsional)</span></label>
-            <div class="usecase-builder">
-                <div class="usecase-input-row">
-                    <input type="text" id="ucInput" placeholder="e.g., Matcha Latte, Es Matcha, Matcha Cake..." style="margin:0;" onkeydown="if(event.key==='Enter'){event.preventDefault();addUsecase();}">
-                    <button class="btn-add-tag" onclick="addUsecase()" title="Tambah use case">+</button>
-                </div>
-                <p class="field-hint">Ketik nama menu lalu tekan + atau Enter untuk menambah. Klik × untuk hapus.</p>
-                <div class="usecase-tags-box" id="ucTagsBox"></div>
-            </div>
-        </div>
-
-        <div id="notification-fields" style="display:none;">
-            <label>Notification Title</label>
-            <input type="text" id="nTitle" placeholder="e.g., Promo Diskon 50%!">
-            
-            <div class="form-grid">
-                <div>
-                    <label>Date</label>
-                    <input type="date" id="nDate">
-                </div>
-                <div>
-                    <label>Status / Type</label>
-                    <select id="nType">
-                        <option value="Info">Info</option>
-                        <option value="Promo">Promo</option>
-                        <option value="System">System Update</option>
-                    </select>
-                </div>
-            </div>
-
-            <label>Message Detail</label>
-            <textarea id="nMessage" rows="3" placeholder="Tulis detail notifikasi di sini..."></textarea>
-        </div>
-        
-        <div id="form-actions">
-            <button id="btn-add-local" class="btn btn-save" onclick="saveData()" style="width: 100%;">
-                <i class="fa-solid fa-plus"></i> Add to List
-            </button>
-            <button id="btn-cancel-edit" class="btn" onclick="resetForm()" style="width: 100%; margin-top: 10px; display:none; background: #999; color: white;">
-                Cancel Edit
+            <button class="btn btn-secondary btn-full" onclick="fetchFromGitHub()">
+                <i class="fa-solid fa-cloud-arrow-down"></i> Pull Latest Data
             </button>
         </div>
     </div>
 
-    <div id="data-list-admin">
-        <p style="text-align: center; color: #888;">Please enter configuration and pull data...</p>
+    <!-- STEP 2: Form -->
+    <div class="card" id="add-form" style="display:none;">
+        <div class="card-header">
+            <div class="step">2</div>
+            <h3 id="form-title">Add New Entry</h3>
+            <div style="margin-left:auto;display:flex;gap:8px;">
+                <button class="btn btn-ghost btn-sm" id="btn-cancel" onclick="resetForm()" style="display:none;">
+                    <i class="fa-solid fa-xmark"></i> Cancel
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <input type="hidden" id="editIndex" value="-1">
+
+            <!-- ===== PRODUCT FIELDS ===== -->
+            <div id="product-fields" style="display:none;">
+                
+                <div class="section-divider">Basic Info</div>
+                <div class="form-row three">
+                    <div class="form-group">
+                        <label>Item Code</label>
+                        <input type="text" id="pCode" placeholder="e.g., MTH-001">
+                    </div>
+                    <div class="form-group">
+                        <label>Brand</label>
+                        <input type="text" id="pBrand" placeholder="e.g., Kyomori">
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select id="pCat">
+                            <option value="Matcha">Matcha</option>
+                            <option value="Syrup">Syrup</option>
+                            <option value="Dairy">Dairy</option>
+                            <option value="Coffee">Coffee</option>
+                            <option value="Frozen">Frozen</option>
+                            <option value="Sauce">Sauce</option>
+                            <option value="Beverage">Beverage</option>
+                            <option value="Food">Food</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Price (RM)</label>
+                        <input type="number" step="0.01" id="pPrice" placeholder="0.00">
+                    </div>
+                    <div class="form-group">
+                        <label>Source Language (Bahasa Input)</label>
+                        <select id="sourceLang">
+                            <option value="en">🇬🇧 English (EN)</option>
+                            <option value="ms">🇲🇾 Bahasa Melayu (MS)</option>
+                            <option value="zh">🇨🇳 中文 (ZH)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="section-divider">
+                    Product Name — Multilingual
+                    <span style="font-weight:400;text-transform:none;font-style:italic;margin-left:8px;">Ketik di salah satu kolom → bahasa lain otomatis terisi</span>
+                </div>
+
+                <div class="lang-grid" id="name-grid">
+                    <div class="lang-col en">
+                        <div class="lang-col-header">
+                            <span class="source-badge">EN</span> English
+                            <span id="name-en-ai" style="margin-left:auto;font-size:10px;color:var(--en-color);display:none;">✦ AI</span>
+                        </div>
+                        <input type="text" id="pName_en" placeholder="e.g., Ceremonial Matcha 100g" style="padding:12px 14px;">
+                        <div class="translate-indicator" id="ind-name-en"><div class="spinner-small"></div> translating…</div>
+                    </div>
+                    <div class="lang-col ms">
+                        <div class="lang-col-header">
+                            <span class="source-badge">MS</span> Bahasa Melayu
+                            <span id="name-ms-ai" style="margin-left:auto;font-size:10px;color:var(--ms-color);display:none;">✦ AI</span>
+                        </div>
+                        <input type="text" id="pName_ms" placeholder="e.g., Matcha Ceremonial 100g" style="padding:12px 14px;">
+                        <div class="translate-indicator" id="ind-name-ms"><div class="spinner-small"></div> translating…</div>
+                    </div>
+                    <div class="lang-col zh">
+                        <div class="lang-col-header">
+                            <span class="source-badge">ZH</span> 中文
+                            <span id="name-zh-ai" style="margin-left:auto;font-size:10px;color:var(--zh-color);display:none;">✦ AI</span>
+                        </div>
+                        <input type="text" id="pName_zh" placeholder="e.g., 仪式级抹茶 100g" style="padding:12px 14px;">
+                        <div class="translate-indicator" id="ind-name-zh"><div class="spinner-small"></div> translating…</div>
+                    </div>
+                </div>
+
+                <div class="section-divider">
+                    Description — Multilingual
+                </div>
+
+                <button class="translate-all-btn" id="btn-translate-desc" onclick="translateAllDesc()">
+                    <i class="fa-solid fa-language"></i> Auto-Translate Description
+                </button>
+
+                <div class="lang-grid" id="desc-grid">
+                    <div class="lang-col en">
+                        <div class="lang-col-header">
+                            <span class="source-badge">EN</span> English
+                            <span id="desc-en-ai" style="margin-left:auto;font-size:10px;color:var(--en-color);display:none;">✦ AI</span>
+                        </div>
+                        <textarea id="pDesc_en" placeholder="Premium ceremonial grade matcha from Japan with strong umami flavour..." rows="4" style="padding:12px 14px;"></textarea>
+                        <div class="translate-indicator" id="ind-desc-en"><div class="spinner-small"></div> translating…</div>
+                    </div>
+                    <div class="lang-col ms">
+                        <div class="lang-col-header">
+                            <span class="source-badge">MS</span> Bahasa Melayu
+                            <span id="desc-ms-ai" style="margin-left:auto;font-size:10px;color:var(--ms-color);display:none;">✦ AI</span>
+                        </div>
+                        <textarea id="pDesc_ms" placeholder="Matcha gred ceremonial premium dari Jepun..." rows="4" style="padding:12px 14px;"></textarea>
+                        <div class="translate-indicator" id="ind-desc-ms"><div class="spinner-small"></div> translating…</div>
+                    </div>
+                    <div class="lang-col zh">
+                        <div class="lang-col-header">
+                            <span class="source-badge">ZH</span> 中文
+                            <span id="desc-zh-ai" style="margin-left:auto;font-size:10px;color:var(--zh-color);display:none;">✦ AI</span>
+                        </div>
+                        <textarea id="pDesc_zh" placeholder="来自日本的高端仪式级抹茶..." rows="4" style="padding:12px 14px;"></textarea>
+                        <div class="translate-indicator" id="ind-desc-zh"><div class="spinner-small"></div> translating…</div>
+                    </div>
+                </div>
+
+                <div class="section-divider">Use Cases / Best Used For</div>
+                <div class="uc-input-row">
+                    <input type="text" id="ucInput" placeholder="e.g., Matcha Latte, Es Matcha, Baking..." onkeydown="if(event.key==='Enter'){event.preventDefault();addUsecase();}">
+                    <button class="uc-add-btn" onclick="addUsecase()">+</button>
+                </div>
+                <p class="hint">Ketik nama menu lalu tekan + atau Enter. Pisahkan dengan koma untuk sekaligus.</p>
+                <div class="uc-tags-box" id="ucTagsBox"></div>
+
+                <div class="section-divider" style="margin-top:20px;">Product Images (maks 3)</div>
+                <div id="img-rows">
+                    <div class="img-input-row">
+                        <span class="img-num">1</span>
+                        <input type="text" id="pImage1" placeholder="https://example.com/foto-1.jpg" oninput="updateThumb(this,'thumb1')">
+                        <img id="thumb1" class="img-thumb">
+                    </div>
+                    <div class="img-input-row">
+                        <span class="img-num">2</span>
+                        <input type="text" id="pImage2" placeholder="https://example.com/foto-2.jpg (opsional)" oninput="updateThumb(this,'thumb2')">
+                        <img id="thumb2" class="img-thumb">
+                    </div>
+                    <div class="img-input-row">
+                        <span class="img-num">3</span>
+                        <input type="text" id="pImage3" placeholder="https://example.com/foto-3.jpg (opsional)" oninput="updateThumb(this,'thumb3')">
+                        <img id="thumb3" class="img-thumb">
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ===== NOTIFICATION FIELDS ===== -->
+            <div id="notification-fields" style="display:none;">
+                <div class="form-group">
+                    <label>Notification Title</label>
+                    <input type="text" id="nTitle" placeholder="e.g., Promo Diskon 50%!">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="date" id="nDate">
+                    </div>
+                    <div class="form-group">
+                        <label>Type</label>
+                        <select id="nType">
+                            <option value="Info">Info</option>
+                            <option value="Promo">Promo</option>
+                            <option value="System">System Update</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea id="nMessage" rows="3" placeholder="Tulis detail notifikasi di sini..."></textarea>
+                </div>
+            </div>
+
+            <!-- SAVE BUTTON -->
+            <div style="margin-top:20px;">
+                <button id="btn-save-entry" class="btn btn-primary btn-full" onclick="saveData()">
+                    <i class="fa-solid fa-plus"></i> Add to List
+                </button>
+            </div>
+        </div>
     </div>
 
-    <hr>
-    <button id="final-save" class="btn btn-save" style="display:none; width: 100%; background: #2e7d32; font-size: 16px;" onclick="pushToGitHub()">
-        <i class="fa-solid fa-cloud-arrow-up"></i> 3. PUSH CHANGES TO GITHUB (LIVE)
+    <!-- STEP 3: Data List -->
+    <div class="card" id="data-card" style="display:none;">
+        <div class="card-header">
+            <div class="step">3</div>
+            <h3 id="list-title">Product List</h3>
+            <span id="list-count" style="margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--muted);"></span>
+        </div>
+        <div id="data-list-admin"></div>
+    </div>
+
+    <!-- STEP 4: Push -->
+    <button id="final-save" class="btn btn-success btn-full" style="display:none;font-size:15px;padding:16px;" onclick="pushToGitHub()">
+        <i class="fa-solid fa-cloud-arrow-up"></i> Push Changes to GitHub (Live)
     </button>
+
 </div>
 
 <script>
-    let currentData = [];
-    let fileSha = ""; 
-    
-    // Konfigurasi Role
-    let activeRole = ""; // 'product' atau 'notification'
-    let targetFile = "";
-    let jsonKey = "";
+// =============================================
+//  STATE
+// =============================================
+let currentData = [];
+let fileSha = "";
+let activeRole = "";
+let targetFile = "";
+let jsonKey = "";
+let ucList = [];
+let translateTimers = {};
 
-    // ===== FOTO PREVIEW =====
-    function updateImgPreview() {
-        const urls = ['pImage1','pImage2','pImage3']
-            .map(id => document.getElementById(id).value.trim())
-            .filter(v => v);
-        const box = document.getElementById('img-preview');
-        if (!box) return;
-        box.innerHTML = urls.map(url =>
-            `<div style="position:relative;display:inline-block;">
-                <img src="${url}"
-                     onerror="this.parentElement.style.display='none'"
-                     style="width:80px;height:80px;object-fit:cover;border-radius:6px;border:2px solid #ddd;display:block;">
-             </div>`
-        ).join('');
+// =============================================
+//  ROLE
+// =============================================
+function setRole(role) {
+    activeRole = role;
+    document.getElementById('role-modal').style.display = 'none';
+    if (role === 'product') {
+        targetFile = 'products.json';
+        jsonKey = 'products';
+        document.getElementById('panel-title').textContent = 'Saleso Pacific — Admin Product';
+        document.getElementById('topbar-file').textContent = 'products.json';
+        document.getElementById('product-fields').style.display = 'block';
+        document.getElementById('notification-fields').style.display = 'none';
+        document.getElementById('list-title').textContent = 'Product List';
+        setupNameTranslate();
+    } else {
+        targetFile = 'notifications.json';
+        jsonKey = 'notifications';
+        document.getElementById('panel-title').textContent = 'Saleso Pacific — Admin Notifikasi';
+        document.getElementById('topbar-file').textContent = 'notifications.json';
+        document.getElementById('product-fields').style.display = 'none';
+        document.getElementById('notification-fields').style.display = 'block';
+        document.getElementById('list-title').textContent = 'Notification List';
+        document.getElementById('nDate').valueAsDate = new Date();
     }
+}
 
-    // Wire up listeners after DOM ready
-    document.addEventListener('DOMContentLoaded', () => {
-        ['pImage1','pImage2','pImage3'].forEach(id => {
-            const el = document.getElementById(id);
-            if (el) el.addEventListener('input', updateImgPreview);
+// =============================================
+//  TOAST
+// =============================================
+function showToast(msg, type = 'ok') {
+    const t = document.getElementById('toast');
+    t.innerHTML = type === 'ok'
+        ? `<i class="fa-solid fa-circle-check"></i> ${msg}`
+        : `<i class="fa-solid fa-circle-xmark"></i> ${msg}`;
+    t.className = 'show' + (type === 'error' ? ' error' : '');
+    setTimeout(() => t.className = '', 3000);
+}
+
+// =============================================
+//  LOADING BAR
+// =============================================
+function setLoadingBar(pct) {
+    document.getElementById('loading-bar').style.width = pct + '%';
+    if (pct >= 100) setTimeout(() => setLoadingBar(0), 400);
+}
+
+// =============================================
+//  IMAGE THUMBNAIL
+// =============================================
+function updateThumb(input, thumbId) {
+    const thumb = document.getElementById(thumbId);
+    const url = input.value.trim();
+    if (url) {
+        thumb.src = url;
+        thumb.style.display = 'block';
+        thumb.onerror = () => { thumb.style.display = 'none'; };
+    } else {
+        thumb.style.display = 'none';
+    }
+}
+
+// =============================================
+//  USE CASE
+// =============================================
+function addUsecase() {
+    const input = document.getElementById('ucInput');
+    const val = input.value.trim();
+    if (!val) return;
+    val.split(',').map(v => v.trim()).filter(v => v).forEach(v => {
+        if (!ucList.includes(v)) ucList.push(v);
+    });
+    input.value = '';
+    renderUcTags();
+    input.focus();
+}
+
+function removeUsecase(i) {
+    ucList.splice(i, 1);
+    renderUcTags();
+}
+
+function renderUcTags() {
+    document.getElementById('ucTagsBox').innerHTML = ucList.map((u, i) =>
+        `<span class="uc-tag">🍽 ${u}<button onclick="removeUsecase(${i})">×</button></span>`
+    ).join('');
+}
+
+function getUsecases() { return [...ucList]; }
+
+// =============================================
+//  AUTO-TRANSLATE: PRODUCT NAME (realtime)
+// =============================================
+function setupNameTranslate() {
+    ['en', 'ms', 'zh'].forEach(lang => {
+        const input = document.getElementById(`pName_${lang}`);
+        if (!input) return;
+        input.addEventListener('input', () => {
+            const src = document.getElementById('sourceLang').value;
+            // Hanya trigger translate jika kolom ini adalah source language, 
+            // atau user sedang edit kolom ini (manual override)
+            clearTimeout(translateTimers[`name_${lang}`]);
+            translateTimers[`name_${lang}`] = setTimeout(() => {
+                const val = input.value.trim();
+                if (!val) return;
+                const targets = ['en','ms','zh'].filter(l => l !== lang);
+                targets.forEach(target => {
+                    // Jika target sudah ada isi (manual edit), tanyakan dulu? No — kita terjemahkan saja, admin bisa edit ulang
+                    translateField(val, lang, target, `pName_${target}`, `ind-name-${target}`, `name-${target}-ai`, 'name');
+                });
+            }, 900); // debounce 900ms
         });
     });
+}
 
-    // ===== USE CASE TAG BUILDER =====
-    let ucList = []; // array of strings
+async function translateField(text, fromLang, toLang, targetId, indId, aiId, fieldType) {
+    if (!text.trim()) return;
 
-    function addUsecase() {
-        const input = document.getElementById('ucInput');
-        const val = input.value.trim();
-        if (!val) return;
-        // Support comma-separated input
-        val.split(',').map(v => v.trim()).filter(v => v).forEach(v => {
-            if (!ucList.includes(v)) ucList.push(v);
+    const targetEl = document.getElementById(targetId);
+    const indEl = document.getElementById(indId);
+    const aiEl = document.getElementById(aiId);
+    const col = targetEl.closest('.lang-col');
+
+    // Show indicator
+    indEl.classList.add('visible');
+    col.classList.add('translating');
+
+    const langNames = { en: 'English', ms: 'Bahasa Melayu', zh: 'Chinese (Simplified)' };
+    const fieldContext = fieldType === 'name'
+        ? 'product name for a B2B F&B supplier catalog'
+        : 'product description for a B2B F&B supplier catalog';
+
+    const prompt = `You are a professional F&B product translator. Translate the following ${fieldContext} from ${langNames[fromLang]} to ${langNames[toLang]}. 
+
+Rules:
+- Keep brand names, product codes, and measurements (g, kg, ml, L) exactly as-is
+- Keep it concise and natural for a B2B catalog
+- Return ONLY the translated text, no explanation, no quotes
+
+Text to translate:
+${text}`;
+
+    try {
+        const res = await fetch('https://api.anthropic.com/v1/messages', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                model: 'claude-sonnet-4-20250514',
+                max_tokens: 1000,
+                messages: [{ role: 'user', content: prompt }]
+            })
         });
-        input.value = '';
-        renderUcTags();
-        input.focus();
-    }
-
-    function removeUsecase(i) {
-        ucList.splice(i, 1);
-        renderUcTags();
-    }
-
-    function renderUcTags() {
-        const box = document.getElementById('ucTagsBox');
-        if (!box) return;
-        box.innerHTML = ucList.map((u, i) =>
-            `<span class="uc-tag">🍽 ${u}<button onclick="removeUsecase(${i})" title="Hapus">×</button></span>`
-        ).join('');
-    }
-
-    function getUsecases() { return [...ucList]; }
-
-    function setRole(role) {
-        activeRole = role;
-        document.getElementById('role-modal').style.display = 'none';
-        
-        if(role === 'product') {
-            targetFile = 'products.json';
-            jsonKey = 'products';
-            document.getElementById('panel-title').innerHTML = '<i class="fa-solid fa-box"></i> Saleso - Admin Product';
-            document.getElementById('product-fields').style.display = 'block';
-            document.getElementById('notification-fields').style.display = 'none';
-        } else {
-            targetFile = 'notifications.json';
-            jsonKey = 'notifications';
-            document.getElementById('panel-title').innerHTML = '<i class="fa-solid fa-bell"></i> Saleso - Admin Notifikasi';
-            document.getElementById('product-fields').style.display = 'none';
-            document.getElementById('notification-fields').style.display = 'block';
-            
-            // Set tanggal default hari ini untuk notifikasi
-            document.getElementById('nDate').valueAsDate = new Date();
+        const data = await res.json();
+        const translated = data.content?.[0]?.text?.trim();
+        if (translated) {
+            targetEl.value = translated;
+            if (aiEl) { aiEl.style.display = 'inline'; }
         }
+    } catch (e) {
+        console.error('Translate error:', e);
+    } finally {
+        indEl.classList.remove('visible');
+        col.classList.remove('translating');
+    }
+}
+
+// =============================================
+//  TRANSLATE ALL DESC (button)
+// =============================================
+async function translateAllDesc() {
+    const btn = document.getElementById('btn-translate-desc');
+    btn.disabled = true;
+    btn.innerHTML = '<div class="spinner-small" style="border-color:white;border-top-color:transparent;width:14px;height:14px;"></div> Translating...';
+
+    // Cari kolom yang punya isi sebagai source
+    let srcLang = null;
+    let srcText = '';
+    for (const lang of ['en', 'ms', 'zh']) {
+        const val = document.getElementById(`pDesc_${lang}`).value.trim();
+        if (val) { srcLang = lang; srcText = val; break; }
     }
 
-    async function fetchFromGitHub() {
-        const user = document.getElementById('ghUser').value;
-        const repo = document.getElementById('ghRepo').value;
-        const token = document.getElementById('ghToken').value;
-        const loader = document.getElementById('loading');
-
-        if(!token || !user || !repo) return alert("Please fill in Token, Username, and Repo!");
-
-        loader.style.display = "block";
-        const url = `https://api.github.com/repos/${user}/${repo}/contents/${targetFile}`;
-        
-        try {
-            const response = await fetch(url, {
-                headers: { "Authorization": `token ${token}` }
-            });
-            const data = await response.json();
-            
-            if(!response.ok) throw new Error(data.message || "Failed to fetch");
-
-            fileSha = data.sha;
-            const content = JSON.parse(decodeURIComponent(escape(atob(data.content)))); 
-            
-            // Ambil data berdasarkan key JSON (products atau notifications)
-            currentData = content[jsonKey] || [];
-            
-            renderAdminData();
-            document.getElementById('add-form').style.display = "block";
-            document.getElementById('final-save').style.display = "block";
-        } catch (e) {
-            // Jika file tidak ditemukan, inisialisasi array kosong
-            if(e.message.includes("Not Found")) {
-                alert(`File ${targetFile} belum ada di GitHub. Data baru akan dibuat.`);
-                currentData = [];
-                fileSha = ""; // Kosongkan SHA agar request selanjutnya berupa CREATE bukan UPDATE
-                renderAdminData();
-                document.getElementById('add-form').style.display = "block";
-                document.getElementById('final-save').style.display = "block";
-            } else {
-                alert("Error: " + e.message);
-            }
-        } finally {
-            loader.style.display = "none";
-        }
+    if (!srcLang) {
+        showToast('Isi dulu salah satu kolom deskripsi!', 'error');
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-language"></i> Auto-Translate Description';
+        return;
     }
 
-    function renderAdminData() {
-        const container = document.getElementById('data-list-admin');
-        container.innerHTML = `<h4>Current List (${currentData.length} items)</h4>`;
-        
-        currentData.forEach((item, index) => {
-            let infoHtml = "";
-            
-            if (activeRole === 'product') {
-                const photoCount = Array.isArray(item.images) ? item.images.length : (item.image ? 1 : 0);
-                const photoBadge = photoCount > 1
-                    ? `<span style="background:#e8f5e9;color:#2e7d32;padding:1px 7px;border-radius:4px;font-size:11px;font-weight:bold;margin-left:4px;"><i class="fa-solid fa-images"></i> ${photoCount} foto</span>`
-                    : `<span style="background:#f5f5f5;color:#999;padding:1px 7px;border-radius:4px;font-size:11px;font-weight:bold;margin-left:4px;"><i class="fa-solid fa-image"></i> 1 foto</span>`;
-                const ucCount = Array.isArray(item.usecases) ? item.usecases.length : 0;
-                const ucBadge = ucCount > 0
-                    ? `<span style="background:#e8f5f9;color:#00796b;padding:1px 7px;border-radius:4px;font-size:11px;font-weight:bold;margin-left:4px;">🍽 ${ucCount} use case</span>`
-                    : '';
-                const descBadge = item.description
-                    ? `<span style="background:#fff8e1;color:#f57f17;padding:1px 7px;border-radius:4px;font-size:11px;font-weight:bold;margin-left:4px;">📝 desc</span>`
-                    : '';
-                infoHtml = `
-                    <span class="code-badge">${item.code || 'N/A'}</span> 
-                    <strong>[${item.brand}]</strong> ${item.name} ${photoBadge}${ucBadge}${descBadge}<br>
-                    <small style="color:var(--primary); font-weight:bold;">RM ${parseFloat(item.price).toFixed(2)}</small> | 
-                    <small style="color:#888;">${item.category}</small>
-                `;
-            } else if (activeRole === 'notification') {
-                infoHtml = `
-                    <span class="date-badge">${item.date || 'No Date'}</span> 
-                    <strong>${item.title}</strong> <br>
-                    <small style="color:#666;">${item.message}</small> <br>
-                    <small style="color:var(--warning); font-weight:bold;">Type: ${item.type}</small>
-                `;
-            }
+    const targets = ['en', 'ms', 'zh'].filter(l => l !== srcLang);
+    await Promise.all(targets.map(target =>
+        translateField(srcText, srcLang, target, `pDesc_${target}`, `ind-desc-${target}`, `desc-${target}-ai`, 'desc')
+    ));
 
-            container.innerHTML += `
-                <div class="data-item">
-                    <div class="data-info-text">
-                        ${infoHtml}
-                    </div>
-                    <div class="action-btns">
-                        <i class="fa-solid fa-pen-to-square btn-edit" onclick="editData(${index})" title="Edit Item"></i>
-                        <i class="fa-solid fa-trash btn-delete" onclick="deleteData(${index})" title="Delete Item"></i>
-                    </div>
-                </div>
-            `;
-        });
-    }
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fa-solid fa-language"></i> Auto-Translate Description';
+    showToast('Deskripsi berhasil diterjemahkan ✦');
+}
 
-    function saveData() {
-        const index = parseInt(document.getElementById('editIndex').value);
-        let dataObj = {};
+// =============================================
+//  GITHUB
+// =============================================
+async function fetchFromGitHub() {
+    const user  = document.getElementById('ghUser').value.trim();
+    const repo  = document.getElementById('ghRepo').value.trim();
+    const token = document.getElementById('ghToken').value.trim();
+    if (!token || !user || !repo) return showToast('Isi Token, Username, dan Repo!', 'error');
 
-        if (activeRole === 'product') {
-            const code = document.getElementById('pCode').value.trim();
-            const name = document.getElementById('pName').value.trim();
-            const price = document.getElementById('pPrice').value;
-
-            if(!code || !name || !price) return alert("Code, Name, and Price are required!");
-
-            const imgs = [
-                document.getElementById('pImage1').value.trim(),
-                document.getElementById('pImage2').value.trim(),
-                document.getElementById('pImage3').value.trim()
-            ].filter(v => v);
-            const desc = document.getElementById('pDesc').value.trim();
-            const ucs  = getUsecases();
-            dataObj = {
-                id: index === -1 ? Date.now() : currentData[index].id,
-                code: code,
-                brand: document.getElementById('pBrand').value || "SALESO",
-                name: name,
-                price: parseFloat(price),
-                category: document.getElementById('pCat').value,
-                image: imgs[0] || "https://placehold.co/400",
-                images: imgs.length > 0 ? imgs : ["https://placehold.co/400"],
-                ...(desc && { description: desc }),
-                ...(ucs.length > 0 && { usecases: ucs })
-            };
-        } else {
-            const title = document.getElementById('nTitle').value.trim();
-            const message = document.getElementById('nMessage').value.trim();
-            const date = document.getElementById('nDate').value;
-
-            if(!title || !message) return alert("Title and Message are required!");
-
-            dataObj = {
-                id: index === -1 ? Date.now() : currentData[index].id,
-                title: title,
-                date: date,
-                type: document.getElementById('nType').value,
-                message: message
-            };
-        }
-
-        if(index === -1) {
-            currentData.unshift(dataObj); // Add new to top
-        } else {
-            currentData[index] = dataObj; // Update existing
-        }
-
-        resetForm();
+    setLoadingBar(30);
+    const url = `https://api.github.com/repos/${user}/${repo}/contents/${targetFile}`;
+    try {
+        const res = await fetch(url, { headers: { Authorization: `token ${token}` } });
+        const data = await res.json();
+        setLoadingBar(70);
+        if (!res.ok) throw new Error(data.message || 'Failed');
+        fileSha = data.sha;
+        const content = JSON.parse(decodeURIComponent(escape(atob(data.content))));
+        currentData = content[jsonKey] || [];
         renderAdminData();
-    }
-
-    function editData(index) {
-        const item = currentData[index];
-        document.getElementById('editIndex').value = index;
-
-        if (activeRole === 'product') {
-            document.getElementById('pCode').value = item.code || "";
-            document.getElementById('pBrand').value = item.brand || "";
-            document.getElementById('pName').value = item.name || "";
-            document.getElementById('pPrice').value = item.price || "";
-            document.getElementById('pCat').value = item.category || "Matcha";
-            const editImgs = Array.isArray(item.images) && item.images.length ? item.images : (item.image ? [item.image] : []);
-            document.getElementById('pImage1').value = editImgs[0] || "";
-            document.getElementById('pImage2').value = editImgs[1] || "";
-            document.getElementById('pImage3').value = editImgs[2] || "";
-            updateImgPreview();
-            document.getElementById('pDesc').value = item.description || "";
-            ucList = Array.isArray(item.usecases) ? [...item.usecases] : [];
-            renderUcTags();
-        } else {
-            document.getElementById('nTitle').value = item.title || "";
-            document.getElementById('nDate').value = item.date || "";
-            document.getElementById('nType').value = item.type || "Info";
-            document.getElementById('nMessage').value = item.message || "";
-        }
-
-        document.getElementById('form-title').innerHTML = `<i class="fa-solid fa-pen-to-square" style="color:var(--warning)"></i> 2. Edit Entry`;
-        document.getElementById('btn-add-local').innerHTML = `<i class="fa-solid fa-check"></i> Update Item in List`;
-        document.getElementById('btn-add-local').style.background = "var(--warning)";
-        document.getElementById('btn-cancel-edit').style.display = "block";
-
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function resetForm() {
-        document.getElementById('editIndex').value = "-1";
-        
-        // Clear all fields
-        document.getElementById('pCode').value = "";
-        document.getElementById('pBrand').value = "";
-        document.getElementById('pName').value = "";
-        document.getElementById('pPrice').value = "";
-        document.getElementById('pImage1').value = "";
-        document.getElementById('pImage2').value = "";
-        document.getElementById('pImage3').value = "";
-        document.getElementById('img-preview').innerHTML = "";
-        document.getElementById('pDesc').value = "";
-        ucList = [];
-        renderUcTags();
-        
-        document.getElementById('nTitle').value = "";
-        document.getElementById('nMessage').value = "";
-        document.getElementById('nDate').valueAsDate = new Date(); // Reset ke hari ini
-        
-        document.getElementById('form-title').innerHTML = `<i class="fa-solid fa-plus-circle"></i> 2. Add New Entry`;
-        document.getElementById('btn-add-local').innerHTML = `<i class="fa-solid fa-plus"></i> Add to List`;
-        document.getElementById('btn-add-local').style.background = "var(--primary)";
-        document.getElementById('btn-cancel-edit').style.display = "none";
-    }
-
-    function deleteData(index) {
-        if(confirm("Are you sure you want to delete this item?")) {
-            currentData.splice(index, 1);
+        document.getElementById('add-form').style.display = 'block';
+        document.getElementById('data-card').style.display = 'block';
+        document.getElementById('final-save').style.display = 'flex';
+        setLoadingBar(100);
+        showToast(`${currentData.length} item loaded dari GitHub`);
+    } catch (e) {
+        if (e.message.includes('Not Found')) {
+            currentData = [];
+            fileSha = '';
             renderAdminData();
+            document.getElementById('add-form').style.display = 'block';
+            document.getElementById('data-card').style.display = 'block';
+            document.getElementById('final-save').style.display = 'flex';
+            showToast(`File baru akan dibuat di GitHub`);
+        } else {
+            showToast('Error: ' + e.message, 'error');
         }
+        setLoadingBar(100);
     }
+}
 
-    async function pushToGitHub() {
-        const user = document.getElementById('ghUser').value;
-        const repo = document.getElementById('ghRepo').value;
-        const token = document.getElementById('ghToken').value;
+async function pushToGitHub() {
+    const user  = document.getElementById('ghUser').value.trim();
+    const repo  = document.getElementById('ghRepo').value.trim();
+    const token = document.getElementById('ghToken').value.trim();
+    if (!confirm(`Push ${currentData.length} item ke GitHub?\nFile: ${targetFile}`)) return;
 
-        if(!confirm(`Warning: This will overwrite your online ${targetFile}. Proceed?`)) return;
+    setLoadingBar(20);
+    const url = `https://api.github.com/repos/${user}/${repo}/contents/${targetFile}`;
+    const wrapper = {};
+    wrapper[jsonKey] = currentData;
+    const body = {
+        message: `Admin Update: ${new Date().toLocaleString()}`,
+        content: btoa(unescape(encodeURIComponent(JSON.stringify(wrapper, null, 2))))
+    };
+    if (fileSha) body.sha = fileSha;
 
-        const url = `https://api.github.com/repos/${user}/${repo}/contents/${targetFile}`;
+    try {
+        const res = await fetch(url, {
+            method: 'PUT',
+            headers: { Authorization: `token ${token}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        });
+        setLoadingBar(80);
+        if (res.ok) {
+            showToast('Berhasil push ke GitHub! Live dalam ~1 menit.');
+            setLoadingBar(100);
+            setTimeout(() => location.reload(), 1500);
+        } else {
+            const err = await res.json();
+            showToast('Push gagal: ' + err.message, 'error');
+            setLoadingBar(100);
+        }
+    } catch (e) {
+        showToast('Error: ' + e.message, 'error');
+        setLoadingBar(100);
+    }
+}
+
+// =============================================
+//  SAVE / EDIT DATA
+// =============================================
+function saveData() {
+    const index = parseInt(document.getElementById('editIndex').value);
+    let dataObj = {};
+
+    if (activeRole === 'product') {
+        const code  = document.getElementById('pCode').value.trim();
+        const price = document.getElementById('pPrice').value;
         
-        // Bungkus array ke dalam object menggunakan key yang sesuai (products atau notifications)
-        const wrapper = {};
-        wrapper[jsonKey] = currentData;
-        const newJsonContent = JSON.stringify(wrapper, null, 2);
+        // Ambil nama dari semua bahasa
+        const nameEn = document.getElementById('pName_en').value.trim();
+        const nameMs = document.getElementById('pName_ms').value.trim();
+        const nameZh = document.getElementById('pName_zh').value.trim();
         
-        const body = {
-            message: `Admin ${activeRole.toUpperCase()} Update: ` + new Date().toLocaleString(),
-            content: btoa(unescape(encodeURIComponent(newJsonContent)))
+        // Minimal salah satu nama dan harga wajib
+        const anyName = nameEn || nameMs || nameZh;
+        if (!code || !anyName || !price) return showToast('Code, Name (min 1 bahasa), dan Price wajib diisi!', 'error');
+
+        const descEn = document.getElementById('pDesc_en').value.trim();
+        const descMs = document.getElementById('pDesc_ms').value.trim();
+        const descZh = document.getElementById('pDesc_zh').value.trim();
+
+        const imgs = ['pImage1','pImage2','pImage3']
+            .map(id => document.getElementById(id).value.trim())
+            .filter(v => v);
+
+        // Build multilingual name object (hanya isi yang ada)
+        const nameObj = {};
+        if (nameEn) nameObj.en = nameEn;
+        if (nameMs) nameObj.ms = nameMs;
+        if (nameZh) nameObj.zh = nameZh;
+
+        // Build multilingual description
+        const descObj = {};
+        if (descEn) descObj.en = descEn;
+        if (descMs) descObj.ms = descMs;
+        if (descZh) descObj.zh = descZh;
+
+        dataObj = {
+            id: index === -1 ? Date.now() : currentData[index].id,
+            code,
+            brand: document.getElementById('pBrand').value || 'SALESO',
+            name: nameObj,
+            price: parseFloat(price),
+            category: document.getElementById('pCat').value,
+            image: imgs[0] || 'https://placehold.co/400',
+            images: imgs.length > 0 ? imgs : ['https://placehold.co/400'],
+            ...(Object.keys(descObj).length > 0 && { description: descObj }),
+            ...(ucList.length > 0 && { usecases: ucList })
         };
-        
-        // Jika fileSha ada nilainya (file sudah exist di Github), sertakan untuk operasi UPDATE
-        if(fileSha !== "") {
-            body.sha = fileSha;
-        }
-
-        try {
-            const response = await fetch(url, {
-                method: "PUT",
-                headers: { 
-                    "Authorization": `token ${token}`,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(body)
-            });
-
-            if(response.ok) {
-                alert("SUCCESS! Data pushed to GitHub.\n\nChanges will reflect on the live site in ~1 minute.");
-                location.reload();
-            } else {
-                const err = await response.json();
-                alert("Push failed: " + err.message);
-            }
-        } catch (e) {
-            alert("Error: " + e.message);
-        }
+    } else {
+        const title   = document.getElementById('nTitle').value.trim();
+        const message = document.getElementById('nMessage').value.trim();
+        if (!title || !message) return showToast('Title dan Message wajib diisi!', 'error');
+        dataObj = {
+            id: index === -1 ? Date.now() : currentData[index].id,
+            title,
+            date: document.getElementById('nDate').value,
+            type: document.getElementById('nType').value,
+            message
+        };
     }
-</script>
 
+    if (index === -1) {
+        currentData.unshift(dataObj);
+        showToast('Item ditambahkan ke list ✦');
+    } else {
+        currentData[index] = dataObj;
+        showToast('Item diupdate ✦');
+    }
+
+    resetForm();
+    renderAdminData();
+}
+
+function editData(index) {
+    const item = currentData[index];
+    document.getElementById('editIndex').value = index;
+
+    if (activeRole === 'product') {
+        document.getElementById('pCode').value  = item.code || '';
+        document.getElementById('pBrand').value = item.brand || '';
+        document.getElementById('pPrice').value = item.price || '';
+        document.getElementById('pCat').value   = item.category || 'Matcha';
+
+        // Handle multilingual name
+        if (typeof item.name === 'object') {
+            document.getElementById('pName_en').value = item.name.en || '';
+            document.getElementById('pName_ms').value = item.name.ms || '';
+            document.getElementById('pName_zh').value = item.name.zh || '';
+        } else {
+            document.getElementById('pName_en').value = item.name || '';
+            document.getElementById('pName_ms').value = '';
+            document.getElementById('pName_zh').value = '';
+        }
+
+        // Handle multilingual desc
+        if (item.description && typeof item.description === 'object') {
+            document.getElementById('pDesc_en').value = item.description.en || '';
+            document.getElementById('pDesc_ms').value = item.description.ms || '';
+            document.getElementById('pDesc_zh').value = item.description.zh || '';
+        } else {
+            document.getElementById('pDesc_en').value = item.description || '';
+            document.getElementById('pDesc_ms').value = '';
+            document.getElementById('pDesc_zh').value = '';
+        }
+
+        const imgs = Array.isArray(item.images) && item.images.length ? item.images : (item.image ? [item.image] : []);
+        ['pImage1','pImage2','pImage3'].forEach((id, i) => {
+            document.getElementById(id).value = imgs[i] || '';
+            updateThumb(document.getElementById(id), `thumb${i+1}`);
+        });
+
+        ucList = Array.isArray(item.usecases) ? [...item.usecases] : [];
+        renderUcTags();
+
+        // Show AI badges for pre-filled AI fields if multilingual
+        ['en','ms','zh'].forEach(l => {
+            const aiEl = document.getElementById(`name-${l}-ai`);
+            if (aiEl) aiEl.style.display = 'none';
+        });
+    } else {
+        document.getElementById('nTitle').value   = item.title || '';
+        document.getElementById('nDate').value    = item.date || '';
+        document.getElementById('nType').value    = item.type || 'Info';
+        document.getElementById('nMessage').value = item.message || '';
+    }
+
+    document.getElementById('form-title').textContent = 'Edit Entry';
+    document.getElementById('btn-save-entry').innerHTML = '<i class="fa-solid fa-check"></i> Update Item';
+    document.getElementById('btn-save-entry').style.background = 'var(--warn)';
+    document.getElementById('btn-cancel').style.display = 'inline-flex';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function resetForm() {
+    document.getElementById('editIndex').value = '-1';
+    ['pCode','pBrand','pName_en','pName_ms','pName_zh',
+     'pDesc_en','pDesc_ms','pDesc_zh',
+     'pImage1','pImage2','pImage3',
+     'nTitle','nMessage'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = '';
+    });
+    ['thumb1','thumb2','thumb3'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+    });
+    ['name-en-ai','name-ms-ai','name-zh-ai',
+     'desc-en-ai','desc-ms-ai','desc-zh-ai'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+    });
+    const nDate = document.getElementById('nDate');
+    if (nDate) nDate.valueAsDate = new Date();
+    ucList = [];
+    renderUcTags();
+
+    document.getElementById('form-title').textContent = 'Add New Entry';
+    document.getElementById('btn-save-entry').innerHTML = '<i class="fa-solid fa-plus"></i> Add to List';
+    document.getElementById('btn-save-entry').style.background = 'var(--primary)';
+    document.getElementById('btn-cancel').style.display = 'none';
+}
+
+function deleteData(index) {
+    if (!confirm('Hapus item ini?')) return;
+    currentData.splice(index, 1);
+    renderAdminData();
+    showToast('Item dihapus.');
+}
+
+// =============================================
+//  RENDER LIST
+// =============================================
+function renderAdminData() {
+    const container = document.getElementById('data-list-admin');
+    document.getElementById('list-count').textContent = `${currentData.length} item`;
+
+    if (currentData.length === 0) {
+        container.innerHTML = `<div style="padding:30px;text-align:center;color:var(--muted);font-size:14px;"><i class="fa-solid fa-inbox" style="font-size:28px;margin-bottom:10px;display:block;"></i>Belum ada data</div>`;
+        return;
+    }
+
+    container.innerHTML = currentData.map((item, index) => {
+        let html = '';
+        if (activeRole === 'product') {
+            // Handle multilingual name display
+            const displayName = typeof item.name === 'object'
+                ? (item.name.en || item.name.ms || item.name.zh || '—')
+                : (item.name || '—');
+            const isMultilang = typeof item.name === 'object';
+            const photoCount  = Array.isArray(item.images) ? item.images.length : (item.image ? 1 : 0);
+            const hasDesc     = !!item.description;
+            const ucCount     = Array.isArray(item.usecases) ? item.usecases.length : 0;
+
+            html = `
+                <div class="data-name">
+                    <span style="font-family:var(--mono);font-size:11px;background:#eee;padding:1px 6px;border-radius:4px;margin-right:6px;">${item.code || 'N/A'}</span>
+                    [${item.brand || ''}] ${displayName}
+                    ${isMultilang ? '<span class="badge badge-multi">🌐 3 lang</span>' : ''}
+                    ${photoCount > 1 ? `<span class="badge badge-green"><i class="fa-solid fa-images"></i> ${photoCount}</span>` : ''}
+                    ${hasDesc ? '<span class="badge badge-orange">📝</span>' : ''}
+                    ${ucCount > 0 ? `<span class="badge badge-blue">🍽 ${ucCount}</span>` : ''}
+                </div>
+                <div class="data-meta">RM ${parseFloat(item.price).toFixed(2)} · ${item.category}</div>`;
+        } else {
+            html = `
+                <div class="data-name">${item.title}</div>
+                <div class="data-meta">${item.date || ''} · ${item.type} · ${item.message?.substring(0, 60)}…</div>`;
+        }
+        return `
+            <div class="data-item">
+                <div style="flex:1;">${html}</div>
+                <div class="item-actions">
+                    <button class="icon-btn edit" onclick="editData(${index})" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <button class="icon-btn del" onclick="deleteData(${index})" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            </div>`;
+    }).join('');
+}
+</script>
 </body>
 </html>
