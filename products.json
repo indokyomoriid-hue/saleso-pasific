@@ -30,7 +30,11 @@
     {
       "code": "MOSYVS700L",
       "brand": "MONIN",
-      "name": "Vanilla Syrup 700ML",
+      "name": {
+        "en": "Vanilla Syrup 700ML",
+        "ms": "Sirap Vanilla 700ML",
+        "zh": "香草糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": "https://yukorder.com/wp-content/uploads/2019/07/monin-vanilla.jpg"
@@ -38,7 +42,11 @@
     {
       "code": "MOSYCS700L",
       "brand": "MONIN",
-      "name": "Caramel Syrup 700ML",
+      "name": {
+        "en": "Caramel Syrup 700ML",
+        "ms": "Sirap Karamel 700ML",
+        "zh": "焦糖糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -46,7 +54,11 @@
     {
       "code": "MOSYBBS700L",
       "brand": "MONIN",
-      "name": "Blueberry Syrup 700ML",
+      "name": {
+        "en": "Blueberry Syrup 700ML",
+        "ms": "Sirap Blueberry 700ML",
+        "zh": "蓝莓糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": "https://www.arfasuppliers.com/web/image/product.product/3375/image_1920?unique=58e83f6",
@@ -59,7 +71,11 @@
     {
       "code": "MOSYHLS700L",
       "brand": "MONIN",
-      "name": "Hazelnut Syrup 700ML",
+      "name": {
+        "en": "Hazelnut Syrup 700ML",
+        "ms": "Sirap Hazelnut 700ML",
+        "zh": "榛子糖浆 700ML"
+      },
       "price": 38,
       "category": "Syrup",
       "image": "https://www.kmds.co.id/images/product/Monin/Chai%20Tea-HD.jpg",
@@ -70,7 +86,11 @@
     {
       "code": "MOSYSS700L",
       "brand": "MONIN",
-      "name": "Strawberry Syrup 700ML",
+      "name": {
+        "en": "Strawberry Syrup 700ML",
+        "ms": "Sirap Strawberi 700ML",
+        "zh": "草莓糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -78,7 +98,11 @@
     {
       "code": "MOSYLS700L",
       "brand": "MONIN",
-      "name": "Lavender Syrup 700ML",
+      "name": {
+        "en": "Lavender Syrup 700ML",
+        "ms": "Sirap Lavender 700ML",
+        "zh": "薰衣草糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -86,7 +110,11 @@
     {
       "code": "MOSYPS700L",
       "brand": "MONIN",
-      "name": "Passion Fruit Syrup 700ML",
+      "name": {
+        "en": "Passion Fruit Syrup 700ML",
+        "ms": "Sirap Buah Passion 700ML",
+        "zh": "百香果糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -94,7 +122,11 @@
     {
       "code": "MOSYGLS700L",
       "brand": "MONIN",
-      "name": "Green Apple Syrup 700ML",
+      "name": {
+        "en": "Green Apple Syrup 700ML",
+        "ms": "Sirap Epal Hijau 700ML",
+        "zh": "青苹果糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -102,7 +134,11 @@
     {
       "code": "MOSYALS700L",
       "brand": "MONIN",
-      "name": "Almond Syrup 700ML",
+      "name": {
+        "en": "Almond Syrup 700ML",
+        "ms": "Sirap Badam 700ML",
+        "zh": "杏仁糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -110,7 +146,11 @@
     {
       "code": "MOSYAM700L",
       "brand": "MONIN",
-      "name": "Amaretto Syrup 700ML",
+      "name": {
+        "en": "Amaretto Syrup 700ML",
+        "ms": "Sirap Amaretto 700ML",
+        "zh": "杏仁利口酒糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -118,7 +158,11 @@
     {
       "code": "MOSYAPS700L",
       "brand": "MONIN",
-      "name": "Apple Pie Syrup 700ML",
+      "name": {
+        "en": "Apple Pie Syrup 700ML",
+        "ms": "Sirap Pai Epal 700ML",
+        "zh": "苹果派糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -126,7 +170,11 @@
     {
       "code": "MOSYAS700L",
       "brand": "MONIN",
-      "name": "Apple Syrup 700ML",
+      "name": {
+        "en": "Apple Syrup 700ML",
+        "ms": "Sirap Epal 700ML",
+        "zh": "苹果糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -134,7 +182,11 @@
     {
       "code": "MOSYABS700L",
       "brand": "MONIN",
-      "name": "Apricot Syrup 700ML",
+      "name": {
+        "en": "Apricot Syrup 700ML",
+        "ms": "Sirap Aprikot 700ML",
+        "zh": "杏子糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -142,7 +194,11 @@
     {
       "code": "MOSYBGS700L",
       "brand": "MONIN",
-      "name": "Bubble Gum Syrup 700ML",
+      "name": {
+        "en": "Bubble Gum Syrup 700ML",
+        "ms": "Sirap Gula-gula Getah 700ML",
+        "zh": "泡泡糖糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -150,7 +206,11 @@
     {
       "code": "MOSYBPS700L",
       "brand": "MONIN",
-      "name": "Butterfly Pea Syrup 700ML",
+      "name": {
+        "en": "Butterfly Pea Syrup 700ML",
+        "ms": "Sirap Bunga Telang 700ML",
+        "zh": "蝶豆花糖浆 700ML"
+      },
       "price": 56.5,
       "category": "Syrup",
       "image": ""
@@ -158,7 +218,11 @@
     {
       "code": "MOSYBTS700L",
       "brand": "MONIN",
-      "name": "Butterscotch Syrup 700ML",
+      "name": {
+        "en": "Butterscotch Syrup 700ML",
+        "ms": "Sirap Butterscotch 700ML",
+        "zh": "奶油糖糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -166,7 +230,11 @@
     {
       "code": "MOSYCRS700L",
       "brand": "MONIN",
-      "name": "Cranberry Syrup 700ML",
+      "name": {
+        "en": "Cranberry Syrup 700ML",
+        "ms": "Sirap Kranberi 700ML",
+        "zh": "蔓越莓糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -174,7 +242,11 @@
     {
       "code": "MOSYCTS700L",
       "brand": "MONIN",
-      "name": "Cucumber Syrup 700ML",
+      "name": {
+        "en": "Cucumber Syrup 700ML",
+        "ms": "Sirap Timun 700ML",
+        "zh": "黄瓜糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -182,7 +254,11 @@
     {
       "code": "MOSYCCS700L",
       "brand": "MONIN",
-      "name": "Coconut Syrup 700ML",
+      "name": {
+        "en": "Coconut Syrup 700ML",
+        "ms": "Sirap Kelapa 700ML",
+        "zh": "椰子糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -190,7 +266,11 @@
     {
       "code": "MOSYCHS700L",
       "brand": "MONIN",
-      "name": "Cherry Syrup 700ML",
+      "name": {
+        "en": "Cherry Syrup 700ML",
+        "ms": "Sirap Ceri 700ML",
+        "zh": "樱桃糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -198,7 +278,11 @@
     {
       "code": "MOSYCHBS700L",
       "brand": "MONIN",
-      "name": "Cherry Blossom Syrup 700ML",
+      "name": {
+        "en": "Cherry Blossom Syrup 700ML",
+        "ms": "Sirap Bunga Ceri 700ML",
+        "zh": "樱花糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -206,7 +290,11 @@
     {
       "code": "MOSYCSS700L",
       "brand": "MONIN",
-      "name": "Cheesecake Syrup 700ML",
+      "name": {
+        "en": "Cheesecake Syrup 700ML",
+        "ms": "Sirap Kek Keju 700ML",
+        "zh": "芝士蛋糕糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -214,7 +302,11 @@
     {
       "code": "MOSYCHCS700L",
       "brand": "MONIN",
-      "name": "Chocolate Syrup 700ML",
+      "name": {
+        "en": "Chocolate Syrup 700ML",
+        "ms": "Sirap Coklat 700ML",
+        "zh": "巧克力糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -222,7 +314,11 @@
     {
       "code": "MOSYCKS700L",
       "brand": "MONIN",
-      "name": "Chocolate Cookie Syrup 700ML",
+      "name": {
+        "en": "Chocolate Cookie Syrup 700ML",
+        "ms": "Sirap Biskut Coklat 700ML",
+        "zh": "巧克力饼干糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -230,7 +326,11 @@
     {
       "code": "MOSYCMS700L",
       "brand": "MONIN",
-      "name": "Cinnamon Syrup 700ML",
+      "name": {
+        "en": "Cinnamon Syrup 700ML",
+        "ms": "Sirap Kayu Manis 700ML",
+        "zh": "肉桂糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -238,7 +338,11 @@
     {
       "code": "MOSYCB700L",
       "brand": "MONIN",
-      "name": "Coffee Syrup 700ML",
+      "name": {
+        "en": "Coffee Syrup 700ML",
+        "ms": "Sirap Kopi 700ML",
+        "zh": "咖啡糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -246,7 +350,11 @@
     {
       "code": "MOSYELFS700L",
       "brand": "MONIN",
-      "name": "Elder Flower Syrup 700ML",
+      "name": {
+        "en": "Elder Flower Syrup 700ML",
+        "ms": "Sirap Bunga Elder 700ML",
+        "zh": "接骨木花糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -254,7 +362,11 @@
     {
       "code": "MOSYFLS700L",
       "brand": "MONIN",
-      "name": "Falernum Syrup 700ML",
+      "name": {
+        "en": "Falernum Syrup 700ML",
+        "ms": "Sirap Falernum 700ML",
+        "zh": "法勒南糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -262,7 +374,11 @@
     {
       "code": "MOSYFBS700L",
       "brand": "MONIN",
-      "name": "Flower Blossom Syrup 700ML",
+      "name": {
+        "en": "Flower Blossom Syrup 700ML",
+        "ms": "Sirap Bunga 700ML",
+        "zh": "花朵糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -270,7 +386,11 @@
     {
       "code": "MOSYFVS700L",
       "brand": "MONIN",
-      "name": "French Vanilla Syrup 700ML",
+      "name": {
+        "en": "French Vanilla Syrup 700ML",
+        "ms": "Sirap Vanilla Perancis 700ML",
+        "zh": "法式香草糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -278,7 +398,11 @@
     {
       "code": "MOSYFMS700L",
       "brand": "MONIN",
-      "name": "Frosted Mint Syrup 700ML",
+      "name": {
+        "en": "Frosted Mint Syrup 700ML",
+        "ms": "Sirap Pudina Beku 700ML",
+        "zh": "冰霜薄荷糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -286,7 +410,11 @@
     {
       "code": "MOSYGBS700L",
       "brand": "MONIN",
-      "name": "Ginger Bread Syrup 700ML",
+      "name": {
+        "en": "Ginger Bread Syrup 700ML",
+        "ms": "Sirap Roti Halia 700ML",
+        "zh": "姜饼糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -294,7 +422,11 @@
     {
       "code": "MOSYGS700L",
       "brand": "MONIN",
-      "name": "Ginger Syrup 700ML",
+      "name": {
+        "en": "Ginger Syrup 700ML",
+        "ms": "Sirap Halia 700ML",
+        "zh": "姜糖浆 700ML"
+      },
       "price": 30,
       "category": "Syrup",
       "image": ""
@@ -302,7 +434,11 @@
     {
       "code": "MOSYGLS700L",
       "brand": "MONIN",
-      "name": "Glasco Lemon Syrup 700ML",
+      "name": {
+        "en": "Glasco Lemon Syrup 700ML",
+        "ms": "Sirap Lemon Glasco 700ML",
+        "zh": "格拉斯哥柠檬糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -310,7 +446,11 @@
     {
       "code": "MOSYGRS700L",
       "brand": "MONIN",
-      "name": "Grenadine Syrup 700ML",
+      "name": {
+        "en": "Grenadine Syrup 700ML",
+        "ms": "Sirap Grenadine 700ML",
+        "zh": "石榴糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -318,7 +458,11 @@
     {
       "code": "MOSYHLS700L",
       "brand": "MONIN",
-      "name": "Honeycomb Syrup 700ML",
+      "name": {
+        "en": "Honeycomb Syrup 700ML",
+        "ms": "Sirap Sarang Lebah 700ML",
+        "zh": "蜂巢糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -326,7 +470,11 @@
     {
       "code": "MOSYIRS700L",
       "brand": "MONIN",
-      "name": "Irish Syrup 700ML",
+      "name": {
+        "en": "Irish Syrup 700ML",
+        "ms": "Sirap Irish 700ML",
+        "zh": "爱尔兰糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -334,7 +482,11 @@
     {
       "code": "MOSYITS700L",
       "brand": "MONIN",
-      "name": "Italian Dolce Syrup 700ML",
+      "name": {
+        "en": "Italian Dolce Syrup 700ML",
+        "ms": "Sirap Italian Dolce 700ML",
+        "zh": "意式甜蜜糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -342,7 +494,11 @@
     {
       "code": "MOSYKS700L",
       "brand": "MONIN",
-      "name": "Kiwi Syrup 700ML",
+      "name": {
+        "en": "Kiwi Syrup 700ML",
+        "ms": "Sirap Kiwi 700ML",
+        "zh": "奇异果糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -350,7 +506,11 @@
     {
       "code": "MOSYLS700L",
       "brand": "MONIN",
-      "name": "Lemon Syrup 700ML",
+      "name": {
+        "en": "Lemon Syrup 700ML",
+        "ms": "Sirap Lemon 700ML",
+        "zh": "柠檬糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -358,7 +518,11 @@
     {
       "code": "MOSYLYS700L",
       "brand": "MONIN",
-      "name": "Lychee Syrup 700ML",
+      "name": {
+        "en": "Lychee Syrup 700ML",
+        "ms": "Sirap Leci 700ML",
+        "zh": "荔枝糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -366,7 +530,11 @@
     {
       "code": "MOSYMAS700L",
       "brand": "MONIN",
-      "name": "Macadamia Syrup 700ML",
+      "name": {
+        "en": "Macadamia Syrup 700ML",
+        "ms": "Sirap Macadamia 700ML",
+        "zh": "澳洲坚果糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -374,7 +542,11 @@
     {
       "code": "MOSYOS700L",
       "brand": "MONIN",
-      "name": "Orange Syrup 700ML",
+      "name": {
+        "en": "Orange Syrup 700ML",
+        "ms": "Sirap Oren 700ML",
+        "zh": "橙子糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -382,7 +554,11 @@
     {
       "code": "MOSYPRS700L",
       "brand": "MONIN",
-      "name": "Pear Syrup 700ML",
+      "name": {
+        "en": "Pear Syrup 700ML",
+        "ms": "Sirap Pir 700ML",
+        "zh": "梨子糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -390,7 +566,11 @@
     {
       "code": "MOSYPGS700L",
       "brand": "MONIN",
-      "name": "Pink Grapefruit Syrup 700ML",
+      "name": {
+        "en": "Pink Grapefruit Syrup 700ML",
+        "ms": "Sirap Grapefruit Merah Jambu 700ML",
+        "zh": "粉红葡萄柚糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -398,7 +578,11 @@
     {
       "code": "MOSYPS700L",
       "brand": "MONIN",
-      "name": "Pineapple Syrup 700ML",
+      "name": {
+        "en": "Pineapple Syrup 700ML",
+        "ms": "Sirap Nanas 700ML",
+        "zh": "菠萝糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -406,7 +590,11 @@
     {
       "code": "MOSYPMS700L",
       "brand": "MONIN",
-      "name": "Pomegranate Syrup 700ML",
+      "name": {
+        "en": "Pomegranate Syrup 700ML",
+        "ms": "Sirap Delima 700ML",
+        "zh": "石榴汁糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -414,7 +602,11 @@
     {
       "code": "MOSYRS700L",
       "brand": "MONIN",
-      "name": "Raspberry Syrup 700ML",
+      "name": {
+        "en": "Raspberry Syrup 700ML",
+        "ms": "Sirap Raspberi 700ML",
+        "zh": "覆盆子糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -422,7 +614,11 @@
     {
       "code": "MOSYROS700L",
       "brand": "MONIN",
-      "name": "Rose Syrup 700ML",
+      "name": {
+        "en": "Rose Syrup 700ML",
+        "ms": "Sirap Ros 700ML",
+        "zh": "玫瑰糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -430,7 +626,11 @@
     {
       "code": "MOSYSCS700L",
       "brand": "MONIN",
-      "name": "Salted Caramel Syrup 700ML",
+      "name": {
+        "en": "Salted Caramel Syrup 700ML",
+        "ms": "Sirap Karamel Masin 700ML",
+        "zh": "盐焦糖糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -438,7 +638,11 @@
     {
       "code": "MOSYTS700L",
       "brand": "MONIN",
-      "name": "Tangerine Syrup 700ML",
+      "name": {
+        "en": "Tangerine Syrup 700ML",
+        "ms": "Sirap Mandarin 700ML",
+        "zh": "橘子糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -446,7 +650,11 @@
     {
       "code": "MOSYTNS700L",
       "brand": "MONIN",
-      "name": "Toffee Nut Syrup 700ML",
+      "name": {
+        "en": "Toffee Nut Syrup 700ML",
+        "ms": "Sirap Kacang Toffee 700ML",
+        "zh": "太妃坚果糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -454,7 +662,11 @@
     {
       "code": "MOSYWS700L",
       "brand": "MONIN",
-      "name": "Watermelon Syrup 700ML",
+      "name": {
+        "en": "Watermelon Syrup 700ML",
+        "ms": "Sirap Tembikai 700ML",
+        "zh": "西瓜糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -462,7 +674,11 @@
     {
       "code": "MOSYWPS700L",
       "brand": "MONIN",
-      "name": "White Peach Syrup 700ML",
+      "name": {
+        "en": "White Peach Syrup 700ML",
+        "ms": "Sirap Pic Putih 700ML",
+        "zh": "白桃糖浆 700ML"
+      },
       "price": 44,
       "category": "Syrup",
       "image": ""
@@ -470,7 +686,11 @@
     {
       "code": "MOFPCBF1000G",
       "brand": "MONIN",
-      "name": "Chocolate Base Frappe 1KG",
+      "name": {
+        "en": "Chocolate Base Frappe 1KG",
+        "ms": "Frappe Bes Coklat 1KG",
+        "zh": "巧克力冰沙粉底 1KG"
+      },
       "price": 68,
       "category": "Frappe",
       "image": ""
@@ -478,7 +698,11 @@
     {
       "code": "MOFPCB1000G",
       "brand": "MONIN",
-      "name": "Coffee Base Frappe 1KG",
+      "name": {
+        "en": "Coffee Base Frappe 1KG",
+        "ms": "Frappe Bes Kopi 1KG",
+        "zh": "咖啡冰沙粉底 1KG"
+      },
       "price": 68,
       "category": "Frappe",
       "image": ""
@@ -486,7 +710,11 @@
     {
       "code": "MOFPMGTF1000G",
       "brand": "MONIN",
-      "name": "Matcha Green Tea Frappe 1KG",
+      "name": {
+        "en": "Matcha Green Tea Frappe 1KG",
+        "ms": "Frappe Teh Hijau Matcha 1KG",
+        "zh": "抹茶绿茶冰沙 1KG"
+      },
       "price": 71,
       "category": "Frappe",
       "image": ""
@@ -494,7 +722,11 @@
     {
       "code": "MOFPMBF1000G",
       "brand": "MONIN",
-      "name": "Mocha Base Frappe 1KG",
+      "name": {
+        "en": "Mocha Base Frappe 1KG",
+        "ms": "Frappe Bes Mocha 1KG",
+        "zh": "摩卡冰沙粉底 1KG"
+      },
       "price": 71,
       "category": "Frappe",
       "image": ""
@@ -502,7 +734,11 @@
     {
       "code": "MOFPNDB1000G",
       "brand": "MONIN",
-      "name": "Non Dairy Base Frappe 1KG",
+      "name": {
+        "en": "Non Dairy Base Frappe 1KG",
+        "ms": "Frappe Bes Bukan Tenusu 1KG",
+        "zh": "非乳制冰沙粉底 1KG"
+      },
       "price": 45,
       "category": "Frappe",
       "image": ""
@@ -510,7 +746,11 @@
     {
       "code": "MOFPVB1000G",
       "brand": "MONIN",
-      "name": "Vanilla Base Frappe 1KG",
+      "name": {
+        "en": "Vanilla Base Frappe 1KG",
+        "ms": "Frappe Bes Vanilla 1KG",
+        "zh": "香草冰沙粉底 1KG"
+      },
       "price": 71,
       "category": "Frappe",
       "image": ""
@@ -518,7 +758,11 @@
     {
       "code": "MOFPYB1000G",
       "brand": "MONIN",
-      "name": "Yoghurt Base Frappe 1KG",
+      "name": {
+        "en": "Yoghurt Base Frappe 1KG",
+        "ms": "Frappe Bes Yogurt 1KG",
+        "zh": "酸奶冰沙粉底 1KG"
+      },
       "price": 58,
       "category": "Frappe",
       "image": ""
@@ -526,7 +770,11 @@
     {
       "code": "TAFPVFB1000G",
       "brand": "TARAZZU",
-      "name": "Vanilla Frappe Base 1KG",
+      "name": {
+        "en": "Vanilla Frappe Base 1KG",
+        "ms": "Bes Frappe Vanilla 1KG",
+        "zh": "香草冰沙底料 1KG"
+      },
       "price": 39.8,
       "category": "Frappe",
       "image": ""
@@ -534,7 +782,11 @@
     {
       "code": "TAFPCTL1000G",
       "brand": "TARAZZU",
-      "name": "Chai Tea Latte Powder 1KG",
+      "name": {
+        "en": "Chai Tea Latte Powder 1KG",
+        "ms": "Serbuk Latte Teh Chai 1KG",
+        "zh": "印度香料茶拿铁粉 1KG"
+      },
       "price": 48,
       "category": "Powder",
       "image": ""
@@ -542,7 +794,11 @@
     {
       "code": "TAFPEMT1000G",
       "brand": "TARAZZU",
-      "name": "Elegant Matcha Tea Powder 1KG",
+      "name": {
+        "en": "Elegant Matcha Tea Powder 1KG",
+        "ms": "Serbuk Teh Matcha 1KG",
+        "zh": "高级抹茶粉 1KG"
+      },
       "price": 58,
       "category": "Matcha",
       "image": ""
@@ -550,7 +806,11 @@
     {
       "code": "TAFPSPL1000G",
       "brand": "TARAZZU",
-      "name": "Sweet Potato Latte Powder 1KG",
+      "name": {
+        "en": "Sweet Potato Latte Powder 1KG",
+        "ms": "Serbuk Latte Keledek 1KG",
+        "zh": "红薯拿铁粉 1KG"
+      },
       "price": 49,
       "category": "Powder",
       "image": ""
@@ -558,7 +818,11 @@
     {
       "code": "TAFPTL1000G",
       "brand": "TARAZZU",
-      "name": "Taro Latte Powder 1KG",
+      "name": {
+        "en": "Taro Latte Powder 1KG",
+        "ms": "Serbuk Latte Taro 1KG",
+        "zh": "芋头拿铁粉 1KG"
+      },
       "price": 49,
       "category": "Powder",
       "image": ""
@@ -566,7 +830,11 @@
     {
       "code": "TAFPYP1000G",
       "brand": "TARAZZU",
-      "name": "Yoghurt Powder 1KG",
+      "name": {
+        "en": "Yoghurt Powder 1KG",
+        "ms": "Serbuk Yogurt 1KG",
+        "zh": "酸奶粉 1KG"
+      },
       "price": 48,
       "category": "Powder",
       "image": ""
@@ -574,7 +842,11 @@
     {
       "code": "JGOPPBCP1000G",
       "brand": "JG",
-      "name": "Premium Belgian Chocolate Powder 1KG",
+      "name": {
+        "en": "Premium Belgian Chocolate Powder 1KG",
+        "ms": "Serbuk Coklat Belgium Premium 1KG",
+        "zh": "比利时优质巧克力粉 1KG"
+      },
       "price": 48,
       "category": "Powder",
       "image": ""
@@ -582,7 +854,11 @@
     {
       "code": "DVSYLS750L",
       "brand": "DA VINCI",
-      "name": "Lemonade Syrup 750ML",
+      "name": {
+        "en": "Lemonade Syrup 750ML",
+        "ms": "Sirap Lemonade 750ML",
+        "zh": "柠檬水糖浆 750ML"
+      },
       "price": 54,
       "category": "Syrup",
       "image": ""
@@ -590,7 +866,11 @@
     {
       "code": "DVSYFM750L",
       "brand": "DA VINCI",
-      "name": "FlavourMaxx Syrup 750ML",
+      "name": {
+        "en": "FlavourMaxx Syrup 750ML",
+        "ms": "Sirap FlavourMaxx 750ML",
+        "zh": "FlavourMaxx 糖浆 750ML"
+      },
       "price": 52,
       "category": "Syrup",
       "image": ""
@@ -598,7 +878,11 @@
     {
       "code": "HESYCS1360G",
       "brand": "HERSHEY",
-      "name": "Chocolate Syrup 1.36KG",
+      "name": {
+        "en": "Chocolate Syrup 1.36KG",
+        "ms": "Sirap Coklat 1.36KG",
+        "zh": "巧克力糖浆 1.36KG"
+      },
       "price": 29.8,
       "category": "Sauce",
       "image": ""
@@ -606,7 +890,11 @@
     {
       "code": "HESYSS623G",
       "brand": "HERSHEY",
-      "name": "Strawberry Syrup 623G",
+      "name": {
+        "en": "Strawberry Syrup 623G",
+        "ms": "Sirap Strawberi 623G",
+        "zh": "草莓糖浆 623G"
+      },
       "price": 15.9,
       "category": "Sauce",
       "image": ""
@@ -614,7 +902,11 @@
     {
       "code": "MOBSSC1890L",
       "brand": "MONIN",
-      "name": "Caramel Sauce 1.89L",
+      "name": {
+        "en": "Caramel Sauce 1.89L",
+        "ms": "Sos Karamel 1.89L",
+        "zh": "焦糖酱 1.89L"
+      },
       "price": 94,
       "category": "Sauce",
       "image": ""
@@ -622,7 +914,11 @@
     {
       "code": "MOBSDCS1890L",
       "brand": "MONIN",
-      "name": "Dark Chocolate Sauce 1.89L",
+      "name": {
+        "en": "Dark Chocolate Sauce 1.89L",
+        "ms": "Sos Coklat Gelap 1.89L",
+        "zh": "黑巧克力酱 1.89L"
+      },
       "price": 88,
       "category": "Sauce",
       "image": ""
@@ -630,7 +926,11 @@
     {
       "code": "MONIN-FM-MANGO",
       "brand": "MONIN",
-      "name": "Mango Fruit Mix 1L",
+      "name": {
+        "en": "Mango Fruit Mix 1L",
+        "ms": "Campuran Buah Mangga 1L",
+        "zh": "芒果果汁混合 1L"
+      },
       "price": 71,
       "category": "Fruit Mix",
       "image": ""
@@ -638,7 +938,11 @@
     {
       "code": "MONIN-FM-PASSION",
       "brand": "MONIN",
-      "name": "Passion Fruit Mix 1L",
+      "name": {
+        "en": "Passion Fruit Mix 1L",
+        "ms": "Campuran Buah Passion 1L",
+        "zh": "百香果果汁混合 1L"
+      },
       "price": 71,
       "category": "Fruit Mix",
       "image": ""
@@ -646,7 +950,11 @@
     {
       "code": "MONIN-FM-STRAWBERRY",
       "brand": "MONIN",
-      "name": "Strawberry Fruit Mix 1L",
+      "name": {
+        "en": "Strawberry Fruit Mix 1L",
+        "ms": "Campuran Buah Strawberi 1L",
+        "zh": "草莓果汁混合 1L"
+      },
       "price": 58,
       "category": "Fruit Mix",
       "image": ""
@@ -654,7 +962,11 @@
     {
       "code": "MONIN-FM-KIWI",
       "brand": "MONIN",
-      "name": "Kiwi Fruit Mix 1L",
+      "name": {
+        "en": "Kiwi Fruit Mix 1L",
+        "ms": "Campuran Buah Kiwi 1L",
+        "zh": "奇异果果汁混合 1L"
+      },
       "price": 71,
       "category": "Fruit Mix",
       "image": ""
@@ -662,7 +974,11 @@
     {
       "code": "MONIN-FM-LYCHEE",
       "brand": "MONIN",
-      "name": "Lychee Fruit Mix 1L",
+      "name": {
+        "en": "Lychee Fruit Mix 1L",
+        "ms": "Campuran Buah Leci 1L",
+        "zh": "荔枝果汁混合 1L"
+      },
       "price": 45,
       "category": "Fruit Mix",
       "image": ""
