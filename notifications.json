@@ -2,10 +2,18 @@
   "notifications": [
     {
       "id": 1712493144005,
-      "title": "Sistem Update",
+      "title": {
+        "en": "Sistem Update",
+        "ms": "Kemas Kini Sistem",
+        "zh": "系统更新"
+      },
       "date": "2026-04-07",
       "type": "System",
-      "message": "The website is currently undergoing routine maintenance. Some features may run slower."
+      "message": {
+        "en": "The website is currently undergoing routine maintenance. Some features may run slower.",
+        "ms": "Laman web ini sedang menjalani penyelenggaraan rutin. Sesetengah ciri mungkin berjalan lebih perlahan.",
+        "zh": "目前该网站正在进行日常维护。某些功能可能运行速度较慢。"
+      }
     }
   ]
 }
