@@ -499,15 +499,7 @@
             align-items: center;
             padding: 15px;
         }
-        .product-modal-content {
-            background: white;
-            width: 100%;
-            max-width: 420px;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            position: relative;
-        }
+
         .modal-close {
             position: absolute;
             top: 12px;
@@ -615,7 +607,64 @@
             font-size: 20px;
             font-weight: 700;
             color: var(--price-color);
+            margin-bottom: 16px;
+        }
+        .modal-desc {
+            font-size: 13.5px;
+            color: #555;
+            line-height: 1.65;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .modal-usecase {
             margin-bottom: 20px;
+        }
+        .modal-usecase-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+        .usecase-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+        .usecase-tag {
+            background: #fff8e1;
+            color: #b8860b;
+            border: 1px solid #f0d070;
+            border-radius: 20px;
+            padding: 5px 13px;
+            font-size: 12.5px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .usecase-tag i {
+            font-size: 11px;
+            opacity: 0.8;
+        }
+        /* Scrollable modal content */
+        .product-modal-content {
+            background: white;
+            width: 100%;
+            max-width: 420px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            position: relative;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .modal-scrollable {
+            overflow-y: auto;
+            flex: 1;
         }
 
         /* ===== CART MODAL ===== */
@@ -813,7 +862,7 @@
     <div class="product-modal" id="productModal">
         <div class="product-modal-content">
             <button class="modal-close" onclick="closeProductModal()">×</button>
-            <div id="modalProductContent"></div>
+            <div class="modal-scrollable" id="modalProductContent"></div>
         </div>
     </div>
 
@@ -1304,6 +1353,24 @@
             <button class="gallery-btn prev" onclick="shiftSlide(-1)">&#8249;</button>
             <button class="gallery-btn next" onclick="shiftSlide(1)">&#8250;</button>` : '';
 
+        // Build description block
+        const descHtml = product.description
+            ? `<div class="modal-desc">${escapeHtml(product.description)}</div>`
+            : '';
+
+        // Build use case tags
+        let usecaseHtml = '';
+        if (Array.isArray(product.usecases) && product.usecases.length > 0) {
+            const tags = product.usecases.map(u =>
+                `<span class="usecase-tag"><i class="fa-solid fa-utensils"></i>${escapeHtml(u)}</span>`
+            ).join('');
+            usecaseHtml = `
+                <div class="modal-usecase">
+                    <div class="modal-usecase-title"><i class="fa-solid fa-lightbulb"></i> Best Used For</div>
+                    <div class="usecase-tags">${tags}</div>
+                </div>`;
+        }
+
         content.innerHTML = `
             <div class="modal-gallery">
                 <div class="gallery-track" id="galleryTrack">${slidesHtml}</div>
@@ -1314,6 +1381,8 @@
                 <div class="modal-brand">${escapeHtml(product.brand || '')}</div>
                 <div class="modal-name">${escapeHtml(itemCode + product.name)}</div>
                 <div class="modal-price">RM ${product.price.toFixed(2)}</div>
+                ${descHtml}
+                ${usecaseHtml}
                 <button class="btn-add" style="width:100%;padding:14px;border-radius:8px;"
                         ${cart[product.name] ? 'disabled' : ''}
                         onclick="addToCartFromPopup(); event.stopImmediatePropagation();">
