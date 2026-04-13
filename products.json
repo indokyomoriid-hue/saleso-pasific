@@ -1,6 +1,34 @@
 {
   "products": [
     {
+      "id": 1776100146905,
+      "code": "JKFLS00001",
+      "brand": "Kyomori",
+      "name": {
+        "en": "Gyokuho Matcha",
+        "ms": "Gyokuho Matcha",
+        "zh": "玉峰抹茶"
+      },
+      "price": 50,
+      "category": "Matcha",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1776099990554_pngtree-iced-matcha-latte-with-whipped-cream-picture-image_15934637.jpg",
+      "images": [
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1776099990554_pngtree-iced-matcha-latte-with-whipped-cream-picture-image_15934637.jpg",
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1776100039357_Gyokuho_25g__bowl__Horizon_Shopee-removebg-preview.png",
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1776100048839_Gemini_Generated_Image_4sncyu4sncyu4snc.png"
+      ],
+      "description": {
+        "en": "Gyokuho ceremonial matcha",
+        "ms": "Matcha upacara Gyokuho",
+        "zh": "玉峰仪式抹茶"
+      },
+      "usecases": [
+        "Matcha Latte",
+        "Usucha",
+        "Koicha"
+      ]
+    },
+    {
       "code": "MOSYMS700L",
       "brand": "MONIN",
       "name": {
