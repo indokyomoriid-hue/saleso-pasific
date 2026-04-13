@@ -305,7 +305,7 @@
             margin-bottom: 10px;
         }
         .img-num { font-size: 12px; font-weight: 700; color: var(--muted); font-family: var(--mono); min-width: 16px; }
-        .img-input-row input { margin: 0; flex: 1; }
+        .img-input-row input[type=text] { margin: 0; flex: 1; }
         .img-thumb {
             width: 52px; height: 52px;
             object-fit: cover;
@@ -314,6 +314,24 @@
             flex-shrink: 0;
             display: none;
         }
+        .upload-btn {
+            flex-shrink: 0;
+            padding: 9px 13px;
+            background: #e3f2fd;
+            color: #1565c0;
+            border: 1.5px solid #90caf9;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex; align-items: center; gap: 6px;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+        .upload-btn:hover { background: #bbdefb; }
+        .upload-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+        .upload-btn.uploading { background: #fff3e0; color: #e65100; border-color: #ffcc80; }
+        input[type=file].hidden-file { display: none; }
 
         /* ===== BUTTONS ===== */
         .btn {
@@ -630,20 +648,33 @@
                 <div class="uc-tags-box" id="ucTagsBox"></div>
 
                 <div class="section-divider" style="margin-top:20px;">Product Images (max 3)</div>
+                <p class="hint" style="margin-bottom:12px;">Paste URL langsung <strong>atau</strong> klik <strong>📂 Upload</strong> untuk upload foto dari komputer ke GitHub.</p>
                 <div id="img-rows">
                     <div class="img-input-row">
                         <span class="img-num">1</span>
-                        <input type="text" id="pImage1" placeholder="https://example.com/foto-1.jpg" oninput="updateThumb(this,'thumb1')">
+                        <input type="text" id="pImage1" placeholder="https://raw.githubusercontent.com/... atau upload →" oninput="updateThumb(this,'thumb1')">
+                        <input type="file" id="fileInput1" class="hidden-file" accept="image/*" onchange="uploadImageToGitHub(this, 'pImage1', 'thumb1', 'uploadBtn1')">
+                        <button class="upload-btn" id="uploadBtn1" onclick="document.getElementById('fileInput1').click()">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> Upload
+                        </button>
                         <img id="thumb1" class="img-thumb">
                     </div>
                     <div class="img-input-row">
                         <span class="img-num">2</span>
-                        <input type="text" id="pImage2" placeholder="https://example.com/foto-2.jpg (opsional)" oninput="updateThumb(this,'thumb2')">
+                        <input type="text" id="pImage2" placeholder="https://raw.githubusercontent.com/... atau upload →" oninput="updateThumb(this,'thumb2')">
+                        <input type="file" id="fileInput2" class="hidden-file" accept="image/*" onchange="uploadImageToGitHub(this, 'pImage2', 'thumb2', 'uploadBtn2')">
+                        <button class="upload-btn" id="uploadBtn2" onclick="document.getElementById('fileInput2').click()">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> Upload
+                        </button>
                         <img id="thumb2" class="img-thumb">
                     </div>
                     <div class="img-input-row">
                         <span class="img-num">3</span>
-                        <input type="text" id="pImage3" placeholder="https://example.com/foto-3.jpg (opsional)" oninput="updateThumb(this,'thumb3')">
+                        <input type="text" id="pImage3" placeholder="https://raw.githubusercontent.com/... atau upload →" oninput="updateThumb(this,'thumb3')">
+                        <input type="file" id="fileInput3" class="hidden-file" accept="image/*" onchange="uploadImageToGitHub(this, 'pImage3', 'thumb3', 'uploadBtn3')">
+                        <button class="upload-btn" id="uploadBtn3" onclick="document.getElementById('fileInput3').click()">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> Upload
+                        </button>
                         <img id="thumb3" class="img-thumb">
                     </div>
                 </div>
@@ -834,6 +865,100 @@ function updateThumb(input, thumbId) {
         thumb.onerror = () => { thumb.style.display = 'none'; };
     } else {
         thumb.style.display = 'none';
+    }
+}
+
+// =============================================
+//  UPLOAD IMAGE TO GITHUB
+// =============================================
+async function uploadImageToGitHub(fileInput, urlFieldId, thumbId, btnId) {
+    const file = fileInput.files[0];
+    if (!file) return;
+
+    const user  = document.getElementById('ghUser').value.trim();
+    const repo  = document.getElementById('ghRepo').value.trim();
+    const token = document.getElementById('ghToken').value.trim();
+
+    if (!token || !user || !repo) {
+        showToast('Isi dulu Token, Username, dan Repo di Step 1!', 'error');
+        fileInput.value = '';
+        return;
+    }
+
+    // Bersihkan nama file: hapus spasi & karakter aneh
+    const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+    const timestamp = Date.now();
+    const path = `images/products/${timestamp}_${safeName}`;
+    const apiUrl = `https://api.github.com/repos/${user}/${repo}/contents/${path}`;
+
+    const btn = document.getElementById(btnId);
+    btn.disabled = true;
+    btn.classList.add('uploading');
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Uploading…';
+    setLoadingBar(30);
+
+    try {
+        // Baca file sebagai Base64
+        const base64 = await new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = e => resolve(e.target.result.split(',')[1]);
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+        });
+
+        // Cek apakah file sudah ada (butuh SHA untuk update)
+        let existingSha = null;
+        try {
+            const checkRes = await fetch(apiUrl, {
+                headers: { Authorization: `token ${token}` }
+            });
+            if (checkRes.ok) {
+                const checkData = await checkRes.json();
+                existingSha = checkData.sha;
+            }
+        } catch (_) {}
+
+        setLoadingBar(60);
+
+        // Upload ke GitHub
+        const body = {
+            message: `Upload foto produk: ${safeName}`,
+            content: base64
+        };
+        if (existingSha) body.sha = existingSha;
+
+        const res = await fetch(apiUrl, {
+            method: 'PUT',
+            headers: {
+                Authorization: `token ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        });
+
+        setLoadingBar(90);
+        const data = await res.json();
+
+        if (!res.ok) throw new Error(data.message || 'Upload gagal');
+
+        // Gunakan raw URL agar bisa ditampilkan langsung
+        const rawUrl = `https://raw.githubusercontent.com/${user}/${repo}/main/${path}`;
+
+        // Isi URL field & tampilkan thumbnail
+        const urlField = document.getElementById(urlFieldId);
+        urlField.value = rawUrl;
+        updateThumb(urlField, thumbId);
+
+        setLoadingBar(100);
+        showToast(`✦ Foto berhasil diupload ke GitHub!`);
+    } catch (e) {
+        showToast('Upload gagal: ' + e.message, 'error');
+        setLoadingBar(100);
+    } finally {
+        btn.disabled = false;
+        btn.classList.remove('uploading');
+        btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Upload';
+        fileInput.value = ''; // Reset agar bisa upload ulang file yang sama
     }
 }
 
