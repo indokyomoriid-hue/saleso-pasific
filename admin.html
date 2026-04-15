@@ -1641,8 +1641,11 @@ async function deleteData(index) {
         setLoadingBar(10);
         showToast('⏳ Menghapus foto dari GitHub…');
 
-        // Hapus semua foto secara paralel
-        await Promise.all(photoUrls.map(url => deleteGitHubImageByUrl(url)));
+        // Hapus satu per satu secara berurutan (sequential) agar tidak bentrok di GitHub API
+        for (let i = 0; i < photoUrls.length; i++) {
+            setLoadingBar(Math.round(((i + 1) / photoUrls.length) * 90));
+            await deleteGitHubImageByUrl(photoUrls[i]);
+        }
 
         setLoadingBar(100);
     }
