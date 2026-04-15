@@ -300,37 +300,37 @@
 
                 <div class="section-divider">Use Cases / Best Used For</div>
                 <div class="uc-input-row">
-                    <input type="text" id="ucInput" placeholder="e.g., Matcha Latte, Es Matcha, Baking..." onkeydown="if(event.key==='Enter'){event.preventDefault();addUsecase();}">
+                    <input type="text" id="ucInput" placeholder="e.g., Matcha Latte, Iced Matcha, Baking..." onkeydown="if(event.key==='Enter'){event.preventDefault();addUsecase();}">
                     <button class="uc-add-btn" onclick="addUsecase()">+</button>
                 </div>
                 <p class="hint">Type a use case then press + or Enter. Separate with commas to add multiple.</p>
                 <div class="uc-tags-box" id="ucTagsBox"></div>
 
                 <div class="section-divider" style="margin-top:20px;">Product Images (max 3)</div>
-                <p class="hint" style="margin-bottom:12px;">Paste URL langsung <strong>atau</strong> klik <strong>📂 Upload</strong> untuk upload foto dari komputer ke GitHub.</p>
+                <p class="hint" style="margin-bottom:12px;">Paste the URL directly <strong>or</strong> click <strong>📂 Upload</strong> to upload a photo from your computer to GitHub.</p>
                 <div id="img-rows">
                     <div class="img-input-row">
                         <span class="img-num">1</span>
-                        <input type="text" id="pImage1" placeholder="https://raw.githubusercontent.com/... atau upload →" oninput="updateThumb(this,'thumb1');toggleDeleteBtn('pImage1','deleteBtn1')">
+                        <input type="text" id="pImage1" placeholder="https://raw.githubusercontent.com/... or upload →" oninput="updateThumb(this,'thumb1');toggleDeleteBtn('pImage1','deleteBtn1')">
                         <input type="file" id="fileInput1" class="hidden-file" accept="image/*" onchange="uploadImageToGitHub(this, 'pImage1', 'thumb1', 'uploadBtn1', 'deleteBtn1')">
                         <button class="upload-btn" id="uploadBtn1" onclick="document.getElementById('fileInput1').click()"><i class="fa-solid fa-cloud-arrow-up"></i> Upload</button>
-                        <button class="delete-img-btn" id="deleteBtn1" onclick="deleteImageFromGitHub('pImage1','thumb1','deleteBtn1','uploadBtn1')"><i class="fa-solid fa-trash"></i> Hapus</button>
+                        <button class="delete-img-btn" id="deleteBtn1" onclick="deleteImageFromGitHub('pImage1','thumb1','deleteBtn1','uploadBtn1')"><i class="fa-solid fa-trash"></i> Delete</button>
                         <img id="thumb1" class="img-thumb">
                     </div>
                     <div class="img-input-row">
                         <span class="img-num">2</span>
-                        <input type="text" id="pImage2" placeholder="https://raw.githubusercontent.com/... atau upload →" oninput="updateThumb(this,'thumb2');toggleDeleteBtn('pImage2','deleteBtn2')">
+                        <input type="text" id="pImage2" placeholder="https://raw.githubusercontent.com/... or upload →" oninput="updateThumb(this,'thumb2');toggleDeleteBtn('pImage2','deleteBtn2')">
                         <input type="file" id="fileInput2" class="hidden-file" accept="image/*" onchange="uploadImageToGitHub(this, 'pImage2', 'thumb2', 'uploadBtn2', 'deleteBtn2')">
                         <button class="upload-btn" id="uploadBtn2" onclick="document.getElementById('fileInput2').click()"><i class="fa-solid fa-cloud-arrow-up"></i> Upload</button>
-                        <button class="delete-img-btn" id="deleteBtn2" onclick="deleteImageFromGitHub('pImage2','thumb2','deleteBtn2','uploadBtn2')"><i class="fa-solid fa-trash"></i> Hapus</button>
+                        <button class="delete-img-btn" id="deleteBtn2" onclick="deleteImageFromGitHub('pImage2','thumb2','deleteBtn2','uploadBtn2')"><i class="fa-solid fa-trash"></i> Delete</button>
                         <img id="thumb2" class="img-thumb">
                     </div>
                     <div class="img-input-row">
                         <span class="img-num">3</span>
-                        <input type="text" id="pImage3" placeholder="https://raw.githubusercontent.com/... atau upload →" oninput="updateThumb(this,'thumb3');toggleDeleteBtn('pImage3','deleteBtn3')">
+                        <input type="text" id="pImage3" placeholder="https://raw.githubusercontent.com/... or upload →" oninput="updateThumb(this,'thumb3');toggleDeleteBtn('pImage3','deleteBtn3')">
                         <input type="file" id="fileInput3" class="hidden-file" accept="image/*" onchange="uploadImageToGitHub(this, 'pImage3', 'thumb3', 'uploadBtn3', 'deleteBtn3')">
                         <button class="upload-btn" id="uploadBtn3" onclick="document.getElementById('fileInput3').click()"><i class="fa-solid fa-cloud-arrow-up"></i> Upload</button>
-                        <button class="delete-img-btn" id="deleteBtn3" onclick="deleteImageFromGitHub('pImage3','thumb3','deleteBtn3','uploadBtn3')"><i class="fa-solid fa-trash"></i> Hapus</button>
+                        <button class="delete-img-btn" id="deleteBtn3" onclick="deleteImageFromGitHub('pImage3','thumb3','deleteBtn3','uploadBtn3')"><i class="fa-solid fa-trash"></i> Delete</button>
                         <img id="thumb3" class="img-thumb">
                     </div>
                 </div>
@@ -368,12 +368,12 @@
                     </div>
                     <div class="lang-col ms" id="nmessage-col-ms">
                         <div class="lang-col-header"><span class="source-badge">MS</span> Malay <span id="nmessage-ms-ai" style="font-size:10px;color:var(--ms-color);display:none;">✦ GT</span><button class="lock-btn" onclick="toggleLock('nmessage','ms')">🔒<span class="lock-label">LOCKED</span></button></div>
-                        <textarea id="nMessage_ms" rows="3" placeholder="Tulis butiran notifikasi di sini..." style="padding:12px 14px;"></textarea>
+                        <textarea id="nMessage_ms" rows="3" placeholder="Write notification details here (Malay)..." style="padding:12px 14px;"></textarea>
                         <div class="translate-indicator" id="ind-nmessage-ms"><div class="spinner-small"></div> translating…</div>
                     </div>
                     <div class="lang-col zh" id="nmessage-col-zh">
                         <div class="lang-col-header"><span class="source-badge">ZH</span> 中文 <span id="nmessage-zh-ai" style="font-size:10px;color:var(--zh-color);display:none;">✦ GT</span><button class="lock-btn" onclick="toggleLock('nmessage','zh')">🔒<span class="lock-label">LOCKED</span></button></div>
-                        <textarea id="nMessage_zh" rows="3" placeholder="在此填写通知详情..." style="padding:12px 14px;"></textarea>
+                        <textarea id="nMessage_zh" rows="3" placeholder="Write notification details here (Chinese)..." style="padding:12px 14px;"></textarea>
                         <div class="translate-indicator" id="ind-nmessage-zh"><div class="spinner-small"></div> translating…</div>
                     </div>
                 </div>
@@ -504,7 +504,7 @@ async function deleteImageFromGitHub(urlFieldId, thumbId, deleteBtnId, uploadBtn
     const token = document.getElementById('ghToken').value.trim();
     const isGitHubUrl = rawUrl.includes(`raw.githubusercontent.com/${user}/${repo}/`);
     if (!isGitHubUrl) {
-        if (!confirm('URL ini bukan dari GitHub repo Anda.\nHapus dari form saja?')) return;
+        if (!confirm('This URL is not from your GitHub repo.\nRemove from form only?')) return;
         urlField.value = '';
         document.getElementById(thumbId).style.display = 'none';
         document.getElementById(deleteBtnId).classList.remove('visible');
@@ -514,11 +514,11 @@ async function deleteImageFromGitHub(urlFieldId, thumbId, deleteBtnId, uploadBtn
     const match = rawUrl.match(/raw\.githubusercontent\.com\/[^/]+\/[^/]+\/[^/]+\/(.+)/);
     if (!match) return;
     const filePath = match[1];
-    if (!confirm(`Hapus foto dari GitHub?\n\nFile: ${filePath}`)) return;
+    if (!confirm(`Delete this photo from GitHub?\n\nFile: ${filePath}`)) return;
     const delBtn = document.getElementById(deleteBtnId);
     const uploadBtn = document.getElementById(uploadBtnId);
     delBtn.disabled = true;
-    delBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menghapus…';
+    delBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Deleting…';
     if (uploadBtn) uploadBtn.disabled = true;
     setLoadingBar(30);
     try {
@@ -538,7 +538,7 @@ async function deleteImageFromGitHub(urlFieldId, thumbId, deleteBtnId, uploadBtn
         const deleteRes = await fetch(apiUrl, {
             method: 'DELETE',
             headers: { Authorization: `token ${token}`, 'Content-Type': 'application/json' },
-            body: JSON.stringify({ message: `Hapus foto produk: ${filePath}`, sha: fileData.sha })
+            body: JSON.stringify({ message: `Delete product photo: ${filePath}`, sha: fileData.sha })
         });
         setLoadingBar(90);
         if (!deleteRes.ok) throw new Error();
@@ -550,7 +550,7 @@ async function deleteImageFromGitHub(urlFieldId, thumbId, deleteBtnId, uploadBtn
         setLoadingBar(100);
     } finally {
         delBtn.disabled = false;
-        delBtn.innerHTML = '<i class="fa-solid fa-trash"></i> Hapus';
+        delBtn.innerHTML = '<i class="fa-solid fa-trash"></i> Delete';
         if (uploadBtn) uploadBtn.disabled = false;
     }
 }
@@ -587,7 +587,7 @@ async function uploadImageToGitHub(fileInput, urlFieldId, thumbId, btnId, delete
             }
         } catch (_) {}
         setLoadingBar(60);
-        const body = { message: `Upload foto produk: ${safeName}`, content: base64 };
+        const body = { message: `Upload product photo: ${safeName}`, content: base64 };
         if (existingSha) body.sha = existingSha;
         const res = await fetch(apiUrl, {
             method: 'PUT',
@@ -969,30 +969,35 @@ function resetForm() {
 }
 
 async function deleteData(index) {
-    if (!confirm('Hapus produk ini?\n\nSemua foto yang terkait akan dihapus dari GitHub.')) return;
+    if (!confirm('Delete this product?\n\nAll associated photos will be deleted from GitHub.')) return;
     const item = currentData[index];
     if (activeRole === 'product') {
         const imagesToDelete = new Set();
+        // Collect from `images` array (multi-photo field)
         if (Array.isArray(item.images)) {
             item.images.forEach(url => {
-                if (url && typeof url === 'string') imagesToDelete.add(url.trim());
+                if (url && typeof url === 'string' && url.trim()) imagesToDelete.add(url.trim());
             });
         }
-        if (item.image && typeof item.image === 'string') {
+        // Collect from `image` field (single/legacy field) - may differ from images[0]
+        if (item.image && typeof item.image === 'string' && item.image.trim()) {
             imagesToDelete.add(item.image.trim());
         }
-        const finalImages = Array.from(imagesToDelete).filter(url => url && !url.includes('placehold.co'));
+        // Filter out placeholders and non-http values
+        const finalImages = Array.from(imagesToDelete).filter(url =>
+            url && !url.includes('placehold.co') && url.startsWith('http')
+        );
         if (finalImages.length > 0) {
-            showToast(`🗑 Menghapus ${finalImages.length} foto dari GitHub...`, 'ok');
+            showToast(`🗑 Deleting ${finalImages.length} photo(s) from GitHub...`, 'ok');
             setLoadingBar(30);
             await Promise.all(finalImages.map(url => deleteGitHubImageByUrl(url)));
             setLoadingBar(100);
-            showToast(`✅ ${finalImages.length} foto berhasil dihapus`, 'ok');
+            showToast(`✅ ${finalImages.length} photo(s) deleted successfully`, 'ok');
         }
     }
     currentData.splice(index, 1);
     renderAdminData();
-    showToast('✅ Produk dan semua fotonya berhasil dihapus', 'ok');
+    showToast('✅ Product and all photos deleted successfully', 'ok');
 }
 
 function renderAdminData() {
