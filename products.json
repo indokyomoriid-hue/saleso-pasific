@@ -53,33 +53,6 @@
       ]
     },
     {
-      "code": "HSTEESTE50S",
-      "brand": "H&S",
-      "name": {
-        "en": "Harney & Sons Food Service Tea Bags 50 Sachets",
-        "ms": "Beg Teh Servis Makanan Harney & Sons 50 Sachet",
-        "zh": "Harney & Sons 餐饮茶包 50包"
-      },
-      "price": 52,
-      "category": "Beverage",
-      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1776241829609_pngtree-iced-matcha-latte-with-whipped-cream-picture-image_15934637.jpg",
-      "images": [
-        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1776241829609_pngtree-iced-matcha-latte-with-whipped-cream-picture-image_15934637.jpg",
-        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1776241834357_4XMQb.jpg",
-        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1776241841666_WhatsApp_Image_2026-04-06_at_17.48.41.jpeg"
-      ],
-      "description": {
-        "en": "Bulk food service tea bags for high volume use",
-        "ms": "Beg teh servis makanan pukal untuk penggunaan volum tinggi",
-        "zh": "餐饮批量茶包，适合高容量使用"
-      },
-      "usecases": [
-        "Cafe",
-        "Restaurant",
-        "Hotel"
-      ]
-    },
-    {
       "code": "KSTCTTPCS",
       "brand": "CHASTA",
       "name": {
