@@ -439,9 +439,7 @@ function setRole(role) {
 
 function showToast(msg, type = 'ok') {
     const t = document.getElementById('toast');
-    t.innerHTML = type === 'ok' 
-        ? `<i class="fa-solid fa-circle-check"></i> ${msg}` 
-        : `<i class="fa-solid fa-circle-xmark"></i> ${msg}`;
+    t.innerHTML = type === 'ok' ? `<i class="fa-solid fa-circle-check"></i> ${msg}` : `<i class="fa-solid fa-circle-xmark"></i> ${msg}`;
     t.className = 'show' + (type === 'error' ? ' error' : '');
     setTimeout(() => t.className = '', 3000);
 }
@@ -457,7 +455,6 @@ function updateThumb(input, thumbId) {
     if (url) {
         thumb.src = url;
         thumb.style.display = 'block';
-        thumb.onerror = () => { thumb.style.display = 'none'; };
     } else {
         thumb.style.display = 'none';
     }
@@ -469,7 +466,7 @@ function toggleDeleteBtn(urlFieldId, deleteBtnId) {
     if (delBtn) url ? delBtn.classList.add('visible') : delBtn.classList.remove('visible');
 }
 
-// ==================== DELETE PHOTO FROM GITHUB ====================
+// ==================== DELETE FOTO DARI GITHUB ====================
 async function deleteGitHubImageByUrl(rawUrl) {
     if (!rawUrl || typeof rawUrl !== 'string') return false;
     const url = rawUrl.trim();
@@ -487,10 +484,7 @@ async function deleteGitHubImageByUrl(rawUrl) {
         const filePath = match[1];
         const apiUrl = `https://api.github.com/repos/${user}/${repo}/contents/${filePath}`;
 
-        const getRes = await fetch(apiUrl, { 
-            headers: { Authorization: `token ${token}` } 
-        });
-
+        const getRes = await fetch(apiUrl, { headers: { Authorization: `token ${token}` } });
         if (getRes.status === 404) return true;
         if (!getRes.ok) return false;
 
@@ -498,68 +492,53 @@ async function deleteGitHubImageByUrl(rawUrl) {
 
         const deleteRes = await fetch(apiUrl, {
             method: 'DELETE',
-            headers: { 
-                Authorization: `token ${token}`, 
-                'Content-Type': 'application/json' 
-            },
-            body: JSON.stringify({ 
-                message: `Auto-delete on product removal: ${filePath}`, 
-                sha: fileData.sha 
-            })
+            headers: { Authorization: `token ${token}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: `Auto-delete product photo`, sha: fileData.sha })
         });
 
         return deleteRes.ok;
     } catch (e) {
-        console.error("Gagal hapus foto:", url, e);
+        console.error("Gagal hapus foto:", rawUrl);
         return false;
     }
 }
 
-// ==================== MAIN DELETE FUNCTION (SUDAH DIPERBAIKI) ====================
+// ==================== HAPUS PRODUK + SEMUA FOTO ====================
 async function deleteData(index) {
-    if (!confirm('Hapus produk ini?\n\nSEMUA foto (image & images) akan DIHAPUS PERMANEN dari GitHub.')) {
-        return;
-    }
+    if (!confirm('Hapus produk ini?\n\nSemua foto (image dan images) akan DIHAPUS PERMANEN dari GitHub.')) return;
 
     const item = currentData[index];
-    let deletedCount = 0;
+    let successCount = 0;
 
     if (activeRole === 'product') {
         const imagesToDelete = new Set();
 
-        // Kumpulkan semua URL foto
+        // Semua kemungkinan foto
         if (Array.isArray(item.images)) {
-            item.images.forEach(url => {
-                if (url && typeof url === 'string') imagesToDelete.add(url.trim());
-            });
+            item.images.forEach(url => { if (url) imagesToDelete.add(url.trim()); });
         }
-        if (item.image && typeof item.image === 'string') {
-            imagesToDelete.add(item.image.trim());
-        }
+        if (item.image) imagesToDelete.add(String(item.image).trim());
 
         const finalImages = Array.from(imagesToDelete).filter(url => 
-            url && url.includes('raw.githubusercontent.com') && !url.includes('placehold.co')
+            url && url.includes('raw.githubusercontent.com')
         );
 
-        console.log("Foto yang akan dihapus:", finalImages);   // ← Untuk debugging
+        console.log("🔍 Foto yang akan dihapus:", finalImages);
 
         if (finalImages.length > 0) {
-            showToast(`🗑 Menghapus ${finalImages.length} foto dari GitHub...`, 'ok');
+            showToast(`🗑 Menghapus ${finalImages.length} foto...`, 'ok');
             setLoadingBar(30);
 
             for (const url of finalImages) {
-                const success = await deleteGitHubImageByUrl(url);
-                if (success) deletedCount++;
+                if (await deleteGitHubImageByUrl(url)) successCount++;
             }
-
             setLoadingBar(100);
-            showToast(`✅ Berhasil menghapus ${deletedCount} foto`, 'ok');
         }
     }
 
     currentData.splice(index, 1);
     renderAdminData();
-    showToast(`✅ Produk berhasil dihapus (${deletedCount} foto dihapus dari GitHub)`, 'ok');
+    showToast(`✅ Produk dihapus (${successCount} foto dihapus dari GitHub)`, 'ok');
 }
 
 function addUsecase() {
@@ -615,9 +594,8 @@ function setupNameTranslate() {
             clearTimeout(translateTimers[`name_${lang}`]);
             translateTimers[`name_${lang}`] = setTimeout(() => {
                 const val = nameInput.value.trim();
-                if (!val) return;
-                ['en','ms','zh'].filter(l => l !== lang && !isLocked('name', l))
-                    .forEach(target => translateField(val, lang, target, `pName_${target}`, `ind-name-${target}`, `name-${target}-ai`));
+                if (val) ['en','ms','zh'].filter(l => l !== lang && !isLocked('name', l))
+                    .forEach(t => translateField(val, lang, t, `pName_${t}`, `ind-name-${t}`, `name-${t}-ai`));
             }, 900);
         });
 
@@ -626,31 +604,8 @@ function setupNameTranslate() {
             clearTimeout(translateTimers[`desc_${lang}`]);
             translateTimers[`desc_${lang}`] = setTimeout(() => {
                 const val = descInput.value.trim();
-                if (!val) return;
-                ['en','ms','zh'].filter(l => l !== lang && !isLocked('desc', l))
-                    .forEach(target => translateField(val, lang, target, `pDesc_${target}`, `ind-desc-${target}`, `desc-${target}-ai`));
-            }, 900);
-        });
-
-        const nTitleInput = document.getElementById(`nTitle_${lang}`);
-        if (nTitleInput) nTitleInput.addEventListener('input', () => {
-            clearTimeout(translateTimers[`ntitle_${lang}`]);
-            translateTimers[`ntitle_${lang}`] = setTimeout(() => {
-                const val = nTitleInput.value.trim();
-                if (!val) return;
-                ['en','ms','zh'].filter(l => l !== lang && !isLocked('ntitle', l))
-                    .forEach(target => translateField(val, lang, target, `nTitle_${target}`, `ind-ntitle-${target}`, `ntitle-${target}-ai`));
-            }, 900);
-        });
-
-        const nMsgInput = document.getElementById(`nMessage_${lang}`);
-        if (nMsgInput) nMsgInput.addEventListener('input', () => {
-            clearTimeout(translateTimers[`nmessage_${lang}`]);
-            translateTimers[`nmessage_${lang}`] = setTimeout(() => {
-                const val = nMsgInput.value.trim();
-                if (!val) return;
-                ['en','ms','zh'].filter(l => l !== lang && !isLocked('nmessage', l))
-                    .forEach(target => translateField(val, lang, target, `nMessage_${target}`, `ind-nmessage-${target}`, `nmessage-${target}-ai`));
+                if (val) ['en','ms','zh'].filter(l => l !== lang && !isLocked('desc', l))
+                    .forEach(t => translateField(val, lang, t, `pDesc_${t}`, `ind-desc-${t}`, `desc-${t}-ai`));
             }, 900);
         });
     });
@@ -660,26 +615,14 @@ async function translateField(text, fromLang, toLang, targetId, indId, aiId) {
     if (!text.trim()) return;
     const targetEl = document.getElementById(targetId);
     const indEl = document.getElementById(indId);
-    const aiEl = document.getElementById(aiId);
-    const col = targetEl.closest('.lang-col');
-
     indEl.classList.add('visible');
-    col.classList.add('translating');
-
     try {
         const gtLang = { en: 'en', ms: 'ms', zh: 'zh-CN' };
-        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${gtLang[fromLang]}&tl=${gtLang[toLang]}&dt=t&q=${encodeURIComponent(text)}`;
-        const res = await fetch(url);
+        const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=${gtLang[fromLang]}&tl=${gtLang[toLang]}&dt=t&q=${encodeURIComponent(text)}`);
         const data = await res.json();
-        const translated = data[0].map(seg => seg[0]).join('');
-        if (translated) {
-            targetEl.value = translated;
-            if (aiEl) aiEl.style.display = 'inline';
-        }
-    } catch (e) {} 
-    finally {
+        targetEl.value = data[0].map(x => x[0]).join('');
+    } catch(e) {} finally {
         indEl.classList.remove('visible');
-        col.classList.remove('translating');
     }
 }
 
@@ -690,18 +633,16 @@ async function fetchFromGitHub() {
     if (!token || !user || !repo) return showToast('Isi Token, Username, dan Repo!', 'error');
 
     setLoadingBar(30);
-    const url = `https://api.github.com/repos/${user}/${repo}/contents/${targetFile}`;
-
     try {
-        const res = await fetch(url, { headers: { Authorization: `token ${token}` } });
+        const res = await fetch(`https://api.github.com/repos/${user}/${repo}/contents/${targetFile}`, {
+            headers: { Authorization: `token ${token}` }
+        });
         const data = await res.json();
         setLoadingBar(70);
         if (!res.ok) throw new Error();
 
         fileSha = data.sha;
-        const content = JSON.parse(decodeURIComponent(escape(atob(data.content))));
-        currentData = content[jsonKey] || [];
-        
+        currentData = JSON.parse(decodeURIComponent(escape(atob(data.content))))[jsonKey] || [];
         renderAdminData();
         document.getElementById('add-form').style.display = 'block';
         document.getElementById('data-card').style.display = 'block';
@@ -709,18 +650,14 @@ async function fetchFromGitHub() {
         setLoadingBar(100);
         showToast(`${currentData.length} items loaded`);
     } catch (e) {
-        if (e.message.includes('Not Found')) {
-            currentData = [];
-            fileSha = '';
-            renderAdminData();
-            document.getElementById('add-form').style.display = 'block';
-            document.getElementById('data-card').style.display = 'block';
-            document.getElementById('final-save').style.display = 'flex';
-            showToast('File baru akan dibuat saat push pertama');
-        } else {
-            showToast('Error: ' + e.message, 'error');
-        }
+        currentData = [];
+        fileSha = '';
+        renderAdminData();
+        document.getElementById('add-form').style.display = 'block';
+        document.getElementById('data-card').style.display = 'block';
+        document.getElementById('final-save').style.display = 'flex';
         setLoadingBar(100);
+        showToast('File baru akan dibuat');
     }
 }
 
@@ -731,33 +668,27 @@ async function pushToGitHub() {
     if (!confirm(`Push ${currentData.length} items ke GitHub?`)) return;
 
     setLoadingBar(20);
-    const url = `https://api.github.com/repos/${user}/${repo}/contents/${targetFile}`;
     const wrapper = {};
     wrapper[jsonKey] = currentData;
-
     const body = {
-        message: `Admin Update: ${new Date().toLocaleString()}`,
+        message: `Admin Update ${new Date().toLocaleString()}`,
         content: btoa(unescape(encodeURIComponent(JSON.stringify(wrapper, null, 2))))
     };
     if (fileSha) body.sha = fileSha;
 
     try {
-        const res = await fetch(url, {
+        const res = await fetch(`https://api.github.com/repos/${user}/${repo}/contents/${targetFile}`, {
             method: 'PUT',
             headers: { Authorization: `token ${token}`, 'Content-Type': 'application/json' },
             body: JSON.stringify(body)
         });
         setLoadingBar(80);
         if (res.ok) {
-            showToast('Berhasil di-push ke GitHub!');
-            setLoadingBar(100);
+            showToast('Berhasil push ke GitHub!');
             setTimeout(() => location.reload(), 1500);
-        } else {
-            const err = await res.json();
-            showToast('Push gagal: ' + err.message, 'error');
-        }
+        } else showToast('Push gagal', 'error');
     } catch (e) {
-        showToast('Error: ' + e.message, 'error');
+        showToast('Error push', 'error');
     } finally {
         setLoadingBar(100);
     }
@@ -769,53 +700,23 @@ function saveData() {
 
     if (activeRole === 'product') {
         const code = document.getElementById('pCode').value.trim();
-        const price = document.getElementById('pPrice').value;
-        const nameEn = document.getElementById('pName_en').value.trim();
-        const nameMs = document.getElementById('pName_ms').value.trim();
-        const nameZh = document.getElementById('pName_zh').value.trim();
-        const anyName = nameEn || nameMs || nameZh;
-
-        if (!code || !anyName || !price) return showToast('Code, Nama (minimal 1 bahasa), dan Price wajib diisi!', 'error');
-
+        const price = parseFloat(document.getElementById('pPrice').value);
         const imgs = ['pImage1','pImage2','pImage3'].map(id => document.getElementById(id).value.trim()).filter(v => v);
 
         dataObj = {
             id: index === -1 ? Date.now() : currentData[index].id,
             code,
             brand: document.getElementById('pBrand').value.trim() || 'SALESO',
-            name: { en: nameEn, ms: nameMs, zh: nameZh },
-            price: parseFloat(price),
+            name: {
+                en: document.getElementById('pName_en').value.trim(),
+                ms: document.getElementById('pName_ms').value.trim(),
+                zh: document.getElementById('pName_zh').value.trim()
+            },
+            price: price,
             category: document.getElementById('pCat').value,
             image: imgs[0] || 'https://placehold.co/400',
-            images: imgs.length > 0 ? imgs : ['https://placehold.co/400'],
-            ...(document.getElementById('pDesc_en').value.trim() && { description: {
-                en: document.getElementById('pDesc_en').value.trim(),
-                ms: document.getElementById('pDesc_ms').value.trim(),
-                zh: document.getElementById('pDesc_zh').value.trim()
-            }}),
-            ...(ucList.length > 0 && { usecases: [...ucList] })
-        };
-    } else {
-        // Notification (tetap)
-        const titleEn = document.getElementById('nTitle_en').value.trim();
-        const msgEn = document.getElementById('nMessage_en').value.trim();
-        if (!titleEn && !document.getElementById('nTitle_ms').value.trim() && !document.getElementById('nTitle_zh').value.trim()) 
-            return showToast('Title wajib diisi!', 'error');
-
-        dataObj = {
-            id: index === -1 ? Date.now() : currentData[index].id,
-            title: {
-                en: titleEn,
-                ms: document.getElementById('nTitle_ms').value.trim(),
-                zh: document.getElementById('nTitle_zh').value.trim()
-            },
-            date: document.getElementById('nDate').value,
-            type: document.getElementById('nType').value,
-            message: {
-                en: msgEn,
-                ms: document.getElementById('nMessage_ms').value.trim(),
-                zh: document.getElementById('nMessage_zh').value.trim()
-            }
+            images: imgs.length ? imgs : ['https://placehold.co/400'],
+            usecases: [...ucList]
         };
     }
 
@@ -848,7 +749,7 @@ function editData(index) {
             document.getElementById('pDesc_zh').value = item.description.zh || '';
         }
 
-        const imgs = Array.isArray(item.images) && item.images.length ? item.images : (item.image ? [item.image] : []);
+        const imgs = Array.isArray(item.images) ? item.images : (item.image ? [item.image] : []);
         for (let i = 0; i < 3; i++) {
             const id = `pImage${i+1}`;
             document.getElementById(id).value = imgs[i] || '';
@@ -869,9 +770,7 @@ function editData(index) {
 
 function resetForm() {
     document.getElementById('editIndex').value = '-1';
-    
-    const fields = ['pCode','pBrand','pName_en','pName_ms','pName_zh','pDesc_en','pDesc_ms','pDesc_zh',
-                    'pImage1','pImage2','pImage3','nTitle_en','nTitle_ms','nTitle_zh','nMessage_en','nMessage_ms','nMessage_zh'];
+    const fields = ['pCode','pBrand','pName_en','pName_ms','pName_zh','pDesc_en','pDesc_ms','pDesc_zh','pImage1','pImage2','pImage3'];
     fields.forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
 
     ['thumb1','thumb2','thumb3'].forEach(id => {
@@ -885,8 +784,6 @@ function resetForm() {
     renderUcTags();
     clearLocks('name');
     clearLocks('desc');
-    clearLocks('ntitle');
-    clearLocks('nmessage');
 
     document.getElementById('form-title').textContent = 'Add New Entry';
     document.getElementById('btn-save-entry').innerHTML = '<i class="fa-solid fa-plus"></i> Add to List';
@@ -899,25 +796,23 @@ function renderAdminData() {
     document.getElementById('list-count').textContent = `${currentData.length} item`;
 
     if (currentData.length === 0) {
-        container.innerHTML = `<div style="padding:40px;text-align:center;color:var(--muted);font-size:14px;"><i class="fa-solid fa-inbox" style="font-size:32px;"></i><br>No data yet</div>`;
+        container.innerHTML = `<div style="padding:40px;text-align:center;color:var(--muted);">No data yet</div>`;
         return;
     }
 
-    container.innerHTML = currentData.map((item, index) => {
-        let html = '';
-        if (activeRole === 'product') {
-            const name = typeof item.name === 'object' ? (item.name.en || item.name.ms || item.name.zh || '—') : item.name || '—';
-            const photoCount = Array.isArray(item.images) ? item.images.length : (item.image ? 1 : 0);
-            html = `<div class="data-name"><span style="font-family:var(--mono);font-size:11px;background:#eee;padding:1px 6px;border-radius:4px;">${item.code}</span> ${name} ${photoCount>1 ? `<span class="badge badge-green">${photoCount} foto</span>` : ''}</div>
-                    <div class="data-meta">RM ${parseFloat(item.price).toFixed(2)} · ${item.category}</div>`;
-        }
-        return `<div class="data-item">
-                    <div style="flex:1;">${html}</div>
-                    <div class="item-actions">
-                        <button class="icon-btn edit" onclick="editData(${index})"><i class="fa-solid fa-pen-to-square"></i></button>
-                        <button class="icon-btn del" onclick="deleteData(${index})"><i class="fa-solid fa-trash"></i></button>
-                    </div>
-                </div>`;
+    container.innerHTML = currentData.map((item, i) => {
+        const name = typeof item.name === 'object' ? (item.name.en || '') : item.name || '';
+        return `
+            <div class="data-item">
+                <div style="flex:1;">
+                    <div class="data-name">${item.code || ''} — ${name}</div>
+                    <div class="data-meta">RM ${item.price} · ${item.category || ''}</div>
+                </div>
+                <div class="item-actions">
+                    <button class="icon-btn edit" onclick="editData(${i})"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <button class="icon-btn del" onclick="deleteData(${i})"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            </div>`;
     }).join('');
 }
 </script>
