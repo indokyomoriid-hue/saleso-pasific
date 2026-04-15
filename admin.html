@@ -451,8 +451,6 @@ function setLoadingBar(pct) {
     if (pct >= 100) setTimeout(() => setLoadingBar(0), 400);
 }
 
-// ==================== IMAGE HANDLING ====================
-
 function updateThumb(input, thumbId) {
     const thumb = document.getElementById(thumbId);
     const url = input.value.trim();
@@ -471,134 +469,98 @@ function toggleDeleteBtn(urlFieldId, deleteBtnId) {
     if (delBtn) url ? delBtn.classList.add('visible') : delBtn.classList.remove('visible');
 }
 
-// Delete single image from GitHub
+// ==================== DELETE PHOTO FROM GITHUB ====================
 async function deleteGitHubImageByUrl(rawUrl) {
-    if (!rawUrl || typeof rawUrl !== 'string') return;
+    if (!rawUrl || typeof rawUrl !== 'string') return false;
     const url = rawUrl.trim();
+    if (!url.includes('raw.githubusercontent.com') || url.includes('placehold.co')) return false;
+
     const user = document.getElementById('ghUser').value.trim();
     const repo = document.getElementById('ghRepo').value.trim();
     const token = document.getElementById('ghToken').value.trim();
-    
-    if (!token || !user || !repo) return;
-    if (!url.includes(`raw.githubusercontent.com/${user}/${repo}/`)) return;
-    if (url.includes('placehold.co')) return;
+    if (!token || !user || !repo) return false;
 
-    const match = url.match(/raw\.githubusercontent\.com\/[^/]+\/[^/]+\/[^/]+\/(.+)/);
-    if (!match) return;
-
-    const filePath = match[1];
     try {
+        const match = url.match(/raw\.githubusercontent\.com\/[^/]+\/[^/]+\/[^/]+\/(.+)/);
+        if (!match) return false;
+
+        const filePath = match[1];
         const apiUrl = `https://api.github.com/repos/${user}/${repo}/contents/${filePath}`;
-        const getRes = await fetch(apiUrl, { headers: { Authorization: `token ${token}` } });
-        if (!getRes.ok) return;
-        
-        const fileData = await getRes.json();
-        await fetch(apiUrl, {
-            method: 'DELETE',
-            headers: { Authorization: `token ${token}`, 'Content-Type': 'application/json' },
-            body: JSON.stringify({ message: `Auto-delete on product removal: ${filePath}`, sha: fileData.sha })
+
+        const getRes = await fetch(apiUrl, { 
+            headers: { Authorization: `token ${token}` } 
         });
-    } catch (e) {}
+
+        if (getRes.status === 404) return true;
+        if (!getRes.ok) return false;
+
+        const fileData = await getRes.json();
+
+        const deleteRes = await fetch(apiUrl, {
+            method: 'DELETE',
+            headers: { 
+                Authorization: `token ${token}`, 
+                'Content-Type': 'application/json' 
+            },
+            body: JSON.stringify({ 
+                message: `Auto-delete on product removal: ${filePath}`, 
+                sha: fileData.sha 
+            })
+        });
+
+        return deleteRes.ok;
+    } catch (e) {
+        console.error("Gagal hapus foto:", url, e);
+        return false;
+    }
 }
 
-// Delete image from form + GitHub
-async function deleteImageFromGitHub(urlFieldId, thumbId, deleteBtnId, uploadBtnId) {
-    const urlField = document.getElementById(urlFieldId);
-    const rawUrl = urlField.value.trim();
-    if (!rawUrl) return;
-
-    const user = document.getElementById('ghUser').value.trim();
-    const repo = document.getElementById('ghRepo').value.trim();
-    const token = document.getElementById('ghToken').value.trim();
-    const isGitHubUrl = rawUrl.includes(`raw.githubusercontent.com/${user}/${repo}/`);
-
-    if (!isGitHubUrl) {
-        if (!confirm('URL ini bukan dari repo GitHub Anda.\nHapus dari form saja?')) return;
-        urlField.value = '';
-        document.getElementById(thumbId).style.display = 'none';
-        document.getElementById(deleteBtnId).classList.remove('visible');
+// ==================== MAIN DELETE FUNCTION (SUDAH DIPERBAIKI) ====================
+async function deleteData(index) {
+    if (!confirm('Hapus produk ini?\n\nSEMUA foto (image & images) akan DIHAPUS PERMANEN dari GitHub.')) {
         return;
     }
 
-    if (!confirm('Hapus foto ini dari GitHub permanently?')) return;
+    const item = currentData[index];
+    let deletedCount = 0;
 
-    const delBtn = document.getElementById(deleteBtnId);
-    const uploadBtn = document.getElementById(uploadBtnId);
-    delBtn.disabled = true;
-    delBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Deleting…';
+    if (activeRole === 'product') {
+        const imagesToDelete = new Set();
 
-    try {
-        await deleteGitHubImageByUrl(rawUrl);
-        urlField.value = '';
-        document.getElementById(thumbId).style.display = 'none';
-        delBtn.classList.remove('visible');
-    } catch (e) {
-        showToast('Gagal menghapus foto', 'error');
-    } finally {
-        delBtn.disabled = false;
-        delBtn.innerHTML = '<i class="fa-solid fa-trash"></i> Delete';
-        if (uploadBtn) uploadBtn.disabled = false;
+        // Kumpulkan semua URL foto
+        if (Array.isArray(item.images)) {
+            item.images.forEach(url => {
+                if (url && typeof url === 'string') imagesToDelete.add(url.trim());
+            });
+        }
+        if (item.image && typeof item.image === 'string') {
+            imagesToDelete.add(item.image.trim());
+        }
+
+        const finalImages = Array.from(imagesToDelete).filter(url => 
+            url && url.includes('raw.githubusercontent.com') && !url.includes('placehold.co')
+        );
+
+        console.log("Foto yang akan dihapus:", finalImages);   // ← Untuk debugging
+
+        if (finalImages.length > 0) {
+            showToast(`🗑 Menghapus ${finalImages.length} foto dari GitHub...`, 'ok');
+            setLoadingBar(30);
+
+            for (const url of finalImages) {
+                const success = await deleteGitHubImageByUrl(url);
+                if (success) deletedCount++;
+            }
+
+            setLoadingBar(100);
+            showToast(`✅ Berhasil menghapus ${deletedCount} foto`, 'ok');
+        }
     }
+
+    currentData.splice(index, 1);
+    renderAdminData();
+    showToast(`✅ Produk berhasil dihapus (${deletedCount} foto dihapus dari GitHub)`, 'ok');
 }
-
-async function uploadImageToGitHub(fileInput, urlFieldId, thumbId, btnId, deleteBtnId) {
-    const file = fileInput.files[0];
-    if (!file) return;
-
-    const user = document.getElementById('ghUser').value.trim();
-    const repo = document.getElementById('ghRepo').value.trim();
-    const token = document.getElementById('ghToken').value.trim();
-    if (!token || !user || !repo) return;
-
-    const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-    const timestamp = Date.now();
-    const path = `images/products/${timestamp}_${safeName}`;
-    const apiUrl = `https://api.github.com/repos/${user}/${repo}/contents/${path}`;
-
-    const btn = document.getElementById(btnId);
-    btn.disabled = true;
-    btn.classList.add('uploading');
-    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Uploading…';
-
-    setLoadingBar(30);
-
-    try {
-        const base64 = await new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload = e => resolve(e.target.result.split(',')[1]);
-            reader.onerror = reject;
-            reader.readAsDataURL(file);
-        });
-
-        const body = { message: `Upload product photo: ${safeName}`, content: base64 };
-        const res = await fetch(apiUrl, {
-            method: 'PUT',
-            headers: { Authorization: `token ${token}`, 'Content-Type': 'application/json' },
-            body: JSON.stringify(body)
-        });
-
-        if (!res.ok) throw new Error();
-
-        const rawUrl = `https://raw.githubusercontent.com/${user}/${repo}/main/${path}`;
-        const urlField = document.getElementById(urlFieldId);
-        urlField.value = rawUrl;
-        updateThumb(urlField, thumbId);
-        if (deleteBtnId) document.getElementById(deleteBtnId).classList.add('visible');
-
-        setLoadingBar(100);
-        showToast('Foto berhasil diupload');
-    } catch (e) {
-        showToast('Gagal upload foto', 'error');
-        setLoadingBar(100);
-    } finally {
-        btn.disabled = false;
-        btn.classList.remove('uploading');
-        btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Upload';
-        fileInput.value = '';
-    }
-}
-
-// ==================== USE CASES ====================
 
 function addUsecase() {
     const input = document.getElementById('ucInput');
@@ -621,8 +583,6 @@ function renderUcTags() {
         `<span class="uc-tag">🍽 ${u}<button onclick="removeUsecase(${i})">×</button></span>`
     ).join('');
 }
-
-// ==================== LOCK & TRANSLATE ====================
 
 function toggleLock(field, lang) {
     const key = `${field}-${lang}`;
@@ -650,60 +610,49 @@ function clearLocks(field) {
 
 function setupNameTranslate() {
     ['en', 'ms', 'zh'].forEach(lang => {
-        // Name
         const nameInput = document.getElementById(`pName_${lang}`);
-        if (nameInput) {
-            nameInput.addEventListener('input', () => {
-                clearTimeout(translateTimers[`name_${lang}`]);
-                translateTimers[`name_${lang}`] = setTimeout(() => {
-                    const val = nameInput.value.trim();
-                    if (!val) return;
-                    ['en','ms','zh'].filter(l => l !== lang && !isLocked('name', l))
-                        .forEach(target => translateField(val, lang, target, `pName_${target}`, `ind-name-${target}`, `name-${target}-ai`));
-                }, 900);
-            });
-        }
+        if (nameInput) nameInput.addEventListener('input', () => {
+            clearTimeout(translateTimers[`name_${lang}`]);
+            translateTimers[`name_${lang}`] = setTimeout(() => {
+                const val = nameInput.value.trim();
+                if (!val) return;
+                ['en','ms','zh'].filter(l => l !== lang && !isLocked('name', l))
+                    .forEach(target => translateField(val, lang, target, `pName_${target}`, `ind-name-${target}`, `name-${target}-ai`));
+            }, 900);
+        });
 
-        // Description
         const descInput = document.getElementById(`pDesc_${lang}`);
-        if (descInput) {
-            descInput.addEventListener('input', () => {
-                clearTimeout(translateTimers[`desc_${lang}`]);
-                translateTimers[`desc_${lang}`] = setTimeout(() => {
-                    const val = descInput.value.trim();
-                    if (!val) return;
-                    ['en','ms','zh'].filter(l => l !== lang && !isLocked('desc', l))
-                        .forEach(target => translateField(val, lang, target, `pDesc_${target}`, `ind-desc-${target}`, `desc-${target}-ai`));
-                }, 900);
-            });
-        }
+        if (descInput) descInput.addEventListener('input', () => {
+            clearTimeout(translateTimers[`desc_${lang}`]);
+            translateTimers[`desc_${lang}`] = setTimeout(() => {
+                const val = descInput.value.trim();
+                if (!val) return;
+                ['en','ms','zh'].filter(l => l !== lang && !isLocked('desc', l))
+                    .forEach(target => translateField(val, lang, target, `pDesc_${target}`, `ind-desc-${target}`, `desc-${target}-ai`));
+            }, 900);
+        });
 
-        // Notification Title & Message
         const nTitleInput = document.getElementById(`nTitle_${lang}`);
-        if (nTitleInput) {
-            nTitleInput.addEventListener('input', () => {
-                clearTimeout(translateTimers[`ntitle_${lang}`]);
-                translateTimers[`ntitle_${lang}`] = setTimeout(() => {
-                    const val = nTitleInput.value.trim();
-                    if (!val) return;
-                    ['en','ms','zh'].filter(l => l !== lang && !isLocked('ntitle', l))
-                        .forEach(target => translateField(val, lang, target, `nTitle_${target}`, `ind-ntitle-${target}`, `ntitle-${target}-ai`));
-                }, 900);
-            });
-        }
+        if (nTitleInput) nTitleInput.addEventListener('input', () => {
+            clearTimeout(translateTimers[`ntitle_${lang}`]);
+            translateTimers[`ntitle_${lang}`] = setTimeout(() => {
+                const val = nTitleInput.value.trim();
+                if (!val) return;
+                ['en','ms','zh'].filter(l => l !== lang && !isLocked('ntitle', l))
+                    .forEach(target => translateField(val, lang, target, `nTitle_${target}`, `ind-ntitle-${target}`, `ntitle-${target}-ai`));
+            }, 900);
+        });
 
         const nMsgInput = document.getElementById(`nMessage_${lang}`);
-        if (nMsgInput) {
-            nMsgInput.addEventListener('input', () => {
-                clearTimeout(translateTimers[`nmessage_${lang}`]);
-                translateTimers[`nmessage_${lang}`] = setTimeout(() => {
-                    const val = nMsgInput.value.trim();
-                    if (!val) return;
-                    ['en','ms','zh'].filter(l => l !== lang && !isLocked('nmessage', l))
-                        .forEach(target => translateField(val, lang, target, `nMessage_${target}`, `ind-nmessage-${target}`, `nmessage-${target}-ai`));
-                }, 900);
-            });
-        }
+        if (nMsgInput) nMsgInput.addEventListener('input', () => {
+            clearTimeout(translateTimers[`nmessage_${lang}`]);
+            translateTimers[`nmessage_${lang}`] = setTimeout(() => {
+                const val = nMsgInput.value.trim();
+                if (!val) return;
+                ['en','ms','zh'].filter(l => l !== lang && !isLocked('nmessage', l))
+                    .forEach(target => translateField(val, lang, target, `nMessage_${target}`, `ind-nmessage-${target}`, `nmessage-${target}-ai`));
+            }, 900);
+        });
     });
 }
 
@@ -734,13 +683,11 @@ async function translateField(text, fromLang, toLang, targetId, indId, aiId) {
     }
 }
 
-// ==================== GITHUB OPERATIONS ====================
-
 async function fetchFromGitHub() {
     const user = document.getElementById('ghUser').value.trim();
     const repo = document.getElementById('ghRepo').value.trim();
     const token = document.getElementById('ghToken').value.trim();
-    if (!token || !user || !repo) return showToast('Please fill Token, Username, and Repo!', 'error');
+    if (!token || !user || !repo) return showToast('Isi Token, Username, dan Repo!', 'error');
 
     setLoadingBar(30);
     const url = `https://api.github.com/repos/${user}/${repo}/contents/${targetFile}`;
@@ -749,7 +696,6 @@ async function fetchFromGitHub() {
         const res = await fetch(url, { headers: { Authorization: `token ${token}` } });
         const data = await res.json();
         setLoadingBar(70);
-
         if (!res.ok) throw new Error();
 
         fileSha = data.sha;
@@ -770,7 +716,7 @@ async function fetchFromGitHub() {
             document.getElementById('add-form').style.display = 'block';
             document.getElementById('data-card').style.display = 'block';
             document.getElementById('final-save').style.display = 'flex';
-            showToast('New file will be created on first push');
+            showToast('File baru akan dibuat saat push pertama');
         } else {
             showToast('Error: ' + e.message, 'error');
         }
@@ -782,7 +728,7 @@ async function pushToGitHub() {
     const user = document.getElementById('ghUser').value.trim();
     const repo = document.getElementById('ghRepo').value.trim();
     const token = document.getElementById('ghToken').value.trim();
-    if (!confirm(`Push ${currentData.length} items to GitHub?\nFile: ${targetFile}`)) return;
+    if (!confirm(`Push ${currentData.length} items ke GitHub?`)) return;
 
     setLoadingBar(20);
     const url = `https://api.github.com/repos/${user}/${repo}/contents/${targetFile}`;
@@ -803,12 +749,12 @@ async function pushToGitHub() {
         });
         setLoadingBar(80);
         if (res.ok) {
-            showToast('Successfully pushed to GitHub!');
+            showToast('Berhasil di-push ke GitHub!');
             setLoadingBar(100);
             setTimeout(() => location.reload(), 1500);
         } else {
             const err = await res.json();
-            showToast('Push failed: ' + err.message, 'error');
+            showToast('Push gagal: ' + err.message, 'error');
         }
     } catch (e) {
         showToast('Error: ' + e.message, 'error');
@@ -816,8 +762,6 @@ async function pushToGitHub() {
         setLoadingBar(100);
     }
 }
-
-// ==================== MAIN CRUD ====================
 
 function saveData() {
     const index = parseInt(document.getElementById('editIndex').value);
@@ -831,109 +775,56 @@ function saveData() {
         const nameZh = document.getElementById('pName_zh').value.trim();
         const anyName = nameEn || nameMs || nameZh;
 
-        if (!code || !anyName || !price) return showToast('Code, Name (min 1 language), and Price are required!', 'error');
+        if (!code || !anyName || !price) return showToast('Code, Nama (minimal 1 bahasa), dan Price wajib diisi!', 'error');
 
-        const descEn = document.getElementById('pDesc_en').value.trim();
-        const descMs = document.getElementById('pDesc_ms').value.trim();
-        const descZh = document.getElementById('pDesc_zh').value.trim();
         const imgs = ['pImage1','pImage2','pImage3'].map(id => document.getElementById(id).value.trim()).filter(v => v);
-
-        const nameObj = { en: nameEn, ms: nameMs, zh: nameZh };
-        const descObj = { en: descEn, ms: descMs, zh: descZh };
 
         dataObj = {
             id: index === -1 ? Date.now() : currentData[index].id,
             code,
             brand: document.getElementById('pBrand').value.trim() || 'SALESO',
-            name: nameObj,
+            name: { en: nameEn, ms: nameMs, zh: nameZh },
             price: parseFloat(price),
             category: document.getElementById('pCat').value,
             image: imgs[0] || 'https://placehold.co/400',
             images: imgs.length > 0 ? imgs : ['https://placehold.co/400'],
-            ...(Object.keys(descObj).some(k => descObj[k]) && { description: descObj }),
+            ...(document.getElementById('pDesc_en').value.trim() && { description: {
+                en: document.getElementById('pDesc_en').value.trim(),
+                ms: document.getElementById('pDesc_ms').value.trim(),
+                zh: document.getElementById('pDesc_zh').value.trim()
+            }}),
             ...(ucList.length > 0 && { usecases: [...ucList] })
         };
     } else {
-        // Notification logic (unchanged)
+        // Notification (tetap)
         const titleEn = document.getElementById('nTitle_en').value.trim();
-        const titleMs = document.getElementById('nTitle_ms').value.trim();
-        const titleZh = document.getElementById('nTitle_zh').value.trim();
         const msgEn = document.getElementById('nMessage_en').value.trim();
-        const msgMs = document.getElementById('nMessage_ms').value.trim();
-        const msgZh = document.getElementById('nMessage_zh').value.trim();
-
-        if (!titleEn && !titleMs && !titleZh) return showToast('Title is required!', 'error');
-        if (!msgEn && !msgMs && !msgZh) return showToast('Message is required!', 'error');
+        if (!titleEn && !document.getElementById('nTitle_ms').value.trim() && !document.getElementById('nTitle_zh').value.trim()) 
+            return showToast('Title wajib diisi!', 'error');
 
         dataObj = {
             id: index === -1 ? Date.now() : currentData[index].id,
-            title: { en: titleEn, ms: titleMs, zh: titleZh },
+            title: {
+                en: titleEn,
+                ms: document.getElementById('nTitle_ms').value.trim(),
+                zh: document.getElementById('nTitle_zh').value.trim()
+            },
             date: document.getElementById('nDate').value,
             type: document.getElementById('nType').value,
-            message: { en: msgEn, ms: msgMs, zh: msgZh }
+            message: {
+                en: msgEn,
+                ms: document.getElementById('nMessage_ms').value.trim(),
+                zh: document.getElementById('nMessage_zh').value.trim()
+            }
         };
     }
 
-    if (index === -1) {
-        currentData.unshift(dataObj);
-        showToast('Item added successfully');
-    } else {
-        currentData[index] = dataObj;
-        showToast('Item updated successfully');
-    }
+    if (index === -1) currentData.unshift(dataObj);
+    else currentData[index] = dataObj;
 
     resetForm();
     renderAdminData();
-}
-
-// ==================== IMPROVED DELETE FUNCTION ====================
-
-async function deleteData(index) {
-    if (!confirm('Hapus produk ini?\n\nSemua foto (image & images) akan DIHAPUS PERMANEN dari GitHub.')) {
-        return;
-    }
-
-    const item = currentData[index];
-
-    if (activeRole === 'product') {
-        const imagesToDelete = new Set();
-
-        // Ambil semua dari field images (array)
-        if (Array.isArray(item.images)) {
-            item.images.forEach(url => {
-                if (url && typeof url === 'string') imagesToDelete.add(url.trim());
-            });
-        }
-
-        // Ambil dari field image (single)
-        if (item.image && typeof item.image === 'string') {
-            imagesToDelete.add(item.image.trim());
-        }
-
-        // Filter hanya URL GitHub (bukan placeholder)
-        const finalImages = Array.from(imagesToDelete).filter(url => 
-            url && url.includes('raw.githubusercontent.com') && !url.includes('placehold.co')
-        );
-
-        if (finalImages.length > 0) {
-            showToast(`🗑 Menghapus ${finalImages.length} foto dari GitHub...`, 'ok');
-            setLoadingBar(30);
-
-            try {
-                await Promise.all(finalImages.map(url => deleteGitHubImageByUrl(url)));
-                showToast(`✅ ${finalImages.length} foto berhasil dihapus`, 'ok');
-            } catch (e) {
-                console.error(e);
-                showToast('Beberapa foto gagal dihapus', 'error');
-            }
-            setLoadingBar(100);
-        }
-    }
-
-    // Hapus dari array
-    currentData.splice(index, 1);
-    renderAdminData();
-    showToast('✅ Produk berhasil dihapus', 'ok');
+    showToast(index === -1 ? 'Produk berhasil ditambahkan' : 'Produk berhasil diupdate');
 }
 
 function editData(index) {
@@ -946,47 +837,27 @@ function editData(index) {
         document.getElementById('pPrice').value = item.price || '';
         document.getElementById('pCat').value = item.category || 'Matcha';
 
-        // Name
         if (typeof item.name === 'object') {
             document.getElementById('pName_en').value = item.name.en || '';
             document.getElementById('pName_ms').value = item.name.ms || '';
             document.getElementById('pName_zh').value = item.name.zh || '';
-        } else {
-            document.getElementById('pName_en').value = item.name || '';
         }
-
-        // Description
         if (item.description && typeof item.description === 'object') {
             document.getElementById('pDesc_en').value = item.description.en || '';
             document.getElementById('pDesc_ms').value = item.description.ms || '';
             document.getElementById('pDesc_zh').value = item.description.zh || '';
         }
 
-        // Images
         const imgs = Array.isArray(item.images) && item.images.length ? item.images : (item.image ? [item.image] : []);
-        ['pImage1','pImage2','pImage3'].forEach((id, i) => {
-            const val = imgs[i] || '';
-            document.getElementById(id).value = val;
+        for (let i = 0; i < 3; i++) {
+            const id = `pImage${i+1}`;
+            document.getElementById(id).value = imgs[i] || '';
             updateThumb(document.getElementById(id), `thumb${i+1}`);
             toggleDeleteBtn(id, `deleteBtn${i+1}`);
-        });
+        }
 
         ucList = Array.isArray(item.usecases) ? [...item.usecases] : [];
         renderUcTags();
-    } else {
-        // Notification edit (same as before)
-        if (typeof item.title === 'object') {
-            document.getElementById('nTitle_en').value = item.title.en || '';
-            document.getElementById('nTitle_ms').value = item.title.ms || '';
-            document.getElementById('nTitle_zh').value = item.title.zh || '';
-        }
-        if (typeof item.message === 'object') {
-            document.getElementById('nMessage_en').value = item.message.en || '';
-            document.getElementById('nMessage_ms').value = item.message.ms || '';
-            document.getElementById('nMessage_zh').value = item.message.zh || '';
-        }
-        document.getElementById('nDate').value = item.date || '';
-        document.getElementById('nType').value = item.type || 'Info';
     }
 
     document.getElementById('form-title').textContent = 'Edit Entry';
@@ -1000,31 +871,16 @@ function resetForm() {
     document.getElementById('editIndex').value = '-1';
     
     const fields = ['pCode','pBrand','pName_en','pName_ms','pName_zh','pDesc_en','pDesc_ms','pDesc_zh',
-                   'pImage1','pImage2','pImage3','nTitle_en','nTitle_ms','nTitle_zh','nMessage_en','nMessage_ms','nMessage_zh'];
-    fields.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.value = '';
-    });
+                    'pImage1','pImage2','pImage3','nTitle_en','nTitle_ms','nTitle_zh','nMessage_en','nMessage_ms','nMessage_zh'];
+    fields.forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
 
     ['thumb1','thumb2','thumb3'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.style.display = 'none';
+        const el = document.getElementById(id); if (el) el.style.display = 'none';
     });
-
     ['deleteBtn1','deleteBtn2','deleteBtn3'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.classList.remove('visible');
+        const el = document.getElementById(id); if (el) el.classList.remove('visible');
     });
 
-    // Reset AI badges
-    ['name-en-ai','name-ms-ai','name-zh-ai','desc-en-ai','desc-ms-ai','desc-zh-ai',
-     'ntitle-en-ai','ntitle-ms-ai','ntitle-zh-ai','nmessage-en-ai','nmessage-ms-ai','nmessage-zh-ai']
-    .forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.style.display = 'none';
-    });
-
-    document.getElementById('nDate').valueAsDate = new Date();
     ucList = [];
     renderUcTags();
     clearLocks('name');
@@ -1040,43 +896,28 @@ function resetForm() {
 
 function renderAdminData() {
     const container = document.getElementById('data-list-admin');
-    document.getElementById('list-count').textContent = `${currentData.length} item${currentData.length > 1 ? 's' : ''}`;
+    document.getElementById('list-count').textContent = `${currentData.length} item`;
 
     if (currentData.length === 0) {
-        container.innerHTML = `<div style="padding:40px;text-align:center;color:var(--muted);"><i class="fa-solid fa-inbox" style="font-size:32px;margin-bottom:12px;"></i><br>No data yet</div>`;
+        container.innerHTML = `<div style="padding:40px;text-align:center;color:var(--muted);font-size:14px;"><i class="fa-solid fa-inbox" style="font-size:32px;"></i><br>No data yet</div>`;
         return;
     }
 
     container.innerHTML = currentData.map((item, index) => {
         let html = '';
         if (activeRole === 'product') {
-            const displayName = typeof item.name === 'object' 
-                ? (item.name.en || item.name.ms || item.name.zh || '—') 
-                : (item.name || '—');
+            const name = typeof item.name === 'object' ? (item.name.en || item.name.ms || item.name.zh || '—') : item.name || '—';
             const photoCount = Array.isArray(item.images) ? item.images.length : (item.image ? 1 : 0);
-
-            html = `
-                <div class="data-name">
-                    <span style="font-family:var(--mono);font-size:11px;background:#eee;padding:1px 6px;border-radius:4px;">${item.code || 'N/A'}</span> 
-                    ${displayName}
-                    ${photoCount > 1 ? `<span class="badge badge-green"><i class="fa-solid fa-images"></i> ${photoCount}</span>` : ''}
-                </div>
-                <div class="data-meta">RM ${parseFloat(item.price || 0).toFixed(2)} · ${item.category || ''}</div>`;
-        } else {
-            const displayTitle = typeof item.title === 'object' 
-                ? (item.title.en || item.title.ms || item.title.zh || '—') 
-                : (item.title || '—');
-            html = `<div class="data-name">${displayTitle}</div><div class="data-meta">${item.date} · ${item.type}</div>`;
+            html = `<div class="data-name"><span style="font-family:var(--mono);font-size:11px;background:#eee;padding:1px 6px;border-radius:4px;">${item.code}</span> ${name} ${photoCount>1 ? `<span class="badge badge-green">${photoCount} foto</span>` : ''}</div>
+                    <div class="data-meta">RM ${parseFloat(item.price).toFixed(2)} · ${item.category}</div>`;
         }
-
-        return `
-            <div class="data-item">
-                <div style="flex:1;">${html}</div>
-                <div class="item-actions">
-                    <button class="icon-btn edit" onclick="editData(${index})" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
-                    <button class="icon-btn del" onclick="deleteData(${index})" title="Delete"><i class="fa-solid fa-trash"></i></button>
-                </div>
-            </div>`;
+        return `<div class="data-item">
+                    <div style="flex:1;">${html}</div>
+                    <div class="item-actions">
+                        <button class="icon-btn edit" onclick="editData(${index})"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button class="icon-btn del" onclick="deleteData(${index})"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </div>`;
     }).join('');
 }
 </script>
