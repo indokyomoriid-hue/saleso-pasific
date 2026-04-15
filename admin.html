@@ -556,9 +556,8 @@
         <div class="card-body">
             <input type="hidden" id="editIndex" value="-1">
 
-            <!-- ===== PRODUCT FIELDS ===== -->
+            <!-- PRODUCT FIELDS -->
             <div id="product-fields" style="display:none;">
-                
                 <div class="section-divider">Basic Info</div>
                 <div class="form-row three">
                     <div class="form-group">
@@ -592,7 +591,6 @@
                     Product Name — Multilingual
                     <span style="font-weight:400;text-transform:none;font-style:italic;margin-left:8px;">Type in any column → other languages auto-fill</span>
                 </div>
-
                 <div class="lang-grid" id="name-grid">
                     <div class="lang-col en" id="name-col-en">
                         <div class="lang-col-header">
@@ -627,7 +625,6 @@
                     Description — Multilingual
                     <span style="font-weight:400;text-transform:none;font-style:italic;margin-left:8px;">Type in any column → other languages auto-fill</span>
                 </div>
-
                 <div class="lang-grid" id="desc-grid">
                     <div class="lang-col en" id="desc-col-en">
                         <div class="lang-col-header">
@@ -706,10 +703,9 @@
                         <img id="thumb3" class="img-thumb">
                     </div>
                 </div>
-
             </div>
 
-            <!-- ===== NOTIFICATION FIELDS ===== -->
+            <!-- NOTIFICATION FIELDS -->
             <div id="notification-fields" style="display:none;">
                 <div class="form-row">
                     <div class="form-group">
@@ -795,7 +791,6 @@
                 </div>
             </div>
 
-            <!-- SAVE BUTTON -->
             <div style="margin-top:20px;">
                 <button id="btn-save-entry" class="btn btn-primary btn-full" onclick="saveData()">
                     <i class="fa-solid fa-plus"></i> Add to List
@@ -862,7 +857,7 @@ function setRole(role) {
 }
 
 // =============================================
-//  TOAST
+//  TOAST & LOADING
 // =============================================
 function showToast(msg, type = 'ok') {
     const t = document.getElementById('toast');
@@ -873,16 +868,13 @@ function showToast(msg, type = 'ok') {
     setTimeout(() => t.className = '', 3000);
 }
 
-// =============================================
-//  LOADING BAR
-// =============================================
 function setLoadingBar(pct) {
     document.getElementById('loading-bar').style.width = pct + '%';
     if (pct >= 100) setTimeout(() => setLoadingBar(0), 400);
 }
 
 // =============================================
-//  IMAGE THUMBNAIL
+//  IMAGE HELPER
 // =============================================
 function updateThumb(input, thumbId) {
     const thumb = document.getElementById(thumbId);
@@ -893,6 +885,168 @@ function updateThumb(input, thumbId) {
         thumb.onerror = () => { thumb.style.display = 'none'; };
     } else {
         thumb.style.display = 'none';
+    }
+}
+
+function toggleDeleteBtn(urlFieldId, deleteBtnId) {
+    const url = document.getElementById(urlFieldId).value.trim();
+    const delBtn = document.getElementById(deleteBtnId);
+    if (!delBtn) return;
+    if (url) {
+        delBtn.classList.add('visible');
+    } else {
+        delBtn.classList.remove('visible');
+    }
+}
+
+// =============================================
+//  NEW: AUTO DELETE IMAGE FROM GITHUB (dipanggil saat hapus produk)
+// =============================================
+async function deleteGitHubImageByUrl(rawUrl) {
+    if (!rawUrl) return;
+
+    const user  = document.getElementById('ghUser').value.trim();
+    const repo  = document.getElementById('ghRepo').value.trim();
+    const token = document.getElementById('ghToken').value.trim();
+
+    if (!token || !user || !repo) return;
+    if (!rawUrl.includes(`raw.githubusercontent.com/${user}/${repo}/`)) return;
+
+    const match = rawUrl.match(/raw\.githubusercontent\.com\/[^/]+\/[^/]+\/[^/]+\/(.+)/);
+    if (!match) return;
+
+    const filePath = match[1];
+
+    try {
+        const apiUrl = `https://api.github.com/repos/${user}/${repo}/contents/${filePath}`;
+
+        const getRes = await fetch(apiUrl, {
+            headers: { Authorization: `token ${token}` }
+        });
+
+        if (!getRes.ok) {
+            if (getRes.status === 404) return;
+            return;
+        }
+
+        const fileData = await getRes.json();
+
+        await fetch(apiUrl, {
+            method: 'DELETE',
+            headers: {
+                Authorization: `token ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                message: `Auto-delete product image on item removal: ${filePath}`,
+                sha: fileData.sha
+            })
+        });
+    } catch (e) {
+        console.warn('⚠️ Auto-delete image failed:', e.message);
+    }
+}
+
+// =============================================
+//  DELETE IMAGE FROM GITHUB (manual)
+// =============================================
+async function deleteImageFromGitHub(urlFieldId, thumbId, deleteBtnId, uploadBtnId) {
+    const urlField = document.getElementById(urlFieldId);
+    const rawUrl = urlField.value.trim();
+
+    if (!rawUrl) {
+        showToast('Tidak ada foto untuk dihapus.', 'error');
+        return;
+    }
+
+    const user  = document.getElementById('ghUser').value.trim();
+    const repo  = document.getElementById('ghRepo').value.trim();
+    const token = document.getElementById('ghToken').value.trim();
+
+    const isGitHubUrl = rawUrl.includes(`raw.githubusercontent.com/${user}/${repo}/`);
+
+    if (!isGitHubUrl) {
+        if (!confirm('URL ini bukan dari GitHub repo Anda.\nHapus dari form saja?')) return;
+        urlField.value = '';
+        document.getElementById(thumbId).style.display = 'none';
+        document.getElementById(deleteBtnId).classList.remove('visible');
+        showToast('Foto dihapus dari form.');
+        return;
+    }
+
+    if (!token || !user || !repo) {
+        showToast('Isi dulu Token, Username, dan Repo di Step 1!', 'error');
+        return;
+    }
+
+    const match = rawUrl.match(/raw\.githubusercontent\.com\/[^/]+\/[^/]+\/[^/]+\/(.+)/);
+    if (!match) {
+        showToast('Format URL tidak dikenali.', 'error');
+        return;
+    }
+    const filePath = match[1];
+
+    if (!confirm(`Hapus foto dari GitHub?\n\nFile: ${filePath}\n\nTindakan ini permanen.`)) return;
+
+    const delBtn = document.getElementById(deleteBtnId);
+    const uploadBtn = document.getElementById(uploadBtnId);
+    delBtn.disabled = true;
+    delBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menghapus…';
+    if (uploadBtn) uploadBtn.disabled = true;
+    setLoadingBar(30);
+
+    try {
+        const apiUrl = `https://api.github.com/repos/${user}/${repo}/contents/${filePath}`;
+
+        const getRes = await fetch(apiUrl, {
+            headers: { Authorization: `token ${token}` }
+        });
+
+        setLoadingBar(60);
+
+        if (!getRes.ok) {
+            if (getRes.status === 404) {
+                urlField.value = '';
+                document.getElementById(thumbId).style.display = 'none';
+                delBtn.classList.remove('visible');
+                showToast('File tidak ditemukan di GitHub. Form dibersihkan.');
+                return;
+            }
+            throw new Error((await getRes.json()).message || 'Gagal mengambil info file');
+        }
+
+        const fileData = await getRes.json();
+        const sha = fileData.sha;
+
+        const deleteRes = await fetch(apiUrl, {
+            method: 'DELETE',
+            headers: {
+                Authorization: `token ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                message: `Hapus foto produk: ${filePath}`,
+                sha: sha
+            })
+        });
+
+        setLoadingBar(90);
+
+        if (!deleteRes.ok) throw new Error((await deleteRes.json()).message || 'Gagal menghapus file');
+
+        urlField.value = '';
+        document.getElementById(thumbId).style.display = 'none';
+        delBtn.classList.remove('visible');
+
+        setLoadingBar(100);
+        showToast('✦ Foto berhasil dihapus dari GitHub!');
+    } catch (e) {
+        showToast('Hapus gagal: ' + e.message, 'error');
+        setLoadingBar(100);
+    } finally {
+        delBtn.disabled = false;
+        delBtn.innerHTML = '<i class="fa-solid fa-trash"></i> Hapus';
+        if (uploadBtn) uploadBtn.disabled = false;
     }
 }
 
@@ -913,7 +1067,6 @@ async function uploadImageToGitHub(fileInput, urlFieldId, thumbId, btnId, delete
         return;
     }
 
-    // Bersihkan nama file: hapus spasi & karakter aneh
     const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
     const timestamp = Date.now();
     const path = `images/products/${timestamp}_${safeName}`;
@@ -926,7 +1079,6 @@ async function uploadImageToGitHub(fileInput, urlFieldId, thumbId, btnId, delete
     setLoadingBar(30);
 
     try {
-        // Baca file sebagai Base64
         const base64 = await new Promise((resolve, reject) => {
             const reader = new FileReader();
             reader.onload = e => resolve(e.target.result.split(',')[1]);
@@ -934,12 +1086,9 @@ async function uploadImageToGitHub(fileInput, urlFieldId, thumbId, btnId, delete
             reader.readAsDataURL(file);
         });
 
-        // Cek apakah file sudah ada (butuh SHA untuk update)
         let existingSha = null;
         try {
-            const checkRes = await fetch(apiUrl, {
-                headers: { Authorization: `token ${token}` }
-            });
+            const checkRes = await fetch(apiUrl, { headers: { Authorization: `token ${token}` } });
             if (checkRes.ok) {
                 const checkData = await checkRes.json();
                 existingSha = checkData.sha;
@@ -948,11 +1097,7 @@ async function uploadImageToGitHub(fileInput, urlFieldId, thumbId, btnId, delete
 
         setLoadingBar(60);
 
-        // Upload ke GitHub
-        const body = {
-            message: `Upload foto produk: ${safeName}`,
-            content: base64
-        };
+        const body = { message: `Upload foto produk: ${safeName}`, content: base64 };
         if (existingSha) body.sha = existingSha;
 
         const res = await fetch(apiUrl, {
@@ -969,15 +1114,12 @@ async function uploadImageToGitHub(fileInput, urlFieldId, thumbId, btnId, delete
 
         if (!res.ok) throw new Error(data.message || 'Upload gagal');
 
-        // Gunakan raw URL agar bisa ditampilkan langsung
         const rawUrl = `https://raw.githubusercontent.com/${user}/${repo}/main/${path}`;
 
-        // Isi URL field & tampilkan thumbnail
         const urlField = document.getElementById(urlFieldId);
         urlField.value = rawUrl;
         updateThumb(urlField, thumbId);
 
-        // Tampilkan tombol hapus
         if (deleteBtnId) {
             const delBtn = document.getElementById(deleteBtnId);
             if (delBtn) delBtn.classList.add('visible');
@@ -992,136 +1134,7 @@ async function uploadImageToGitHub(fileInput, urlFieldId, thumbId, btnId, delete
         btn.disabled = false;
         btn.classList.remove('uploading');
         btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Upload';
-        fileInput.value = ''; // Reset agar bisa upload ulang file yang sama
-    }
-}
-
-// =============================================
-//  TOGGLE DELETE BUTTON (saat URL diketik manual)
-// =============================================
-function toggleDeleteBtn(urlFieldId, deleteBtnId) {
-    const url = document.getElementById(urlFieldId).value.trim();
-    const delBtn = document.getElementById(deleteBtnId);
-    if (!delBtn) return;
-    if (url) {
-        delBtn.classList.add('visible');
-    } else {
-        delBtn.classList.remove('visible');
-    }
-}
-
-// =============================================
-//  DELETE IMAGE FROM GITHUB
-// =============================================
-async function deleteImageFromGitHub(urlFieldId, thumbId, deleteBtnId, uploadBtnId) {
-    const urlField = document.getElementById(urlFieldId);
-    const rawUrl = urlField.value.trim();
-
-    if (!rawUrl) {
-        showToast('Tidak ada foto untuk dihapus.', 'error');
-        return;
-    }
-
-    const user  = document.getElementById('ghUser').value.trim();
-    const repo  = document.getElementById('ghRepo').value.trim();
-    const token = document.getElementById('ghToken').value.trim();
-
-    // Cek apakah URL ini berasal dari GitHub repo yang sama
-    const isGitHubUrl = rawUrl.includes(`raw.githubusercontent.com/${user}/${repo}/`);
-
-    if (!isGitHubUrl) {
-        // URL bukan dari GitHub repo ini — hapus dari form saja, tidak perlu API call
-        if (!confirm('URL ini bukan dari GitHub repo Anda.\nHapus foto dari form saja (tidak ada perubahan di GitHub)?')) return;
-        urlField.value = '';
-        document.getElementById(thumbId).style.display = 'none';
-        document.getElementById(deleteBtnId).classList.remove('visible');
-        showToast('Foto dihapus dari form.');
-        return;
-    }
-
-    if (!token || !user || !repo) {
-        showToast('Isi dulu Token, Username, dan Repo di Step 1!', 'error');
-        return;
-    }
-
-    // Ekstrak path file dari raw URL
-    // Format: https://raw.githubusercontent.com/{user}/{repo}/main/{path}
-    const match = rawUrl.match(/raw\.githubusercontent\.com\/[^/]+\/[^/]+\/[^/]+\/(.+)/);
-    if (!match) {
-        showToast('Format URL tidak dikenali.', 'error');
-        return;
-    }
-    const filePath = match[1];
-
-    if (!confirm(`Hapus foto dari GitHub?\n\nFile: ${filePath}\n\nTindakan ini permanen dan tidak bisa dibatalkan.`)) return;
-
-    const delBtn = document.getElementById(deleteBtnId);
-    const uploadBtn = document.getElementById(uploadBtnId);
-    delBtn.disabled = true;
-    delBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menghapus…';
-    if (uploadBtn) uploadBtn.disabled = true;
-    setLoadingBar(30);
-
-    try {
-        const apiUrl = `https://api.github.com/repos/${user}/${repo}/contents/${filePath}`;
-
-        // Ambil SHA file yang akan dihapus
-        const getRes = await fetch(apiUrl, {
-            headers: { Authorization: `token ${token}` }
-        });
-
-        setLoadingBar(60);
-
-        if (!getRes.ok) {
-            const errData = await getRes.json();
-            // Jika 404, file sudah tidak ada di GitHub — bersihkan form saja
-            if (getRes.status === 404) {
-                urlField.value = '';
-                document.getElementById(thumbId).style.display = 'none';
-                delBtn.classList.remove('visible');
-                showToast('File tidak ditemukan di GitHub. Form dibersihkan.');
-                return;
-            }
-            throw new Error(errData.message || 'Gagal mengambil info file');
-        }
-
-        const fileData = await getRes.json();
-        const sha = fileData.sha;
-
-        // Hapus file dari GitHub
-        const deleteRes = await fetch(apiUrl, {
-            method: 'DELETE',
-            headers: {
-                Authorization: `token ${token}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                message: `Hapus foto produk: ${filePath}`,
-                sha: sha
-            })
-        });
-
-        setLoadingBar(90);
-
-        if (!deleteRes.ok) {
-            const errData = await deleteRes.json();
-            throw new Error(errData.message || 'Gagal menghapus file');
-        }
-
-        // Bersihkan form
-        urlField.value = '';
-        document.getElementById(thumbId).style.display = 'none';
-        delBtn.classList.remove('visible');
-
-        setLoadingBar(100);
-        showToast('✦ Foto berhasil dihapus dari GitHub!');
-    } catch (e) {
-        showToast('Hapus gagal: ' + e.message, 'error');
-        setLoadingBar(100);
-    } finally {
-        delBtn.disabled = false;
-        delBtn.innerHTML = '<i class="fa-solid fa-trash"></i> Hapus';
-        if (uploadBtn) uploadBtn.disabled = false;
+        fileInput.value = '';
     }
 }
 
@@ -1154,20 +1167,17 @@ function renderUcTags() {
 function getUsecases() { return [...ucList]; }
 
 // =============================================
-//  LOCK STATE — tracks manually-edited columns
+//  LOCK & TRANSLATE
 // =============================================
-// lockedFields = { 'name-ms': true, 'desc-zh': true, ... }
 const lockedFields = {};
 
 function toggleLock(field, lang) {
     const key = `${field}-${lang}`;
     const col = document.getElementById(`${field}-col-${lang}`);
     if (lockedFields[key]) {
-        // Unlock
         delete lockedFields[key];
         col.classList.remove('locked');
     } else {
-        // Lock
         lockedFields[key] = true;
         col.classList.add('locked');
     }
@@ -1185,78 +1195,68 @@ function clearLocks(field) {
     });
 }
 
-// =============================================
-//  AUTO-TRANSLATE: realtime with lock support
-// =============================================
 function setupNameTranslate() {
-    // Product Name
     ['en', 'ms', 'zh'].forEach(lang => {
-        const input = document.getElementById(`pName_${lang}`);
-        if (!input) return;
-        input.addEventListener('input', () => {
-            clearTimeout(translateTimers[`name_${lang}`]);
-            translateTimers[`name_${lang}`] = setTimeout(() => {
-                const val = input.value.trim();
-                if (!val) return;
-                ['en','ms','zh'].filter(l => l !== lang && !isLocked('name', l)).forEach(target => {
-                    translateField(val, lang, target, `pName_${target}`, `ind-name-${target}`, `name-${target}-ai`);
-                });
-            }, 900);
-        });
-    });
+        const nameInput = document.getElementById(`pName_${lang}`);
+        if (nameInput) {
+            nameInput.addEventListener('input', () => {
+                clearTimeout(translateTimers[`name_${lang}`]);
+                translateTimers[`name_${lang}`] = setTimeout(() => {
+                    const val = nameInput.value.trim();
+                    if (!val) return;
+                    ['en','ms','zh'].filter(l => l !== lang && !isLocked('name', l)).forEach(target => {
+                        translateField(val, lang, target, `pName_${target}`, `ind-name-${target}`, `name-${target}-ai`);
+                    });
+                }, 900);
+            });
+        }
 
-    // Description
-    ['en', 'ms', 'zh'].forEach(lang => {
-        const input = document.getElementById(`pDesc_${lang}`);
-        if (!input) return;
-        input.addEventListener('input', () => {
-            clearTimeout(translateTimers[`desc_${lang}`]);
-            translateTimers[`desc_${lang}`] = setTimeout(() => {
-                const val = input.value.trim();
-                if (!val) return;
-                ['en','ms','zh'].filter(l => l !== lang && !isLocked('desc', l)).forEach(target => {
-                    translateField(val, lang, target, `pDesc_${target}`, `ind-desc-${target}`, `desc-${target}-ai`);
-                });
-            }, 900);
-        });
-    });
+        const descInput = document.getElementById(`pDesc_${lang}`);
+        if (descInput) {
+            descInput.addEventListener('input', () => {
+                clearTimeout(translateTimers[`desc_${lang}`]);
+                translateTimers[`desc_${lang}`] = setTimeout(() => {
+                    const val = descInput.value.trim();
+                    if (!val) return;
+                    ['en','ms','zh'].filter(l => l !== lang && !isLocked('desc', l)).forEach(target => {
+                        translateField(val, lang, target, `pDesc_${target}`, `ind-desc-${target}`, `desc-${target}-ai`);
+                    });
+                }, 900);
+            });
+        }
 
-    // Notification Title
-    ['en', 'ms', 'zh'].forEach(lang => {
-        const input = document.getElementById(`nTitle_${lang}`);
-        if (!input) return;
-        input.addEventListener('input', () => {
-            clearTimeout(translateTimers[`ntitle_${lang}`]);
-            translateTimers[`ntitle_${lang}`] = setTimeout(() => {
-                const val = input.value.trim();
-                if (!val) return;
-                ['en','ms','zh'].filter(l => l !== lang && !isLocked('ntitle', l)).forEach(target => {
-                    translateField(val, lang, target, `nTitle_${target}`, `ind-ntitle-${target}`, `ntitle-${target}-ai`);
-                });
-            }, 900);
-        });
-    });
+        const nTitleInput = document.getElementById(`nTitle_${lang}`);
+        if (nTitleInput) {
+            nTitleInput.addEventListener('input', () => {
+                clearTimeout(translateTimers[`ntitle_${lang}`]);
+                translateTimers[`ntitle_${lang}`] = setTimeout(() => {
+                    const val = nTitleInput.value.trim();
+                    if (!val) return;
+                    ['en','ms','zh'].filter(l => l !== lang && !isLocked('ntitle', l)).forEach(target => {
+                        translateField(val, lang, target, `nTitle_${target}`, `ind-ntitle-${target}`, `ntitle-${target}-ai`);
+                    });
+                }, 900);
+            });
+        }
 
-    // Notification Message
-    ['en', 'ms', 'zh'].forEach(lang => {
-        const input = document.getElementById(`nMessage_${lang}`);
-        if (!input) return;
-        input.addEventListener('input', () => {
-            clearTimeout(translateTimers[`nmessage_${lang}`]);
-            translateTimers[`nmessage_${lang}`] = setTimeout(() => {
-                const val = input.value.trim();
-                if (!val) return;
-                ['en','ms','zh'].filter(l => l !== lang && !isLocked('nmessage', l)).forEach(target => {
-                    translateField(val, lang, target, `nMessage_${target}`, `ind-nmessage-${target}`, `nmessage-${target}-ai`);
-                });
-            }, 900);
-        });
+        const nMsgInput = document.getElementById(`nMessage_${lang}`);
+        if (nMsgInput) {
+            nMsgInput.addEventListener('input', () => {
+                clearTimeout(translateTimers[`nmessage_${lang}`]);
+                translateTimers[`nmessage_${lang}`] = setTimeout(() => {
+                    const val = nMsgInput.value.trim();
+                    if (!val) return;
+                    ['en','ms','zh'].filter(l => l !== lang && !isLocked('nmessage', l)).forEach(target => {
+                        translateField(val, lang, target, `nMessage_${target}`, `ind-nmessage-${target}`, `nmessage-${target}-ai`);
+                    });
+                }, 900);
+            });
+        }
     });
 }
 
 async function translateField(text, fromLang, toLang, targetId, indId, aiId) {
     if (!text.trim()) return;
-
     const targetEl = document.getElementById(targetId);
     const indEl = document.getElementById(indId);
     const aiEl = document.getElementById(aiId);
@@ -1274,11 +1274,10 @@ async function translateField(text, fromLang, toLang, targetId, indId, aiId) {
         const translated = data[0].map(seg => seg[0]).join('');
         if (translated) {
             targetEl.value = translated;
-            if (aiEl) { aiEl.style.display = 'inline'; }
+            if (aiEl) aiEl.style.display = 'inline';
         }
     } catch (e) {
         console.error('Translate error:', e);
-        showToast('Translation failed, please try again.', 'error');
     } finally {
         indEl.classList.remove('visible');
         col.classList.remove('translating');
@@ -1286,7 +1285,7 @@ async function translateField(text, fromLang, toLang, targetId, indId, aiId) {
 }
 
 // =============================================
-//  GITHUB
+//  GITHUB FETCH & PUSH
 // =============================================
 async function fetchFromGitHub() {
     const user  = document.getElementById('ghUser').value.trim();
@@ -1365,7 +1364,7 @@ async function pushToGitHub() {
 }
 
 // =============================================
-//  SAVE / EDIT DATA
+//  SAVE / EDIT / RESET
 // =============================================
 function saveData() {
     const index = parseInt(document.getElementById('editIndex').value);
@@ -1374,13 +1373,9 @@ function saveData() {
     if (activeRole === 'product') {
         const code  = document.getElementById('pCode').value.trim();
         const price = document.getElementById('pPrice').value;
-        
-        // Get name from all languages
         const nameEn = document.getElementById('pName_en').value.trim();
         const nameMs = document.getElementById('pName_ms').value.trim();
         const nameZh = document.getElementById('pName_zh').value.trim();
-        
-        // At least one name and price are required
         const anyName = nameEn || nameMs || nameZh;
         if (!code || !anyName || !price) return showToast('Code, Name (min 1 language), and Price are required!', 'error');
 
@@ -1392,13 +1387,11 @@ function saveData() {
             .map(id => document.getElementById(id).value.trim())
             .filter(v => v);
 
-        // Build multilingual name object (hanya isi yang ada)
         const nameObj = {};
         if (nameEn) nameObj.en = nameEn;
         if (nameMs) nameObj.ms = nameMs;
         if (nameZh) nameObj.zh = nameZh;
 
-        // Build multilingual description
         const descObj = {};
         if (descEn) descObj.en = descEn;
         if (descMs) descObj.ms = descMs;
@@ -1426,6 +1419,7 @@ function saveData() {
         const anyTitle = titleEn || titleMs || titleZh;
         const anyMsg   = msgEn || msgMs || msgZh;
         if (!anyTitle || !anyMsg) return showToast('Title and Message (min 1 language) are required!', 'error');
+
         const titleObj = {};
         if (titleEn) titleObj.en = titleEn;
         if (titleMs) titleObj.ms = titleMs;
@@ -1434,6 +1428,7 @@ function saveData() {
         if (msgEn) msgObj.en = msgEn;
         if (msgMs) msgObj.ms = msgMs;
         if (msgZh) msgObj.zh = msgZh;
+
         dataObj = {
             id: index === -1 ? Date.now() : currentData[index].id,
             title: titleObj,
@@ -1465,7 +1460,6 @@ function editData(index) {
         document.getElementById('pPrice').value = item.price || '';
         document.getElementById('pCat').value   = item.category || 'Matcha';
 
-        // Handle multilingual name
         if (typeof item.name === 'object') {
             document.getElementById('pName_en').value = item.name.en || '';
             document.getElementById('pName_ms').value = item.name.ms || '';
@@ -1476,7 +1470,6 @@ function editData(index) {
             document.getElementById('pName_zh').value = '';
         }
 
-        // Handle multilingual desc
         if (item.description && typeof item.description === 'object') {
             document.getElementById('pDesc_en').value = item.description.en || '';
             document.getElementById('pDesc_ms').value = item.description.ms || '';
@@ -1497,13 +1490,11 @@ function editData(index) {
         ucList = Array.isArray(item.usecases) ? [...item.usecases] : [];
         renderUcTags();
 
-        // Show AI badges for pre-filled AI fields if multilingual
         ['en','ms','zh'].forEach(l => {
             const aiEl = document.getElementById(`name-${l}-ai`);
             if (aiEl) aiEl.style.display = 'none';
         });
     } else {
-        // Title multilingual
         if (typeof item.title === 'object') {
             document.getElementById('nTitle_en').value = item.title.en || '';
             document.getElementById('nTitle_ms').value = item.title.ms || '';
@@ -1513,7 +1504,6 @@ function editData(index) {
             document.getElementById('nTitle_ms').value = '';
             document.getElementById('nTitle_zh').value = '';
         }
-        // Message multilingual
         if (typeof item.message === 'object') {
             document.getElementById('nMessage_en').value = item.message.en || '';
             document.getElementById('nMessage_ms').value = item.message.ms || '';
@@ -1574,11 +1564,37 @@ function resetForm() {
     document.getElementById('btn-cancel').style.display = 'none';
 }
 
-function deleteData(index) {
-    if (!confirm('Delete this item?')) return;
+// =============================================
+//  DELETE DATA + AUTO DELETE FOTO (FITUR BARU)
+// =============================================
+async function deleteData(index) {
+    if (!confirm('Hapus produk ini?\n\nSemua foto yang terkait juga akan dihapus dari GitHub.')) return;
+
+    const item = currentData[index];
+
+    if (activeRole === 'product') {
+        const imagesToDelete = [];
+
+        if (Array.isArray(item.images) && item.images.length > 0) {
+            imagesToDelete.push(...item.images);
+        } else if (item.image) {
+            imagesToDelete.push(item.image);
+        }
+
+        if (imagesToDelete.length > 0) {
+            showToast(`🗑 Menghapus ${imagesToDelete.length} foto dari GitHub...`, 'ok');
+            setLoadingBar(30);
+
+            await Promise.all(imagesToDelete.map(url => deleteGitHubImageByUrl(url)));
+
+            setLoadingBar(100);
+        }
+    }
+
     currentData.splice(index, 1);
     renderAdminData();
-    showToast('Item deleted.');
+
+    showToast('✅ Produk dan semua fotonya berhasil dihapus', 'ok');
 }
 
 // =============================================
@@ -1596,7 +1612,6 @@ function renderAdminData() {
     container.innerHTML = currentData.map((item, index) => {
         let html = '';
         if (activeRole === 'product') {
-            // Handle multilingual name display
             const displayName = typeof item.name === 'object'
                 ? (item.name.en || item.name.ms || item.name.zh || '—')
                 : (item.name || '—');
@@ -1616,16 +1631,16 @@ function renderAdminData() {
                 </div>
                 <div class="data-meta">RM ${parseFloat(item.price).toFixed(2)} · ${item.category}</div>`;
         } else {
-                const displayTitle = typeof item.title === 'object'
-                    ? (item.title.en || item.title.ms || item.title.zh || '—')
-                    : (item.title || '—');
-                const displayMsg = typeof item.message === 'object'
-                    ? (item.message.en || item.message.ms || item.message.zh || '')
-                    : (item.message || '');
-                const isMultilangNotif = typeof item.title === 'object';
-                html = `
-                <div class="data-name">${displayTitle}${isMultilangNotif ? '<span class="badge badge-multi">🌐 3 lang</span>' : ''}</div>
-                <div class="data-meta">${item.date || ''} · ${item.type} · ${displayMsg.substring(0, 60)}…</div>`;
+            const displayTitle = typeof item.title === 'object'
+                ? (item.title.en || item.title.ms || item.title.zh || '—')
+                : (item.title || '—');
+            const displayMsg = typeof item.message === 'object'
+                ? (item.message.en || item.message.ms || item.message.zh || '')
+                : (item.message || '');
+            const isMultilangNotif = typeof item.title === 'object';
+            html = `
+            <div class="data-name">${displayTitle}${isMultilangNotif ? '<span class="badge badge-multi">🌐 3 lang</span>' : ''}</div>
+            <div class="data-meta">${item.date || ''} · ${item.type} · ${displayMsg.substring(0, 60)}…</div>`;
         }
         return `
             <div class="data-item">
