@@ -410,10 +410,12 @@ let targetFile = "";
 let jsonKey = "";
 let ucList = [];
 let translateTimers = {};
+let lockedFields = {};
 
 function setRole(role) {
     activeRole = role;
     document.getElementById('role-modal').style.display = 'none';
+    
     if (role === 'product') {
         targetFile = 'products.json';
         jsonKey = 'products';
@@ -422,7 +424,6 @@ function setRole(role) {
         document.getElementById('product-fields').style.display = 'block';
         document.getElementById('notification-fields').style.display = 'none';
         document.getElementById('list-title').textContent = 'Product List';
-        setupNameTranslate();
     } else {
         targetFile = 'notifications.json';
         jsonKey = 'notifications';
@@ -432,13 +433,15 @@ function setRole(role) {
         document.getElementById('notification-fields').style.display = 'block';
         document.getElementById('list-title').textContent = 'Notification List';
         document.getElementById('nDate').valueAsDate = new Date();
-        setupNameTranslate();
     }
+    setupNameTranslate();
 }
 
 function showToast(msg, type = 'ok') {
     const t = document.getElementById('toast');
-    t.innerHTML = type === 'ok' ? `<i class="fa-solid fa-circle-check"></i> ${msg}` : `<i class="fa-solid fa-circle-xmark"></i> ${msg}`;
+    t.innerHTML = type === 'ok' 
+        ? `<i class="fa-solid fa-circle-check"></i> ${msg}` 
+        : `<i class="fa-solid fa-circle-xmark"></i> ${msg}`;
     t.className = 'show' + (type === 'error' ? ' error' : '');
     setTimeout(() => t.className = '', 3000);
 }
@@ -447,6 +450,8 @@ function setLoadingBar(pct) {
     document.getElementById('loading-bar').style.width = pct + '%';
     if (pct >= 100) setTimeout(() => setLoadingBar(0), 400);
 }
+
+// ==================== IMAGE HANDLING ====================
 
 function updateThumb(input, thumbId) {
     const thumb = document.getElementById(thumbId);
@@ -463,29 +468,30 @@ function updateThumb(input, thumbId) {
 function toggleDeleteBtn(urlFieldId, deleteBtnId) {
     const url = document.getElementById(urlFieldId).value.trim();
     const delBtn = document.getElementById(deleteBtnId);
-    if (!delBtn) return;
-    url ? delBtn.classList.add('visible') : delBtn.classList.remove('visible');
+    if (delBtn) url ? delBtn.classList.add('visible') : delBtn.classList.remove('visible');
 }
 
+// Delete single image from GitHub
 async function deleteGitHubImageByUrl(rawUrl) {
     if (!rawUrl || typeof rawUrl !== 'string') return;
     const url = rawUrl.trim();
     const user = document.getElementById('ghUser').value.trim();
     const repo = document.getElementById('ghRepo').value.trim();
     const token = document.getElementById('ghToken').value.trim();
+    
     if (!token || !user || !repo) return;
     if (!url.includes(`raw.githubusercontent.com/${user}/${repo}/`)) return;
     if (url.includes('placehold.co')) return;
+
     const match = url.match(/raw\.githubusercontent\.com\/[^/]+\/[^/]+\/[^/]+\/(.+)/);
     if (!match) return;
+
     const filePath = match[1];
     try {
         const apiUrl = `https://api.github.com/repos/${user}/${repo}/contents/${filePath}`;
         const getRes = await fetch(apiUrl, { headers: { Authorization: `token ${token}` } });
-        if (!getRes.ok) {
-            if (getRes.status === 404) return;
-            return;
-        }
+        if (!getRes.ok) return;
+        
         const fileData = await getRes.json();
         await fetch(apiUrl, {
             method: 'DELETE',
@@ -495,59 +501,39 @@ async function deleteGitHubImageByUrl(rawUrl) {
     } catch (e) {}
 }
 
+// Delete image from form + GitHub
 async function deleteImageFromGitHub(urlFieldId, thumbId, deleteBtnId, uploadBtnId) {
     const urlField = document.getElementById(urlFieldId);
     const rawUrl = urlField.value.trim();
     if (!rawUrl) return;
+
     const user = document.getElementById('ghUser').value.trim();
     const repo = document.getElementById('ghRepo').value.trim();
     const token = document.getElementById('ghToken').value.trim();
     const isGitHubUrl = rawUrl.includes(`raw.githubusercontent.com/${user}/${repo}/`);
+
     if (!isGitHubUrl) {
-        if (!confirm('This URL is not from your GitHub repo.\nRemove from form only?')) return;
+        if (!confirm('URL ini bukan dari repo GitHub Anda.\nHapus dari form saja?')) return;
         urlField.value = '';
         document.getElementById(thumbId).style.display = 'none';
         document.getElementById(deleteBtnId).classList.remove('visible');
         return;
     }
-    if (!token || !user || !repo) return;
-    const match = rawUrl.match(/raw\.githubusercontent\.com\/[^/]+\/[^/]+\/[^/]+\/(.+)/);
-    if (!match) return;
-    const filePath = match[1];
-    if (!confirm(`Delete this photo from GitHub?\n\nFile: ${filePath}`)) return;
+
+    if (!confirm('Hapus foto ini dari GitHub permanently?')) return;
+
     const delBtn = document.getElementById(deleteBtnId);
     const uploadBtn = document.getElementById(uploadBtnId);
     delBtn.disabled = true;
     delBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Deleting…';
-    if (uploadBtn) uploadBtn.disabled = true;
-    setLoadingBar(30);
+
     try {
-        const apiUrl = `https://api.github.com/repos/${user}/${repo}/contents/${filePath}`;
-        const getRes = await fetch(apiUrl, { headers: { Authorization: `token ${token}` } });
-        setLoadingBar(60);
-        if (!getRes.ok) {
-            if (getRes.status === 404) {
-                urlField.value = '';
-                document.getElementById(thumbId).style.display = 'none';
-                delBtn.classList.remove('visible');
-                return;
-            }
-            throw new Error();
-        }
-        const fileData = await getRes.json();
-        const deleteRes = await fetch(apiUrl, {
-            method: 'DELETE',
-            headers: { Authorization: `token ${token}`, 'Content-Type': 'application/json' },
-            body: JSON.stringify({ message: `Delete product photo: ${filePath}`, sha: fileData.sha })
-        });
-        setLoadingBar(90);
-        if (!deleteRes.ok) throw new Error();
+        await deleteGitHubImageByUrl(rawUrl);
         urlField.value = '';
         document.getElementById(thumbId).style.display = 'none';
         delBtn.classList.remove('visible');
-        setLoadingBar(100);
     } catch (e) {
-        setLoadingBar(100);
+        showToast('Gagal menghapus foto', 'error');
     } finally {
         delBtn.disabled = false;
         delBtn.innerHTML = '<i class="fa-solid fa-trash"></i> Delete';
@@ -558,19 +544,24 @@ async function deleteImageFromGitHub(urlFieldId, thumbId, deleteBtnId, uploadBtn
 async function uploadImageToGitHub(fileInput, urlFieldId, thumbId, btnId, deleteBtnId) {
     const file = fileInput.files[0];
     if (!file) return;
+
     const user = document.getElementById('ghUser').value.trim();
     const repo = document.getElementById('ghRepo').value.trim();
     const token = document.getElementById('ghToken').value.trim();
     if (!token || !user || !repo) return;
+
     const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
     const timestamp = Date.now();
     const path = `images/products/${timestamp}_${safeName}`;
     const apiUrl = `https://api.github.com/repos/${user}/${repo}/contents/${path}`;
+
     const btn = document.getElementById(btnId);
     btn.disabled = true;
     btn.classList.add('uploading');
     btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Uploading…';
+
     setLoadingBar(30);
+
     try {
         const base64 = await new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -578,35 +569,26 @@ async function uploadImageToGitHub(fileInput, urlFieldId, thumbId, btnId, delete
             reader.onerror = reject;
             reader.readAsDataURL(file);
         });
-        let existingSha = null;
-        try {
-            const checkRes = await fetch(apiUrl, { headers: { Authorization: `token ${token}` } });
-            if (checkRes.ok) {
-                const checkData = await checkRes.json();
-                existingSha = checkData.sha;
-            }
-        } catch (_) {}
-        setLoadingBar(60);
+
         const body = { message: `Upload product photo: ${safeName}`, content: base64 };
-        if (existingSha) body.sha = existingSha;
         const res = await fetch(apiUrl, {
             method: 'PUT',
             headers: { Authorization: `token ${token}`, 'Content-Type': 'application/json' },
             body: JSON.stringify(body)
         });
-        setLoadingBar(90);
-        const data = await res.json();
+
         if (!res.ok) throw new Error();
+
         const rawUrl = `https://raw.githubusercontent.com/${user}/${repo}/main/${path}`;
         const urlField = document.getElementById(urlFieldId);
         urlField.value = rawUrl;
         updateThumb(urlField, thumbId);
-        if (deleteBtnId) {
-            const delBtn = document.getElementById(deleteBtnId);
-            if (delBtn) delBtn.classList.add('visible');
-        }
+        if (deleteBtnId) document.getElementById(deleteBtnId).classList.add('visible');
+
         setLoadingBar(100);
+        showToast('Foto berhasil diupload');
     } catch (e) {
+        showToast('Gagal upload foto', 'error');
         setLoadingBar(100);
     } finally {
         btn.disabled = false;
@@ -615,6 +597,8 @@ async function uploadImageToGitHub(fileInput, urlFieldId, thumbId, btnId, delete
         fileInput.value = '';
     }
 }
+
+// ==================== USE CASES ====================
 
 function addUsecase() {
     const input = document.getElementById('ucInput');
@@ -625,7 +609,6 @@ function addUsecase() {
     });
     input.value = '';
     renderUcTags();
-    input.focus();
 }
 
 function removeUsecase(i) {
@@ -634,10 +617,12 @@ function removeUsecase(i) {
 }
 
 function renderUcTags() {
-    document.getElementById('ucTagsBox').innerHTML = ucList.map((u, i) => `<span class="uc-tag">🍽 ${u}<button onclick="removeUsecase(${i})">×</button></span>`).join('');
+    document.getElementById('ucTagsBox').innerHTML = ucList.map((u, i) => 
+        `<span class="uc-tag">🍽 ${u}<button onclick="removeUsecase(${i})">×</button></span>`
+    ).join('');
 }
 
-const lockedFields = {};
+// ==================== LOCK & TRANSLATE ====================
 
 function toggleLock(field, lang) {
     const key = `${field}-${lang}`;
@@ -665,42 +650,60 @@ function clearLocks(field) {
 
 function setupNameTranslate() {
     ['en', 'ms', 'zh'].forEach(lang => {
+        // Name
         const nameInput = document.getElementById(`pName_${lang}`);
-        if (nameInput) nameInput.addEventListener('input', () => {
-            clearTimeout(translateTimers[`name_${lang}`]);
-            translateTimers[`name_${lang}`] = setTimeout(() => {
-                const val = nameInput.value.trim();
-                if (!val) return;
-                ['en','ms','zh'].filter(l => l !== lang && !isLocked('name', l)).forEach(target => translateField(val, lang, target, `pName_${target}`, `ind-name-${target}`, `name-${target}-ai`));
-            }, 900);
-        });
+        if (nameInput) {
+            nameInput.addEventListener('input', () => {
+                clearTimeout(translateTimers[`name_${lang}`]);
+                translateTimers[`name_${lang}`] = setTimeout(() => {
+                    const val = nameInput.value.trim();
+                    if (!val) return;
+                    ['en','ms','zh'].filter(l => l !== lang && !isLocked('name', l))
+                        .forEach(target => translateField(val, lang, target, `pName_${target}`, `ind-name-${target}`, `name-${target}-ai`));
+                }, 900);
+            });
+        }
+
+        // Description
         const descInput = document.getElementById(`pDesc_${lang}`);
-        if (descInput) descInput.addEventListener('input', () => {
-            clearTimeout(translateTimers[`desc_${lang}`]);
-            translateTimers[`desc_${lang}`] = setTimeout(() => {
-                const val = descInput.value.trim();
-                if (!val) return;
-                ['en','ms','zh'].filter(l => l !== lang && !isLocked('desc', l)).forEach(target => translateField(val, lang, target, `pDesc_${target}`, `ind-desc-${target}`, `desc-${target}-ai`));
-            }, 900);
-        });
+        if (descInput) {
+            descInput.addEventListener('input', () => {
+                clearTimeout(translateTimers[`desc_${lang}`]);
+                translateTimers[`desc_${lang}`] = setTimeout(() => {
+                    const val = descInput.value.trim();
+                    if (!val) return;
+                    ['en','ms','zh'].filter(l => l !== lang && !isLocked('desc', l))
+                        .forEach(target => translateField(val, lang, target, `pDesc_${target}`, `ind-desc-${target}`, `desc-${target}-ai`));
+                }, 900);
+            });
+        }
+
+        // Notification Title & Message
         const nTitleInput = document.getElementById(`nTitle_${lang}`);
-        if (nTitleInput) nTitleInput.addEventListener('input', () => {
-            clearTimeout(translateTimers[`ntitle_${lang}`]);
-            translateTimers[`ntitle_${lang}`] = setTimeout(() => {
-                const val = nTitleInput.value.trim();
-                if (!val) return;
-                ['en','ms','zh'].filter(l => l !== lang && !isLocked('ntitle', l)).forEach(target => translateField(val, lang, target, `nTitle_${target}`, `ind-ntitle-${target}`, `ntitle-${target}-ai`));
-            }, 900);
-        });
+        if (nTitleInput) {
+            nTitleInput.addEventListener('input', () => {
+                clearTimeout(translateTimers[`ntitle_${lang}`]);
+                translateTimers[`ntitle_${lang}`] = setTimeout(() => {
+                    const val = nTitleInput.value.trim();
+                    if (!val) return;
+                    ['en','ms','zh'].filter(l => l !== lang && !isLocked('ntitle', l))
+                        .forEach(target => translateField(val, lang, target, `nTitle_${target}`, `ind-ntitle-${target}`, `ntitle-${target}-ai`));
+                }, 900);
+            });
+        }
+
         const nMsgInput = document.getElementById(`nMessage_${lang}`);
-        if (nMsgInput) nMsgInput.addEventListener('input', () => {
-            clearTimeout(translateTimers[`nmessage_${lang}`]);
-            translateTimers[`nmessage_${lang}`] = setTimeout(() => {
-                const val = nMsgInput.value.trim();
-                if (!val) return;
-                ['en','ms','zh'].filter(l => l !== lang && !isLocked('nmessage', l)).forEach(target => translateField(val, lang, target, `nMessage_${target}`, `ind-nmessage-${target}`, `nmessage-${target}-ai`));
-            }, 900);
-        });
+        if (nMsgInput) {
+            nMsgInput.addEventListener('input', () => {
+                clearTimeout(translateTimers[`nmessage_${lang}`]);
+                translateTimers[`nmessage_${lang}`] = setTimeout(() => {
+                    const val = nMsgInput.value.trim();
+                    if (!val) return;
+                    ['en','ms','zh'].filter(l => l !== lang && !isLocked('nmessage', l))
+                        .forEach(target => translateField(val, lang, target, `nMessage_${target}`, `ind-nmessage-${target}`, `nmessage-${target}-ai`));
+                }, 900);
+            });
+        }
     });
 }
 
@@ -710,10 +713,12 @@ async function translateField(text, fromLang, toLang, targetId, indId, aiId) {
     const indEl = document.getElementById(indId);
     const aiEl = document.getElementById(aiId);
     const col = targetEl.closest('.lang-col');
+
     indEl.classList.add('visible');
     col.classList.add('translating');
-    const gtLang = { en: 'en', ms: 'ms', zh: 'zh-CN' };
+
     try {
+        const gtLang = { en: 'en', ms: 'ms', zh: 'zh-CN' };
         const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${gtLang[fromLang]}&tl=${gtLang[toLang]}&dt=t&q=${encodeURIComponent(text)}`;
         const res = await fetch(url);
         const data = await res.json();
@@ -722,33 +727,41 @@ async function translateField(text, fromLang, toLang, targetId, indId, aiId) {
             targetEl.value = translated;
             if (aiEl) aiEl.style.display = 'inline';
         }
-    } catch (e) {} finally {
+    } catch (e) {} 
+    finally {
         indEl.classList.remove('visible');
         col.classList.remove('translating');
     }
 }
 
+// ==================== GITHUB OPERATIONS ====================
+
 async function fetchFromGitHub() {
     const user = document.getElementById('ghUser').value.trim();
     const repo = document.getElementById('ghRepo').value.trim();
     const token = document.getElementById('ghToken').value.trim();
-    if (!token || !user || !repo) return showToast('Please fill in Token, Username, and Repo!', 'error');
+    if (!token || !user || !repo) return showToast('Please fill Token, Username, and Repo!', 'error');
+
     setLoadingBar(30);
     const url = `https://api.github.com/repos/${user}/${repo}/contents/${targetFile}`;
+
     try {
         const res = await fetch(url, { headers: { Authorization: `token ${token}` } });
         const data = await res.json();
         setLoadingBar(70);
+
         if (!res.ok) throw new Error();
+
         fileSha = data.sha;
         const content = JSON.parse(decodeURIComponent(escape(atob(data.content))));
         currentData = content[jsonKey] || [];
+        
         renderAdminData();
         document.getElementById('add-form').style.display = 'block';
         document.getElementById('data-card').style.display = 'block';
         document.getElementById('final-save').style.display = 'flex';
         setLoadingBar(100);
-        showToast(`${currentData.length} items loaded from GitHub`);
+        showToast(`${currentData.length} items loaded`);
     } catch (e) {
         if (e.message.includes('Not Found')) {
             currentData = [];
@@ -757,7 +770,7 @@ async function fetchFromGitHub() {
             document.getElementById('add-form').style.display = 'block';
             document.getElementById('data-card').style.display = 'block';
             document.getElementById('final-save').style.display = 'flex';
-            showToast(`New file will be created on GitHub`);
+            showToast('New file will be created on first push');
         } else {
             showToast('Error: ' + e.message, 'error');
         }
@@ -770,15 +783,18 @@ async function pushToGitHub() {
     const repo = document.getElementById('ghRepo').value.trim();
     const token = document.getElementById('ghToken').value.trim();
     if (!confirm(`Push ${currentData.length} items to GitHub?\nFile: ${targetFile}`)) return;
+
     setLoadingBar(20);
     const url = `https://api.github.com/repos/${user}/${repo}/contents/${targetFile}`;
     const wrapper = {};
     wrapper[jsonKey] = currentData;
+
     const body = {
         message: `Admin Update: ${new Date().toLocaleString()}`,
         content: btoa(unescape(encodeURIComponent(JSON.stringify(wrapper, null, 2))))
     };
     if (fileSha) body.sha = fileSha;
+
     try {
         const res = await fetch(url, {
             method: 'PUT',
@@ -787,23 +803,26 @@ async function pushToGitHub() {
         });
         setLoadingBar(80);
         if (res.ok) {
-            showToast('Successfully pushed to GitHub! Live in ~1 minute.');
+            showToast('Successfully pushed to GitHub!');
             setLoadingBar(100);
             setTimeout(() => location.reload(), 1500);
         } else {
             const err = await res.json();
             showToast('Push failed: ' + err.message, 'error');
-            setLoadingBar(100);
         }
     } catch (e) {
         showToast('Error: ' + e.message, 'error');
+    } finally {
         setLoadingBar(100);
     }
 }
 
+// ==================== MAIN CRUD ====================
+
 function saveData() {
     const index = parseInt(document.getElementById('editIndex').value);
     let dataObj = {};
+
     if (activeRole === 'product') {
         const code = document.getElementById('pCode').value.trim();
         const price = document.getElementById('pPrice').value;
@@ -811,124 +830,165 @@ function saveData() {
         const nameMs = document.getElementById('pName_ms').value.trim();
         const nameZh = document.getElementById('pName_zh').value.trim();
         const anyName = nameEn || nameMs || nameZh;
+
         if (!code || !anyName || !price) return showToast('Code, Name (min 1 language), and Price are required!', 'error');
+
         const descEn = document.getElementById('pDesc_en').value.trim();
         const descMs = document.getElementById('pDesc_ms').value.trim();
         const descZh = document.getElementById('pDesc_zh').value.trim();
         const imgs = ['pImage1','pImage2','pImage3'].map(id => document.getElementById(id).value.trim()).filter(v => v);
-        const nameObj = {};
-        if (nameEn) nameObj.en = nameEn;
-        if (nameMs) nameObj.ms = nameMs;
-        if (nameZh) nameObj.zh = nameZh;
-        const descObj = {};
-        if (descEn) descObj.en = descEn;
-        if (descMs) descObj.ms = descMs;
-        if (descZh) descObj.zh = descZh;
+
+        const nameObj = { en: nameEn, ms: nameMs, zh: nameZh };
+        const descObj = { en: descEn, ms: descMs, zh: descZh };
+
         dataObj = {
             id: index === -1 ? Date.now() : currentData[index].id,
             code,
-            brand: document.getElementById('pBrand').value || 'SALESO',
+            brand: document.getElementById('pBrand').value.trim() || 'SALESO',
             name: nameObj,
             price: parseFloat(price),
             category: document.getElementById('pCat').value,
             image: imgs[0] || 'https://placehold.co/400',
             images: imgs.length > 0 ? imgs : ['https://placehold.co/400'],
-            ...(Object.keys(descObj).length > 0 && { description: descObj }),
-            ...(ucList.length > 0 && { usecases: ucList })
+            ...(Object.keys(descObj).some(k => descObj[k]) && { description: descObj }),
+            ...(ucList.length > 0 && { usecases: [...ucList] })
         };
     } else {
+        // Notification logic (unchanged)
         const titleEn = document.getElementById('nTitle_en').value.trim();
         const titleMs = document.getElementById('nTitle_ms').value.trim();
         const titleZh = document.getElementById('nTitle_zh').value.trim();
         const msgEn = document.getElementById('nMessage_en').value.trim();
         const msgMs = document.getElementById('nMessage_ms').value.trim();
         const msgZh = document.getElementById('nMessage_zh').value.trim();
-        const anyTitle = titleEn || titleMs || titleZh;
-        const anyMsg = msgEn || msgMs || msgZh;
-        if (!anyTitle || !anyMsg) return showToast('Title and Message (min 1 language) are required!', 'error');
-        const titleObj = {};
-        if (titleEn) titleObj.en = titleEn;
-        if (titleMs) titleObj.ms = titleMs;
-        if (titleZh) titleObj.zh = titleZh;
-        const msgObj = {};
-        if (msgEn) msgObj.en = msgEn;
-        if (msgMs) msgObj.ms = msgMs;
-        if (msgZh) msgObj.zh = msgZh;
+
+        if (!titleEn && !titleMs && !titleZh) return showToast('Title is required!', 'error');
+        if (!msgEn && !msgMs && !msgZh) return showToast('Message is required!', 'error');
+
         dataObj = {
             id: index === -1 ? Date.now() : currentData[index].id,
-            title: titleObj,
+            title: { en: titleEn, ms: titleMs, zh: titleZh },
             date: document.getElementById('nDate').value,
             type: document.getElementById('nType').value,
-            message: msgObj
+            message: { en: msgEn, ms: msgMs, zh: msgZh }
         };
     }
+
     if (index === -1) {
         currentData.unshift(dataObj);
-        showToast('Item added to list ✦');
+        showToast('Item added successfully');
     } else {
         currentData[index] = dataObj;
-        showToast('Item updated ✦');
+        showToast('Item updated successfully');
     }
+
     resetForm();
     renderAdminData();
+}
+
+// ==================== IMPROVED DELETE FUNCTION ====================
+
+async function deleteData(index) {
+    if (!confirm('Hapus produk ini?\n\nSemua foto (image & images) akan DIHAPUS PERMANEN dari GitHub.')) {
+        return;
+    }
+
+    const item = currentData[index];
+
+    if (activeRole === 'product') {
+        const imagesToDelete = new Set();
+
+        // Ambil semua dari field images (array)
+        if (Array.isArray(item.images)) {
+            item.images.forEach(url => {
+                if (url && typeof url === 'string') imagesToDelete.add(url.trim());
+            });
+        }
+
+        // Ambil dari field image (single)
+        if (item.image && typeof item.image === 'string') {
+            imagesToDelete.add(item.image.trim());
+        }
+
+        // Filter hanya URL GitHub (bukan placeholder)
+        const finalImages = Array.from(imagesToDelete).filter(url => 
+            url && url.includes('raw.githubusercontent.com') && !url.includes('placehold.co')
+        );
+
+        if (finalImages.length > 0) {
+            showToast(`🗑 Menghapus ${finalImages.length} foto dari GitHub...`, 'ok');
+            setLoadingBar(30);
+
+            try {
+                await Promise.all(finalImages.map(url => deleteGitHubImageByUrl(url)));
+                showToast(`✅ ${finalImages.length} foto berhasil dihapus`, 'ok');
+            } catch (e) {
+                console.error(e);
+                showToast('Beberapa foto gagal dihapus', 'error');
+            }
+            setLoadingBar(100);
+        }
+    }
+
+    // Hapus dari array
+    currentData.splice(index, 1);
+    renderAdminData();
+    showToast('✅ Produk berhasil dihapus', 'ok');
 }
 
 function editData(index) {
     const item = currentData[index];
     document.getElementById('editIndex').value = index;
+
     if (activeRole === 'product') {
         document.getElementById('pCode').value = item.code || '';
         document.getElementById('pBrand').value = item.brand || '';
         document.getElementById('pPrice').value = item.price || '';
         document.getElementById('pCat').value = item.category || 'Matcha';
+
+        // Name
         if (typeof item.name === 'object') {
             document.getElementById('pName_en').value = item.name.en || '';
             document.getElementById('pName_ms').value = item.name.ms || '';
             document.getElementById('pName_zh').value = item.name.zh || '';
         } else {
             document.getElementById('pName_en').value = item.name || '';
-            document.getElementById('pName_ms').value = '';
-            document.getElementById('pName_zh').value = '';
         }
+
+        // Description
         if (item.description && typeof item.description === 'object') {
             document.getElementById('pDesc_en').value = item.description.en || '';
             document.getElementById('pDesc_ms').value = item.description.ms || '';
             document.getElementById('pDesc_zh').value = item.description.zh || '';
-        } else {
-            document.getElementById('pDesc_en').value = item.description || '';
-            document.getElementById('pDesc_ms').value = '';
-            document.getElementById('pDesc_zh').value = '';
         }
+
+        // Images
         const imgs = Array.isArray(item.images) && item.images.length ? item.images : (item.image ? [item.image] : []);
         ['pImage1','pImage2','pImage3'].forEach((id, i) => {
-            document.getElementById(id).value = imgs[i] || '';
+            const val = imgs[i] || '';
+            document.getElementById(id).value = val;
             updateThumb(document.getElementById(id), `thumb${i+1}`);
             toggleDeleteBtn(id, `deleteBtn${i+1}`);
         });
+
         ucList = Array.isArray(item.usecases) ? [...item.usecases] : [];
         renderUcTags();
     } else {
+        // Notification edit (same as before)
         if (typeof item.title === 'object') {
             document.getElementById('nTitle_en').value = item.title.en || '';
             document.getElementById('nTitle_ms').value = item.title.ms || '';
             document.getElementById('nTitle_zh').value = item.title.zh || '';
-        } else {
-            document.getElementById('nTitle_en').value = item.title || '';
-            document.getElementById('nTitle_ms').value = '';
-            document.getElementById('nTitle_zh').value = '';
         }
         if (typeof item.message === 'object') {
             document.getElementById('nMessage_en').value = item.message.en || '';
             document.getElementById('nMessage_ms').value = item.message.ms || '';
             document.getElementById('nMessage_zh').value = item.message.zh || '';
-        } else {
-            document.getElementById('nMessage_en').value = item.message || '';
-            document.getElementById('nMessage_ms').value = '';
-            document.getElementById('nMessage_zh').value = '';
         }
         document.getElementById('nDate').value = item.date || '';
         document.getElementById('nType').value = item.type || 'Info';
     }
+
     document.getElementById('form-title').textContent = 'Edit Entry';
     document.getElementById('btn-save-entry').innerHTML = '<i class="fa-solid fa-check"></i> Update Item';
     document.getElementById('btn-save-entry').style.background = 'var(--warn)';
@@ -938,88 +998,85 @@ function editData(index) {
 
 function resetForm() {
     document.getElementById('editIndex').value = '-1';
-    ['pCode','pBrand','pName_en','pName_ms','pName_zh','pDesc_en','pDesc_ms','pDesc_zh','pImage1','pImage2','pImage3','nTitle_en','nTitle_ms','nTitle_zh','nMessage_en','nMessage_ms','nMessage_zh'].forEach(id => {
+    
+    const fields = ['pCode','pBrand','pName_en','pName_ms','pName_zh','pDesc_en','pDesc_ms','pDesc_zh',
+                   'pImage1','pImage2','pImage3','nTitle_en','nTitle_ms','nTitle_zh','nMessage_en','nMessage_ms','nMessage_zh'];
+    fields.forEach(id => {
         const el = document.getElementById(id);
         if (el) el.value = '';
     });
+
     ['thumb1','thumb2','thumb3'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.style.display = 'none';
     });
+
     ['deleteBtn1','deleteBtn2','deleteBtn3'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.classList.remove('visible');
     });
-    ['name-en-ai','name-ms-ai','name-zh-ai','desc-en-ai','desc-ms-ai','desc-zh-ai','ntitle-en-ai','ntitle-ms-ai','ntitle-zh-ai','nmessage-en-ai','nmessage-ms-ai','nmessage-zh-ai'].forEach(id => {
+
+    // Reset AI badges
+    ['name-en-ai','name-ms-ai','name-zh-ai','desc-en-ai','desc-ms-ai','desc-zh-ai',
+     'ntitle-en-ai','ntitle-ms-ai','ntitle-zh-ai','nmessage-en-ai','nmessage-ms-ai','nmessage-zh-ai']
+    .forEach(id => {
         const el = document.getElementById(id);
         if (el) el.style.display = 'none';
     });
-    const nDate = document.getElementById('nDate');
-    if (nDate) nDate.valueAsDate = new Date();
+
+    document.getElementById('nDate').valueAsDate = new Date();
     ucList = [];
     renderUcTags();
     clearLocks('name');
     clearLocks('desc');
     clearLocks('ntitle');
     clearLocks('nmessage');
+
     document.getElementById('form-title').textContent = 'Add New Entry';
     document.getElementById('btn-save-entry').innerHTML = '<i class="fa-solid fa-plus"></i> Add to List';
     document.getElementById('btn-save-entry').style.background = 'var(--primary)';
     document.getElementById('btn-cancel').style.display = 'none';
 }
 
-async function deleteData(index) {
-    if (!confirm('Delete this product?\n\nAll associated photos (both "image" and "images" fields) will be permanently deleted from GitHub.')) return;
-    const item = currentData[index];
-    if (activeRole === 'product') {
-        const imagesToDelete = new Set();
-        // Collect from "images" array field
-        if (Array.isArray(item.images)) {
-            item.images.forEach(url => {
-                if (url && typeof url === 'string') imagesToDelete.add(url.trim());
-            });
-        }
-        // Collect from "image" single field (may differ from images[0])
-        if (item.image && typeof item.image === 'string') {
-            imagesToDelete.add(item.image.trim());
-        }
-        const finalImages = Array.from(imagesToDelete).filter(url => url && !url.includes('placehold.co'));
-        if (finalImages.length > 0) {
-            showToast(`🗑 Deleting ${finalImages.length} photo(s) from GitHub...`, 'ok');
-            setLoadingBar(30);
-            await Promise.all(finalImages.map(url => deleteGitHubImageByUrl(url)));
-            setLoadingBar(100);
-            showToast(`✅ ${finalImages.length} photo(s) deleted from GitHub`, 'ok');
-        }
-    }
-    currentData.splice(index, 1);
-    renderAdminData();
-    showToast('✅ Product and all photos successfully deleted', 'ok');
-}
-
 function renderAdminData() {
     const container = document.getElementById('data-list-admin');
-    document.getElementById('list-count').textContent = `${currentData.length} item`;
+    document.getElementById('list-count').textContent = `${currentData.length} item${currentData.length > 1 ? 's' : ''}`;
+
     if (currentData.length === 0) {
-        container.innerHTML = `<div style="padding:30px;text-align:center;color:var(--muted);font-size:14px;"><i class="fa-solid fa-inbox" style="font-size:28px;margin-bottom:10px;display:block;"></i>No data yet</div>`;
+        container.innerHTML = `<div style="padding:40px;text-align:center;color:var(--muted);"><i class="fa-solid fa-inbox" style="font-size:32px;margin-bottom:12px;"></i><br>No data yet</div>`;
         return;
     }
+
     container.innerHTML = currentData.map((item, index) => {
         let html = '';
         if (activeRole === 'product') {
-            const displayName = typeof item.name === 'object' ? (item.name.en || item.name.ms || item.name.zh || '—') : (item.name || '—');
-            const isMultilang = typeof item.name === 'object';
+            const displayName = typeof item.name === 'object' 
+                ? (item.name.en || item.name.ms || item.name.zh || '—') 
+                : (item.name || '—');
             const photoCount = Array.isArray(item.images) ? item.images.length : (item.image ? 1 : 0);
-            const hasDesc = !!item.description;
-            const ucCount = Array.isArray(item.usecases) ? item.usecases.length : 0;
-            html = `<div class="data-name"><span style="font-family:var(--mono);font-size:11px;background:#eee;padding:1px 6px;border-radius:4px;margin-right:6px;">${item.code || 'N/A'}</span> [${item.brand || ''}] ${displayName} ${isMultilang ? '<span class="badge badge-multi">🌐 3 lang</span>' : ''} ${photoCount > 1 ? `<span class="badge badge-green"><i class="fa-solid fa-images"></i> ${photoCount}</span>` : ''} ${hasDesc ? '<span class="badge badge-orange">📝</span>' : ''} ${ucCount > 0 ? `<span class="badge badge-blue">🍽 ${ucCount}</span>` : ''}</div><div class="data-meta">RM ${parseFloat(item.price).toFixed(2)} · ${item.category}</div>`;
+
+            html = `
+                <div class="data-name">
+                    <span style="font-family:var(--mono);font-size:11px;background:#eee;padding:1px 6px;border-radius:4px;">${item.code || 'N/A'}</span> 
+                    ${displayName}
+                    ${photoCount > 1 ? `<span class="badge badge-green"><i class="fa-solid fa-images"></i> ${photoCount}</span>` : ''}
+                </div>
+                <div class="data-meta">RM ${parseFloat(item.price || 0).toFixed(2)} · ${item.category || ''}</div>`;
         } else {
-            const displayTitle = typeof item.title === 'object' ? (item.title.en || item.title.ms || item.title.zh || '—') : (item.title || '—');
-            const displayMsg = typeof item.message === 'object' ? (item.message.en || item.message.ms || item.message.zh || '') : (item.message || '');
-            const isMultilangNotif = typeof item.title === 'object';
-            html = `<div class="data-name">${displayTitle}${isMultilangNotif ? '<span class="badge badge-multi">🌐 3 lang</span>' : ''}</div><div class="data-meta">${item.date || ''} · ${item.type} · ${displayMsg.substring(0, 60)}…</div>`;
+            const displayTitle = typeof item.title === 'object' 
+                ? (item.title.en || item.title.ms || item.title.zh || '—') 
+                : (item.title || '—');
+            html = `<div class="data-name">${displayTitle}</div><div class="data-meta">${item.date} · ${item.type}</div>`;
         }
-        return `<div class="data-item"><div style="flex:1;">${html}</div><div class="item-actions"><button class="icon-btn edit" onclick="editData(${index})" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button><button class="icon-btn del" onclick="deleteData(${index})" title="Delete"><i class="fa-solid fa-trash"></i></button></div></div>`;
+
+        return `
+            <div class="data-item">
+                <div style="flex:1;">${html}</div>
+                <div class="item-actions">
+                    <button class="icon-btn edit" onclick="editData(${index})" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <button class="icon-btn del" onclick="deleteData(${index})" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            </div>`;
     }).join('');
 }
 </script>
