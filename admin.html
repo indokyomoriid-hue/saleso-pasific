@@ -1574,11 +1574,82 @@ function resetForm() {
     document.getElementById('btn-cancel').style.display = 'none';
 }
 
-function deleteData(index) {
-    if (!confirm('Delete this item?')) return;
+// =============================================
+//  HELPER: Delete a single GitHub image by raw URL (silent, no confirm)
+// =============================================
+async function deleteGitHubImageByUrl(rawUrl) {
+    const user  = document.getElementById('ghUser').value.trim();
+    const repo  = document.getElementById('ghRepo').value.trim();
+    const token = document.getElementById('ghToken').value.trim();
+
+    if (!rawUrl || !token || !user || !repo) return;
+
+    // Hanya hapus jika URL memang dari repo GitHub yang sama
+    const isGitHubUrl = rawUrl.includes(`raw.githubusercontent.com/${user}/${repo}/`);
+    if (!isGitHubUrl) return;
+
+    const match = rawUrl.match(/raw\.githubusercontent\.com\/[^/]+\/[^/]+\/[^/]+\/(.+)/);
+    if (!match) return;
+    const filePath = match[1];
+
+    const apiUrl = `https://api.github.com/repos/${user}/${repo}/contents/${filePath}`;
+
+    try {
+        // Ambil SHA file
+        const getRes = await fetch(apiUrl, {
+            headers: { Authorization: `token ${token}` }
+        });
+        if (!getRes.ok) return; // File tidak ada, skip
+        const fileData = await getRes.json();
+        const sha = fileData.sha;
+
+        // Hapus file dari GitHub
+        await fetch(apiUrl, {
+            method: 'DELETE',
+            headers: {
+                Authorization: `token ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                message: `Hapus foto produk (delete produk): ${filePath}`,
+                sha: sha
+            })
+        });
+    } catch (_) {
+        // Silent — tidak menghentikan proses delete produk
+    }
+}
+
+// =============================================
+//  DELETE PRODUCT + SEMUA FOTO DI GITHUB
+// =============================================
+async function deleteData(index) {
+    if (!confirm('Hapus produk ini?\n\nSemua foto yang tersimpan di GitHub juga akan dihapus secara otomatis.')) return;
+
+    const item = currentData[index];
+
+    // Kumpulkan semua URL foto dari field "image" maupun "images"
+    const photoUrls = [];
+    if (Array.isArray(item.images)) {
+        item.images.forEach(url => { if (url) photoUrls.push(url); });
+    }
+    if (item.image && !photoUrls.includes(item.image)) {
+        photoUrls.push(item.image);
+    }
+
+    if (photoUrls.length > 0) {
+        setLoadingBar(10);
+        showToast('⏳ Menghapus foto dari GitHub…');
+
+        // Hapus semua foto secara paralel
+        await Promise.all(photoUrls.map(url => deleteGitHubImageByUrl(url)));
+
+        setLoadingBar(100);
+    }
+
     currentData.splice(index, 1);
     renderAdminData();
-    showToast('Item deleted.');
+    showToast(`✦ Produk & ${photoUrls.length} foto berhasil dihapus.`);
 }
 
 // =============================================
