@@ -1,33 +1,6 @@
 {
   "products": [
     {
-      "code": "JGC1IRB1000G",
-      "brand": "SP COFFEE",
-      "name": {
-        "en": "Specialty Grade Coffee Bean 1kg",
-        "ms": "Biji Kopi Gred Khas 1kg",
-        "zh": "特级咖啡豆 1kg"
-      },
-      "price": 102,
-      "category": "Beverage",
-      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1776250954246_WhatsApp_Image_2026-04-06_at_17.48.41.jpeg",
-      "images": [
-        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1776250954246_WhatsApp_Image_2026-04-06_at_17.48.41.jpeg",
-        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1776250959629_pngtree-iced-matcha-latte-with-whipped-cream-picture-image_15934637.jpg",
-        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1776250967195_4XMQb.jpg"
-      ],
-      "description": {
-        "en": "Premium fresh roasted coffee bean with herbal, chocolate, earthy notes",
-        "ms": "Biji kopi panggang segar premium dengan nota herba, coklat, earthy",
-        "zh": "优质新鲜烘焙咖啡豆，具有草本、巧克力、泥土风味"
-      },
-      "usecases": [
-        "Espresso",
-        "Pour Over",
-        "Cafe Latte"
-      ]
-    },
-    {
       "code": "HSTEWTB20S",
       "brand": "H&S",
       "name": {
