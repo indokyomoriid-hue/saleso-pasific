@@ -307,7 +307,7 @@
                 <div class="uc-tags-box" id="ucTagsBox"></div>
 
                 <div class="section-divider" style="margin-top:20px;">Product Images (max 3)</div>
-                <p class="hint" style="margin-bottom:12px;">Paste the URL directly <strong>or</strong> click <strong>📂 Upload</strong> to upload a photo from your computer to GitHub.</p>
+                <p class="hint" style="margin-bottom:12px;">Paste a URL directly <strong>or</strong> click <strong>📂 Upload</strong> to upload a photo from your computer to GitHub.</p>
                 <div id="img-rows">
                     <div class="img-input-row">
                         <span class="img-num">1</span>
@@ -368,12 +368,12 @@
                     </div>
                     <div class="lang-col ms" id="nmessage-col-ms">
                         <div class="lang-col-header"><span class="source-badge">MS</span> Malay <span id="nmessage-ms-ai" style="font-size:10px;color:var(--ms-color);display:none;">✦ GT</span><button class="lock-btn" onclick="toggleLock('nmessage','ms')">🔒<span class="lock-label">LOCKED</span></button></div>
-                        <textarea id="nMessage_ms" rows="3" placeholder="Write notification details here (Malay)..." style="padding:12px 14px;"></textarea>
+                        <textarea id="nMessage_ms" rows="3" placeholder="Write notification details here..." style="padding:12px 14px;"></textarea>
                         <div class="translate-indicator" id="ind-nmessage-ms"><div class="spinner-small"></div> translating…</div>
                     </div>
                     <div class="lang-col zh" id="nmessage-col-zh">
                         <div class="lang-col-header"><span class="source-badge">ZH</span> 中文 <span id="nmessage-zh-ai" style="font-size:10px;color:var(--zh-color);display:none;">✦ GT</span><button class="lock-btn" onclick="toggleLock('nmessage','zh')">🔒<span class="lock-label">LOCKED</span></button></div>
-                        <textarea id="nMessage_zh" rows="3" placeholder="Write notification details here (Chinese)..." style="padding:12px 14px;"></textarea>
+                        <textarea id="nMessage_zh" rows="3" placeholder="Write notification details here..." style="padding:12px 14px;"></textarea>
                         <div class="translate-indicator" id="ind-nmessage-zh"><div class="spinner-small"></div> translating…</div>
                     </div>
                 </div>
@@ -969,35 +969,32 @@ function resetForm() {
 }
 
 async function deleteData(index) {
-    if (!confirm('Delete this product?\n\nAll associated photos will be deleted from GitHub.')) return;
+    if (!confirm('Delete this product?\n\nAll associated photos (both "image" and "images" fields) will be permanently deleted from GitHub.')) return;
     const item = currentData[index];
     if (activeRole === 'product') {
         const imagesToDelete = new Set();
-        // Collect from `images` array (multi-photo field)
+        // Collect from "images" array field
         if (Array.isArray(item.images)) {
             item.images.forEach(url => {
-                if (url && typeof url === 'string' && url.trim()) imagesToDelete.add(url.trim());
+                if (url && typeof url === 'string') imagesToDelete.add(url.trim());
             });
         }
-        // Collect from `image` field (single/legacy field) - may differ from images[0]
-        if (item.image && typeof item.image === 'string' && item.image.trim()) {
+        // Collect from "image" single field (may differ from images[0])
+        if (item.image && typeof item.image === 'string') {
             imagesToDelete.add(item.image.trim());
         }
-        // Filter out placeholders and non-http values
-        const finalImages = Array.from(imagesToDelete).filter(url =>
-            url && !url.includes('placehold.co') && url.startsWith('http')
-        );
+        const finalImages = Array.from(imagesToDelete).filter(url => url && !url.includes('placehold.co'));
         if (finalImages.length > 0) {
             showToast(`🗑 Deleting ${finalImages.length} photo(s) from GitHub...`, 'ok');
             setLoadingBar(30);
             await Promise.all(finalImages.map(url => deleteGitHubImageByUrl(url)));
             setLoadingBar(100);
-            showToast(`✅ ${finalImages.length} photo(s) deleted successfully`, 'ok');
+            showToast(`✅ ${finalImages.length} photo(s) deleted from GitHub`, 'ok');
         }
     }
     currentData.splice(index, 1);
     renderAdminData();
-    showToast('✅ Product and all photos deleted successfully', 'ok');
+    showToast('✅ Product and all photos successfully deleted', 'ok');
 }
 
 function renderAdminData() {
