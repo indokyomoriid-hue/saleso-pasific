@@ -20,25 +20,20 @@
             --muted: #6b7c6b;
             --mono: 'IBM Plex Mono', monospace;
             --sans: 'DM Sans', sans-serif;
-
             --en-color: #1565c0;
             --ms-color: #1b5e20;
             --zh-color: #b71c1c;
-
             --en-bg: #e3f2fd;
             --ms-bg: #e8f5e9;
             --zh-bg: #fce4ec;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
             font-family: var(--sans);
             background: var(--bg);
             color: var(--text);
             min-height: 100vh;
         }
-
         /* ===== ROLE MODAL ===== */
         #role-modal {
             position: fixed; inset: 0;
@@ -85,7 +80,6 @@
         .role-btn.product:hover { background: #003530; }
         .role-btn.notif { background: white; color: var(--primary); border-color: var(--primary); }
         .role-btn.notif:hover { background: var(--primary-light); }
-
         /* ===== LAYOUT ===== */
         .topbar {
             background: var(--primary);
@@ -106,13 +100,11 @@
             font-family: var(--mono);
             margin-left: auto;
         }
-
         .page-wrap {
             max-width: 1000px;
             margin: 0 auto;
             padding: 24px 20px 60px;
         }
-
         /* ===== CARDS ===== */
         .card {
             background: var(--card);
@@ -143,7 +135,6 @@
             color: var(--text);
         }
         .card-body { padding: 20px; }
-
         /* ===== FORM ===== */
         .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
         .form-row.three { grid-template-columns: 1fr 1fr 1fr; }
@@ -175,7 +166,6 @@
             box-shadow: 0 0 0 3px rgba(0,77,64,0.1);
         }
         textarea { resize: vertical; min-height: 80px; }
-
         /* ===== MULTILANG SECTION ===== */
         .lang-grid {
             display: grid;
@@ -191,7 +181,6 @@
             border-right: 1.5px solid var(--border);
         }
         .lang-col:last-child { border-right: none; }
-
         .lang-col-header {
             padding: 10px 14px;
             display: flex; align-items: center; gap: 8px;
@@ -203,7 +192,6 @@
         .lang-col.en .lang-col-header { background: var(--en-bg); color: var(--en-color); }
         .lang-col.ms .lang-col-header { background: var(--ms-bg); color: var(--ms-color); }
         .lang-col.zh .lang-col-header { background: var(--zh-bg); color: var(--zh-color); }
-
         .lang-col textarea, .lang-col input[type=text] {
             border: none;
             border-radius: 0;
@@ -216,7 +204,6 @@
             border-color: transparent;
             background: #fafff9;
         }
-
         /* Translating state */
         .lang-col.translating textarea,
         .lang-col.translating input[type=text] {
@@ -243,7 +230,6 @@
             animation: spin 0.6s linear infinite;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
-
         /* Source badge */
         .source-badge {
             font-size: 10px;
@@ -255,7 +241,6 @@
         .en .source-badge { background: var(--en-color); color: white; }
         .ms .source-badge { background: var(--ms-color); color: white; }
         .zh .source-badge { background: var(--zh-color); color: white; }
-
         /* Translate all button */
         .translate-all-btn {
             display: inline-flex; align-items: center; gap: 8px;
@@ -272,7 +257,6 @@
         }
         .translate-all-btn:hover { background: #b8860b; }
         .translate-all-btn:disabled { background: #ccc; cursor: not-allowed; }
-
         /* ===== USECASE BUILDER ===== */
         .uc-input-row { display: flex; gap: 8px; margin-bottom: 8px; }
         .uc-input-row input { flex: 1; margin: 0; }
@@ -298,7 +282,6 @@
             display: flex; align-items: center; gap: 6px;
         }
         .uc-tag button { background: none; border: none; color: #c62828; cursor: pointer; font-size: 15px; }
-
         /* ===== IMAGES ===== */
         .img-input-row {
             display: flex; align-items: center; gap: 10px;
@@ -351,7 +334,6 @@
         .delete-img-btn:hover { background: #f5c6c6; }
         .delete-img-btn.visible { display: inline-flex; }
         .delete-img-btn:disabled { opacity: 0.45; cursor: not-allowed; }
-
         /* ===== BUTTONS ===== */
         .btn {
             padding: 11px 20px;
@@ -376,7 +358,6 @@
         .btn-full { width: 100%; justify-content: center; }
         .btn:disabled { opacity: 0.4; cursor: not-allowed; }
         .btn-sm { padding: 7px 14px; font-size: 13px; }
-
         /* ===== DATA LIST ===== */
         .data-item {
             display: flex; justify-content: space-between; align-items: flex-start;
@@ -402,8 +383,6 @@
         .icon-btn { background: none; border: none; cursor: pointer; font-size: 16px; padding: 4px; }
         .icon-btn.edit { color: #1565c0; }
         .icon-btn.del { color: var(--danger); }
-
-
         /* ===== MANUAL LOCK ===== */
         .lang-col.locked {
             background: #fffbf0;
@@ -433,7 +412,6 @@
             display: none;
         }
         .lang-col.locked .lock-label { display: inline; color: var(--accent); }
-
         /* ===== LOADING BAR ===== */
         #loading-bar {
             height: 3px;
@@ -444,7 +422,6 @@
             top: 0; left: 0;
             z-index: 9998;
         }
-
         /* ===== TOAST ===== */
         #toast {
             position: fixed;
@@ -464,9 +441,7 @@
         }
         #toast.show { transform: translateY(0); opacity: 1; }
         #toast.error { background: var(--danger); }
-
         .hint { font-size: 11.5px; color: var(--muted); margin-top: 4px; font-style: italic; }
-
         .section-divider {
             font-size: 11px;
             font-weight: 700;
@@ -477,7 +452,6 @@
             border-bottom: 1px solid var(--border);
             margin-bottom: 16px;
         }
-
         @media (max-width: 640px) {
             .form-row, .form-row.three { grid-template-columns: 1fr; }
             .lang-grid { grid-template-columns: 1fr; }
@@ -487,10 +461,8 @@
     </style>
 </head>
 <body>
-
 <div id="loading-bar"></div>
 <div id="toast"></div>
-
 <!-- ROLE MODAL -->
 <div id="role-modal">
     <div class="role-modal-box">
@@ -505,16 +477,13 @@
         </button>
     </div>
 </div>
-
 <!-- TOPBAR -->
 <div class="topbar">
     <i class="fa-solid fa-user-shield" style="font-size:18px;opacity:0.8;"></i>
     <span class="topbar-title" id="panel-title">Saleso Pacific — Admin Panel</span>
     <span class="topbar-sub" id="topbar-file">—</span>
 </div>
-
 <div class="page-wrap">
-
     <!-- STEP 1: GitHub -->
     <div class="card">
         <div class="card-header">
@@ -541,7 +510,6 @@
             </button>
         </div>
     </div>
-
     <!-- STEP 2: Form -->
     <div class="card" id="add-form" style="display:none;">
         <div class="card-header">
@@ -555,10 +523,9 @@
         </div>
         <div class="card-body">
             <input type="hidden" id="editIndex" value="-1">
-
             <!-- ===== PRODUCT FIELDS ===== -->
             <div id="product-fields" style="display:none;">
-                
+               
                 <div class="section-divider">Basic Info</div>
                 <div class="form-row three">
                     <div class="form-group">
@@ -587,12 +554,10 @@
                     <label>Price (RM)</label>
                     <input type="number" step="0.01" id="pPrice" placeholder="0.00" style="max-width:300px;">
                 </div>
-
                 <div class="section-divider">
                     Product Name — Multilingual
                     <span style="font-weight:400;text-transform:none;font-style:italic;margin-left:8px;">Type in any column → other languages auto-fill</span>
                 </div>
-
                 <div class="lang-grid" id="name-grid">
                     <div class="lang-col en" id="name-col-en">
                         <div class="lang-col-header">
@@ -622,12 +587,10 @@
                         <div class="translate-indicator" id="ind-name-zh"><div class="spinner-small"></div> translating…</div>
                     </div>
                 </div>
-
                 <div class="section-divider">
                     Description — Multilingual
                     <span style="font-weight:400;text-transform:none;font-style:italic;margin-left:8px;">Type in any column → other languages auto-fill</span>
                 </div>
-
                 <div class="lang-grid" id="desc-grid">
                     <div class="lang-col en" id="desc-col-en">
                         <div class="lang-col-header">
@@ -657,7 +620,6 @@
                         <div class="translate-indicator" id="ind-desc-zh"><div class="spinner-small"></div> translating…</div>
                     </div>
                 </div>
-
                 <div class="section-divider">Use Cases / Best Used For</div>
                 <div class="uc-input-row">
                     <input type="text" id="ucInput" placeholder="e.g., Matcha Latte, Es Matcha, Baking..." onkeydown="if(event.key==='Enter'){event.preventDefault();addUsecase();}">
@@ -665,50 +627,47 @@
                 </div>
                 <p class="hint">Type a use case then press + or Enter. Separate with commas to add multiple.</p>
                 <div class="uc-tags-box" id="ucTagsBox"></div>
-
                 <div class="section-divider" style="margin-top:20px;">Product Images (max 3)</div>
-                <p class="hint" style="margin-bottom:12px;">Paste URL langsung <strong>atau</strong> klik <strong>📂 Upload</strong> untuk upload foto dari komputer ke GitHub.</p>
+                <p class="hint" style="margin-bottom:12px;">Paste direct URL <strong>or</strong> click <strong>📂 Upload</strong> to upload photos from your computer to GitHub.</p>
                 <div id="img-rows">
                     <div class="img-input-row">
                         <span class="img-num">1</span>
-                        <input type="text" id="pImage1" placeholder="https://raw.githubusercontent.com/... atau upload →" oninput="updateThumb(this,'thumb1');toggleDeleteBtn('pImage1','deleteBtn1')">
+                        <input type="text" id="pImage1" placeholder="https://raw.githubusercontent.com/... or upload →" oninput="updateThumb(this,'thumb1');toggleDeleteBtn('pImage1','deleteBtn1')">
                         <input type="file" id="fileInput1" class="hidden-file" accept="image/*" onchange="uploadImageToGitHub(this, 'pImage1', 'thumb1', 'uploadBtn1', 'deleteBtn1')">
                         <button class="upload-btn" id="uploadBtn1" onclick="document.getElementById('fileInput1').click()">
                             <i class="fa-solid fa-cloud-arrow-up"></i> Upload
                         </button>
                         <button class="delete-img-btn" id="deleteBtn1" onclick="deleteImageFromGitHub('pImage1','thumb1','deleteBtn1','uploadBtn1')">
-                            <i class="fa-solid fa-trash"></i> Hapus
+                            <i class="fa-solid fa-trash"></i> Delete
                         </button>
                         <img id="thumb1" class="img-thumb">
                     </div>
                     <div class="img-input-row">
                         <span class="img-num">2</span>
-                        <input type="text" id="pImage2" placeholder="https://raw.githubusercontent.com/... atau upload →" oninput="updateThumb(this,'thumb2');toggleDeleteBtn('pImage2','deleteBtn2')">
+                        <input type="text" id="pImage2" placeholder="https://raw.githubusercontent.com/... or upload →" oninput="updateThumb(this,'thumb2');toggleDeleteBtn('pImage2','deleteBtn2')">
                         <input type="file" id="fileInput2" class="hidden-file" accept="image/*" onchange="uploadImageToGitHub(this, 'pImage2', 'thumb2', 'uploadBtn2', 'deleteBtn2')">
                         <button class="upload-btn" id="uploadBtn2" onclick="document.getElementById('fileInput2').click()">
                             <i class="fa-solid fa-cloud-arrow-up"></i> Upload
                         </button>
                         <button class="delete-img-btn" id="deleteBtn2" onclick="deleteImageFromGitHub('pImage2','thumb2','deleteBtn2','uploadBtn2')">
-                            <i class="fa-solid fa-trash"></i> Hapus
+                            <i class="fa-solid fa-trash"></i> Delete
                         </button>
                         <img id="thumb2" class="img-thumb">
                     </div>
                     <div class="img-input-row">
                         <span class="img-num">3</span>
-                        <input type="text" id="pImage3" placeholder="https://raw.githubusercontent.com/... atau upload →" oninput="updateThumb(this,'thumb3');toggleDeleteBtn('pImage3','deleteBtn3')">
+                        <input type="text" id="pImage3" placeholder="https://raw.githubusercontent.com/... or upload →" oninput="updateThumb(this,'thumb3');toggleDeleteBtn('pImage3','deleteBtn3')">
                         <input type="file" id="fileInput3" class="hidden-file" accept="image/*" onchange="uploadImageToGitHub(this, 'pImage3', 'thumb3', 'uploadBtn3', 'deleteBtn3')">
                         <button class="upload-btn" id="uploadBtn3" onclick="document.getElementById('fileInput3').click()">
                             <i class="fa-solid fa-cloud-arrow-up"></i> Upload
                         </button>
                         <button class="delete-img-btn" id="deleteBtn3" onclick="deleteImageFromGitHub('pImage3','thumb3','deleteBtn3','uploadBtn3')">
-                            <i class="fa-solid fa-trash"></i> Hapus
+                            <i class="fa-solid fa-trash"></i> Delete
                         </button>
                         <img id="thumb3" class="img-thumb">
                     </div>
                 </div>
-
             </div>
-
             <!-- ===== NOTIFICATION FIELDS ===== -->
             <div id="notification-fields" style="display:none;">
                 <div class="form-row">
@@ -725,7 +684,6 @@
                         </select>
                     </div>
                 </div>
-
                 <div class="section-divider">
                     Title — Multilingual
                     <span style="font-weight:400;text-transform:none;font-style:italic;margin-left:8px;">Type in any column → other languages auto-fill</span>
@@ -759,7 +717,6 @@
                         <div class="translate-indicator" id="ind-ntitle-zh"><div class="spinner-small"></div> translating…</div>
                     </div>
                 </div>
-
                 <div class="section-divider">
                     Message — Multilingual
                     <span style="font-weight:400;text-transform:none;font-style:italic;margin-left:8px;">Type in any column → other languages auto-fill</span>
@@ -794,7 +751,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- SAVE BUTTON -->
             <div style="margin-top:20px;">
                 <button id="btn-save-entry" class="btn btn-primary btn-full" onclick="saveData()">
@@ -803,7 +759,6 @@
             </div>
         </div>
     </div>
-
     <!-- STEP 3: Data List -->
     <div class="card" id="data-card" style="display:none;">
         <div class="card-header">
@@ -813,18 +768,13 @@
         </div>
         <div id="data-list-admin"></div>
     </div>
-
     <!-- STEP 4: Push -->
     <button id="final-save" class="btn btn-success btn-full" style="display:none;font-size:15px;padding:16px;" onclick="pushToGitHub()">
         <i class="fa-solid fa-cloud-arrow-up"></i> Push Changes to GitHub (Live)
     </button>
-
 </div>
-
 <script>
-// =============================================
-//  STATE
-// =============================================
+// STATE
 let currentData = [];
 let fileSha = "";
 let activeRole = "";
@@ -832,10 +782,7 @@ let targetFile = "";
 let jsonKey = "";
 let ucList = [];
 let translateTimers = {};
-
-// =============================================
-//  ROLE
-// =============================================
+// ROLE
 function setRole(role) {
     activeRole = role;
     document.getElementById('role-modal').style.display = 'none';
@@ -860,10 +807,7 @@ function setRole(role) {
         setupNameTranslate();
     }
 }
-
-// =============================================
-//  TOAST
-// =============================================
+// TOAST
 function showToast(msg, type = 'ok') {
     const t = document.getElementById('toast');
     t.innerHTML = type === 'ok'
@@ -872,18 +816,12 @@ function showToast(msg, type = 'ok') {
     t.className = 'show' + (type === 'error' ? ' error' : '');
     setTimeout(() => t.className = '', 3000);
 }
-
-// =============================================
-//  LOADING BAR
-// =============================================
+// LOADING BAR
 function setLoadingBar(pct) {
     document.getElementById('loading-bar').style.width = pct + '%';
     if (pct >= 100) setTimeout(() => setLoadingBar(0), 400);
 }
-
-// =============================================
-//  IMAGE THUMBNAIL
-// =============================================
+// IMAGE THUMBNAIL
 function updateThumb(input, thumbId) {
     const thumb = document.getElementById(thumbId);
     const url = input.value.trim();
@@ -895,46 +833,34 @@ function updateThumb(input, thumbId) {
         thumb.style.display = 'none';
     }
 }
-
-// =============================================
-//  UPLOAD IMAGE TO GITHUB
-// =============================================
+// UPLOAD IMAGE TO GITHUB
 async function uploadImageToGitHub(fileInput, urlFieldId, thumbId, btnId, deleteBtnId) {
     const file = fileInput.files[0];
     if (!file) return;
-
-    const user  = document.getElementById('ghUser').value.trim();
-    const repo  = document.getElementById('ghRepo').value.trim();
+    const user = document.getElementById('ghUser').value.trim();
+    const repo = document.getElementById('ghRepo').value.trim();
     const token = document.getElementById('ghToken').value.trim();
-
     if (!token || !user || !repo) {
-        showToast('Isi dulu Token, Username, dan Repo di Step 1!', 'error');
+        showToast('Please fill in the Token, Username, and Repo in Step 1 first!', 'error');
         fileInput.value = '';
         return;
     }
-
-    // Bersihkan nama file: hapus spasi & karakter aneh
     const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
     const timestamp = Date.now();
     const path = `images/products/${timestamp}_${safeName}`;
     const apiUrl = `https://api.github.com/repos/${user}/${repo}/contents/${path}`;
-
     const btn = document.getElementById(btnId);
     btn.disabled = true;
     btn.classList.add('uploading');
     btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Uploading…';
     setLoadingBar(30);
-
     try {
-        // Baca file sebagai Base64
         const base64 = await new Promise((resolve, reject) => {
             const reader = new FileReader();
             reader.onload = e => resolve(e.target.result.split(',')[1]);
             reader.onerror = reject;
             reader.readAsDataURL(file);
         });
-
-        // Cek apakah file sudah ada (butuh SHA untuk update)
         let existingSha = null;
         try {
             const checkRes = await fetch(apiUrl, {
@@ -945,16 +871,12 @@ async function uploadImageToGitHub(fileInput, urlFieldId, thumbId, btnId, delete
                 existingSha = checkData.sha;
             }
         } catch (_) {}
-
         setLoadingBar(60);
-
-        // Upload ke GitHub
         const body = {
-            message: `Upload foto produk: ${safeName}`,
+            message: `Upload product photo: ${safeName}`,
             content: base64
         };
         if (existingSha) body.sha = existingSha;
-
         const res = await fetch(apiUrl, {
             method: 'PUT',
             headers: {
@@ -963,42 +885,30 @@ async function uploadImageToGitHub(fileInput, urlFieldId, thumbId, btnId, delete
             },
             body: JSON.stringify(body)
         });
-
         setLoadingBar(90);
         const data = await res.json();
-
-        if (!res.ok) throw new Error(data.message || 'Upload gagal');
-
-        // Gunakan raw URL agar bisa ditampilkan langsung
+        if (!res.ok) throw new Error(data.message || 'Upload failed');
         const rawUrl = `https://raw.githubusercontent.com/${user}/${repo}/main/${path}`;
-
-        // Isi URL field & tampilkan thumbnail
         const urlField = document.getElementById(urlFieldId);
         urlField.value = rawUrl;
         updateThumb(urlField, thumbId);
-
-        // Tampilkan tombol hapus
         if (deleteBtnId) {
             const delBtn = document.getElementById(deleteBtnId);
             if (delBtn) delBtn.classList.add('visible');
         }
-
         setLoadingBar(100);
-        showToast(`✦ Foto berhasil diupload ke GitHub!`);
+        showToast(`✦ Photo successfully uploaded to GitHub!`);
     } catch (e) {
-        showToast('Upload gagal: ' + e.message, 'error');
+        showToast('Upload failed: ' + e.message, 'error');
         setLoadingBar(100);
     } finally {
         btn.disabled = false;
         btn.classList.remove('uploading');
         btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Upload';
-        fileInput.value = ''; // Reset agar bisa upload ulang file yang sama
+        fileInput.value = '';
     }
 }
-
-// =============================================
-//  TOGGLE DELETE BUTTON (saat URL diketik manual)
-// =============================================
+// TOGGLE DELETE BUTTON
 function toggleDeleteBtn(urlFieldId, deleteBtnId) {
     const url = document.getElementById(urlFieldId).value.trim();
     const delBtn = document.getElementById(deleteBtnId);
@@ -1009,86 +919,62 @@ function toggleDeleteBtn(urlFieldId, deleteBtnId) {
         delBtn.classList.remove('visible');
     }
 }
-
-// =============================================
-//  DELETE IMAGE FROM GITHUB
-// =============================================
+// DELETE IMAGE FROM GITHUB
 async function deleteImageFromGitHub(urlFieldId, thumbId, deleteBtnId, uploadBtnId) {
     const urlField = document.getElementById(urlFieldId);
     const rawUrl = urlField.value.trim();
-
     if (!rawUrl) {
-        showToast('Tidak ada foto untuk dihapus.', 'error');
+        showToast('No photo to delete.', 'error');
         return;
     }
-
-    const user  = document.getElementById('ghUser').value.trim();
-    const repo  = document.getElementById('ghRepo').value.trim();
+    const user = document.getElementById('ghUser').value.trim();
+    const repo = document.getElementById('ghRepo').value.trim();
     const token = document.getElementById('ghToken').value.trim();
-
-    // Cek apakah URL ini berasal dari GitHub repo yang sama
     const isGitHubUrl = rawUrl.includes(`raw.githubusercontent.com/${user}/${repo}/`);
-
     if (!isGitHubUrl) {
-        // URL bukan dari GitHub repo ini — hapus dari form saja, tidak perlu API call
-        if (!confirm('URL ini bukan dari GitHub repo Anda.\nHapus foto dari form saja (tidak ada perubahan di GitHub)?')) return;
+        if (!confirm('This URL is not from your GitHub repository.\nDelete the photo from the form only (no changes on GitHub)?')) return;
         urlField.value = '';
         document.getElementById(thumbId).style.display = 'none';
         document.getElementById(deleteBtnId).classList.remove('visible');
-        showToast('Foto dihapus dari form.');
+        showToast('Photo deleted from form.');
         return;
     }
-
     if (!token || !user || !repo) {
-        showToast('Isi dulu Token, Username, dan Repo di Step 1!', 'error');
+        showToast('Please fill in the Token, Username, and Repo in Step 1 first!', 'error');
         return;
     }
-
-    // Ekstrak path file dari raw URL
-    // Format: https://raw.githubusercontent.com/{user}/{repo}/main/{path}
     const match = rawUrl.match(/raw\.githubusercontent\.com\/[^/]+\/[^/]+\/[^/]+\/(.+)/);
     if (!match) {
-        showToast('Format URL tidak dikenali.', 'error');
+        showToast('Unrecognized URL format.', 'error');
         return;
     }
     const filePath = match[1];
-
-    if (!confirm(`Hapus foto dari GitHub?\n\nFile: ${filePath}\n\nTindakan ini permanen dan tidak bisa dibatalkan.`)) return;
-
+    if (!confirm(`Delete photo from GitHub?\n\nFile: ${filePath}\n\nThis action is permanent and cannot be undone.`)) return;
     const delBtn = document.getElementById(deleteBtnId);
     const uploadBtn = document.getElementById(uploadBtnId);
     delBtn.disabled = true;
-    delBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menghapus…';
+    delBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Deleting…';
     if (uploadBtn) uploadBtn.disabled = true;
     setLoadingBar(30);
-
     try {
         const apiUrl = `https://api.github.com/repos/${user}/${repo}/contents/${filePath}`;
-
-        // Ambil SHA file yang akan dihapus
         const getRes = await fetch(apiUrl, {
             headers: { Authorization: `token ${token}` }
         });
-
         setLoadingBar(60);
-
         if (!getRes.ok) {
             const errData = await getRes.json();
-            // Jika 404, file sudah tidak ada di GitHub — bersihkan form saja
             if (getRes.status === 404) {
                 urlField.value = '';
                 document.getElementById(thumbId).style.display = 'none';
                 delBtn.classList.remove('visible');
-                showToast('File tidak ditemukan di GitHub. Form dibersihkan.');
+                showToast('File not found on GitHub. Form has been cleared.');
                 return;
             }
-            throw new Error(errData.message || 'Gagal mengambil info file');
+            throw new Error(errData.message || 'Failed to get file info');
         }
-
         const fileData = await getRes.json();
         const sha = fileData.sha;
-
-        // Hapus file dari GitHub
         const deleteRes = await fetch(apiUrl, {
             method: 'DELETE',
             headers: {
@@ -1096,38 +982,30 @@ async function deleteImageFromGitHub(urlFieldId, thumbId, deleteBtnId, uploadBtn
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                message: `Hapus foto produk: ${filePath}`,
+                message: `Delete product photo: ${filePath}`,
                 sha: sha
             })
         });
-
         setLoadingBar(90);
-
         if (!deleteRes.ok) {
             const errData = await deleteRes.json();
-            throw new Error(errData.message || 'Gagal menghapus file');
+            throw new Error(errData.message || 'Failed to delete file');
         }
-
-        // Bersihkan form
         urlField.value = '';
         document.getElementById(thumbId).style.display = 'none';
         delBtn.classList.remove('visible');
-
         setLoadingBar(100);
-        showToast('✦ Foto berhasil dihapus dari GitHub!');
+        showToast('✦ Photo successfully deleted from GitHub!');
     } catch (e) {
-        showToast('Hapus gagal: ' + e.message, 'error');
+        showToast('Delete failed: ' + e.message, 'error');
         setLoadingBar(100);
     } finally {
         delBtn.disabled = false;
-        delBtn.innerHTML = '<i class="fa-solid fa-trash"></i> Hapus';
+        delBtn.innerHTML = '<i class="fa-solid fa-trash"></i> Delete';
         if (uploadBtn) uploadBtn.disabled = false;
     }
 }
-
-// =============================================
-//  USE CASE
-// =============================================
+// USE CASE
 function addUsecase() {
     const input = document.getElementById('ucInput');
     const val = input.value.trim();
@@ -1139,44 +1017,32 @@ function addUsecase() {
     renderUcTags();
     input.focus();
 }
-
 function removeUsecase(i) {
     ucList.splice(i, 1);
     renderUcTags();
 }
-
 function renderUcTags() {
     document.getElementById('ucTagsBox').innerHTML = ucList.map((u, i) =>
         `<span class="uc-tag">🍽 ${u}<button onclick="removeUsecase(${i})">×</button></span>`
     ).join('');
 }
-
 function getUsecases() { return [...ucList]; }
-
-// =============================================
-//  LOCK STATE — tracks manually-edited columns
-// =============================================
-// lockedFields = { 'name-ms': true, 'desc-zh': true, ... }
+// LOCK STATE
 const lockedFields = {};
-
 function toggleLock(field, lang) {
     const key = `${field}-${lang}`;
     const col = document.getElementById(`${field}-col-${lang}`);
     if (lockedFields[key]) {
-        // Unlock
         delete lockedFields[key];
         col.classList.remove('locked');
     } else {
-        // Lock
         lockedFields[key] = true;
         col.classList.add('locked');
     }
 }
-
 function isLocked(field, lang) {
     return !!lockedFields[`${field}-${lang}`];
 }
-
 function clearLocks(field) {
     ['en','ms','zh'].forEach(lang => {
         delete lockedFields[`${field}-${lang}`];
@@ -1184,12 +1050,8 @@ function clearLocks(field) {
         if (col) col.classList.remove('locked');
     });
 }
-
-// =============================================
-//  AUTO-TRANSLATE: realtime with lock support
-// =============================================
+// AUTO-TRANSLATE
 function setupNameTranslate() {
-    // Product Name
     ['en', 'ms', 'zh'].forEach(lang => {
         const input = document.getElementById(`pName_${lang}`);
         if (!input) return;
@@ -1204,8 +1066,6 @@ function setupNameTranslate() {
             }, 900);
         });
     });
-
-    // Description
     ['en', 'ms', 'zh'].forEach(lang => {
         const input = document.getElementById(`pDesc_${lang}`);
         if (!input) return;
@@ -1220,8 +1080,6 @@ function setupNameTranslate() {
             }, 900);
         });
     });
-
-    // Notification Title
     ['en', 'ms', 'zh'].forEach(lang => {
         const input = document.getElementById(`nTitle_${lang}`);
         if (!input) return;
@@ -1236,8 +1094,6 @@ function setupNameTranslate() {
             }, 900);
         });
     });
-
-    // Notification Message
     ['en', 'ms', 'zh'].forEach(lang => {
         const input = document.getElementById(`nMessage_${lang}`);
         if (!input) return;
@@ -1253,20 +1109,15 @@ function setupNameTranslate() {
         });
     });
 }
-
 async function translateField(text, fromLang, toLang, targetId, indId, aiId) {
     if (!text.trim()) return;
-
     const targetEl = document.getElementById(targetId);
     const indEl = document.getElementById(indId);
     const aiEl = document.getElementById(aiId);
     const col = targetEl.closest('.lang-col');
-
     indEl.classList.add('visible');
     col.classList.add('translating');
-
     const gtLang = { en: 'en', ms: 'ms', zh: 'zh-CN' };
-
     try {
         const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${gtLang[fromLang]}&tl=${gtLang[toLang]}&dt=t&q=${encodeURIComponent(text)}`;
         const res = await fetch(url);
@@ -1284,16 +1135,12 @@ async function translateField(text, fromLang, toLang, targetId, indId, aiId) {
         col.classList.remove('translating');
     }
 }
-
-// =============================================
-//  GITHUB
-// =============================================
+// GITHUB
 async function fetchFromGitHub() {
-    const user  = document.getElementById('ghUser').value.trim();
-    const repo  = document.getElementById('ghRepo').value.trim();
+    const user = document.getElementById('ghUser').value.trim();
+    const repo = document.getElementById('ghRepo').value.trim();
     const token = document.getElementById('ghToken').value.trim();
     if (!token || !user || !repo) return showToast('Please fill in Token, Username, and Repo!', 'error');
-
     setLoadingBar(30);
     const url = `https://api.github.com/repos/${user}/${repo}/contents/${targetFile}`;
     try {
@@ -1325,13 +1172,11 @@ async function fetchFromGitHub() {
         setLoadingBar(100);
     }
 }
-
 async function pushToGitHub() {
-    const user  = document.getElementById('ghUser').value.trim();
-    const repo  = document.getElementById('ghRepo').value.trim();
+    const user = document.getElementById('ghUser').value.trim();
+    const repo = document.getElementById('ghRepo').value.trim();
     const token = document.getElementById('ghToken').value.trim();
     if (!confirm(`Push ${currentData.length} items to GitHub?\nFile: ${targetFile}`)) return;
-
     setLoadingBar(20);
     const url = `https://api.github.com/repos/${user}/${repo}/contents/${targetFile}`;
     const wrapper = {};
@@ -1341,7 +1186,6 @@ async function pushToGitHub() {
         content: btoa(unescape(encodeURIComponent(JSON.stringify(wrapper, null, 2))))
     };
     if (fileSha) body.sha = fileSha;
-
     try {
         const res = await fetch(url, {
             method: 'PUT',
@@ -1363,47 +1207,32 @@ async function pushToGitHub() {
         setLoadingBar(100);
     }
 }
-
-// =============================================
-//  SAVE / EDIT DATA
-// =============================================
+// SAVE / EDIT DATA
 function saveData() {
     const index = parseInt(document.getElementById('editIndex').value);
     let dataObj = {};
-
     if (activeRole === 'product') {
-        const code  = document.getElementById('pCode').value.trim();
+        const code = document.getElementById('pCode').value.trim();
         const price = document.getElementById('pPrice').value;
-        
-        // Get name from all languages
         const nameEn = document.getElementById('pName_en').value.trim();
         const nameMs = document.getElementById('pName_ms').value.trim();
         const nameZh = document.getElementById('pName_zh').value.trim();
-        
-        // At least one name and price are required
         const anyName = nameEn || nameMs || nameZh;
         if (!code || !anyName || !price) return showToast('Code, Name (min 1 language), and Price are required!', 'error');
-
         const descEn = document.getElementById('pDesc_en').value.trim();
         const descMs = document.getElementById('pDesc_ms').value.trim();
         const descZh = document.getElementById('pDesc_zh').value.trim();
-
         const imgs = ['pImage1','pImage2','pImage3']
             .map(id => document.getElementById(id).value.trim())
             .filter(v => v);
-
-        // Build multilingual name object (hanya isi yang ada)
         const nameObj = {};
         if (nameEn) nameObj.en = nameEn;
         if (nameMs) nameObj.ms = nameMs;
         if (nameZh) nameObj.zh = nameZh;
-
-        // Build multilingual description
         const descObj = {};
         if (descEn) descObj.en = descEn;
         if (descMs) descObj.ms = descMs;
         if (descZh) descObj.zh = descZh;
-
         dataObj = {
             id: index === -1 ? Date.now() : currentData[index].id,
             code,
@@ -1420,11 +1249,11 @@ function saveData() {
         const titleEn = document.getElementById('nTitle_en').value.trim();
         const titleMs = document.getElementById('nTitle_ms').value.trim();
         const titleZh = document.getElementById('nTitle_zh').value.trim();
-        const msgEn   = document.getElementById('nMessage_en').value.trim();
-        const msgMs   = document.getElementById('nMessage_ms').value.trim();
-        const msgZh   = document.getElementById('nMessage_zh').value.trim();
+        const msgEn = document.getElementById('nMessage_en').value.trim();
+        const msgMs = document.getElementById('nMessage_ms').value.trim();
+        const msgZh = document.getElementById('nMessage_zh').value.trim();
         const anyTitle = titleEn || titleMs || titleZh;
-        const anyMsg   = msgEn || msgMs || msgZh;
+        const anyMsg = msgEn || msgMs || msgZh;
         if (!anyTitle || !anyMsg) return showToast('Title and Message (min 1 language) are required!', 'error');
         const titleObj = {};
         if (titleEn) titleObj.en = titleEn;
@@ -1442,7 +1271,6 @@ function saveData() {
             message: msgObj
         };
     }
-
     if (index === -1) {
         currentData.unshift(dataObj);
         showToast('Item added to list ✦');
@@ -1450,22 +1278,17 @@ function saveData() {
         currentData[index] = dataObj;
         showToast('Item updated ✦');
     }
-
     resetForm();
     renderAdminData();
 }
-
 function editData(index) {
     const item = currentData[index];
     document.getElementById('editIndex').value = index;
-
     if (activeRole === 'product') {
-        document.getElementById('pCode').value  = item.code || '';
+        document.getElementById('pCode').value = item.code || '';
         document.getElementById('pBrand').value = item.brand || '';
         document.getElementById('pPrice').value = item.price || '';
-        document.getElementById('pCat').value   = item.category || 'Matcha';
-
-        // Handle multilingual name
+        document.getElementById('pCat').value = item.category || 'Matcha';
         if (typeof item.name === 'object') {
             document.getElementById('pName_en').value = item.name.en || '';
             document.getElementById('pName_ms').value = item.name.ms || '';
@@ -1475,8 +1298,6 @@ function editData(index) {
             document.getElementById('pName_ms').value = '';
             document.getElementById('pName_zh').value = '';
         }
-
-        // Handle multilingual desc
         if (item.description && typeof item.description === 'object') {
             document.getElementById('pDesc_en').value = item.description.en || '';
             document.getElementById('pDesc_ms').value = item.description.ms || '';
@@ -1486,24 +1307,19 @@ function editData(index) {
             document.getElementById('pDesc_ms').value = '';
             document.getElementById('pDesc_zh').value = '';
         }
-
         const imgs = Array.isArray(item.images) && item.images.length ? item.images : (item.image ? [item.image] : []);
         ['pImage1','pImage2','pImage3'].forEach((id, i) => {
             document.getElementById(id).value = imgs[i] || '';
             updateThumb(document.getElementById(id), `thumb${i+1}`);
             toggleDeleteBtn(id, `deleteBtn${i+1}`);
         });
-
         ucList = Array.isArray(item.usecases) ? [...item.usecases] : [];
         renderUcTags();
-
-        // Show AI badges for pre-filled AI fields if multilingual
         ['en','ms','zh'].forEach(l => {
             const aiEl = document.getElementById(`name-${l}-ai`);
             if (aiEl) aiEl.style.display = 'none';
         });
     } else {
-        // Title multilingual
         if (typeof item.title === 'object') {
             document.getElementById('nTitle_en').value = item.title.en || '';
             document.getElementById('nTitle_ms').value = item.title.ms || '';
@@ -1513,7 +1329,6 @@ function editData(index) {
             document.getElementById('nTitle_ms').value = '';
             document.getElementById('nTitle_zh').value = '';
         }
-        // Message multilingual
         if (typeof item.message === 'object') {
             document.getElementById('nMessage_en').value = item.message.en || '';
             document.getElementById('nMessage_ms').value = item.message.ms || '';
@@ -1526,14 +1341,12 @@ function editData(index) {
         document.getElementById('nDate').value = item.date || '';
         document.getElementById('nType').value = item.type || 'Info';
     }
-
     document.getElementById('form-title').textContent = 'Edit Entry';
     document.getElementById('btn-save-entry').innerHTML = '<i class="fa-solid fa-check"></i> Update Item';
     document.getElementById('btn-save-entry').style.background = 'var(--warn)';
     document.getElementById('btn-cancel').style.display = 'inline-flex';
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
-
 function resetForm() {
     document.getElementById('editIndex').value = '-1';
     ['pCode','pBrand','pName_en','pName_ms','pName_zh',
@@ -1567,43 +1380,30 @@ function resetForm() {
     clearLocks('desc');
     clearLocks('ntitle');
     clearLocks('nmessage');
-
     document.getElementById('form-title').textContent = 'Add New Entry';
     document.getElementById('btn-save-entry').innerHTML = '<i class="fa-solid fa-plus"></i> Add to List';
     document.getElementById('btn-save-entry').style.background = 'var(--primary)';
     document.getElementById('btn-cancel').style.display = 'none';
 }
-
-// =============================================
-//  HELPER: Delete a single GitHub image by raw URL (silent, no confirm)
-// =============================================
+// HELPER: Delete a single GitHub image by raw URL
 async function deleteGitHubImageByUrl(rawUrl) {
-    const user  = document.getElementById('ghUser').value.trim();
-    const repo  = document.getElementById('ghRepo').value.trim();
+    const user = document.getElementById('ghUser').value.trim();
+    const repo = document.getElementById('ghRepo').value.trim();
     const token = document.getElementById('ghToken').value.trim();
-
     if (!rawUrl || !token || !user || !repo) return;
-
-    // Hanya hapus jika URL memang dari repo GitHub yang sama
     const isGitHubUrl = rawUrl.includes(`raw.githubusercontent.com/${user}/${repo}/`);
     if (!isGitHubUrl) return;
-
     const match = rawUrl.match(/raw\.githubusercontent\.com\/[^/]+\/[^/]+\/[^/]+\/(.+)/);
     if (!match) return;
     const filePath = match[1];
-
     const apiUrl = `https://api.github.com/repos/${user}/${repo}/contents/${filePath}`;
-
     try {
-        // Ambil SHA file
         const getRes = await fetch(apiUrl, {
             headers: { Authorization: `token ${token}` }
         });
-        if (!getRes.ok) return; // File tidak ada, skip
+        if (!getRes.ok) return;
         const fileData = await getRes.json();
         const sha = fileData.sha;
-
-        // Hapus file dari GitHub
         await fetch(apiUrl, {
             method: 'DELETE',
             headers: {
@@ -1611,24 +1411,16 @@ async function deleteGitHubImageByUrl(rawUrl) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                message: `Hapus foto produk (delete produk): ${filePath}`,
+                message: `Delete product photo (product deletion): ${filePath}`,
                 sha: sha
             })
         });
-    } catch (_) {
-        // Silent — tidak menghentikan proses delete produk
-    }
+    } catch (_) {}
 }
-
-// =============================================
-//  DELETE PRODUCT + SEMUA FOTO DI GITHUB
-// =============================================
+// DELETE PRODUCT + ALL PHOTOS
 async function deleteData(index) {
-    if (!confirm('Hapus produk ini?\n\nSemua foto yang tersimpan di GitHub juga akan dihapus secara otomatis.')) return;
-
+    if (!confirm('Delete this product?\n\nAll photos saved in GitHub will also be deleted automatically.')) return;
     const item = currentData[index];
-
-    // Kumpulkan semua URL foto dari field "image" maupun "images"
     const photoUrls = [];
     if (Array.isArray(item.images)) {
         item.images.forEach(url => { if (url) photoUrls.push(url); });
@@ -1636,49 +1428,37 @@ async function deleteData(index) {
     if (item.image && !photoUrls.includes(item.image)) {
         photoUrls.push(item.image);
     }
-
     if (photoUrls.length > 0) {
         setLoadingBar(10);
-        showToast('⏳ Menghapus foto dari GitHub…');
-
-        // Hapus satu per satu secara berurutan (sequential) agar tidak bentrok di GitHub API
+        showToast('⏳ Deleting photos from GitHub…');
         for (let i = 0; i < photoUrls.length; i++) {
             setLoadingBar(Math.round(((i + 1) / photoUrls.length) * 90));
             await deleteGitHubImageByUrl(photoUrls[i]);
         }
-
         setLoadingBar(100);
     }
-
     currentData.splice(index, 1);
     renderAdminData();
-    showToast(`✦ Produk & ${photoUrls.length} foto berhasil dihapus.`);
+    showToast(`✦ Product & ${photoUrls.length} photos successfully deleted.`);
 }
-
-// =============================================
-//  RENDER LIST
-// =============================================
+// RENDER LIST
 function renderAdminData() {
     const container = document.getElementById('data-list-admin');
     document.getElementById('list-count').textContent = `${currentData.length} item`;
-
     if (currentData.length === 0) {
         container.innerHTML = `<div style="padding:30px;text-align:center;color:var(--muted);font-size:14px;"><i class="fa-solid fa-inbox" style="font-size:28px;margin-bottom:10px;display:block;"></i>No data yet</div>`;
         return;
     }
-
     container.innerHTML = currentData.map((item, index) => {
         let html = '';
         if (activeRole === 'product') {
-            // Handle multilingual name display
             const displayName = typeof item.name === 'object'
                 ? (item.name.en || item.name.ms || item.name.zh || '—')
                 : (item.name || '—');
             const isMultilang = typeof item.name === 'object';
-            const photoCount  = Array.isArray(item.images) ? item.images.length : (item.image ? 1 : 0);
-            const hasDesc     = !!item.description;
-            const ucCount     = Array.isArray(item.usecases) ? item.usecases.length : 0;
-
+            const photoCount = Array.isArray(item.images) ? item.images.length : (item.image ? 1 : 0);
+            const hasDesc = !!item.description;
+            const ucCount = Array.isArray(item.usecases) ? item.usecases.length : 0;
             html = `
                 <div class="data-name">
                     <span style="font-family:var(--mono);font-size:11px;background:#eee;padding:1px 6px;border-radius:4px;margin-right:6px;">${item.code || 'N/A'}</span>
