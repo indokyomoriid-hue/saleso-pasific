@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saleso Pacific | B2B F&B Supplier</title>
     <link rel="icon" href="SalesoLogo.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="dns-prefetch" href="https://placehold.co">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
     <style>
         :root {
             --primary-color: #d4a017;
@@ -339,6 +342,8 @@
             cursor: pointer;
             display: flex;
             flex-direction: column;
+            content-visibility: auto;
+            contain-intrinsic-size: 0 320px;
         }
         .product-card:hover {
             box-shadow: 0 6px 15px rgba(0,0,0,0.1);
@@ -352,10 +357,12 @@
             background-image: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
             background-size: 200% 100%;
             animation: shimmer 1.5s infinite;
+            will-change: background-position;
         }
         .product-img.loaded {
             animation: none;
             background-image: none;
+            will-change: auto;
         }
         @keyframes shimmer {
             0% { background-position: 200% 0; }
@@ -957,8 +964,11 @@
     let notifications        = [];
     let isInitialLoad        = true; // FIX 1: flag untuk cegah auto-scroll pertama
 
-    const PAGE_SIZE = 20;
+    const PAGE_SIZE = 24;          // 24 = 12 rows × 2 cols — clean fit
     let currentPage = 1;
+
+    // ── Image URL cache: avoid re-computing per card ──
+    const _imgCache = new Map();
 
     // =============================================
     //  LANGUAGE
@@ -1001,6 +1011,7 @@
             allProducts     = data.products || data;
             currentProducts = allProducts;
             currentPage     = 1;
+            _imgCache.clear();   // clear stale cache on fresh load
             renderPage();
         } catch (error) {
             console.error("Error loading products:", error);
@@ -1035,6 +1046,8 @@
         const t    = translations[currentLang];
 
         if (!currentProducts || currentProducts.length === 0) {
+            // Unobserve any lingering lazy images before clearing
+            list.querySelectorAll('img[data-src]').forEach(img => lazyObserver.unobserve(img));
             list.innerHTML = `<div class="empty-state">
                 <i class="fa-solid fa-box-open"></i>
                 <p>${t.noProducts}</p>
@@ -1050,6 +1063,9 @@
         const start       = (currentPage - 1) * PAGE_SIZE;
         const end         = Math.min(start + PAGE_SIZE, currentProducts.length);
         const pageProducts = currentProducts.slice(start, end);
+
+        // Unobserve old lazy images before swapping out
+        list.querySelectorAll('img[data-src]').forEach(img => lazyObserver.unobserve(img));
 
         const fragment = document.createDocumentFragment();
         pageProducts.forEach(p => {
@@ -1072,29 +1088,55 @@
     // =============================================
     //  CREATE PRODUCT CARD
     // =============================================
+    // Blank 1×1 transparent GIF – shared constant (not recreated per card)
+    const BLANK_GIF = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+
+    function getThumbSrc(p) {
+        // Use cached value if already resolved
+        const key = p.code || (typeof p.name === 'object' ? p.name.en : p.name);
+        if (_imgCache.has(key)) return _imgCache.get(key);
+        // Prefer first entry of images array, fallback to legacy image field
+        const src = (Array.isArray(p.images) && p.images.length > 0)
+            ? p.images[0]
+            : (p.image || null);
+        _imgCache.set(key, src);
+        return src;
+    }
+
     function createProductCard(p) {
         const cartKey  = p.code || getLang(p.name);
         const isAdded  = cart[cartKey] !== undefined;
         const itemCode = p.code ? `${p.code} - ` : '';
         const dispName = getLang(p.name);
+        const thumbSrc = getThumbSrc(p);
 
         const card = document.createElement('div');
         card.className = 'product-card';
         card.addEventListener('click', () => showProductDetail(p));
 
         const img = document.createElement('img');
-        img.className   = 'product-img';
-        img.alt         = dispName;
-        img.loading     = 'lazy';
-        img.decoding    = 'async';
-        img.width       = 400;
-        img.height      = 400;
-        img.dataset.src = p.image;
-        img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-        img.addEventListener('load', () => img.classList.add('loaded'));
+        img.className = 'product-img';
+        img.alt       = dispName;
+        img.loading   = 'lazy';
+        img.decoding  = 'async';
+        img.width     = 400;
+        img.height    = 400;
+        // Reserve layout space to prevent CLS
+        img.style.aspectRatio = '1/1';
+
+        if (thumbSrc) {
+            img.dataset.src = thumbSrc;
+        }
+        img.src = BLANK_GIF;
+
+        img.addEventListener('load', () => {
+            if (img.src !== BLANK_GIF) img.classList.add('loaded');
+        });
         img.onerror = () => {
-            img.src = `https://placehold.co/400x400?text=${encodeURIComponent(dispName)}`;
+            img.removeAttribute('data-src');
+            img.src = `https://placehold.co/400x400?text=${encodeURIComponent(dispName.substring(0,20))}`;
             img.classList.add('loaded');
+            lazyObserver.unobserve(img);
         };
         lazyObserver.observe(img);
 
@@ -1136,7 +1178,7 @@
                 lazyObserver.unobserve(img);
             }
         });
-    }, { rootMargin: '200px' });
+    }, { rootMargin: '400px 0px', threshold: 0.01 });
 
     // =============================================
     //  PAGINATION
@@ -1189,7 +1231,7 @@
 
     document.getElementById('searchInput').addEventListener('input', () => {
         clearTimeout(searchDebounceTimer);
-        searchDebounceTimer = setTimeout(applyFilters, 280);
+        searchDebounceTimer = setTimeout(applyFilters, 350);
     });
 
     document.getElementById('searchInput').addEventListener('keydown', e => {
@@ -1341,11 +1383,16 @@
 
         const multiPhoto = photos.length > 1;
 
-        // Build slides HTML
+        // Build slides HTML — only first slide loads eagerly; rest are lazy
         let slidesHtml = photos.map((src, i) => `
             <div class="gallery-slide">
-                <img src="${src}" class="modal-image"
-                     onerror="this.src='https://placehold.co/600x600?text=${encodeURIComponent(getLang(product.name))}'">
+                <img src="${i === 0 ? src : 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'}"
+                     ${i !== 0 ? `data-src="${src}"` : ''}
+                     class="modal-image"
+                     loading="${i === 0 ? 'eager' : 'lazy'}"
+                     decoding="async"
+                     width="600" height="600"
+                     onerror="this.removeAttribute('data-src');this.src='https://placehold.co/600x600?text=${encodeURIComponent(getLang(product.name).substring(0,20))}'">
             </div>`).join('');
 
         // Build dots HTML
@@ -1414,7 +1461,21 @@
     function goToSlide(index) {
         window._galleryIndex = index;
         const track = document.getElementById('galleryTrack');
-        if (track) track.style.transform = `translateX(-${index * 100}%)`;
+        if (track) {
+            track.style.transform = `translateX(-${index * 100}%)`;
+            // Lazy-load the target slide image if not yet loaded
+            const slide = track.children[index];
+            if (slide) {
+                const img = slide.querySelector('img[data-src]');
+                if (img) { img.src = img.dataset.src; delete img.dataset.src; }
+            }
+            // Preload next slide
+            const next = track.children[index + 1];
+            if (next) {
+                const nimg = next.querySelector('img[data-src]');
+                if (nimg) { nimg.src = nimg.dataset.src; delete nimg.dataset.src; }
+            }
+        }
         document.querySelectorAll('.gallery-dot').forEach((d, i) => {
             d.classList.toggle('active', i === index);
         });
