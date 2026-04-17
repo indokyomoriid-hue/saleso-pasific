@@ -452,11 +452,108 @@
             border-bottom: 1px solid var(--border);
             margin-bottom: 16px;
         }
+        /* ===== SEARCH BAR ===== */
+        .search-wrap {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            background: #fafafa;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .search-wrap .search-icon {
+            color: var(--muted);
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        .search-input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            font-size: 13.5px;
+            font-family: var(--sans);
+            color: var(--text);
+            background: white;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .search-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0,77,64,0.1);
+        }
+        .search-clear {
+            background: none;
+            border: none;
+            color: var(--muted);
+            cursor: pointer;
+            font-size: 15px;
+            padding: 4px 6px;
+            border-radius: 6px;
+            display: none;
+            align-items: center;
+        }
+        .search-clear:hover { background: #eee; color: var(--text); }
+        .search-clear.visible { display: flex; }
+        .search-result-info {
+            font-size: 12px;
+            color: var(--muted);
+            font-family: var(--mono);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        /* ===== PAGINATION ===== */
+        .pagination-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            border-top: 1px solid var(--border);
+            background: #fafafa;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .page-info {
+            font-size: 12px;
+            color: var(--muted);
+            font-family: var(--mono);
+        }
+        .page-btns { display: flex; gap: 6px; align-items: center; }
+        .page-btn {
+            padding: 6px 12px;
+            border: 1.5px solid var(--border);
+            border-radius: 7px;
+            background: white;
+            color: var(--text);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s;
+            font-family: var(--mono);
+            min-width: 36px;
+            text-align: center;
+        }
+        .page-btn:hover:not(:disabled) { background: var(--primary-light); border-color: var(--primary); color: var(--primary); }
+        .page-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+        .page-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+        .page-size-select {
+            padding: 6px 10px;
+            border: 1.5px solid var(--border);
+            border-radius: 7px;
+            font-size: 12px;
+            font-family: var(--mono);
+            color: var(--text);
+            background: white;
+            cursor: pointer;
+            outline: none;
+        }
+        .page-size-select:focus { border-color: var(--primary); }
         @media (max-width: 640px) {
             .form-row, .form-row.three { grid-template-columns: 1fr; }
             .lang-grid { grid-template-columns: 1fr; }
             .lang-col { border-right: none; border-bottom: 1.5px solid var(--border); }
             .lang-col:last-child { border-bottom: none; }
+            .pagination-wrap { flex-direction: column; align-items: flex-start; }
         }
     </style>
 </head>
@@ -766,7 +863,35 @@
             <h3 id="list-title">Product List</h3>
             <span id="list-count" style="margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--muted);"></span>
         </div>
+        <!-- SEARCH BAR -->
+        <div class="search-wrap">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input
+                class="search-input"
+                id="searchInput"
+                type="text"
+                placeholder="Cari kode, nama, brand, kategori…"
+                oninput="onSearchInput(this.value)"
+                autocomplete="off"
+            >
+            <button class="search-clear" id="searchClear" onclick="clearSearch()" title="Clear search">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <span class="search-result-info" id="searchResultInfo"></span>
+        </div>
         <div id="data-list-admin"></div>
+        <!-- PAGINATION -->
+        <div class="pagination-wrap" id="paginationWrap" style="display:none;">
+            <div style="display:flex;align-items:center;gap:8px;">
+                <span class="page-info" id="pageInfo"></span>
+                <select class="page-size-select" id="pageSizeSelect" onchange="onPageSizeChange(this.value)" title="Items per page">
+                    <option value="25">25 / hal</option>
+                    <option value="50">50 / hal</option>
+                    <option value="100">100 / hal</option>
+                </select>
+            </div>
+            <div class="page-btns" id="pageBtns"></div>
+        </div>
     </div>
     <!-- STEP 4: Push -->
     <button id="final-save" class="btn btn-success btn-full" style="display:none;font-size:15px;padding:16px;" onclick="pushToGitHub()">
@@ -782,6 +907,10 @@ let targetFile = "";
 let jsonKey = "";
 let ucList = [];
 let translateTimers = {};
+// PAGINATION + SEARCH STATE
+let searchQuery = "";
+let currentPage = 1;
+let pageSize = 25;
 // ROLE
 function setRole(role) {
     activeRole = role;
@@ -1151,6 +1280,9 @@ async function fetchFromGitHub() {
         fileSha = data.sha;
         const content = JSON.parse(decodeURIComponent(escape(atob(data.content))));
         currentData = content[jsonKey] || [];
+        searchQuery = ''; currentPage = 1;
+        document.getElementById('searchInput').value = '';
+        document.getElementById('searchClear').classList.remove('visible');
         renderAdminData();
         document.getElementById('add-form').style.display = 'block';
         document.getElementById('data-card').style.display = 'block';
@@ -1441,15 +1573,96 @@ async function deleteData(index) {
     renderAdminData();
     showToast(`✦ Product & ${photoUrls.length} photos successfully deleted.`);
 }
+// SEARCH HANDLERS
+function onSearchInput(val) {
+    searchQuery = val.trim().toLowerCase();
+    currentPage = 1;
+    document.getElementById('searchClear').classList.toggle('visible', val.length > 0);
+    renderAdminData();
+}
+function clearSearch() {
+    document.getElementById('searchInput').value = '';
+    searchQuery = '';
+    currentPage = 1;
+    document.getElementById('searchClear').classList.remove('visible');
+    document.getElementById('searchInput').focus();
+    renderAdminData();
+}
+function onPageSizeChange(val) {
+    pageSize = parseInt(val);
+    currentPage = 1;
+    renderAdminData();
+}
+function goToPage(p) {
+    currentPage = p;
+    renderAdminData();
+    document.getElementById('data-list-admin').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
 // RENDER LIST
 function renderAdminData() {
     const container = document.getElementById('data-list-admin');
-    document.getElementById('list-count').textContent = `${currentData.length} item`;
-    if (currentData.length === 0) {
-        container.innerHTML = `<div style="padding:30px;text-align:center;color:var(--muted);font-size:14px;"><i class="fa-solid fa-inbox" style="font-size:28px;margin-bottom:10px;display:block;"></i>No data yet</div>`;
+    const paginationWrap = document.getElementById('paginationWrap');
+
+    // --- Filter ---
+    let filtered;
+    if (!searchQuery) {
+        filtered = currentData.map((item, i) => ({ item, realIndex: i }));
+    } else {
+        filtered = [];
+        currentData.forEach((item, i) => {
+            const name = typeof item.name === 'object'
+                ? Object.values(item.name).join(' ')
+                : (item.name || '');
+            const title = typeof item.title === 'object'
+                ? Object.values(item.title).join(' ')
+                : (item.title || '');
+            const haystack = [
+                item.code || '',
+                item.brand || '',
+                item.category || '',
+                item.type || '',
+                name,
+                title,
+                item.date || ''
+            ].join(' ').toLowerCase();
+            if (haystack.includes(searchQuery)) filtered.push({ item, realIndex: i });
+        });
+    }
+
+    // --- Update count badge ---
+    document.getElementById('list-count').textContent = searchQuery
+        ? `${filtered.length} / ${currentData.length} item`
+        : `${currentData.length} item`;
+
+    // --- Update search result info ---
+    const infoEl = document.getElementById('searchResultInfo');
+    if (searchQuery) {
+        infoEl.textContent = filtered.length === 0
+            ? 'Tidak ditemukan'
+            : `${filtered.length} hasil`;
+    } else {
+        infoEl.textContent = '';
+    }
+
+    // --- Empty state ---
+    if (filtered.length === 0) {
+        container.innerHTML = `<div style="padding:36px;text-align:center;color:var(--muted);font-size:14px;">
+            <i class="fa-solid fa-${searchQuery ? 'search' : 'inbox'}" style="font-size:30px;margin-bottom:12px;display:block;opacity:0.4;"></i>
+            ${searchQuery ? `Tidak ada produk dengan kata "<strong>${escapeHtml(searchQuery)}</strong>"` : 'No data yet'}
+        </div>`;
+        paginationWrap.style.display = 'none';
         return;
     }
-    container.innerHTML = currentData.map((item, index) => {
+
+    // --- Pagination math ---
+    const totalPages = Math.ceil(filtered.length / pageSize);
+    if (currentPage > totalPages) currentPage = totalPages;
+    const start = (currentPage - 1) * pageSize;
+    const end = Math.min(start + pageSize, filtered.length);
+    const pageItems = filtered.slice(start, end);
+
+    // --- Render only current page items ---
+    container.innerHTML = pageItems.map(({ item, realIndex }) => {
         let html = '';
         if (activeRole === 'product') {
             const displayName = typeof item.name === 'object'
@@ -1459,37 +1672,92 @@ function renderAdminData() {
             const photoCount = Array.isArray(item.images) ? item.images.length : (item.image ? 1 : 0);
             const hasDesc = !!item.description;
             const ucCount = Array.isArray(item.usecases) ? item.usecases.length : 0;
+            const highlightedName = highlight(displayName, searchQuery);
+            const highlightedCode = highlight(item.code || 'N/A', searchQuery);
+            const highlightedBrand = highlight(item.brand || '', searchQuery);
             html = `
                 <div class="data-name">
-                    <span style="font-family:var(--mono);font-size:11px;background:#eee;padding:1px 6px;border-radius:4px;margin-right:6px;">${item.code || 'N/A'}</span>
-                    [${item.brand || ''}] ${displayName}
+                    <span style="font-family:var(--mono);font-size:11px;background:#eee;padding:1px 6px;border-radius:4px;margin-right:6px;">${highlightedCode}</span>
+                    [${highlightedBrand}] ${highlightedName}
                     ${isMultilang ? '<span class="badge badge-multi">🌐 3 lang</span>' : ''}
                     ${photoCount > 1 ? `<span class="badge badge-green"><i class="fa-solid fa-images"></i> ${photoCount}</span>` : ''}
                     ${hasDesc ? '<span class="badge badge-orange">📝</span>' : ''}
                     ${ucCount > 0 ? `<span class="badge badge-blue">🍽 ${ucCount}</span>` : ''}
                 </div>
-                <div class="data-meta">RM ${parseFloat(item.price).toFixed(2)} · ${item.category}</div>`;
+                <div class="data-meta">RM ${parseFloat(item.price).toFixed(2)} · ${highlight(item.category || '', searchQuery)}</div>`;
         } else {
-                const displayTitle = typeof item.title === 'object'
-                    ? (item.title.en || item.title.ms || item.title.zh || '—')
-                    : (item.title || '—');
-                const displayMsg = typeof item.message === 'object'
-                    ? (item.message.en || item.message.ms || item.message.zh || '')
-                    : (item.message || '');
-                const isMultilangNotif = typeof item.title === 'object';
-                html = `
-                <div class="data-name">${displayTitle}${isMultilangNotif ? '<span class="badge badge-multi">🌐 3 lang</span>' : ''}</div>
+            const displayTitle = typeof item.title === 'object'
+                ? (item.title.en || item.title.ms || item.title.zh || '—')
+                : (item.title || '—');
+            const displayMsg = typeof item.message === 'object'
+                ? (item.message.en || item.message.ms || item.message.zh || '')
+                : (item.message || '');
+            const isMultilangNotif = typeof item.title === 'object';
+            html = `
+                <div class="data-name">${highlight(displayTitle, searchQuery)}${isMultilangNotif ? '<span class="badge badge-multi">🌐 3 lang</span>' : ''}</div>
                 <div class="data-meta">${item.date || ''} · ${item.type} · ${displayMsg.substring(0, 60)}…</div>`;
         }
         return `
             <div class="data-item">
                 <div style="flex:1;">${html}</div>
                 <div class="item-actions">
-                    <button class="icon-btn edit" onclick="editData(${index})" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
-                    <button class="icon-btn del" onclick="deleteData(${index})" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                    <button class="icon-btn edit" onclick="editData(${realIndex})" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <button class="icon-btn del" onclick="deleteData(${realIndex})" title="Delete"><i class="fa-solid fa-trash"></i></button>
                 </div>
             </div>`;
     }).join('');
+
+    // --- Pagination controls ---
+    if (totalPages <= 1) {
+        paginationWrap.style.display = 'none';
+    } else {
+        paginationWrap.style.display = 'flex';
+        document.getElementById('pageInfo').textContent = `${start + 1}–${end} dari ${filtered.length}`;
+        renderPageBtns(totalPages);
+    }
+}
+function highlight(text, query) {
+    if (!query || !text) return escapeHtml(String(text));
+    const escaped = escapeHtml(String(text));
+    const escapedQuery = escapeHtml(query).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return escaped.replace(new RegExp(`(${escapedQuery})`, 'gi'),
+        '<mark style="background:#fff176;border-radius:2px;padding:0 1px;">$1</mark>');
+}
+function escapeHtml(str) {
+    return String(str)
+        .replace(/&/g,'&amp;')
+        .replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;');
+}
+function renderPageBtns(totalPages) {
+    const container = document.getElementById('pageBtns');
+    const maxVisible = 5;
+    let pages = [];
+
+    // Always show first, last, current ± 1, and ellipsis
+    const all = Array.from({ length: totalPages }, (_, i) => i + 1);
+    if (totalPages <= maxVisible + 2) {
+        pages = all;
+    } else {
+        const near = new Set([1, totalPages, currentPage, currentPage - 1, currentPage + 1].filter(p => p >= 1 && p <= totalPages));
+        const sorted = [...near].sort((a, b) => a - b);
+        pages = sorted;
+    }
+
+    let html = `<button class="page-btn" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
+        <i class="fa-solid fa-chevron-left"></i></button>`;
+    let prev = null;
+    pages.forEach(p => {
+        if (prev !== null && p - prev > 1) {
+            html += `<span style="padding:0 4px;color:var(--muted);font-size:13px;align-self:center;">…</span>`;
+        }
+        html += `<button class="page-btn ${p === currentPage ? 'active' : ''}" onclick="goToPage(${p})">${p}</button>`;
+        prev = p;
+    });
+    html += `<button class="page-btn" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
+        <i class="fa-solid fa-chevron-right"></i></button>`;
+    container.innerHTML = html;
 }
 </script>
 </body>
