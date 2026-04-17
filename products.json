@@ -1,61 +1,6 @@
 {
   "products": [
     {
-      "id": 1776412613835,
-      "code": "TESTING1000G",
-      "brand": "testing",
-      "name": {
-        "en": "tester",
-        "ms": "penguji",
-        "zh": "测试员"
-      },
-      "price": 200,
-      "category": "Beverage",
-      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1776412584610_WhatsApp_Image_2026-04-16_at_19.25.34.jpeg",
-      "images": [
-        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1776412584610_WhatsApp_Image_2026-04-16_at_19.25.34.jpeg",
-        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1776412590957_pngtree-iced-matcha-latte-with-whipped-cream-picture-image_15934637.jpg",
-        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1776412597522_salesologo-removebg-preview.png"
-      ],
-      "description": {
-        "en": "Premium wrapped tea bags made from selected tea leaves, carefully processed to ensure that each bag presents the best quality in every brew. Packed with classy materials that keep the freshness, aroma, and taste of the tea alive until the moment it is enjoyed, providing a more elegant and satisfying tea drinking experience.\nAvailable in a variety of timeless classic flavors—from light and refreshing to rich and soothing—each variant is designed to indulge the senses and present the perfect balance of flavors. The fragrant aroma combines with the delicate taste, creating a warm moment of relaxation, both when starting the day and when unwinding at the end of an activity.\nMore than just a drink, these tea bags become a symbol of a simple yet classy lifestyle. Suitable to be enjoyed alone as a time of reflection, as well as served to guests as an effective form of hospitality. With premium quality and a variety of flavor options, every cup of tea becomes a special and unforgettable experience.",
-        "ms": "Uncang teh berbalut premium yang diracik daripada daun teh terpilih, diproses dengan teliti untuk memastikan setiap kantung menghadirkan kualitas terbaik dalam setiap seduhan. Dibungkus dengan material berkelas yang menjaga kesegaran, aroma, dan cita rasa teh tetap terjaga hingga saat dinikmati, memberikan pengalaman minum teh yang lebih elegan dan memuaskan.\nHadir dalam pelbagai perisa klasik yang tak lekang oleh waktu—mulai dari yang ringan dan menyegarkan hingga yang kaya dan menenangkan—setiap varian dirancang untuk memanjakan indera dan menghadirkan keseimbangan rasa yang sempurna. Aroma yang harum berpadu dengan rasa yang halus, menciptakan momen relaksasi yang hangat, baik saat memulai hari maupun saat melepas penat di penghujung aktivitas.\nLebih dari sekadar minuman, uncang teh ini menjadi simbol gaya hidup yang sederhana namun berkelas. Cocok dinikmati sendiri sebagai waktu refleksi, maupun disajikan kepada tamu sebagai bentuk keramahan yang berkesan. Dengan kualitas premium dan pilihan rasa yang beragam, setiap cangkir teh menjadi pengalaman yang istimewa dan tak terlupakan.",
-        "zh": "优质包装茶袋由精选茶叶制成，经过精心加工，以确保每袋茶在每次冲泡中都呈现出最佳品质。采用优质材料包装，可保持茶的新鲜度、香气和味道，直至享用的那一刻，提供更优雅、更令人满意的饮茶体验。\n有多种永恒的经典口味可供选择——从清淡清爽到浓郁舒缓——每种口味都旨在放纵感官并呈现完美的口味平衡。芬芳的香气与精致的味道相结合，无论是在新的一天开始时还是在活动结束后放松身心时，都能营造出温暖的放松时刻。\n这些茶包不仅仅是一种饮料，更是简单而优雅的生活方式的象征。适合独自享受，作为反思的时间，也适合作为招待客人的有效形式。凭借优质的品质和多种口味的选择，每一杯茶都成为一次特别而难忘的体验。"
-      },
-      "usecases": [
-        "minuman",
-        "makanan",
-        "tea"
-      ]
-    },
-    {
-      "code": "HSTEWTB20S",
-      "brand": "H&S",
-      "name": {
-        "en": "Harney & Sons Wrapped Tea Bag 20 Sachets",
-        "ms": "Beg Teh Harney & Sons 20 Sachet",
-        "zh": "Harney & Sons 茶包 20包"
-      },
-      "price": 42,
-      "category": "Beverage",
-      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1776409652704_pngtree-iced-matcha-latte-with-whipped-cream-picture-image_15934637.jpg",
-      "images": [
-        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1776409652704_pngtree-iced-matcha-latte-with-whipped-cream-picture-image_15934637.jpg",
-        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1776409659472_salesologo.jpeg",
-        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1776409669939_Gemini_Generated_Image_hbr7rqhbr7rqhbr7.png"
-      ],
-      "description": {
-        "en": "Premium wrapped tea bags made from selected tea leaves, carefully processed to ensure that each bag presents the best quality in every brew. Packed with classy materials that keep the freshness, aroma, and taste of the tea alive until the moment it is enjoyed, providing a more elegant and satisfying tea drinking experience.\n\nAvailable in a variety of timeless classic flavors—from light and refreshing to rich and soothing—each variant is designed to indulge the senses and present the perfect balance of flavors. The fragrant aroma combines with the delicate taste, creating a warm moment of relaxation, both when starting the day and when unwinding at the end of an activity.\n\nMore than just a drink, these tea bags become a symbol of a simple yet classy lifestyle. Suitable to be enjoyed alone as a time of reflection, as well as served to guests as an effective form of hospitality. With premium quality and a variety of flavor options, every cup of tea becomes a special and unforgettable experience.",
-        "ms": "Uncang teh berbalut premium yang diracik daripada daun teh terpilih, diproses dengan teliti untuk memastikan setiap kantung menghadirkan kualitas terbaik dalam setiap seduhan. Dibungkus dengan material berkelas yang menjaga kesegaran, aroma, dan cita rasa teh tetap terjaga hingga saat dinikmati, memberikan pengalaman minum teh yang lebih elegan dan memuaskan.\n\nHadir dalam pelbagai perisa klasik yang tak lekang oleh waktu—mulai dari yang ringan dan menyegarkan hingga yang kaya dan menenangkan—setiap varian dirancang untuk memanjakan indera dan menghadirkan keseimbangan rasa yang sempurna. Aroma yang harum berpadu dengan rasa yang halus, menciptakan momen relaksasi yang hangat, baik saat memulai hari maupun saat melepas penat di penghujung aktivitas.\n\nLebih dari sekadar minuman, uncang teh ini menjadi simbol gaya hidup yang sederhana namun berkelas. Cocok dinikmati sendiri sebagai waktu refleksi, maupun disajikan kepada tamu sebagai bentuk keramahan yang berkesan. Dengan kualitas premium dan pilihan rasa yang beragam, setiap cangkir teh menjadi pengalaman yang istimewa dan tak terlupakan.",
-        "zh": "优质包装茶袋由精选茶叶制成，经过精心加工，以确保每袋茶在每次冲泡中都呈现出最佳品质。采用优质材料包装，可保持茶的新鲜度、香气和味道，直至享用的那一刻，提供更优雅、更令人满意的饮茶体验。\n\n有多种永恒的经典口味可供选择——从清淡清爽到浓郁舒缓——每种口味都旨在放纵感官并呈现完美的口味平衡。芬芳的香气与精致的味道相结合，无论是在新的一天开始时还是在活动结束后放松身心时，都能营造出温暖的放松时刻。\n\n这些茶包不仅仅是一种饮料，更是简单而优雅的生活方式的象征。适合独自享受，作为反思的时间，也适合作为招待客人的有效形式。凭借优质的品质和多种口味的选择，每一杯茶都成为一次特别而难忘的体验。"
-      },
-      "usecases": [
-        "Hot Tea",
-        "Iced Tea",
-        "Cafe Service"
-      ]
-    },
-    {
       "code": "KSTCTTPCS",
       "brand": "CHASTA",
       "name": {
