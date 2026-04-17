@@ -1,6 +1,21 @@
 {
   "notifications": [
     {
+      "id": 1776410089443,
+      "title": {
+        "en": "50% discount for new account!!",
+        "ms": "Diskaun 50% untuk akaun baru!!",
+        "zh": "新帐户 50% 折扣！！"
+      },
+      "date": "2026-04-17",
+      "type": "Info",
+      "message": {
+        "en": "if you just found out about saleso pacific, you will get a 50% discount",
+        "ms": "jikalau awak baru mengetahui saleso pasific, awak akan dapat diskaun 50%",
+        "zh": "如果您刚刚发现 saleso pacific，您将获得 50% 的折扣"
+      }
+    },
+    {
       "id": 1712493144005,
       "title": {
         "en": "Sistem Update",
