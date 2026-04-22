@@ -247,17 +247,15 @@
       "code": "INDKYA500G",
       "brand": "KYOMORI",
       "name": {
-        "en": "Kyomori Yuki Araashi Matcha 20x500g",
-        "ms": "Kyomori Yuki Araashi Matcha 20x500g",
-        "zh": "京森 雪岚抹茶 20x500g"
+        "en": "Kyomori Yuki Arashi Matcha 20x500g",
+        "ms": "Kyomori Yuki Arashi Matcha 20x500g",
+        "zh": "京森雪 岚 抹茶 20x500g"
       },
       "price": 319,
       "category": "Matcha",
-      "image": "",
+      "image": "https://placehold.co/400",
       "images": [
-        "",
-        "",
-        ""
+        "https://placehold.co/400"
       ],
       "description": {
         "en": "Superior ceremonial matcha",
@@ -274,17 +272,15 @@
       "code": "KYSYMLND500G",
       "brand": "KYOMORI",
       "name": {
-        "en": "Kyomori Suuyama Matcha 20x500g",
-        "ms": "Kyomori Suuyama Matcha 20x500g",
-        "zh": "京森 翠山抹茶 20x500g"
+        "en": "Kyomori Suiyama Matcha 20x500g",
+        "ms": "Matcha Kyomori Suiyama 20x500g",
+        "zh": "京森水山抹茶 20x500g"
       },
       "price": 109,
       "category": "Matcha",
-      "image": "",
+      "image": "https://placehold.co/400",
       "images": [
-        "",
-        "",
-        ""
+        "https://placehold.co/400"
       ],
       "description": {
         "en": "Everyday use Japanese matcha",
@@ -355,17 +351,15 @@
       "code": "KYHNA500G",
       "brand": "KYOMORI",
       "name": {
-        "en": "Kyomori Hoji No Araashi Medium Roast Hojicha 20x500g",
-        "ms": "Kyomori Hoji No Araashi Hojicha Panggang Sederhana 20x500g",
-        "zh": "京森 芳之岚中焙焙茶 20x500g"
+        "en": "Kyomori Hoji No Arashi Medium Roast Hojicha 20x500g",
+        "ms": "Kyomori Hoji No Arashi Hojicha Panggang Sederhana 20x500g",
+        "zh": "京森焙茶 中度烘焙焙茶 20x500g"
       },
       "price": 169,
       "category": "Matcha",
-      "image": "",
+      "image": "https://placehold.co/400",
       "images": [
-        "",
-        "",
-        ""
+        "https://placehold.co/400"
       ],
       "description": {
         "en": "Medium roast hojicha powder",
@@ -463,17 +457,15 @@
       "code": "YTMNGPKT",
       "brand": "KYOMORI",
       "name": {
-        "en": "Kyomori Gematcha 20x500g",
-        "ms": "Kyomori Gematcha 20x500g",
-        "zh": "京森 玄米抹茶 20x500g"
+        "en": "Kyomori Genmaicha 20x500g",
+        "ms": "Kyomori Genmaicha 20x500g",
+        "zh": "京森玄米茶 20x500g"
       },
       "price": 120,
       "category": "Matcha",
-      "image": "",
+      "image": "https://placehold.co/400",
       "images": [
-        "",
-        "",
-        ""
+        "https://placehold.co/400"
       ],
       "description": {
         "en": "Genmaicha matcha blend powder",
@@ -517,17 +509,15 @@
       "code": "YTPGPPKT",
       "brand": "KYOMORI",
       "name": {
-        "en": "Kyomori Pure Gemai Powder 20x500g",
-        "ms": "Kyomori Serbuk Gemai Tulen 20x500g",
-        "zh": "京森 纯玄米粉 20x500g"
+        "en": "Kyomori Pure Genmai Powder 20x500g",
+        "ms": "Kyomori Serbuk Genmai Tulen 20x500g",
+        "zh": "京森纯玄米粉 20x500g"
       },
       "price": 120,
       "category": "Matcha",
-      "image": "",
+      "image": "https://placehold.co/400",
       "images": [
-        "",
-        "",
-        ""
+        "https://placehold.co/400"
       ],
       "description": {
         "en": "Pure roasted rice powder for genmaicha",
@@ -733,17 +723,15 @@
       "code": "KMKCMH500G",
       "brand": "MK",
       "name": {
-        "en": "Maruyu Koyamen Byakiren Matcha 500g",
-        "ms": "Maruyu Koyamen Byakiren Matcha 500g",
-        "zh": "丸汤 古山 白莲抹茶 500g"
+        "en": "Marukyu Koyamaen Byakuren Matcha 500g",
+        "ms": "Marukyu Koyamaen Byakuren Matcha 500g",
+        "zh": "丸久小山园白莲抹茶 500g"
       },
       "price": 289,
       "category": "Matcha",
-      "image": "",
+      "image": "https://placehold.co/400",
       "images": [
-        "",
-        "",
-        ""
+        "https://placehold.co/400"
       ],
       "description": {
         "en": "Premium white lotus ceremonial matcha",
@@ -760,17 +748,15 @@
       "code": "KMKCMH500G",
       "brand": "MK",
       "name": {
-        "en": "Maruyu Koyamen Wakitake Matcha 500g",
-        "ms": "Maruyu Koyamen Wakitake Matcha 500g",
-        "zh": "丸汤 古山 碧竹抹茶 500g"
+        "en": "Marukyu Koyamaen Wakatake Matcha 500g",
+        "ms": "Marukyu Koyamaen Wakatake Matcha 500g",
+        "zh": "丸久小山园若竹抹茶 500g"
       },
       "price": 490,
       "category": "Matcha",
-      "image": "",
+      "image": "https://placehold.co/400",
       "images": [
-        "",
-        "",
-        ""
+        "https://placehold.co/400"
       ],
       "description": {
         "en": "Premium green bamboo ceremonial matcha",
@@ -787,17 +773,15 @@
       "code": "KMKCH1500G",
       "brand": "MK",
       "name": {
-        "en": "Maruyu Koyamen HGC Tsuzu Matcha 500g",
-        "ms": "Maruyu Koyamen HGC Tsuzu Matcha 500g",
-        "zh": "丸汤 古山 HGC 五十铃抹茶 500g"
+        "en": "Marukyu Koyamaen HGC Isuzu Matcha 500g",
+        "ms": "Marukyu Koyamaen HGC Isuzu Matcha 500g",
+        "zh": "丸久小山园 HGC 五十铃抹茶 500g"
       },
       "price": 690,
       "category": "Matcha",
-      "image": "",
+      "image": "https://placehold.co/400",
       "images": [
-        "",
-        "",
-        ""
+        "https://placehold.co/400"
       ],
       "description": {
         "en": "Ultra premium HGC ceremonial matcha",
