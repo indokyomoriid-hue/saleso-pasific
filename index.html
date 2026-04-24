@@ -1212,11 +1212,10 @@
 
     function applyFilters() {
         const q = document.getElementById('searchInput').value.toLowerCase().trim();
-        let filtered = activeCategory === 'All'
-            ? allProducts
-            : allProducts.filter(p => p.category === activeCategory);
+        let filtered;
         if (q) {
-            filtered = filtered.filter(p => {
+            // Saat ada keyword pencarian → cari dari SEMUA produk, abaikan kategori aktif
+            filtered = allProducts.filter(p => {
                 const nameEn = (typeof p.name === 'object' ? (p.name.en||p.name.ms||p.name.zh) : p.name || '').toLowerCase();
                 const nameMs = (typeof p.name === 'object' ? (p.name.ms||'') : '').toLowerCase();
                 const nameZh = (typeof p.name === 'object' ? (p.name.zh||'') : '').toLowerCase();
@@ -1224,6 +1223,11 @@
                     (p.brand && p.brand.toLowerCase().includes(q)) ||
                     (p.code && p.code.toLowerCase().includes(q));
             });
+        } else {
+            // Tidak ada keyword → terapkan filter kategori seperti biasa
+            filtered = activeCategory === 'All'
+                ? allProducts
+                : allProducts.filter(p => p.category === activeCategory);
         }
         currentProducts = filtered;
         currentPage = 1;
