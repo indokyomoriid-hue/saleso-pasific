@@ -29,17 +29,15 @@
       "code": "MOTBSFM20S",
       "brand": "MORIHAN",
       "name": {
-        "en": "Morihan Sencha Fused Matcha Tea Bag 20 Sachets",
-        "ms": "Beg Teh Morihan Sencha Fused Matcha 20 Sachet",
-        "zh": "森半 煎茶融合抹茶茶包 20包"
+        "en": "MORIHAN TEA BAG SENCHA FUSED MATCHA 20SACHETS",
+        "ms": "Uncang TEH MORIHAN SENCHA FUSED MATCHA 20SACHETS",
+        "zh": "MORIHAN 茶包煎茶融合抹茶 20 袋"
       },
       "price": 16.9,
       "category": "Matcha",
-      "image": "",
+      "image": "https://placehold.co/400",
       "images": [
-        "",
-        "",
-        ""
+        "https://placehold.co/400"
       ],
       "description": {
         "en": "Premium Japanese sencha fused with matcha in convenient tea bags",
@@ -56,17 +54,15 @@
       "code": "MOTBTHB20S",
       "brand": "MORIHAN",
       "name": {
-        "en": "Morihan Hojicha Tea Bag 20 Sachets",
-        "ms": "Beg Teh Morihan Hojicha 20 Sachet",
-        "zh": "森半 焙茶茶包 20包"
+        "en": "MORIHAN TEA BAG HOUJICHA 20SACHETS",
+        "ms": "Uncang TEH MORIHAN HOUJICHA 20SACHETS",
+        "zh": "MORIHAN 袋泡茶 20 包"
       },
       "price": 16.9,
       "category": "Matcha",
-      "image": "",
+      "image": "https://placehold.co/400",
       "images": [
-        "",
-        "",
-        ""
+        "https://placehold.co/400"
       ],
       "description": {
         "en": "Roasted Japanese hojicha tea bags",
@@ -83,17 +79,15 @@
       "code": "MOTBTGB20S",
       "brand": "MORIHAN",
       "name": {
-        "en": "Morihan Genmaicha Tea Bag 20 Sachets",
-        "ms": "Beg Teh Morihan Genmaicha 20 Sachet",
-        "zh": "森半 玄米茶茶包 20包"
+        "en": "MORIHAN TEA BAG GENMAICHA 20SACHETS",
+        "ms": "Uncang TEH MORIHAN GENMAICHA 20SACHETS",
+        "zh": "森半茶包玄米茶 20 包"
       },
       "price": 16.9,
       "category": "Matcha",
-      "image": "",
+      "image": "https://placehold.co/400",
       "images": [
-        "",
-        "",
-        ""
+        "https://placehold.co/400"
       ],
       "description": {
         "en": "Classic Japanese genmaicha tea bags with roasted rice",
@@ -110,9 +104,9 @@
       "code": "KYMAP1000G",
       "brand": "KYOMORI",
       "name": {
-        "en": "Kyomori Matcha Premix 20x1kg",
-        "ms": "Kyomori Matcha Premix 20x1kg",
-        "zh": "京森 抹茶预混粉 20x1kg"
+        "en": "KYOMORI MATCHA PREMIX 20X1KG",
+        "ms": "KYOMORI MATCHA PREMIX 20X1KG",
+        "zh": "京森抹茶预混料 20X1KG"
       },
       "price": 48,
       "category": "Matcha",
@@ -132,20 +126,18 @@
       ]
     },
     {
-      "code": "YTMMPKT",
+      "code": "YTMMMPKT",
       "brand": "KYOMORI",
       "name": {
-        "en": "Kyomori Midoriyama Matcha 20x500g",
-        "ms": "Kyomori Midoriyama Matcha 20x500g",
-        "zh": "京森 绿山抹茶 20x500g"
+        "en": "KYOMORI MIDORIYAMA MATCHA 20X500G",
+        "ms": "KYOMORI MIDORIYAMA MATCHA 20X500G",
+        "zh": "京森绿山抹茶20X500G"
       },
       "price": 159,
       "category": "Matcha",
-      "image": "",
+      "image": "https://placehold.co/400",
       "images": [
-        "",
-        "",
-        ""
+        "https://placehold.co/400"
       ],
       "description": {
         "en": "High grade Japanese matcha powder",
@@ -162,17 +154,15 @@
       "code": "SHMHPMPKT",
       "brand": "KYOMORI",
       "name": {
-        "en": "Kyomori Senzan Matcha 20x500g",
-        "ms": "Kyomori Senzan Matcha 20x500g",
-        "zh": "京森 千山抹茶 20x500g"
+        "en": "KYOMORI SENZAN MATCHA 20X500GM",
+        "ms": "KYOMORI SENZAN MATCHA 20X500GM",
+        "zh": "京森仙山抹茶20X500GM"
       },
       "price": 259,
       "category": "Matcha",
-      "image": "",
+      "image": "https://placehold.co/400",
       "images": [
-        "",
-        "",
-        ""
+        "https://placehold.co/400"
       ],
       "description": {
         "en": "Premium ceremonial grade matcha",
@@ -186,20 +176,18 @@
       ]
     },
     {
-      "code": "MTMCHCPKT",
+      "code": "MTMCMCPKT",
       "brand": "KYOMORI",
       "name": {
-        "en": "Kyomori Midorikaze Matcha 20x500g",
-        "ms": "Kyomori Midorikaze Matcha 20x500g",
-        "zh": "京森 绿风抹茶 20x500g"
+        "en": "KYOMORI MIDORIKAZE MATCHA 20X500GM",
+        "ms": "KYOMORI MIDORIKAZE MATCHA 20X500GM",
+        "zh": "京森绿风抹茶20X500GM"
       },
       "price": 208,
       "category": "Matcha",
-      "image": "",
+      "image": "https://placehold.co/400",
       "images": [
-        "",
-        "",
-        ""
+        "https://placehold.co/400"
       ],
       "description": {
         "en": "Vibrant Japanese matcha powder",
@@ -216,17 +204,15 @@
       "code": "SGHCCMPKT",
       "brand": "KYOMORI",
       "name": {
-        "en": "Kyomori Suiho Matcha 20x500g",
-        "ms": "Kyomori Suiho Matcha 20x500g",
-        "zh": "京森 翠峰抹茶 20x500g"
+        "en": "KYOMORI SUIHO MATCHA 20X500GM",
+        "ms": "KYOMORI SUIHO MATCHA 20X500GM",
+        "zh": "京森水宝抹茶20X500GM"
       },
       "price": 139,
       "category": "Matcha",
-      "image": "",
+      "image": "https://placehold.co/400",
       "images": [
-        "",
-        "",
-        ""
+        "https://placehold.co/400"
       ],
       "description": {
         "en": "Everyday matcha powder for beverages",
@@ -240,12 +226,12 @@
       ]
     },
     {
-      "code": "INDKYA500G",
+      "code": "INDKYYA500G",
       "brand": "KYOMORI",
       "name": {
-        "en": "Kyomori Yuki Arashi Matcha 20x500g",
-        "ms": "Kyomori Yuki Arashi Matcha 20x500g",
-        "zh": "京森雪 岚 抹茶 20x500g"
+        "en": "KYOMORI YUKI ARASHI MATCHA 20X500G PKT 319.00",
+        "ms": "KYOMORI YUKI ARASHI MATCHA 20X500G PKT 319.00",
+        "zh": "京森雪岚抹茶 20X500G PKT 319.00"
       },
       "price": 319,
       "category": "Matcha",
