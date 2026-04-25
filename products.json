@@ -109,7 +109,7 @@
       ]
     },
     {
-      "code": "KYMAF1000G",
+      "code": "KYMAP1000G",
       "brand": "KYOMORI",
       "name": {
         "en": "Kyomori Matcha Premix 20x1kg",
@@ -118,11 +118,9 @@
       },
       "price": 48,
       "category": "Matcha",
-      "image": "",
+      "image": "https://placehold.co/400",
       "images": [
-        "",
-        "",
-        ""
+        "https://placehold.co/400"
       ],
       "description": {
         "en": "Ready-to-use matcha premix for quick preparation",
