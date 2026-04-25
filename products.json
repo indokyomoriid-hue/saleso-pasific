@@ -4,17 +4,15 @@
       "code": "KSTCTTPCS",
       "brand": "CHASTA",
       "name": {
-        "en": "Kyoeiseicha Chasta Tritan Teapot",
-        "ms": "Teapot Chasta Tritan Kyoeiseicha",
-        "zh": "清盛茶 Tritan 茶壶"
+        "en": "KYOEISEICHA CHASTA TRITAN TEAPOT",
+        "ms": "TEKOK KYOEISEICHA CHASTA TRITAN",
+        "zh": "京荣精茶 Chasta Tritan 茶壶"
       },
       "price": 149,
       "category": "Matcha",
-      "image": "",
+      "image": "https://placehold.co/400",
       "images": [
-        "",
-        "",
-        ""
+        "https://placehold.co/400"
       ],
       "description": {
         "en": "Durable Tritan teapot designed for Japanese tea ceremony",
