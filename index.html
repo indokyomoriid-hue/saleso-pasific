@@ -381,6 +381,7 @@
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             margin: 6px 0 8px;
+            text-transform: uppercase;
         }
         .price {
             color: var(--price-color);
@@ -602,6 +603,7 @@
             font-weight: 600;
             margin: 8px 0 12px;
             line-height: 1.3;
+            text-transform: uppercase;
         }
         .modal-price {
             font-size: 20px;
@@ -1240,7 +1242,7 @@
     // =============================================
     function addToCart(key, displayName, price) {
         if (!cart[key]) {
-            cart[key] = { displayName, price, qty: 1 };
+            cart[key] = { displayName: displayName.toUpperCase(), price, qty: 1 };
             updateBadge();
             updateCardButtons(key, true);
         }
@@ -1293,7 +1295,7 @@
             html += `
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #eee;">
                 <div style="flex:1;">
-                    <div style="font-weight:600;">${escapeHtml(item.displayName || key)}</div>
+                    <div style="font-weight:600;">${escapeHtml((item.displayName || key).toUpperCase())}</div>
                     <div style="color:#777;font-size:13px;">RM ${item.price.toFixed(2)}</div>
                 </div>
                 <div style="display:flex;align-items:center;gap:8px;">
@@ -1452,7 +1454,7 @@
             const item = cart[key];
             const productData = allProducts.find(p => (p.code || getLang(p.name)) === key);
             const itemCode = productData && productData.code ? `[${productData.code}] ` : '';
-            msg += `- ${item.qty}x ${itemCode}${item.displayName || key}\n`;
+            msg += `- ${item.qty}x ${itemCode}${(item.displayName || key).toUpperCase()}\n`;
             total += item.price * item.qty;
         }
         msg += `\n_MOQ (Minimum Order Quantity) :_ 
