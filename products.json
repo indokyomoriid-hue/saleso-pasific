@@ -135,9 +135,10 @@
       },
       "price": 159,
       "category": "Matcha",
-      "image": "https://placehold.co/400",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777866891804_midoriyam_web.png",
       "images": [
-        "https://placehold.co/400"
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777866891804_midoriyam_web.png",
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777867563390_midoriyama_spec.png"
       ],
       "description": {
         "en": "High grade Japanese matcha powder",
