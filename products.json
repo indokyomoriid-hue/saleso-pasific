@@ -186,9 +186,10 @@
       },
       "price": 208,
       "category": "Matcha",
-      "image": "https://placehold.co/400",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777879281287_mdz.png",
       "images": [
-        "https://placehold.co/400"
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777879281287_mdz.png",
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777879287605_midorikaze_spec.png"
       ],
       "description": {
         "en": "Vibrant Japanese matcha powder",
@@ -365,11 +366,9 @@
       },
       "price": 169,
       "category": "Matcha",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777879605721_DARK_ROAST_HOJIC_CHA.jpg",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777879605721_DARK_ROAST_HOJIC_CHA.jpg"
       ],
       "description": {
         "en": "Dark roasted Japanese hojicha powder",
@@ -2650,11 +2649,9 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": "",
+      "image": "https://placehold.co/400",
       "images": [
-        "",
-        "",
-        ""
+        "https://placehold.co/400"
       ],
       "description": {
         "en": "Tropical passion fruit flavor",
@@ -3109,11 +3106,9 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777882223438_monon_stoberi_puree._EDITED.png",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777882223438_monon_stoberi_puree._EDITED.png"
       ],
       "description": {
         "en": "Sweet strawberry flavor syrup",
@@ -4351,11 +4346,9 @@
       },
       "price": 92,
       "category": "Sauce",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777882601696_monin_dark_choco_-_Edited.jpg",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777882601696_monin_dark_choco_-_Edited.jpg"
       ],
       "description": {
         "en": "Dark chocolate sauce",
@@ -4567,11 +4560,9 @@
       },
       "price": 55,
       "category": "Sauce",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777882444622_mango_puree_monin_-_Edited.jpg",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777882444622_mango_puree_monin_-_Edited.jpg"
       ],
       "description": {
         "en": "Mango fruit mix puree",
@@ -4756,11 +4747,9 @@
       },
       "price": 61,
       "category": "Sauce",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777881230370_monon_stoberi_puree._EDITED.png",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777881230370_monon_stoberi_puree._EDITED.png"
       ],
       "description": {
         "en": "Strawberry fruit mix puree",
@@ -5593,11 +5582,9 @@
       },
       "price": 6.9,
       "category": "Beverage",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777884567063_AQUA_KEPALA_BANA_-_Edited.jpg",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777884567063_AQUA_KEPALA_BANA_-_Edited.jpg"
       ],
       "description": {
         "en": "Italian natural mineral water",
@@ -5701,11 +5688,9 @@
       },
       "price": 6.9,
       "category": "Beverage",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777884125941_BOPLEY_-_Edited.jpg",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777884125941_BOPLEY_-_Edited.jpg"
       ],
       "description": {
         "en": "Italian sparkling mineral water",
@@ -5917,11 +5902,9 @@
       },
       "price": 9.2,
       "category": "Dairy",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777880050400_oatside_-_Edited.jpg",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777880050400_oatside_-_Edited.jpg"
       ],
       "description": {
         "en": "Barista oat milk for coffee",
@@ -5971,11 +5954,9 @@
       },
       "price": 91.1,
       "category": "Dairy",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777881028923_yarra_master_barrista_EDITED.png",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777881028923_yarra_master_barrista_EDITED.png"
       ],
       "description": {
         "en": "Barista fresh milk",
@@ -5998,11 +5979,9 @@
       },
       "price": 10.9,
       "category": "Dairy",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777883993292_SOY_ML_-_Edited.jpg",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777883993292_SOY_ML_-_Edited.jpg"
       ],
       "description": {
         "en": "UHT soy milk for barista",
@@ -6025,11 +6004,9 @@
       },
       "price": 12.5,
       "category": "Dairy",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777880482469_milk_lab_almond._EDITED.png",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777880482469_milk_lab_almond._EDITED.png"
       ],
       "description": {
         "en": "UHT almond milk for barista",
@@ -12181,11 +12158,9 @@
       },
       "price": 16.2,
       "category": "Sauce",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777884822997_CHEESE_DIP_-_Edited.jpg",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777884822997_CHEESE_DIP_-_Edited.jpg"
       ],
       "description": {
         "en": "Nachos cheese dip",
