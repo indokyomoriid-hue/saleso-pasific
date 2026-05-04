@@ -603,11 +603,9 @@
       },
       "price": 189,
       "category": "Matcha",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777885182027_MORIHAN_MEDIUM_ROAST.png",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777885182027_MORIHAN_MEDIUM_ROAST.png"
       ],
       "description": {
         "en": "Medium roast hojicha powder",
@@ -10856,17 +10854,15 @@
       "code": "KWDSCD1000L",
       "brand": "KEWPIE",
       "name": {
-        "en": "Kewpie Cesar Dressing 1L",
-        "ms": "Dressing Cesar Kewpie 1L",
-        "zh": "丘比 凯撒沙拉酱 1L"
+        "en": "Kewpie Caesar Dressing 1L",
+        "ms": "Kewpie Caesar Dressing 1L",
+        "zh": "丘比凯撒酱 1L"
       },
       "price": 25.8,
       "category": "Sauce",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777888812717_KP_CAESAR_-_Edited.jpg",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777888812717_KP_CAESAR_-_Edited.jpg"
       ],
       "description": {
         "en": "Caesar dressing",
@@ -10889,11 +10885,9 @@
       },
       "price": 16.5,
       "category": "Sauce",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777888597925_KP_TERIYAKI_-_Edited__1_.jpg",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777888597925_KP_TERIYAKI_-_Edited__1_.jpg"
       ],
       "description": {
         "en": "Teriyaki sauce",
@@ -10916,11 +10910,9 @@
       },
       "price": 27.9,
       "category": "Sauce",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777888654616_KP_ROASTED_SESAME2_-_Edited.jpg",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777888654616_KP_ROASTED_SESAME2_-_Edited.jpg"
       ],
       "description": {
         "en": "Roasted sesame dressing",
@@ -10943,11 +10935,9 @@
       },
       "price": 23.5,
       "category": "Sauce",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777888931858_KP_SESAME_SOY_SAUCE_-_Edited.jpg",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777888931858_KP_SESAME_SOY_SAUCE_-_Edited.jpg"
       ],
       "description": {
         "en": "Sesame soy sauce",
@@ -10970,11 +10960,9 @@
       },
       "price": 23.5,
       "category": "Sauce",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777888721613_KP_HOT_SPICY_-_Edited.jpg",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777888721613_KP_HOT_SPICY_-_Edited.jpg"
       ],
       "description": {
         "en": "Hot spicy dressing",
