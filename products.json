@@ -811,21 +811,21 @@
       },
       "price": 39,
       "category": "Syrup",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777965822060_FA-Monin-Pure-Cane-Syrup-1L.png",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777965822060_FA-Monin-Pure-Cane-Syrup-1L.png"
       ],
       "description": {
-        "en": "Natural cane sugar syrup for clean sweetness",
-        "ms": "Sirap gula tebu semulajadi untuk kemanisan bersih",
-        "zh": "天然蔗糖浆，提供纯净甜味"
+        "en": "The base syrup for many classic cocktails, MONIN Pure Cane Sugar syrup delivers the same brix as a homemade version, made with 100% pure cane sugar and filtered water.\nSugarcane is a tall perennial grass native to the tropical regions of South Asia, which grows several metres in height and accounts for 80% of the sugar produced. A Caribbean sugarcane plantation amassing a vast number of canes makes for a spectacular sight.\n\nPure Cane Sugar syrup is a superb substitute for granulated sugar as it dissolves instantly in hot and chilled drinks. Sweeten up your teas, cocktails, smoothies and fruit punches with MONIN Pure Cane Sugar syrup.",
+        "ms": "Sirap asas untuk banyak koktel klasik, MONIN Pure Cane Sugar syrup memberikan brix yang sama seperti versi buatan sendiri, dibuat dengan 100% gula tebu tulen dan air yang ditapis.\nTebu ialah rumput saka tinggi yang berasal dari kawasan tropika Asia Selatan, yang tumbuh beberapa meter tinggi dan menyumbang 80% daripada gula yang dihasilkan. Sebuah ladang tebu Caribbean yang mengumpul sejumlah besar rotan menjadikan pemandangan yang menakjubkan.\n\nSirap Gula Tebu Tulen adalah pengganti yang hebat untuk gula pasir kerana ia larut serta-merta dalam minuman panas dan sejuk. Maniskan teh, koktel, smoothie dan tumbukan buah-buahan anda dengan sirap Gula Tebu Tulen MONIN.",
+        "zh": "MONIN 纯蔗糖糖浆是许多经典鸡尾酒的基础糖浆，其白利糖度与自制版本相同，由 100% 纯蔗糖和过滤水制成。\n甘蔗是一种高大的多年生草本植物，原产于南亚热带地区，其高度可达数米，占糖产量的 80%。加勒比海的甘蔗种植园里聚集着大量的甘蔗，景色十分壮观。\n\n纯蔗糖糖浆是砂糖的绝佳替代品，因为它可以立即溶解在热饮和冷饮中。使用 MONIN 纯蔗糖糖浆为您的茶、鸡尾酒、冰沙和水果潘趣酒增甜。"
       },
       "usecases": [
         "Beverage Sweetener",
         "Cocktail",
-        "Dessert"
+        "Dessert",
+        "Teas Smoothies",
+        "Fruit punches"
       ]
     },
     {
