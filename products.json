@@ -1,6 +1,27 @@
 {
   "products": [
     {
+      "id": 1778568623369,
+      "code": "MOSYFS700L",
+      "brand": "MONIN",
+      "name": {
+        "en": "Monin Falernum Syrup 700ml",
+        "ms": "Sirap Falernum Monin 700ml",
+        "zh": "莫林 Falernum糖浆 700ml"
+      },
+      "price": 44,
+      "category": "Syrup",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778568614677_Farlernum.png",
+      "images": [
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778568614677_Farlernum.png"
+      ],
+      "description": {
+        "en": "A distinctive tropical syrup inspired by Caribbean flavors, combining zesty lime, gentle almond, and warm spices like clove and ginger.\n\nBrings depth and complexity to tiki drinks, cocktails, and creative beverages, delivering a unique sweet-spiced citrus profile in every mix.",
+        "ms": "Sirap tropika tersendiri yang diilhamkan daripada perisa Caribbean, menggabungkan limau nipis, badam lembut dan rempah hangat seperti cengkih dan halia.\n\nMembawa kedalaman dan kerumitan kepada minuman tiki, koktel dan minuman kreatif, memberikan profil sitrus berempah manis yang unik dalam setiap campuran.",
+        "zh": "一种独特的热带糖浆，灵感来自加勒比风味，融合了浓郁的酸橙、温和的杏仁以及丁香和生姜等温暖的香料。\n\n为提基饮料、鸡尾酒和创意饮料带来深度和复杂性，在每种混合中提供独特的甜香料柑橘风味。"
+      }
+    },
+    {
       "code": "KSTCTTPCS",
       "brand": "CHASTA",
       "name": {
@@ -135,9 +156,9 @@
       },
       "price": 159,
       "category": "Matcha",
-      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777866891804_midoriyam_web.png",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778906023621_Kyomori_Midoriyama.png",
       "images": [
-        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777866891804_midoriyam_web.png",
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778906023621_Kyomori_Midoriyama.png",
         "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1777867563390_midoriyama_spec.png"
       ],
       "description": {
@@ -1756,16 +1777,14 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778568718877_Le-Sirop-de-MONIN-Flower-Blossom-MONIN-1912-67284515324229.webp",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778568718877_Le-Sirop-de-MONIN-Flower-Blossom-MONIN-1912-67284515324229.webp"
       ],
       "description": {
-        "en": "Delicate flower blossom flavor",
-        "ms": "Rasa bunga halus",
-        "zh": "精致花香风味"
+        "en": "A refined floral syrup from Monin, featuring delicate blossom notes with a hint of peach and gentle acidity.\n\nIdeal for teas, sodas, cocktails, and specialty drinks, adding a soft floral layer and a fresh, elegant character to every creation.",
+        "ms": "Sirap bunga halus daripada Monin, menampilkan nota bunga yang halus dengan sedikit pic dan keasidan yang lembut.\n\nSesuai untuk teh, soda, koktel dan minuman istimewa, menambahkan lapisan bunga lembut dan watak segar dan elegan pada setiap ciptaan.",
+        "zh": "Monin 的精制花糖浆，具有精致的花香，带有一丝桃子和温和的酸度。\n\n非常适合茶、苏打水、鸡尾酒和特色饮料，为每件作品增添柔和的花香和清新、优雅的特色。"
       },
       "usecases": [
         "Floral Drink",
@@ -1783,16 +1802,14 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778568869971_Le-Sirop-de-MONIN-French-Vanilla-MONIN-1912-67284505657669.webp",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778568869971_Le-Sirop-de-MONIN-French-Vanilla-MONIN-1912-67284505657669.webp"
       ],
       "description": {
-        "en": "Classic French vanilla flavor",
-        "ms": "Rasa vanila Perancis klasik",
-        "zh": "经典法式香草风味"
+        "en": "A refined French vanilla syrup from Monin, inspired by classic custard desserts with a creamy and full-bodied profile.\n\nEnhances coffee, lattes, and milk-based drinks with a soft, rounded sweetness that complements both hot and cold beverages.",
+        "ms": "Sirap vanila Perancis yang ditapis daripada Monin, diinspirasikan daripada pencuci mulut kastard klasik dengan profil berkrim dan penuh.\n\nMeningkatkan kopi, latte dan minuman berasaskan susu dengan rasa manis yang lembut dan bulat yang melengkapi minuman panas dan sejuk.",
+        "zh": "Monin 的精制法式香草糖浆，灵感源自经典蛋奶甜点，具有奶油般的口感和浓郁的口感。\n\n增强咖啡、拿铁和牛奶饮料的柔和、圆润的甜味，与热饮和冷饮相得益彰。"
       },
       "usecases": [
         "Latte",
@@ -1810,16 +1827,14 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778569122321_Le-Sirop-de-MONIN-Frosted-Mint-MONIN-1912-67284511719749.webp",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778569122321_Le-Sirop-de-MONIN-Frosted-Mint-MONIN-1912-67284511719749.webp"
       ],
       "description": {
-        "en": "Cool frosted mint flavor",
-        "ms": "Rasa mint sejuk",
-        "zh": "清凉薄荷风味"
+        "en": "Refreshing mint syrup by Monin, featuring a crisp spearmint profile with a cool, clean finish.\n\nDelivers a smooth minty lift to chocolate drinks, coffee, and cocktails, creating a balanced and refreshing taste experience.",
+        "ms": "Sirap pudina yang menyegarkan oleh Monin, menampilkan profil spearmint yang segar dengan kemasan yang sejuk dan bersih.\n\nMemberikan rasa minty yang licin kepada minuman coklat, kopi dan koktel, mencipta pengalaman rasa yang seimbang dan menyegarkan.",
+        "zh": "Monin 的清爽薄荷糖浆，具有清脆的留兰香风味，余味凉爽、干净。\n\n为巧克力饮料、咖啡和鸡尾酒带来顺滑的薄荷味，营造平衡、清爽的味觉体验。"
       },
       "usecases": [
         "Mint Drink",
@@ -1837,16 +1852,14 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778569353932_monin-gingerbread-MOGI001-001.jpg",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778569353932_monin-gingerbread-MOGI001-001.jpg"
       ],
       "description": {
-        "en": "Warm gingerbread flavor",
-        "ms": "Rasa roti halia yang hangat",
-        "zh": "温暖姜饼风味"
+        "en": "Warm bakery-style syrup by Monin, combining ginger, cinnamon, and subtle spice notes.\n\nAdds a cozy, spiced depth to coffee, lattes, and dessert drinks, delivering a smooth and comforting flavor profile.",
+        "ms": "Sirap hangat ala bakeri oleh Monin, menggabungkan halia, kayu manis dan nota rempah halus.\n\nMenambah kedalaman yang selesa dan berempah pada kopi, latte dan minuman pencuci mulut, memberikan profil rasa yang licin dan selesa.",
+        "zh": "Monin 出品的温热烘焙风格糖浆，融合了生姜、肉桂和微妙的香料味。\n\n为咖啡、拿铁和甜点饮料增添舒适、香料的深度，带来顺滑、舒适的风味。"
       },
       "usecases": [
         "Winter Drink",
@@ -1864,16 +1877,14 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778569470171_Le-Sirop-de-MONIN-Ginger-MONIN-1912-67284521910597.webp",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778569470171_Le-Sirop-de-MONIN-Ginger-MONIN-1912-67284521910597.webp"
       ],
       "description": {
-        "en": "Spicy fresh ginger flavor",
-        "ms": "Rasa halia segar pedas",
-        "zh": "新鲜姜辣风味"
+        "en": "Zesty ginger syrup by Monin, offering a lively spice with a clean, slightly sweet finish.\n\nBrings a bright kick to teas, sodas, and cocktails, enhancing drinks with a fresh and well-defined ginger character.",
+        "ms": "Sirap halia segar oleh Monin, menawarkan rempah yang meriah dengan kemasan bersih dan manis sedikit.\n\nMembawa kesejukan kepada teh, soda dan koktel, minuman yang mempertingkatkan dengan karakter halia yang segar dan jelas.",
+        "zh": "Monin 的辛辣生姜糖浆，带来活泼的香料味，余味干净、略带甜味。\n\n为茶、苏打水和鸡尾酒带来明亮的风味，以新鲜和明确的姜味增强饮料的风味。"
       },
       "usecases": [
         "Ginger Beer",
@@ -1891,16 +1902,14 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778569569975_MONIN-PREMIUM-SYRUP-GLASCO-LEMON-700ML.webp",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778569569975_MONIN-PREMIUM-SYRUP-GLASCO-LEMON-700ML.webp"
       ],
       "description": {
-        "en": "Classic lemon syrup",
-        "ms": "Sirap limau klasik",
-        "zh": "经典柠檬糖浆"
+        "en": "Classic lemonade-style syrup by Monin, inspired by traditional soda fountain flavors with a bright, tangy citrus profile.\n\nDelivers a refreshing balance of sweet and sour, ideal for sodas, iced drinks, and retro-style beverages.",
+        "ms": "Sirap gaya limau klasik oleh Monin, diinspirasikan daripada perisa air pancut soda tradisional dengan profil sitrus yang cerah dan tajam.\n\nMemberikan keseimbangan manis dan masam yang menyegarkan, sesuai untuk soda, minuman ais dan minuman gaya retro.",
+        "zh": "Monin 的经典柠檬水风格糖浆，灵感源自传统冷饮柜口味，带有明亮、浓郁的柑橘风味。\n\n提供酸甜清爽的平衡，非常适合苏打水、冰镇饮料和复古风格饮料。"
       },
       "usecases": [
         "Lemonade",
@@ -1918,16 +1927,14 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778569680243_Le-Sirop-de-MONIN-Green-Apple-MONIN-1912-67284583547205.webp",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778569680243_Le-Sirop-de-MONIN-Green-Apple-MONIN-1912-67284583547205.webp"
       ],
       "description": {
-        "en": "Crisp green apple flavor",
-        "ms": "Rasa epal hijau rangup",
-        "zh": "脆青苹果风味"
+        "en": "Crisp green apple syrup by Monin, featuring a sharp fruity aroma with a lively sweet-tart taste.\n\nAdds a refreshing apple kick to sodas, mocktails, and iced beverages, delivering a clean and vibrant flavor profile.",
+        "ms": "Sirap epal hijau rangup oleh Monin, menampilkan aroma buah yang tajam dengan rasa tat manis yang meriah.\n\nMenambahkan tendangan epal yang menyegarkan pada soda, mocktail dan minuman ais, memberikan profil rasa yang bersih dan bersemangat.",
+        "zh": "Monin 的清脆青苹果糖浆，具有浓郁的果香和活泼的甜酸味。\n\n为苏打水、无酒精鸡尾酒和冰镇饮料添加清爽的苹果味，带来干净而充满活力的风味。"
       },
       "usecases": [
         "Apple Drink",
@@ -1945,16 +1952,14 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778570130040_Le-Sirop-de-MONIN-Green-Mint-MONIN-1912-67284580860229.webp",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778570130040_Le-Sirop-de-MONIN-Green-Mint-MONIN-1912-67284580860229.webp"
       ],
       "description": {
-        "en": "Fresh green mint flavor",
-        "ms": "Rasa mint hijau segar",
-        "zh": "清新绿薄荷风味"
+        "en": "Bright mint syrup by Monin, offering a fresh herbal aroma with a cool and slightly sweet taste.\n\nEnhances chocolate drinks, milkshakes, and cocktails with a refreshing mint layer and a smooth, clean finish.",
+        "ms": "Sirap pudina cerah oleh Monin, menawarkan aroma herba segar dengan rasa sejuk dan sedikit manis.\n\nMeningkatkan minuman coklat, susu kocak dan koktel dengan lapisan pudina yang menyegarkan dan kemasan yang licin dan bersih.",
+        "zh": "Monin 明亮薄荷糖浆，散发出清新的草本香气，口感清凉微甜。\n\n为巧克力饮料、奶昔和鸡尾酒增添清爽的薄荷层和光滑、干净的余味。"
       },
       "usecases": [
         "Mint Drink",
@@ -1972,16 +1977,14 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778570348895_Le-Sirop-de-MONIN-Matcha-Green-Tea-MONIN-1912-67418466746693.webp",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778570348895_Le-Sirop-de-MONIN-Matcha-Green-Tea-MONIN-1912-67418466746693.webp"
       ],
       "description": {
-        "en": "Authentic green tea flavor",
-        "ms": "Rasa teh hijau asli",
-        "zh": "正宗绿茶风味"
+        "en": "Green tea inspired syrup by Monin, featuring light grassy notes with a smooth, slightly earthy finish.\n\nWorks well in iced teas, milk based drinks, and creative beverages, adding a gentle tea character with balanced sweetness.",
+        "ms": "Sirap berinspirasikan teh hijau oleh Monin, menampilkan nota berumput ringan dengan kemasan licin, sedikit tanah.\n\nBerfungsi dengan baik dalam teh ais, minuman berasaskan susu dan minuman kreatif, menambah watak teh lembut dengan rasa manis yang seimbang.",
+        "zh": "Monin 的绿茶糖浆，具有淡淡的草香，余味光滑，略带泥土气息。\n\n非常适合冰茶、奶类饮料和创意饮料，增添温和的茶味和平衡的甜味。"
       },
       "usecases": [
         "Green Tea Latte",
@@ -1999,16 +2002,14 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778570494310_Le-Sirop-de-MONIN-Guava-MONIN-1912-67284596392261.webp",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778570494310_Le-Sirop-de-MONIN-Guava-MONIN-1912-67284596392261.webp"
       ],
       "description": {
-        "en": "Tropical guava flavor",
-        "ms": "Rasa jambu tropika",
-        "zh": "热带番石榴风味"
+        "en": "Tropical guava syrup by Monin, offering a fragrant fruit aroma with a sweet and slightly tangy taste.\n\nEnhances smoothies, sodas, and cocktails with a vibrant tropical character and a smooth fruity finish",
+        "ms": "Sirap jambu tropika oleh Monin, menawarkan aroma buah yang harum dengan rasa manis dan sedikit masam.\n\nMempertingkatkan smoothie, soda dan koktel dengan watak tropika yang bertenaga dan kemasan buah yang licin",
+        "zh": "Monin 的热带番石榴糖浆，散发着芬芳的果香，味道甜甜略带辛辣。\n\n增强冰沙、苏打水和鸡尾酒的活力，带来热带特色和顺滑的果味余味"
       },
       "usecases": [
         "Tropical Drink",
@@ -2026,16 +2027,14 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778570644386_MoninGomme.webp",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778570644386_MoninGomme.webp"
       ],
       "description": {
-        "en": "Simple gum syrup for sweetening",
-        "ms": "Sirap gula ringkas untuk pemanis",
-        "zh": "简单糖浆，用于甜味"
+        "en": "Neutral sweetener syrup by Monin, designed to enhance texture and balance in drinks without altering the original flavor.\n\nCommonly used in cocktails and mixology, it provides smooth sweetness and improved mouthfeel for a well-rounded beverage.",
+        "ms": "Sirap pemanis neutral oleh Monin, direka untuk meningkatkan tekstur dan keseimbangan dalam minuman tanpa mengubah rasa asal.\n\nBiasanya digunakan dalam koktel dan campuran, ia memberikan rasa manis yang licin dan rasa mulut yang lebih baik untuk minuman yang lengkap.",
+        "zh": "Monin 的中性甜味剂糖浆，旨在增强饮料的质感和平衡，而不改变原有风味。\n\n它通常用于鸡尾酒和调酒中，为圆润的饮料提供顺滑的甜味和改善的口感。"
       },
       "usecases": [
         "Cocktail Sweetener",
@@ -2053,16 +2052,14 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778570773899_Le-Sirop-de-MONIN-Hazelnut-MONIN-1912-67286846210373.webp",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778570773899_Le-Sirop-de-MONIN-Hazelnut-MONIN-1912-67286846210373.webp"
       ],
       "description": {
-        "en": "Nutty hazelnut flavor syrup",
-        "ms": "Sirap hazelnut berkerang",
-        "zh": "坚果榛子风味糖浆"
+        "en": "Rich hazelnut syrup by Monin, featuring a roasted nut aroma with smooth, slightly toasted sweetness.\n\nEnhances coffee, lattes, and dessert drinks with a warm nutty depth and a balanced, creamy finish.",
+        "ms": "Sirap hazelnut yang kaya oleh Monin, menampilkan aroma kacang panggang dengan rasa manis yang halus dan sedikit dibakar.\n\nMeningkatkan kopi, latte dan minuman pencuci mulut dengan kedalaman kacang hangat dan kemasan berkrim yang seimbang.",
+        "zh": "Monin 的浓郁榛子糖浆，具有烤坚果香气，带有柔滑、略带烘烤的甜味。\n\n增强咖啡、拿铁和甜点饮料的口感，带来温暖的坚果味和平衡的奶油味余味。"
       },
       "usecases": [
         "Latte",
@@ -2080,16 +2077,14 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778570868743_Le-Sirop-de-MONIN-Hibiscus-MONIN-1912-67286849945925.webp",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778570868743_Le-Sirop-de-MONIN-Hibiscus-MONIN-1912-67286849945925.webp"
       ],
       "description": {
-        "en": "Floral hibiscus flavor",
-        "ms": "Rasa hibiscus bunga",
-        "zh": "花香洛神花风味"
+        "en": "Floral hibiscus syrup by Monin, offering a vibrant floral aroma with a tangy, slightly fruity taste.\n\nIdeal for iced teas, lemonades, and cocktails, adding a refreshing floral depth and bright ruby-red character to drinks.",
+        "ms": "Sirap bunga raya bunga oleh Monin, menawarkan aroma bunga yang meriah dengan rasa masam dan sedikit buah.\n\nSesuai untuk teh ais, air limau dan koktel, menambahkan kedalaman bunga yang menyegarkan dan watak merah delima yang terang pada minuman.",
+        "zh": "Monin 的芙蓉花糖浆，散发着充满活力的花香，带有浓郁的略带果香的味道。\n\n非常适合冰茶、柠檬水和鸡尾酒，为饮料增添清爽的花香和明亮的宝石红色特征。"
       },
       "usecases": [
         "Tea",
@@ -2107,16 +2102,14 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778571145502_Untitled-design-2024-03-01T132535.webp",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778571145502_Untitled-design-2024-03-01T132535.webp"
       ],
       "description": {
-        "en": "Sweet honeycomb flavor",
-        "ms": "Rasa honeycomb manis",
-        "zh": "甜蜂巢风味"
+        "en": "Golden honeycomb-inspired syrup by Monin, featuring rich honey notes with a smooth caramelized sweetness.\n\nEnhances coffee, milk-based drinks, and desserts with a warm, naturally sweet profile and a soft, rounded finish.",
+        "ms": "Sirap berinspirasikan sarang lebah emas oleh Monin, menampilkan nota madu yang kaya dengan rasa manis karamel yang halus.\n\nMeningkatkan kopi, minuman berasaskan susu dan pencuci mulut dengan profil yang hangat, manis semula jadi dan kemasan yang lembut dan bulat.",
+        "zh": "Monin 的金色蜂窝糖浆，具有浓郁的蜂蜜味和柔滑的焦糖甜味。\n\n增强咖啡、牛奶饮料和甜点的温暖、自然的甜味和柔和、圆润的余味。"
       },
       "usecases": [
         "Dessert",
@@ -2161,16 +2154,14 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778571428709_DCGPygYCss3iL5hxp3JoqYlbye39tRz085uBlHvhzxFYbOkrdQ.jpg",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778571428709_DCGPygYCss3iL5hxp3JoqYlbye39tRz085uBlHvhzxFYbOkrdQ.jpg"
       ],
       "description": {
-        "en": "Sweet Italian dolce flavor",
-        "ms": "Rasa dolce Itali yang manis",
-        "zh": "意大利甜风味糖浆"
+        "en": "Dessert inspired syrup by Monin, featuring a smooth blend of sweet cream, caramel, and subtle vanilla notes.\n\nPerfect for coffee, milk based drinks, and desserts, delivering a soft, indulgent Italian-style sweetness with a creamy finish.",
+        "ms": "Sirap inspirasi pencuci mulut oleh Monin, menampilkan adunan halus krim manis, karamel dan nota vanila halus.\n\nSesuai untuk kopi, minuman berasaskan susu dan pencuci mulut, memberikan rasa manis gaya Itali yang lembut dan memanjakan dengan kemasan berkrim.",
+        "zh": "Monin 的甜点灵感糖浆，融合了甜奶油、焦糖和微妙的香草味。\n\n非常适合咖啡、牛奶饮料和甜点，带来柔和、令人陶醉的意大利式甜味和奶油般的余味。"
       },
       "usecases": [
         "Dessert",
@@ -2188,16 +2179,14 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778571587335_Le-Sirop-de-MONIN-Kiwi-MONIN-1912-67286884286789.webp",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778571587335_Le-Sirop-de-MONIN-Kiwi-MONIN-1912-67286884286789.webp"
       ],
       "description": {
-        "en": "Fresh kiwi flavor syrup",
-        "ms": "Sirap kiwi segar",
-        "zh": "新鲜猕猴桃风味糖浆"
+        "en": "Bright kiwi syrup by Monin, featuring a fresh tropical aroma with a sweet and slightly tangy fruit profile.\n\nIdeal for sodas, mocktails, smoothies, and cocktails, adding a vibrant green fruit character with a refreshing finish.",
+        "ms": "Sirap kiwi terang oleh Monin, menampilkan aroma tropika segar dengan profil buah yang manis dan sedikit masam.\n\nSesuai untuk minuman soda, mocktail, smoothie dan koktel, menambahkan watak buah-buahan hijau yang bersemangat dengan kemasan yang menyegarkan.",
+        "zh": "Monin 的明亮奇异果糖浆，具有新鲜的热带香气，带有甜美和略带浓郁的水果风味。\n\n非常适合苏打水、无酒精鸡尾酒、冰沙和鸡尾酒，增添了充满活力的绿色水果特征和清爽的余味。"
       },
       "usecases": [
         "Smoothie",
@@ -2215,16 +2204,14 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778664129821_Le-Sirop-de-MONIN-Lavender-MONIN-1912-67286885204293.webp",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778664129821_Le-Sirop-de-MONIN-Lavender-MONIN-1912-67286885204293.webp"
       ],
       "description": {
-        "en": "Floral lavender flavor",
-        "ms": "Rasa lavender bunga",
-        "zh": "花香薰衣草风味"
+        "en": "Elegant lavender syrup by Monin, offering a delicate floral aroma with a soft, lightly sweet profile. Enhances teas, lemonades, and specialty drinks with a refined, aromatic finish.",
+        "ms": "Sirap lavender yang elegan oleh Monin, menawarkan aroma bunga yang halus dengan profil yang lembut dan manis. Meningkatkan teh, limau dan minuman istimewa dengan kemasan aromatik yang halus.",
+        "zh": "Monin 优雅的薰衣草糖浆，散发出精致的花香，口感柔和、略带甜味。增强茶、柠檬水和特色饮料的精致芳香。"
       },
       "usecases": [
         "Tea",
@@ -2242,16 +2229,14 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778664262045_Le-Sirop-de-MONIN-Lemon-Ginger-Honey-MONIN-1912-67286892249413.webp",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778664262045_Le-Sirop-de-MONIN-Lemon-Ginger-Honey-MONIN-1912-67286892249413.webp"
       ],
       "description": {
-        "en": "Lemon ginger honey flavor",
-        "ms": "Rasa limau halia madu",
-        "zh": "柠檬姜蜜风味"
+        "en": "Balanced blend by Monin combining bright lemon, warm ginger, and smooth honey notes. Delivers a refreshing citrus lift with gentle spice and natural sweetness, ideal for teas, hot drinks, and soothing beverages.",
+        "ms": "Campuran seimbang oleh Monin menggabungkan lemon cerah, halia hangat dan nota madu yang halus. Menyampaikan lif sitrus yang menyegarkan dengan rempah ratus yang lembut dan kemanisan semula jadi, sesuai untuk teh, minuman panas dan minuman yang menenangkan.",
+        "zh": "Monin 的平衡混合物，融合了明亮的柠檬、温暖的生姜和柔滑的蜂蜜香气。带来清爽的柑橘味，带有温和的香料和天然的甜味，非常适合茶、热饮和舒缓饮料。"
       },
       "usecases": [
         "Tea",
@@ -2269,16 +2254,14 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778664362477_Le-Sirop-de-MONIN-Lemon-Tea-MONIN-1912-67286888644933.webp",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778664362477_Le-Sirop-de-MONIN-Lemon-Tea-MONIN-1912-67286888644933.webp"
       ],
       "description": {
-        "en": "Classic lemon tea flavor",
-        "ms": "Rasa teh limau klasik",
-        "zh": "经典柠檬茶风味"
+        "en": "Refreshing tea based syrup by Monin, combining bright lemon notes with a smooth black tea profile. Delivers a balanced sweet-citrus taste, ideal for iced teas and light, refreshing beverages.",
+        "ms": "Sirap berasaskan teh yang menyegarkan oleh Monin, menggabungkan nota lemon cerah dengan profil teh hitam yang licin. Memberikan rasa sitrus manis yang seimbang, sesuai untuk teh ais dan minuman ringan yang menyegarkan.",
+        "zh": "Monin 的清爽茶糖浆，将明亮的柠檬味与柔滑的红茶风味相结合。提供均衡的甜柑橘口味，非常适合冰茶和清淡清爽的饮料。"
       },
       "usecases": [
         "Iced Tea",
@@ -2290,22 +2273,20 @@
       "code": "MOSYLRS700L",
       "brand": "MONIN",
       "name": {
-        "en": "Monin Lime Ranch Syrup 700ml",
-        "ms": "Sirap Lime Ranch Monin 700ml",
-        "zh": "莫林 青柠 Ranch 糖浆 700ml"
+        "en": "Monin Lime Rantcho Syrup 700ml",
+        "ms": "Sirap Rantcho Limau Monin 700ml",
+        "zh": "Monin 青柠兰乔糖浆 700ml"
       },
       "price": 28.8,
       "category": "Syrup",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778664536441_Le-Concentr-de-MONIN-Lime-Rantcho-MONIN-1912-67323775877445.webp",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778664536441_Le-Concentr-de-MONIN-Lime-Rantcho-MONIN-1912-67323775877445.webp"
       ],
       "description": {
-        "en": "Lime ranch flavor syrup",
-        "ms": "Sirap rasa lime ranch",
-        "zh": "青柠Ranch风味糖浆"
+        "en": "Classic lime cordial by Monin, inspired by traditional “Rantcho” style with a bright citrus profile and smooth sweetness. Delivers a refreshing lime taste, perfect for sodas, iced drinks, and simple mixes.",
+        "ms": "Kordial limau klasik oleh Monin, diinspirasikan oleh gaya tradisional \"Rantcho\" dengan profil sitrus yang cerah dan rasa manis yang licin. Memberikan rasa limau yang menyegarkan, sesuai untuk soda, minuman ais dan adunan ringkas.",
+        "zh": "Monin 的经典青柠甜酒，灵感源自传统的“Rantcho”风格，具有明亮的柑橘风味和顺滑的甜味。提供清爽的酸橙口味，非常适合苏打水、冰镇饮料和简单的混合饮料。"
       },
       "usecases": [
         "Cocktail",
@@ -2317,22 +2298,20 @@
       "code": "MOSYLRS700L",
       "brand": "MONIN",
       "name": {
-        "en": "Monin Lemon Ranch Syrup 700ml",
-        "ms": "Sirap Lemon Ranch Monin 700ml",
-        "zh": "莫林 柠檬 Ranch 糖浆 700ml"
+        "en": "Monin Lemon Rantcho Syrup 700ml",
+        "ms": "Monin Lemon Rantcho Syrup 700ml",
+        "zh": "Monin 柠檬兰乔糖浆 700ml"
       },
       "price": 19,
       "category": "Syrup",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778664648283_Le-Concentr-de-MONIN-Lemon-Rantcho-MONIN-1912-67323787379013.webp",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778664648283_Le-Concentr-de-MONIN-Lemon-Rantcho-MONIN-1912-67323787379013.webp"
       ],
       "description": {
-        "en": "Lemon ranch flavor syrup",
-        "ms": "Sirap rasa lemon ranch",
-        "zh": "柠檬Ranch风味糖浆"
+        "en": "Classic lemon cordial by Monin, inspired by traditional “Rantcho” style with a bright citrus profile and smooth sweetness. Delivers a clean lemon taste, ideal for sodas, iced drinks, and refreshing mixes.",
+        "ms": "Kordial lemon klasik oleh Monin, diilhamkan oleh gaya tradisional \"Rantcho\" dengan profil sitrus yang cerah dan kemanisan yang halus. Memberikan rasa lemon yang bersih, sesuai untuk soda, minuman ais dan campuran yang menyegarkan.",
+        "zh": "Monin 的经典柠檬甜酒，灵感源自传统的“Rantcho”风格，具有明亮的柑橘风味和顺滑的甜味。提供干净的柠檬味道，非常适合苏打水、冰镇饮料和清爽的混合饮料。"
       },
       "usecases": [
         "Drink",
@@ -2350,16 +2329,14 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778664918031_Le-Sirop-de-MONIN-Lime-MONIN-1912-67286895722821.webp",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778664918031_Le-Sirop-de-MONIN-Lime-MONIN-1912-67286895722821.webp"
       ],
       "description": {
-        "en": "Fresh lime flavor syrup",
-        "ms": "Sirap limau segar",
-        "zh": "新鲜青柠风味糖浆"
+        "en": "Vibrant lime syrup by Monin, showcasing a lively citrus character with a refreshing tart edge. Adds brightness and balance to sodas, mocktails, and mixed drinks.",
+        "ms": "Sirap kapur bertenaga oleh Monin, mempamerkan watak sitrus yang meriah dengan kelebihan tart yang menyegarkan. Menambah kecerahan dan keseimbangan pada soda, mocktail dan minuman campuran.",
+        "zh": "Monin 充满活力的酸橙糖浆，展现出活泼的柑橘特色和清爽的酸味。为苏打水、无酒精鸡尾酒和混合饮料增添亮度和平衡。"
       },
       "usecases": [
         "Cocktail",
@@ -2377,16 +2354,14 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778665101567_Le-Sirop-de-MONIN-Lychee-MONIN-1912-67286896148805.webp",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778665101567_Le-Sirop-de-MONIN-Lychee-MONIN-1912-67286896148805.webp"
       ],
       "description": {
-        "en": "Sweet lychee flavor syrup",
-        "ms": "Sirap lychee manis",
-        "zh": "甜荔枝风味糖浆"
+        "en": "Exotic lychee syrup by Monin, featuring a delicate floral aroma with a juicy, sweet fruit profile. Elevates sodas, teas, and cocktails with a smooth tropical elegance and refreshing finish.",
+        "ms": "Sirap laici eksotik oleh Monin, menampilkan aroma bunga yang halus dengan profil buah-buahan yang manis dan berair. Meningkatkan soda, teh dan koktel dengan keanggunan tropika yang licin dan kemasan yang menyegarkan.",
+        "zh": "Monin 的异国情调荔枝糖浆，具有精致的花香和多汁、甜美的水果风味。提升苏打水、茶和鸡尾酒的柔滑热带优雅和清爽余味。"
       },
       "usecases": [
         "Asian Drink",
@@ -2398,22 +2373,20 @@
       "code": "MOSYMS700L",
       "brand": "MONIN",
       "name": {
-        "en": "Monin Macadamia Syrup 700ml",
-        "ms": "Sirap Macadamia Monin 700ml",
-        "zh": "莫林 夏威夷果糖浆 700ml"
+        "en": "Monin Macadamia Nut Syrup 700ml",
+        "ms": "Sirap Kacang Monin Macadamia 700ml",
+        "zh": "Monin 澳洲坚果糖浆 700ml"
       },
       "price": 44,
       "category": "Syrup",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778665293318_Le-Sirop-de-MONIN-Macadamia-Nut-MONIN-1912-67323986837829.webp",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778665293318_Le-Sirop-de-MONIN-Macadamia-Nut-MONIN-1912-67323986837829.webp"
       ],
       "description": {
-        "en": "Nutty macadamia flavor",
-        "ms": "Rasa macadamia berkerang",
-        "zh": "坚果夏威夷果风味"
+        "en": "Premium macadamia nut syrup by Monin, featuring a rich nutty aroma with creamy, buttery notes. Enhances coffee, milk-based drinks, and desserts with a smooth, indulgent character.",
+        "ms": "Sirap kacang macadamia premium oleh Monin, menampilkan aroma kacang yang kaya dengan nota berkrim dan mentega. Meningkatkan kopi, minuman berasaskan susu dan pencuci mulut dengan watak yang licin dan memanjakan.",
+        "zh": "Monin 的优质澳洲坚果糖浆，具有浓郁的坚果香气和奶油黄油味。增强咖啡、牛奶饮料和甜点的顺滑、令人愉悦的特性。"
       },
       "usecases": [
         "Latte",
@@ -2431,16 +2404,14 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778665872807_MacaronMonin2.webp",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778665872807_MacaronMonin2.webp"
       ],
       "description": {
-        "en": "Sweet macaroon flavor syrup",
-        "ms": "Sirap rasa macaroon manis",
-        "zh": "甜马卡龙风味糖浆"
+        "en": "Bakery inspired syrup by Monin, capturing the taste of sweet coconut macaroon with soft almond undertones. Adds a delicate dessert like sweetness to coffee, lattes, and specialty drinks.",
+        "ms": "Sirap yang diilhamkan oleh bakeri oleh Monin, menangkap rasa makaroni kelapa manis dengan rona badam lembut. Menambah pencuci mulut yang lembut seperti kemanisan pada kopi, latte dan minuman istimewa.",
+        "zh": "Monin 的烘焙灵感糖浆，捕捉甜椰子杏仁饼的味道和柔和的杏仁味。为咖啡、拿铁和特色饮料添加甜味等精致甜点。"
       },
       "usecases": [
         "Dessert Drink",
@@ -2458,16 +2429,14 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778666013464_XoV95eP8e3FqFzpjeF7P1R9wwTwr8xlgvUfNzSBeSfLQ9z0Gbr.jpg",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778666013464_XoV95eP8e3FqFzpjeF7P1R9wwTwr8xlgvUfNzSBeSfLQ9z0Gbr.jpg"
       ],
       "description": {
-        "en": "Spicy mango flavor syrup",
-        "ms": "Sirap mangga pedas",
-        "zh": "辣芒果风味糖浆"
+        "en": "Bold fusion syrup by Monin, combining ripe mango sweetness with a subtle spicy kick. Creates a dynamic sweet heat profile, perfect for cocktails, mocktails, and tropical style drinks.",
+        "ms": "Sirap gabungan berani oleh Monin, menggabungkan rasa manis mangga masak dengan tendangan pedas yang halus. Mencipta profil haba manis yang dinamik, sesuai untuk koktel, mocktail dan minuman gaya tropika.",
+        "zh": "Monin 大胆的融合糖浆，将成熟芒果的甜味与微妙的辛辣味相结合。创造出动态的甜味热曲线，非常适合鸡尾酒、无酒精鸡尾酒和热带风格饮料。"
       },
       "usecases": [
         "Spicy Cocktail",
@@ -2485,16 +2454,14 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778744449087_Le-Sirop-de-MONIN-Mango-MONIN-1912-67324007448901.webp",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778744449087_Le-Sirop-de-MONIN-Mango-MONIN-1912-67324007448901.webp"
       ],
       "description": {
-        "en": "Sweet mango syrup, no bitter taste",
-        "ms": "Sirap mangga manis, tiada rasa pahit",
-        "zh": "甜芒果糖浆，无苦味"
+        "en": "Bold fusion syrup by Monin, combining ripe mango sweetness with a subtle spicy kick. Creates a dynamic sweet-heat profile, perfect for cocktails, mocktails, and tropical-style drinks.",
+        "ms": "Sirap gabungan berani oleh Monin, menggabungkan rasa manis mangga masak dengan tendangan pedas yang halus. Mencipta profil panas manis yang dinamik, sesuai untuk koktel, mocktail dan minuman gaya tropika.",
+        "zh": "Monin 大胆的融合糖浆，将成熟芒果的甜味与微妙的辛辣味相结合。创造出充​​满活力的甜热曲线，非常适合鸡尾酒、无酒精鸡尾酒和热带风格饮料。"
       },
       "usecases": [
         "Matcha Latte",
@@ -2512,11 +2479,9 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": "",
+      "image": "https://placehold.co/400",
       "images": [
-        "",
-        "",
-        ""
+        "https://placehold.co/400"
       ],
       "description": {
         "en": "Mango tea flavor syrup",
@@ -2539,16 +2504,14 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778744736353_Le-Sirop-de-MONIN-Maple-Flavoured-MONIN-1912-67324026061125.webp",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778744736353_Le-Sirop-de-MONIN-Maple-Flavoured-MONIN-1912-67324026061125.webp"
       ],
       "description": {
-        "en": "Classic maple syrup flavor",
-        "ms": "Rasa sirap maple klasik",
-        "zh": "经典枫糖风味"
+        "en": "Rich maple-flavored syrup by Monin, featuring deep caramelized notes with a smooth, woody sweetness. Adds warmth and depth to coffee, pancakes, and dessert-style drinks.",
+        "ms": "Sirap berperisa maple yang kaya oleh Monin, menampilkan nota karamel dalam dengan rasa manis berkayu yang licin. Menambahkan kehangatan dan kedalaman pada kopi, penkek dan minuman gaya pencuci mulut.",
+        "zh": "Monin 的浓郁枫香糖浆，具有浓郁的焦糖味和顺滑的木质甜味。为咖啡、煎饼和甜点式饮料增添温暖和深度。"
       },
       "usecases": [
         "Pancake",
@@ -2566,16 +2529,14 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778744874182_Le-Sirop-de-MONIN-Orange-Spritz-MONIN-1912-67324149825861.webp",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778744874182_Le-Sirop-de-MONIN-Orange-Spritz-MONIN-1912-67324149825861.webp"
       ],
       "description": {
-        "en": "Sparkling orange spritz flavor",
-        "ms": "Rasa orange spritz berkilau",
-        "zh": "气泡橙Spritz风味"
+        "en": "Vibrant citrus syrup by Monin, inspired by classic spritz flavors with a bright orange profile and subtle bittersweet edge. Brings a refreshing sparkle to sodas, mocktails, and aperitif-style drinks.",
+        "ms": "Sirap sitrus bertenaga oleh Monin, diinspirasikan daripada perisa spritz klasik dengan profil oren terang dan kelebihan pahit manis yang halus. Membawa kilauan menyegarkan kepada minuman soda, mocktail dan minuman gaya aperitif.",
+        "zh": "Monin 充满活力的柑橘糖浆，灵感来自经典的雪碧口味，具有明亮的橙色轮廓和微妙的苦甜边缘。为苏打水、无酒精鸡尾酒和开胃酒风格的饮料带来清爽的活力。"
       },
       "usecases": [
         "Spritz Cocktail",
@@ -2593,16 +2554,14 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778745023396_Le-Sirop-de-MONIN-Osmanthus-MONIN-1912-67418479919429.webp",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778745023396_Le-Sirop-de-MONIN-Osmanthus-MONIN-1912-67418479919429.webp"
       ],
       "description": {
-        "en": "Floral osmanthus flavor",
-        "ms": "Rasa osmanthus bunga",
-        "zh": "桂花风味"
+        "en": "Refined floral syrup by Monin, showcasing the delicate aroma of osmanthus blossoms with soft apricot-like notes. Adds an elegant floral layer to teas, sodas, and specialty drinks.",
+        "ms": "Sirap bunga halus oleh Monin, mempamerkan aroma halus bunga osmanthus dengan nota lembut seperti aprikot. Menambah lapisan bunga yang elegan pada teh, soda dan minuman istimewa.",
+        "zh": "Monin 精制花糖浆，展现桂花的精致香气和柔和的杏香。为茶、苏打水和特色饮料增添优雅的花香。"
       },
       "usecases": [
         "Tea",
@@ -2620,16 +2579,14 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778745307802_Le-Sirop-de-MONIN-Pandan-MONIN-1912-67324321792325.webp",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778745307802_Le-Sirop-de-MONIN-Pandan-MONIN-1912-67324321792325.webp"
       ],
       "description": {
-        "en": "Aromatic pandan flavor syrup",
-        "ms": "Sirap pandan wangi",
-        "zh": "芳香班兰风味糖浆"
+        "en": "Signature pandan syrup by Monin, featuring a fragrant leafy aroma with hints of vanilla and coconut. Brings a distinctive Southeast Asian touch to milk-based drinks, desserts, and creative beverages.",
+        "ms": "Sirap pandan istimewa oleh Monin, menampilkan aroma daun yang harum dengan sedikit vanila dan kelapa. Membawakan sentuhan Asia Tenggara yang tersendiri kepada minuman berasaskan susu, pencuci mulut dan minuman kreatif.",
+        "zh": "Monin 的招牌班兰糖浆，具有芬芳的叶香，带有香草和椰子的味道。为奶类饮料、甜点和创意饮料带来独特的东南亚风味。"
       },
       "usecases": [
         "Asian Dessert",
@@ -2647,14 +2604,14 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": "https://placehold.co/400",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778745400591_Le-Sirop-de-MONIN-Passion-Fruit-MONIN-1912-67324309995845.webp",
       "images": [
-        "https://placehold.co/400"
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778745400591_Le-Sirop-de-MONIN-Passion-Fruit-MONIN-1912-67324309995845.webp"
       ],
       "description": {
-        "en": "Tropical passion fruit flavor",
-        "ms": "Rasa buah passion tropika",
-        "zh": "热带百香果风味"
+        "en": "Vibrant passion fruit syrup by Monin, delivering an intense tropical aroma with a bright sweet-tart profile. Lifts sodas, cocktails, and iced drinks with a bold, refreshing fruit character.",
+        "ms": "Sirap buah markisa bertenaga oleh Monin, memberikan aroma tropika yang pekat dengan profil tat manis yang cerah. Menaikkan soda, koktel dan minuman ais dengan karakter buah-buahan yang berani dan menyegarkan.",
+        "zh": "Monin 充满活力的百香果糖浆，散发出浓郁的热带香气和明亮的甜馅饼风味。为苏打水、鸡尾酒和冰镇饮料增添浓郁、清爽的水果风味。"
       },
       "usecases": [
         "Cocktail",
@@ -2672,16 +2629,14 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778745513153_Le-Sirop-de-MONIN-Peach-MONIN-1912-67324327854405.webp",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778745513153_Le-Sirop-de-MONIN-Peach-MONIN-1912-67324327854405.webp"
       ],
       "description": {
-        "en": "Sweet peach flavor syrup",
-        "ms": "Sirap peach manis",
-        "zh": "甜桃风味糖浆"
+        "en": "Juicy peach syrup by Monin, featuring a soft fruity aroma with a naturally sweet and smooth profile. Enhances teas, sodas, and cocktails with a mellow, refreshing peach finish.",
+        "ms": "Sirap pic berair oleh Monin, menampilkan aroma buah yang lembut dengan profil manis dan licin semulajadi. Meningkatkan teh, soda dan koktel dengan kemasan pic yang lembut dan menyegarkan.",
+        "zh": "Monin 出品的多汁桃子糖浆，具有柔和的果香和天然的甜味和顺滑的口感。增强茶、苏打水和鸡尾酒的口感，带来醇厚、清爽的桃子余味。"
       },
       "usecases": [
         "Peach Drink",
@@ -2699,16 +2654,14 @@
       },
       "price": 44,
       "category": "Syrup",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778745602258_Le-Sirop-de-MONIN-Peach-Tea-MONIN-1912-67324374778181.webp",
       "images": [
-        "",
-        "",
-        ""
+        "https://raw.githubusercontent.com/indokyomoriid-hue/saleso-pasific/main/images/products/1778745602258_Le-Sirop-de-MONIN-Peach-Tea-MONIN-1912-67324374778181.webp"
       ],
       "description": {
-        "en": "Peach tea flavor syrup",
-        "ms": "Sirap teh peach",
-        "zh": "桃茶风味糖浆"
+        "en": "Fruity tea syrup by Monin, combining ripe peach notes with a smooth tea base. Delivers a balanced, refreshing taste ideal for iced teas and light, easy-drinking beverages.",
+        "ms": "Sirap teh buah oleh Monin, menggabungkan nota pic masak dengan asas teh yang licin. Memberikan rasa yang seimbang dan menyegarkan sesuai untuk teh ais dan minuman ringan dan mudah diminum.",
+        "zh": "Monin 的果味茶糖浆，将成熟的桃子香气与柔滑的茶底相结合。提供平衡、清爽的口感，非常适合冰茶和清淡易饮的饮料。"
       },
       "usecases": [
         "Iced Tea",
